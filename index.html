@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -3379,6 +3380,149 @@ property --fring {
         color: white;
     }
 
+
+
+/* ---------- Mobile and tablet support ---------- */
+@media (max-width: 700px) {
+    html, body {
+        min-height: 100%;
+        height: auto;
+        overflow-x: hidden;
+    }
+    body {
+        min-height: 100svh;
+        overflow-x: hidden;
+        overflow-y: auto;
+        justify-content: flex-start;
+    }
+    .top-bar {
+        top: max(18px, env(safe-area-inset-top));
+        width: calc(100% - 32px);
+        gap: 8px;
+    }
+    .rupp-logo { gap: 8px; }
+    .rupp-logo .icon-ring,
+    .rupp-logo .rupp-icon {
+        width: 64px;
+        height: 64px;
+    }
+    .rupp-logo .icon-ring::before { inset: -5px; }
+    .rupp-logo .icon-ring::after { inset: -9px; }
+    .rupp-logo .word { gap: 2px; }
+    .rupp-logo .word .line1 { font-size: 14px; }
+    .rupp-logo .word .line2 { font-size: 20px; }
+    .wrapper {
+        width: 100%;
+        min-height: 100svh;
+        height: auto;
+        padding: 190px 12px 190px;
+        justify-content: center;
+        overflow: hidden;
+    }
+    .inner {
+        --w: 105px;
+        --h: 145px;
+        --translateZ: calc(var(--w) * 1.65);
+        --rotateX: -5deg;
+        transform-origin: center center;
+    }
+    .card { touch-action: manipulation; }
+    .img { gap: 12px; }
+    .img img { width: 48px; height: 48px; }
+    .img span { font-size: 11px; letter-spacing: 1px; }
+    .caption .brand { font-size: 18px; letter-spacing: 3px; }
+    .caption .sub { font-size: 9px; letter-spacing: 1.5px; }
+    .glow-floor { width: 90vw; max-width: 400px; }
+    .bottom-bar {
+        bottom: max(16px, env(safe-area-inset-bottom));
+        width: calc(100% - 28px);
+        gap: 10px;
+    }
+    .search-row input {
+        min-height: 44px;
+        font-size: 16px; /* avoids iOS zoom on focus */
+    }
+    .cat-row, .filter-row {
+        gap: 6px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .cat-row button, .cat-btn, .filter-btn {
+        min-height: 38px;
+        padding: 8px 10px;
+        font-size: 11px;
+        touch-action: manipulation;
+    }
+    .lesson-view {
+        padding: max(18px, env(safe-area-inset-top)) 14px max(28px, env(safe-area-inset-bottom));
+        -webkit-overflow-scrolling: touch;
+    }
+    .lesson-topbar {
+        gap: 10px;
+        margin-bottom: 16px;
+        flex-wrap: wrap;
+    }
+    .undo-hint { display: none; }
+    .lesson-hero {
+        padding: 34px 16px 24px;
+        margin-bottom: 18px;
+        overflow-wrap: anywhere;
+    }
+    .lesson-content {
+        padding: 18px 14px;
+        font-size: 15px;
+        line-height: 1.65;
+        overflow-wrap: anywhere;
+    }
+    .lesson-content img, .lesson-view img, .lesson-content video,
+    .lesson-view video, .lesson-content iframe, .lesson-view iframe {
+        max-width: 100%;
+    }
+    .lesson-content pre, .lesson-view pre {
+        max-width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    .lesson-content table, .lesson-view table {
+        display: block;
+        max-width: 100%;
+        overflow-x: auto;
+    }
+    .lesson-content input, .lesson-content select, .lesson-content textarea,
+    .lesson-view input, .lesson-view select, .lesson-view textarea {
+        max-width: 100%;
+        font-size: 16px;
+    }
+    .page-nav {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+    .page-nav button, .lesson-view button {
+        max-width: 100%;
+        min-height: 40px;
+        touch-action: manipulation;
+    }
+    .unit-header { padding: 16px 14px 20px; }
+    .q-text { font-size: 16px; }
+    .option { font-size: 14px; }
+}
+@media (max-width: 380px) {
+    .wrapper { padding-left: 8px; padding-right: 8px; }
+    .inner {
+        --w: 88px;
+        --h: 125px;
+        --translateZ: calc(var(--w) * 1.55);
+    }
+    .rupp-logo .word .line1 { font-size: 12px; }
+    .rupp-logo .word .line2 { font-size: 18px; }
+    .lesson-view { padding-left: 10px; padding-right: 10px; }
+    .lesson-content { padding: 14px 10px; }
+}
+@media (max-height: 600px) and (max-width: 700px) {
+    .top-bar { position: absolute; }
+    .wrapper { padding-top: 165px; padding-bottom: 175px; }
+    .bottom-bar { position: absolute; }
+}
 
 </style>
 </head>
@@ -13759,3 +13903,4 @@ for (let i = 0; i < 4; i++) {
 </script>
 </body>
 </html>
+
