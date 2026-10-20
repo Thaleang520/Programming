@@ -3449,7 +3449,7 @@ img, svg { max-width: 100%; }
     .search-row input { padding: 11px 14px 11px 40px; font-size: 16px; } /* 16px stops iOS zoom */
 
     .wrapper { height: 100dvh; }
-    .inner { --w: 78px; --h: 108px; --translateZ: calc(var(--w) * 1.85); --rotateX: -8deg; }
+    .inner { --w: 84px; --h: 150px; --translateZ: calc(var(--w) * 1.8); --rotateX: -8deg; }
     .img { gap: 8px; padding: 0 4px; }
     .img img { width: 34px; height: 34px; }
     .img span { font-size: 9px; letter-spacing: 0.5px; text-align: center; overflow-wrap: anywhere; line-height: 1.15; }
@@ -3517,7 +3517,7 @@ img, svg { max-width: 100%; }
 
 /* ---------- Very small phones ---------- */
 @media (max-width: 380px) {
-    .inner { --w: 68px; --h: 96px; }
+    .inner { --w: 72px; --h: 132px; }
     .img img { width: 28px; height: 28px; }
     .module-col { flex: 1 1 100%; }
     .code-box { font-size: 11px; }
@@ -3530,6 +3530,16 @@ img, svg { max-width: 100%; }
     .search-row { flex: 1 1 40%; }
     .cat-row { flex: 1 1 60%; justify-content: flex-start; }
     .inner { --w: 84px; --h: 116px; }
+}
+
+/* ---------- Phone polish (no image sizes touched) ---------- */
+@media (max-width: 700px) {
+    .lesson-view { padding-bottom: calc(64px + env(safe-area-inset-bottom)); }
+    .page-nav { padding: 8px 8px calc(8px + env(safe-area-inset-bottom)); gap: 5px; }
+    .page-nav-btn, .back-btn { height: 36px; }
+    .code-box { -webkit-overflow-scrolling: touch; overscroll-behavior-x: contain; }
+    .code-box::-webkit-scrollbar { height: 6px; }
+    button, .cat-btn, .option, .page-nav-btn, .back-btn, .card { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
 }
 
 /* ---------- Touch devices: no sticky hover zoom ---------- */
@@ -10231,52 +10241,342 @@ ThisIsAVeryLongWord<wbr>ThatCanBreakHere</div>
                         <svg width="18" height="26" viewBox="0 0 18 26"><path d="M0 0 L14 13 L0 26 Z" fill="url(#chev1)"/><defs><linearGradient id="chev1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#ff6b6b"/><stop offset="100%" stop-color="#c40000"/></linearGradient></defs></svg>
                         <svg width="18" height="26" viewBox="0 0 18 26"><path d="M0 0 L14 13 L0 26 Z" fill="url(#chev2)"/><defs><linearGradient id="chev2" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#f4c14f"/><stop offset="100%" stop-color="#c47c00"/></linearGradient></defs></svg>
                         </div>
-                        <div class="unit-title">import sys</div>
+                        <div class="unit-title">Selectors</div>
                         <div class="speed-lines"></div>
                     </div>
                 </div>
-                
-                <div class="section-h">1 Input / Output (Standard Streams)</div>
-                
-                <div class="subsection-h">1.1 sys.stdin</div>
-                <div class="khmer-line">ប្រើសម្រាប់អានទិន្នន័យបញ្ចូល <span class="en">(Standard input)។ .strip() removes \n</span></div>
+
+                <div class="section-h">1 Basic</div>
+
+                <div class="subsection-h">1.1 * { }</div>
+                <div class="khmer-line">Universal Selector (*) ដើម្បីកំណត់ស្ទីល (Style) ទៅលើរាល់រាល់ Elements ទាំងអស់ ដែលមាននៅលើទំព័រ Web page។</div>
                 <div class="code-row">
                     <span class="code-label syntax">Syntax</span>
-                    <span class="code-inline">name = sys.stdin.readline().strip()</span>
+                    <span class="code-inline">* {properties}</span>
                 </div>
                 <div class="example-output-row">
                     <div class="example-col">
                         <span class="code-label example">Example</span>
-                        <div class="code-box">import sys
-print("Enter something:")
-data = sys.stdin.readline()
-print("You entered:", data)</div>
+                        <div class="code-box">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;style&gt;
+        * {
+            margin: 0;
+            color: blue;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Hello World&lt;/h1&gt;
+    &lt;p&gt;This is a paragraph.&lt;/p&gt;
+    &lt;button&gt;Click Me&lt;/button&gt;
+&lt;/body&gt;
+&lt;/html&gt;</div>
                     </div>
                     <div class="output-col">
                         <span class="code-label output">Output</span>
-                        <div class="output-text">Enter something:
-Hello
-You entered: Hello</div>
+                        <img src="1css1.1.png" alt="Universal Selector output" style="max-width:250px;max-height:200px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);box-shadow:0 8px 20px rgba(0,0,0,0.4);">
                     </div>
                 </div>
 
-                <div class="subsection-h">1.2 sys.stdout</div>
-                <div class="khmer-line">ប្រើសម្រាប់បញ្ជូនទិន្នន័យចេញ <span class="en">(Standard output)។</span></div>
+                <div class="subsection-h">1.2 div { }</div>
+                <div class="khmer-line">div { } គឺជា Element Selector នៅក្នុង CSS ដែលប្រើសម្រាប់ជ្រើសរើស និងកំណត់ស្ទីល (Style) ទៅលើរាល់ Elements &lt;div&gt; ទាំងអស់ដែលមាននៅលើទំព័រគេហទំព័ររបស់អ្នក។</div>
                 <div class="code-row">
                     <span class="code-label syntax">Syntax</span>
-                    <span class="code-inline">sys.stdout.write(name)</span>
+                    <span class="code-inline">div {properties}</span>
                 </div>
                 <div class="example-output-row">
                     <div class="example-col">
                         <span class="code-label example">Example</span>
-                        <div class="code-box">import sys
-sys.stdout.write("Hello, world!\n")</div>
+                        <div class="code-box">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;style&gt;
+    div {
+      background-color: lightblue;
+      padding: 20px;
+      margin: 10px;
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;div&gt;First Box&lt;/div&gt;
+  &lt;div&gt;Second Box&lt;/div&gt;
+  &lt;div&gt;Third Box&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</div>
                     </div>
                     <div class="output-col">
                         <span class="code-label output">Output</span>
-                        <div class="output-text">Hello, world!</div>
+                        <img src="1css1.2.png" alt="Element Selector output" style="max-width:250px;max-height:200px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);box-shadow:0 8px 20px rgba(0,0,0,0.4);">
                     </div>
                 </div>
+
+                <div class="subsection-h">1.3 .class { }</div>
+                <div class="khmer-line">.class { } គឺជា Class Selector នៅក្នុង CSS ដែលប្រើសម្រាប់ជ្រើសរើស និងកំណត់ស្ទីល (Style) ទៅលើរាល់ HTML Elements ទាំងឡាយណាដែលបានភ្ជាប់ Class ឈ្មោះថា "class"។</div>
+                <div class="code-row">
+                    <span class="code-label syntax">Syntax</span>
+                    <span class="code-inline">.class {properties}</span>
+                </div>
+                <div class="example-output-row">
+                    <div class="example-col">
+                        <span class="code-label example">Example</span>
+                        <div class="code-box">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;style&gt;
+    .box {
+      background-color: lightblue;
+      padding: 20px;
+      margin: 10px;
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;div class="box"&gt;First Box&lt;/div&gt;
+  &lt;div class="box"&gt;Second Box&lt;/div&gt;
+  &lt;p class="box"&gt;This is a paragraph.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</div>
+                    </div>
+                    <div class="output-col">
+                        <span class="code-label output">Output</span>
+                        <img src="1css1.3.png" alt="Class Selector output" style="max-width:250px;max-height:200px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);box-shadow:0 8px 20px rgba(0,0,0,0.4);">
+                    </div>
+                </div>
+
+                <div class="subsection-h">1.4 #header { }</div>
+                <div class="khmer-line">#header គឺជា ID Selector។ វាត្រូវបានប្រើដើម្បីជ្រើសរើស និងដាក់ស្ទីល (Styling) ទៅលើធាតុ HTML តែមួយគត់ដែលមាន attribute id="header"។</div>
+                <div class="code-row">
+                    <span class="code-label syntax">Syntax</span>
+                    <span class="code-inline">#header {properties}</span>
+                </div>
+                <div class="example-output-row">
+                    <div class="example-col">
+                        <span class="code-label example">Example</span>
+                        <div class="code-box">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;style&gt;
+    #header {
+      position: sticky;
+      top: 0;
+      background-color: blue;
+      color: white;
+      padding: 15px;
+    }
+    .content {
+      height: 1000px;
+      padding: 20px;
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;div id="header"&gt;
+    My Header
+  &lt;/div&gt;
+  &lt;div class="content"&gt;
+    &lt;h2&gt;Content&lt;/h2&gt;
+    &lt;p&gt;Scroll down to see the sticky header.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</div>
+                    </div>
+                    <div class="output-col">
+                        <span class="code-label output">Output</span>
+                        <img src="1css1.4.png" alt="ID Selector output" style="max-width:250px;max-height:200px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);box-shadow:0 8px 20px rgba(0,0,0,0.4);">
+                    </div>
+                </div>
+
+                <div class="section-h">2 Combinators</div>
+
+                <div class="subsection-h">2.1 div, p { }</div>
+                <div class="khmer-line">div, p{ } គឺជា Selector Grouping នៅក្នុង CSS ដែលប្រើសម្រាប់ជ្រើសរើស និងកំណត់ស្ទីល (Style) ទៅលើ HTML Elements ជាច្រើនផ្សេងគ្នាក្នុងពេលតែមួយ។</div>
+                <div class="code-row">
+                    <span class="code-label syntax">Syntax</span>
+                    <span class="code-inline">div, p, h1..... {properties}</span>
+                </div>
+                <div class="example-output-row">
+                    <div class="example-col">
+                        <span class="code-label example">Example</span>
+                        <div class="code-box">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;style&gt;
+    div, p {
+      color: blue;
+      font-size: 20px;
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;div&gt;This is a DIV.&lt;/div&gt;
+  &lt;p&gt;This is a paragraph.&lt;/p&gt;
+  &lt;h1&gt;This is a heading.&lt;/h1&gt;
+&lt;/body&gt;
+&lt;/html&gt;</div>
+                    </div>
+                    <div class="output-col">
+                        <span class="code-label output">Output</span>
+                        <img src="1css2.1.png" alt="Grouping Selector output" style="max-width:250px;max-height:200px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);box-shadow:0 8px 20px rgba(0,0,0,0.4);">
+                    </div>
+                </div>
+
+                <div class="subsection-h">2.2 div p { }</div>
+                <div class="khmer-line">div p { } គឺជា Descendant Selector នៅក្នុង CSS ដែលប្រើសម្រាប់ជ្រើសរើស និងកំណត់ស្ទីល (Style) ទៅលើគ្រប់ Elements &lt;p&gt; ទាំងឡាយណាដែលស្ថិតនៅខាងក្នុង (ជាកូនចៅរបស់) Element &lt;div&gt;។</div>
+                <div class="code-row">
+                    <span class="code-label syntax">Syntax</span>
+                    <span class="code-inline">div p {properties}</span>
+                </div>
+                <div class="example-output-row">
+                    <div class="example-col">
+                        <span class="code-label example">Example</span>
+                        <div class="code-box">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;style&gt;
+    div p {
+      color: blue;
+      font-size: 20px;
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;div&gt;
+    &lt;p&gt;This paragraph is inside div.&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;p&gt;This paragraph is outside div.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</div>
+                    </div>
+                    <div class="output-col">
+                        <span class="code-label output">Output</span>
+                        <img src="1css2.2.png" alt="Descendant Selector output" style="max-width:250px;max-height:200px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);box-shadow:0 8px 20px rgba(0,0,0,0.4);">
+                    </div>
+                </div>
+
+                <div class="subsection-h">2.3 div &gt; p { }</div>
+                <div class="khmer-line">div &gt; p { } គឺជា Child Selector នៅក្នុង CSS ដែលប្រើសម្រាប់ជ្រើសរើស និងកំណត់ស្ទីល (Style) ទៅលើរាល់ Elements &lt;p&gt; ទាំងឡាយណាដែលជាកូនបង្កើតចំៗ (Direct Child) របស់ Element &lt;div&gt; តែប៉ុណ្ណោះ។</div>
+                <div class="code-row">
+                    <span class="code-label syntax">Syntax</span>
+                    <span class="code-inline">div &gt; p{properties}</span>
+                </div>
+                <div class="example-output-row">
+                    <div class="example-col">
+                        <span class="code-label example">Example</span>
+                        <div class="code-box">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;title&gt;CSS Child Selector&lt;/title&gt;
+  &lt;style&gt;
+    div &gt; p {
+      color: blue;
+      font-size: 20px;
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;div&gt;
+    &lt;p&gt;This paragraph is selected.&lt;/p&gt;
+    &lt;section&gt;
+      &lt;p&gt;This paragraph is NOT selected.&lt;/p&gt;
+    &lt;/section&gt;
+    &lt;p&gt;This paragraph is also selected.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</div>
+                    </div>
+                    <div class="output-col">
+                        <span class="code-label output">Output</span>
+                        <img src="1css2.3.png" alt="Child Selector output" style="max-width:250px;max-height:200px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);box-shadow:0 8px 20px rgba(0,0,0,0.4);">
+                    </div>
+                </div>
+
+                <div class="subsection-h">2.4 div + p { }</div>
+                <div class="khmer-line">div + p គឺជា Adjacent Sibling Combinator (Selector សម្រាប់ធាតុបងប្អូនបង្កើតដែលនៅកៀកគ្នាបំផុត)។ វាត្រូវបានប្រើដើម្បីជ្រើសរើសយកតែធាតុ &lt;p&gt; ណាដែលស្ថិតនៅបន្ទាប់ពីធាតុ &lt;div&gt; ភ្លាមៗ និងស្ថិតនៅក្រោមធាតុ Parent (មេ) តែមួយ។</div>
+                <div class="code-row">
+                    <span class="code-label syntax">Syntax</span>
+                    <span class="code-inline">div + p{properties}</span>
+                </div>
+                <div class="example-output-row">
+                    <div class="example-col">
+                        <span class="code-label example">Example</span>
+                        <div class="code-box">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;style&gt;
+    div + p {
+      color: red;
+      font-size: 20px;
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;div&gt;
+    &lt;h2&gt;Hello&lt;/h2&gt;
+  &lt;/div&gt;
+  &lt;p&gt;This paragraph is selected.&lt;/p&gt;
+  &lt;p&gt;This paragraph is NOT selected.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</div>
+                    </div>
+                    <div class="output-col">
+                        <span class="code-label output">Output</span>
+                        <img src="1css2.4.png" alt="Adjacent Sibling Combinator output" style="max-width:250px;max-height:200px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);box-shadow:0 8px 20px rgba(0,0,0,0.4);">
+                    </div>
+                </div>
+
+                <div class="subsection-h">2.5 div ~ p { }</div>
+                <div class="khmer-line">div ~ p គឺជា General Sibling Combinator (Selector សម្រាប់ធាតុបងប្អូនបង្កើតទូទៅ)។ វាត្រូវបានប្រើដើម្បីជ្រើសរើសយករាល់ធាតុ &lt;p&gt; ទាំងអស់ដែលស្ថិតនៅខាងក្រោយធាតុ &lt;div&gt; ឱ្យតែពួកវាស្ថិតនៅក្រោមធាតុ Parent (មេ) តែមួយ។</div>
+                <div class="code-row">
+                    <span class="code-label syntax">Syntax</span>
+                    <span class="code-inline">div ~ p{properties}</span>
+                </div>
+                <div class="example-output-row">
+                    <div class="example-col">
+                        <span class="code-label example">Example</span>
+                        <div class="code-box">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;style&gt;
+    div ~ p {
+      color: blue;
+      font-size: 20px;
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;div&gt;
+    &lt;h2&gt;Hello&lt;/h2&gt;
+  &lt;/div&gt;
+  &lt;p&gt;Paragraph 1&lt;/p&gt;
+  &lt;p&gt;Paragraph 2&lt;/p&gt;
+  &lt;section&gt;
+    &lt;p&gt;Paragraph 3&lt;/p&gt;
+  &lt;/section&gt;
+  &lt;p&gt;Paragraph 4&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</div>
+                    </div>
+                    <div class="output-col">
+                        <span class="code-label output">Output</span>
+                        <img src="1css2.5.png" alt="General Sibling Combinator output" style="max-width:250px;max-height:200px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);box-shadow:0 8px 20px rgba(0,0,0,0.4);">
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
             </div>
 
             <div class="book-page" id="page-unit1-2">
@@ -11654,58 +11954,459 @@ Address: 0x7ffee3a1c05c</div>
                         <svg width="18" height="26" viewBox="0 0 18 26"><path d="M0 0 L14 13 L0 26 Z" fill="url(#chev1)"/><defs><linearGradient id="chev1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#ff6b6b"/><stop offset="100%" stop-color="#c40000"/></linearGradient></defs></svg>
                         <svg width="18" height="26" viewBox="0 0 18 26"><path d="M0 0 L14 13 L0 26 Z" fill="url(#chev2)"/><defs><linearGradient id="chev2" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#f4c14f"/><stop offset="100%" stop-color="#c47c00"/></linearGradient></defs></svg>
                         </div>
-                        <div class="unit-title">System.out</div>
+                        <div class="unit-title">import java.util.Scanner;</div>
                         <div class="speed-lines"></div>
                     </div>
                 </div>
-                <div class="section-h">1 Console Output</div>
+                <div class="section-h">1 Constructors</div>
 
-                <div class="subsection-h">1.1 System.out.println()</div>
-                <div class="khmer-line">ប្រើសម្រាប់បង្ហាញទិន្នន័យចេញអេក្រង់ ហើយចុះបន្ទាត់ថ្មីស្វ័យប្រវត្តិ។</div>
+                <div class="subsection-h">1.1 new Scanner(System.in)</div>
+                <div class="khmer-line">new Scanner(System.in) គឺជាការបង្កើត Object មួយចេញពី Scanner Class របស់ Java ដើម្បីទទួលទិន្នន័យ (Input) ដែលវាយបញ្ចូលពី Keyboard។</div>
                 <div class="code-row">
                     <span class="code-label syntax">Syntax</span>
-                    <span class="code-inline">System.out.println(value);</span>
-                </div>
-                <div class="example-output-row">
-                    <div class="example-col">
-                        <span class="code-label example">Example</span>
-                        <div class="code-box">public class Main {
-    public static void main(String[] args) {
-        System.out.println("Hello, world!");
-    }
-}</div>
-                    </div>
-                    <div class="output-col">
-                        <span class="code-label output">Output</span>
-                        <div class="output-text">Hello, world!</div>
-                    </div>
-                </div>
-
-                <div class="subsection-h">1.2 Scanner (user input)</div>
-                <div class="khmer-line">ប្រើសម្រាប់អានទិន្នន័យបញ្ចូលពីអ្នកប្រើប្រាស់។</div>
-                <div class="code-row">
-                    <span class="code-label syntax">Syntax</span>
-                    <span class="code-inline">Scanner sc = new Scanner(System.in);</span>
+                    <span class="code-inline">Scanner input = new Scanner(System.in);</span>
                 </div>
                 <div class="example-output-row">
                     <div class="example-col">
                         <span class="code-label example">Example</span>
                         <div class="code-box">import java.util.Scanner;
 public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        System.out.print("Enter your age: ");
-        int age = sc.nextInt();
-        System.out.println("You are " + age + " years old.");
-    }
+  public static void main(String[] args) {
+    Scanner input = new Scanner(System.in);
+    System.out.print("Enter a number: ");
+    int number = input.nextInt();
+    System.out.println("Your number is " + number);
+    input.close();
+  }
 }</div>
                     </div>
                     <div class="output-col">
                         <span class="code-label output">Output</span>
-                        <div class="output-text">Enter your age: 21
-You are 21 years old.</div>
+                        <div class="output-text">Enter a number: 89
+Your number is 89</div>
                     </div>
                 </div>
+
+                <div class="subsection-h">1.2 new Scanner(String s)</div>
+                <div class="khmer-line">new Scanner(String s) គឺជាការបង្កើត Object របស់ Scanner មួយដើម្បីអាន ឬបំបែកទិន្នន័យចេញពីអក្សរ (String) ផ្ទាល់តែម្តង។</div>
+                <div class="code-row">
+                    <span class="code-label syntax">Syntax</span>
+                    <span class="code-inline">sys.stdout.write(name)</span>
+                </div>
+                <div class="example-output-row">
+                    <div class="example-col">
+                        <span class="code-label example">Example</span>
+                        <div class="code-box">import java.util.Scanner;
+public class Main {
+  public static void main(String[] args) {
+    Scanner input = new Scanner("Hello Java World");
+    System.out.println(input.next());
+    System.out.println(input.next());
+    System.out.println(input.next());
+    input.close();
+  }
+}</div>
+                    </div>
+                    <div class="output-col">
+                        <span class="code-label output">Output</span>
+                        <div class="output-text">Hello
+Java
+World</div>
+                    </div>
+                </div>
+
+                <div class="subsection-h">1.3 new Scanner(File f)</div>
+                <div class="khmer-line">new Scanner(File f) គឺជាការបង្កើត Object របស់ Scanner មួយដើម្បីអានទិន្នន័យចេញពីឯកសារ (File) ផ្ទាល់តែម្តង។</div>
+                <div class="code-row">
+                    <span class="code-label syntax">Syntax</span>
+                    <span class="code-inline">Scanner input = new Scanner(new File("data.txt"));</span>
+                </div>
+                <div class="example-output-row">
+                    <div class="example-col">
+                        <span class="code-label example">Example</span>
+                        <div class="code-box">import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+public class Main {
+  public static void main(String[] args)
+      throws FileNotFoundException {
+    Scanner input = new Scanner(new File("data.txt"));
+    String word = input.next();
+    String language = input.next();
+    int a = input.nextInt();
+    int b = input.nextInt();
+    System.out.println(word);
+    System.out.println(language);
+    System.out.println(a + b);
+    input.close();
+  }
+}</div>
+                    </div>
+                    <div class="output-col">
+                        <span class="code-label output">Output</span>
+                        <div class="output-text">Hello
+Java
+300</div>
+                    </div>
+                </div>
+
+                <div class="subsection-h">1.4 new Scanner(File f, Charset cs)</div>
+                <div class="khmer-line">new Scanner(File f, Charset cs) គឺជាការបង្កើត Object របស់ Scanner មួយ ដើម្បីអានទិន្នន័យពីឯកសារ (File) ដោយកំណត់ការអ៊ិនកូដតួអក្សរ (Charset) ដូចជា UTF-8។</div>
+                <div class="code-row">
+                    <span class="code-label syntax">Syntax</span>
+                    <span class="code-inline">new Scanner(File source, Charset charset)</span>
+                </div>
+                <div class="example-output-row">
+                    <div class="example-col">
+                        <span class="code-label example">Example</span>
+                        <div class="code-box">import java.io.File;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.util.Scanner;
+public class Main {
+  public static void main(String[] args) throws IOException {
+    File file = new File("data.txt");
+    Scanner input = new Scanner(file, StandardCharsets.UTF_8);
+    while (input.hasNextLine()) {
+      System.out.println(input.nextLine());
+    }
+    input.close();
+  }
+}</div>
+                    </div>
+                    <div class="output-col">
+                        <span class="code-label output">Output</span>
+                        <div class="output-text">Hello Java
+100 200</div>
+                    </div>
+                </div>
+
+                <div class="subsection-h">1.5 new Scanner(Path p)</div>
+                <div class="khmer-line">new Scanner(Path p) គឺជាការបង្កើត Object របស់ Scanner មួយ ដើម្បីអានទិន្នន័យពីឯកសារដែលកំណត់ទីតាំងដោយ Path។</div>
+                <div class="code-row">
+                    <span class="code-label syntax">Syntax</span>
+                    <span class="code-inline">new Scanner(Path source)</span>
+                </div>
+                <div class="example-output-row">
+                    <div class="example-col">
+                        <span class="code-label example">Example</span>
+                        <div class="code-box">import java.io.File;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.util.Scanner;
+public class Main {
+  public static void main(String[] args) throws IOException {
+    File file = new File("data.txt");
+    Scanner input = new Scanner(file, StandardCharsets.UTF_8);
+    while (input.hasNextLine()) {
+      System.out.println(input.nextLine());
+    }
+    input.close();
+  }
+}</div>
+                    </div>
+                    <div class="output-col">
+                        <span class="code-label output">Output</span>
+                        <div class="output-text">Hello Java
+100 200</div>
+                    </div>
+                </div>
+
+                <div class="subsection-h">1.6 new Scanner(Path p, String charset)</div>
+                <div class="khmer-line">new Scanner(Path p, String charset) គឺជាការបង្កើត Object របស់ Scanner មួយ ដើម្បីអានទិន្នន័យពីឯកសារដោយប្រើ Path សម្រាប់កំណត់ទីតាំងឯកសារ និង String charset សម្រាប់កំណត់ការអ៊ិនកូដតួអក្សរ។</div>
+                <div class="code-row">
+                    <span class="code-label syntax">Syntax</span>
+                    <span class="code-inline">new Scanner(Path source, String charsetName)</span>
+                </div>
+                <div class="example-output-row">
+                    <div class="example-col">
+                        <span class="code-label example">Example</span>
+                        <div class="code-box">import java.nio.file.Path;
+import java.io.IOException;
+import java.util.Scanner;
+public class Main {
+  public static void main(String[] args) throws IOException {
+    Path path = Path.of("data.txt");
+    Scanner input = new Scanner(path, "UTF-8");
+    while (input.hasNextLine()) {
+      System.out.println(input.nextLine());
+    }
+    input.close();
+  }
+}</div>
+                    </div>
+                    <div class="output-col">
+                        <span class="code-label output">Output</span>
+                        <div class="output-text">Hello Java
+100 200</div>
+                    </div>
+                </div>
+
+                <div class="subsection-h">1.7 new Scanner(Path p, Charset cs)</div>
+                <div class="khmer-line">new Scanner(Path p, Charset cs) គឺជាការបង្កើត Object របស់ Scanner មួយ ដើម្បីអានទិន្នន័យពីឯកសារដោយប្រើ Path សម្រាប់កំណត់ទីតាំងឯកសារ និង Charset សម្រាប់កំណត់ការអ៊ិនកូដតួអក្សរ។</div>
+                <div class="code-row">
+                    <span class="code-label syntax">Syntax</span>
+                    <span class="code-inline">new Scanner(Path source, Charset charset)</span>
+                </div>
+                <div class="example-output-row">
+                    <div class="example-col">
+                        <span class="code-label example">Example</span>
+                        <div class="code-box">import java.nio.file.Path;
+import java.nio.charset.StandardCharsets;
+import java.io.IOException;
+import java.util.Scanner;
+public class Main {
+  public static void main(String[] args) throws IOException {
+    Path path = Path.of("data.txt");
+    Scanner input = new Scanner(path, StandardCharsets.UTF_8);
+    while (input.hasNextLine()) {
+      System.out.println(input.nextLine());
+    }
+    input.close();
+  }
+}</div>
+                    </div>
+                    <div class="output-col">
+                        <span class="code-label output">Output</span>
+                        <div class="output-text">Hello Java
+100 200</div>
+                    </div>
+                </div>
+                <div class="subsection-h">1.8 new Scanner(InputStream in)</div>
+                <div class="khmer-line">new Scanner(InputStream in) គឺជាការបង្កើត Object របស់ Scanner មួយ ដើម្បីអានទិន្នន័យពី InputStream ដូចជា System.in ដែលប្រើសម្រាប់ទទួលទិន្នន័យពី Keyboard។</div>
+                <div class="code-row">
+                    <span class="code-label syntax">Syntax</span>
+                    <span class="code-inline">new Scanner(InputStream source)</span>
+                </div>
+                <div class="example-output-row">
+                    <div class="example-col">
+                        <span class="code-label example">Example</span>
+                        <div class="code-box">import java.util.Scanner;
+public class Main {
+  public static void main(String[] args) {
+    Scanner input = new Scanner(System.in);
+    System.out.print("Enter your name: ");
+    String name = input.nextLine();
+    System.out.println("Hello, " + name);
+    input.close();
+  }
+}</div>
+                    </div>
+                    <div class="output-col">
+                        <span class="code-label output">Output</span>
+                        <div class="output-text">Enter your name: Xiao Yang
+Hello, Xiao Yang</div>
+                    </div>
+                </div>
+
+                <div class="subsection-h">1.9 new Scanner(InputStream in, String charset)</div>
+                <div class="khmer-line">new Scanner(InputStream in, String charset) គឺជាការបង្កើត Object របស់ Scanner មួយ ដើម្បីអានទិន្នន័យពី InputStream ដោយកំណត់ការអ៊ិនកូដតួអក្សរ (charset) ដូចជា "UTF-8"។</div>
+                <div class="code-row">
+                    <span class="code-label syntax">Syntax</span>
+                    <span class="code-inline">new Scanner(InputStream source, String charsetName)</span>
+                </div>
+                <div class="example-output-row">
+                    <div class="example-col">
+                        <span class="code-label example">Example</span>
+                        <div class="code-box">import java.io.ByteArrayInputStream;
+import java.nio.charset.StandardCharsets;
+import java.util.Scanner;
+public class Main {
+  public static void main(String[] args) {
+    byte[] data = "Hello Java World".getBytes(StandardCharsets.UTF_8);
+    ByteArrayInputStream stream = new ByteArrayInputStream(data);
+    Scanner input = new Scanner(stream, "UTF-8");
+    System.out.println(input.next());
+    System.out.println(input.next());
+    System.out.println(input.next());
+    input.close();
+  }
+}</div>
+                    </div>
+                    <div class="output-col">
+                        <span class="code-label output">Output</span>
+                        <div class="output-text">Hello
+Java
+World</div>
+                    </div>
+                </div>
+
+                <div class="subsection-h">1.10 new Scanner(InputStream in, Charset cs)</div>
+                <div class="khmer-line">new Scanner(InputStream in, Charset cs) គឺជាការបង្កើត Object របស់ Scanner មួយ ដើម្បីអានទិន្នន័យពី InputStream ដោយប្រើ Charset សម្រាប់កំណត់ការអ៊ិនកូដតួអក្សរ ដូចជា UTF-8។</div>
+                <div class="code-row">
+                    <span class="code-label syntax">Syntax</span>
+                    <span class="code-inline">new Scanner(InputStream source, Charset charset)</span>
+                </div>
+                <div class="example-output-row">
+                    <div class="example-col">
+                        <span class="code-label example">Example</span>
+                        <div class="code-box">import java.io.ByteArrayInputStream;
+import java.nio.charset.StandardCharsets;
+import java.util.Scanner;
+public class Main {
+  public static void main(String[] args) {
+    byte[] data = "Hello Java World".getBytes(StandardCharsets.UTF_8);
+    ByteArrayInputStream stream =new ByteArrayInputStream(data);
+    Scanner input = new Scanner(stream, StandardCharsets.UTF_8);
+    System.out.println(input.next());
+    System.out.println(input.next());
+    System.out.println(input.next());
+    input.close();
+  }
+}</div>
+                    </div>
+                    <div class="output-col">
+                        <span class="code-label output">Output</span>
+                        <div class="output-text">Hello
+Java
+World</div>
+                    </div>
+                </div>
+
+                <div class="subsection-h">1.11 new Scanner(Readable r)</div>
+                <div class="khmer-line">new Scanner(Readable r) គឺជាការបង្កើត Object របស់ Scanner មួយ ដើម្បីអានទិន្នន័យពីប្រភពដែលអនុវត្តតាម Interface Readable ដូចជា StringReader។</div>
+                <div class="code-row">
+                    <span class="code-label syntax">Syntax</span>
+                    <span class="code-inline">new Scanner(Readable source)</span>
+                </div>
+                <div class="example-output-row">
+                    <div class="example-col">
+                        <span class="code-label example">Example</span>
+                        <div class="code-box">import java.io.StringReader;
+import java.util.Scanner;
+public class Main {
+  public static void main(String[] args) {
+    StringReader reader = new StringReader("Hello Java World");
+    Scanner input = new Scanner(reader);
+    System.out.println(input.next());
+    System.out.println(input.next());
+    System.out.println(input.next());
+    input.close();
+  }
+}</div>
+                    </div>
+                    <div class="output-col">
+                        <span class="code-label output">Output</span>
+                        <div class="output-text">Hello
+Java
+World</div>
+                    </div>
+                </div>
+
+                <div class="subsection-h">1.12 new Scanner(ReadableByteChannel ch)</div>
+                <div class="khmer-line">new Scanner(ReadableByteChannel ch) គឺជាការបង្កើត Object របស់ Scanner មួយ ដើម្បីអានទិន្នន័យពី ReadableByteChannel ដែលជាប្រភពទិន្នន័យកម្រិត Byte ដូចជា Channel ដែលភ្ជាប់ទៅឯកសារ។</div>
+                <div class="code-row">
+                    <span class="code-label syntax">Syntax</span>
+                    <span class="code-inline">new Scanner(ReadableByteChannel source)</span>
+                </div>
+                <div class="example-output-row">
+                    <div class="example-col">
+                        <span class="code-label example">Example</span>
+                        <div class="code-box">import java.nio.channels.Channels;
+import java.nio.channels.ReadableByteChannel;
+import java.io.ByteArrayInputStream;
+import java.nio.charset.StandardCharsets;
+import java.util.Scanner;
+public class Main {
+  public static void main(String[] args) {
+    byte[] data = "Hello Java World".getBytes(StandardCharsets.UTF_8);
+    ByteArrayInputStream stream = new ByteArrayInputStream(data);
+    ReadableByteChannel channel = Channels.newChannel(stream);
+    Scanner input = new Scanner(channel);
+    System.out.println(input.next());
+    System.out.println(input.next());
+    System.out.println(input.next());
+    input.close();
+  }
+}</div>
+                    </div>
+                    <div class="output-col">
+                        <span class="code-label output">Output</span>
+                        <div class="output-text">Hello
+Java
+World</div>
+                    </div>
+                </div>
+
+                <div class="subsection-h">1.13 new Scanner(ReadableByteChannel ch, String charset)</div>
+                <div class="khmer-line">new Scanner(ReadableByteChannel ch, String charset) គឺជាការបង្កើត Object របស់ Scanner មួយ ដើម្បីអានទិន្នន័យពី ReadableByteChannel ដោយកំណត់ Character Encoding (charset) ដូចជា "UTF-8"។</div>
+                <div class="code-row">
+                    <span class="code-label syntax">Syntax</span>
+                    <span class="code-inline">new Scanner(ReadableByteChannel source)</span>
+                </div>
+                <div class="example-output-row">
+                    <div class="example-col">
+                        <span class="code-label example">Example</span>
+                        <div class="code-box">import java.io.ByteArrayInputStream;
+import java.nio.channels.Channels;
+import java.nio.channels.ReadableByteChannel;
+import java.nio.charset.StandardCharsets;
+import java.util.Scanner;
+public class Main {
+  public static void main(String[] args) {
+    byte[] data = "Hello Java World" .getBytes(StandardCharsets.UTF_8);
+    ByteArrayInputStream stream = new ByteArrayInputStream(data);
+    ReadableByteChannel channel = Channels.newChannel(stream);
+    Scanner input = new Scanner(channel, "UTF-8");
+    System.out.println(input.next());
+    System.out.println(input.next());
+    System.out.println(input.next());
+    input.close();
+  }
+}</div>
+                    </div>
+                    <div class="output-col">
+                        <span class="code-label output">Output</span>
+                        <div class="output-text">Hello
+Java
+World</div>
+                    </div>
+                </div>
+
+                <div class="subsection-h">1.14 new Scanner(ReadableByteChannel ch, Charset cs)</div>
+                <div class="khmer-line">new Scanner(ReadableByteChannel ch, Charset cs) គឺជាការបង្កើត Object របស់ Scanner មួយ ដើម្បីអានទិន្នន័យពី ReadableByteChannel ដោយប្រើ Charset សម្រាប់កំណត់ការអ៊ិនកូដតួអក្សរ ដូចជា UTF-8។</div>
+                <div class="code-row">
+                    <span class="code-label syntax">Syntax</span>
+                    <span class="code-inline">new Scanner(ReadableByteChannel source, Charset charset)</span>
+                </div>
+                <div class="example-output-row">
+                    <div class="example-col">
+                        <span class="code-label example">Example</span>
+                        <div class="code-box">import java.io.ByteArrayInputStream;
+import java.nio.channels.Channels;
+import java.nio.channels.ReadableByteChannel;
+import java.nio.charset.StandardCharsets;
+import java.util.Scanner;
+public class Main {
+  public static void main(String[] args) {
+    byte[] data = "Hello Java World".getBytes(StandardCharsets.UTF_8);
+    ByteArrayInputStream stream = new ByteArrayInputStream(data);
+    ReadableByteChannel channel = Channels.newChannel(stream);
+    Scanner input = new Scanner(channel, StandardCharsets.UTF_8);
+    System.out.println(input.next());
+    System.out.println(input.next());
+    System.out.println(input.next());
+    input.close();
+  }
+}</div>
+                    </div>s
+                    <div class="output-col">
+                        <span class="code-label output">Output</span>
+                        <div class="output-text">Hello
+Java
+World</div>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
+
+
             </div>
             <!--end page-->
             <div class="book-page" id="page-java-unit2-1">
