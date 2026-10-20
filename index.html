@@ -1,8 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#07070a" />
     <title>Programming Language</title>
     <link rel="icon" type="image" href="Programming.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -3524,6 +3525,224 @@ property --fring {
     .bottom-bar { position: absolute; }
 }
 
+
+/* =====================================================================
+   MOBILE POLISH (appended last so it wins the cascade)
+   ===================================================================== */
+html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+}
+.card, .cat-btn, .back-btn, .page-nav-btn, .option, .btn, button { touch-action: manipulation; }
+.lesson-view { overscroll-behavior: contain; -webkit-overflow-scrolling: touch; }
+
+/* Touch screens have no real hover: don't leave cards stuck enlarged after a tap */
+@media (hover: none) {
+    .card:hover {
+        --scale: 1;
+        filter:
+            brightness(1) contrast(1)
+            drop-shadow(0 0 6px rgba(var(--color-card), 0.45))
+            drop-shadow(0 0 0 rgba(var(--color-card), 0));
+    }
+}
+
+/* ---------- Home: phones in portrait AND short landscape screens ---------- */
+@media (max-width: 700px), (max-height: 520px) {
+    .wrapper {
+        height: auto;
+        min-height: 100vh;
+        min-height: 100dvh;
+        /* --top-h / --bar-h are measured by script so the carousel never sits under the bars */
+        padding:
+            calc(var(--top-h, 150px) + 10px)
+            max(12px, env(safe-area-inset-right))
+            calc(var(--bar-h, 170px) + 10px)
+            max(12px, env(safe-area-inset-left));
+    }
+    .inner {
+        --w: clamp(88px, 27vw, 118px);
+        --h: calc(var(--w) * 1.38);
+    }
+}
+
+/* ---------- Portrait phones ---------- */
+@media (max-width: 700px) {
+    body { min-height: 100dvh; }
+    .rupp-logo .word .line1 br { display: none; }   /* removes the blank line above "Royal University" */
+    .bottom-bar { gap: 8px; }
+
+    /* one swipeable row of filters instead of two wrapped rows */
+    .cat-row {
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        width: 100%;
+        overflow-x: auto;
+        overflow-y: hidden;
+        padding: 2px 14px 4px;
+        scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+        scroll-snap-type: x proximity;
+        -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 14px, #000 calc(100% - 14px), transparent 100%);
+                mask-image: linear-gradient(90deg, transparent 0, #000 14px, #000 calc(100% - 14px), transparent 100%);
+    }
+    .cat-row::-webkit-scrollbar { display: none; }
+    .cat-row > .cat-btn { flex: 0 0 auto; white-space: nowrap; scroll-snap-align: center; min-height: 40px; display: flex; align-items: center; }
+    .cat-row > :first-child { margin-left: auto; }   /* centred when it fits, scrollable when it doesn't */
+    .cat-row > :last-child  { margin-right: auto; }
+
+    .Text .txt { gap: 2px; }
+    .Text .txt .line2 { font-size: 22px; }
+    .Text .txt .line1 { font-size: 15px; }
+}
+
+/* ---------- Landscape phones: compact one-row header and footer ---------- */
+@media (max-height: 520px) and (orientation: landscape) {
+    .top-bar {
+        top: max(8px, env(safe-area-inset-top));
+        left: max(14px, env(safe-area-inset-left));
+        transform: none;
+        width: auto;
+        align-items: flex-start;
+        gap: 0;
+    }
+    .rupp-logo { flex-direction: row; gap: 14px; align-items: center; }
+    .rupp-logo .icon-ring, .rupp-logo .rupp-icon { width: 40px; height: 40px; }
+    .rupp-logo .icon-ring::before { inset: -4px; }
+    .rupp-logo .icon-ring::after  { inset: -8px; }
+    .rupp-logo .word { align-items: flex-start; gap: 0; text-align: left; }
+    .rupp-logo .word .line1 { font-size: 11px; }
+    .rupp-logo .word .line1 br { display: none; }
+    .rupp-logo .word .line2 { font-size: 15px; }
+    .bottom-bar {
+        bottom: max(8px, env(safe-area-inset-bottom));
+        width: min(600px, calc(100% - 28px));
+        gap: 8px;
+    }
+    .search-row input { min-height: 40px; font-size: 16px; }
+    .cat-row { flex-wrap: nowrap; justify-content: center; gap: 6px; }
+    .cat-row > .cat-btn { flex: 0 0 auto; white-space: nowrap; min-height: 34px; padding: 4px 12px; }
+    .Text { display: none; }   /* title is redundant here and the space is precious */
+    .inner { --w: clamp(84px, 17vh, 110px); }
+    .glow-floor { display: none; }
+}
+
+/* ---------- Lesson & quiz pages on phones ---------- */
+@media (max-width: 700px) {
+    .lesson-view {
+        padding-left: max(14px, env(safe-area-inset-left));
+        padding-right: max(14px, env(safe-area-inset-right));
+    }
+    .back-btn { min-height: 44px; }
+
+    /* hero */
+    .hero-icon-wrap, .hero-icon { width: 56px; height: 56px; }
+    .hero-main { gap: 12px; padding-bottom: 16px; }
+    .hero-title { font-size: clamp(19px, 5.8vw, 26px); }
+
+    /* 2x2 info grid with sensible padding (was 3-line wrapping columns) */
+    .module-info { display: grid; grid-template-columns: 1fr 1fr; padding: 6px 0; }
+    .module-info .module-col { flex: none; padding: 14px 14px; gap: 6px; min-width: 0; }
+    .module-info .module-col:nth-child(2) { border-top: none; }
+
+    /* contents rows: let long titles wrap instead of being cut off */
+    .toc-row { font-size: 16px; gap: 8px; align-items: flex-start; line-height: 1.25; padding: 6px 0; }
+    .toc-num { width: auto; min-width: 22px; }
+    .toc-name { white-space: normal; flex: 1 1 auto; min-width: 0; }
+    .toc-dots { display: none; }
+    .toc-page { min-width: 0; white-space: nowrap; }
+
+    /* contents header: one tidy centred line instead of a ragged wrap */
+    .toc-header { justify-content: center; align-items: baseline; gap: 2px 10px; margin-bottom: 18px; text-align: center; }
+    .toc-title-left, .toc-title-right { font-size: 15px; }
+    .toc-title-center { font-size: 22px; }
+
+    /* lesson navigation as a tidy 3-row grid (the old flex row wrapped unevenly) */
+    .page-nav:not(:has(.exam-start-btn)) {
+        display: grid;
+        grid-template-columns: 44px minmax(0, 1fr) 44px auto;
+        gap: 6px;
+        align-items: center;
+    }
+    .page-nav:not(:has(.exam-start-btn)) > .module-col { display: none; }   /* empty desktop spacer */
+    .page-nav:not(:has(.exam-start-btn)) > .back-btn { grid-column: 1 / 3; grid-row: 1; }
+    .page-nav:not(:has(.exam-start-btn)) > .page-nav-btn:not([data-dir]) { grid-column: 3 / 5; grid-row: 1; }
+    .page-nav:not(:has(.exam-start-btn)) > [data-dir="-1"] { grid-column: 1; grid-row: 2; }
+    .page-nav:not(:has(.exam-start-btn)) > .page-nav-input { grid-column: 2; grid-row: 2; width: 100%; min-width: 0; }
+    .page-nav:not(:has(.exam-start-btn)) > [data-dir="1"]  { grid-column: 3; grid-row: 2; }
+    .page-nav:not(:has(.exam-start-btn)) > [data-dir="0"]  { grid-column: 4; grid-row: 2; }
+    .page-nav:not(:has(.exam-start-btn)) > .clock-wrap { grid-column: 1 / 3; grid-row: 3; margin: 0; justify-self: start; }
+    .page-nav:not(:has(.exam-start-btn)) > .page-nav-count {
+        grid-column: 3 / 5; grid-row: 3; margin: 0; padding: 0; border-left: 0; text-align: right; justify-self: end;
+    }
+
+    /* bottom navigation: real touch targets */
+    /* sticky offset is measured inside the view's bottom padding, so cancel exactly that padding to sit flush */
+    .page-nav,
+    .page-nav:has(.exam-start-btn) { bottom: calc(-1 * max(28px, env(safe-area-inset-bottom))); }
+    .page-nav { gap: 6px; padding: 8px 12px calc(8px + env(safe-area-inset-bottom)); }
+    .lesson-view .page-nav-btn { height: 44px; min-height: 44px; min-width: 44px; }
+    .page-nav-input { height: 44px; font-size: 16px; }
+
+    /* quiz */
+    .option { min-height: 48px; padding: 12px 14px; }
+    .q-step-btn { min-height: 44px; }
+    .btn { min-height: 46px; padding: 12px 24px; }
+    .results { padding: 24px 16px; }
+    .qcm .qcm-page .footer-actions { flex-wrap: wrap; margin-top: 24px; }
+}
+
+/* =====================================================================
+   LAPTOP POLISH (screens wider than a phone, shorter than a big monitor)
+   ===================================================================== */
+@media (min-width: 701px) and (min-height: 521px) {
+    /* reserve the real height of the header/footer so the carousel never runs under them */
+    .wrapper {
+        height: 100vh;
+        height: 100dvh;
+        padding: calc(var(--top-h, 180px) - 6px) 24px calc(var(--bar-h, 200px) + 56px);   /* biased upward: 3D tilt pushes front cards down */
+    }
+    /* front-most cards render ~1.8x larger because of the 3D perspective, so size from free height */
+    .inner {
+        --h: clamp(110px, calc((100dvh - var(--top-h, 200px) - var(--bar-h, 200px)) / 2.1), 190px);
+        --w: calc(var(--h) / 1.357);
+    }
+    /* wide enough for all seven filters on one row */
+    .bottom-bar { width: min(640px, 90vw); }
+    .cat-row { flex-wrap: nowrap; }
+    .cat-row > .cat-btn { flex: 0 0 auto; white-space: nowrap; }
+}
+
+/* typical laptop heights: compact header and footer */
+@media (min-width: 701px) and (max-height: 860px) {
+    .top-bar { top: 16px; gap: 6px; }
+    .rupp-logo { gap: 8px; }
+    .rupp-logo .icon-ring, .rupp-logo .rupp-icon { width: 72px; height: 72px; }
+    .rupp-logo .icon-ring::before { inset: -6px; }
+    .rupp-logo .icon-ring::after  { inset: -12px; }
+    .rupp-logo .word { gap: 2px; }
+    .rupp-logo .word .line1 { font-size: 16px; }
+    .rupp-logo .word .line1 br { display: none; }
+    .rupp-logo .word .line2 { font-size: 24px; }
+    .bottom-bar { bottom: 16px; gap: 10px; }
+    .Text .txt { gap: 2px; }
+    .Text .txt .line2 { font-size: 24px; }
+    .Text .txt .line1 { font-size: 16px; }
+}
+
+/* laptop lesson & quiz pages: nav flush with the bottom edge, tighter top so content shows sooner */
+@media (min-width: 701px) {
+    .lesson-view { padding-bottom: 48px; }
+    .page-nav,
+    .page-nav:has(.exam-start-btn) { bottom: -48px; }   /* cancels the 48px padding above */
+}
+@media (min-width: 701px) and (max-height: 860px) {
+    .lesson-view { padding-top: 24px; }
+    .lesson-topbar { margin-bottom: 14px; }
+    .hero-main { padding-bottom: 16px; }
+    .module-col { padding-top: 14px; padding-bottom: 14px; }
+}
 </style>
 </head>
 
@@ -13798,15 +14017,6 @@ setupExam({
 })();
 
 
-
-
-
-
-
-
-
-
-
     /*
         7-segment layout
              A
@@ -13901,6 +14111,44 @@ for (let i = 0; i < 4; i++) {
     }
 }
 </script>
+
+<script>
+/* Mobile layout helper: measures the fixed top/bottom bars so the carousel
+   always fits between them, and shortens the search placeholder on phones. */
+(function () {
+    var root = document.documentElement;
+    var top = document.getElementById('topBar');
+    var bar = document.querySelector('.bottom-bar');
+    var input = document.getElementById('search');
+    if (!top || !bar) return;
+
+    var fullPlaceholder = input ? input.getAttribute('placeholder') : '';
+    var phone = window.matchMedia('(max-width: 700px)');
+    var queued = false;
+
+    function measure() {
+        queued = false;
+        root.style.setProperty('--top-h', Math.ceil(top.getBoundingClientRect().bottom) + 'px');
+        root.style.setProperty('--bar-h', Math.ceil(window.innerHeight - bar.getBoundingClientRect().top) + 'px');
+        if (input) input.setAttribute('placeholder', phone.matches ? 'Search modules...' : fullPlaceholder);
+    }
+    function queue() {
+        if (queued) return;
+        queued = true;
+        requestAnimationFrame(measure);
+    }
+
+    measure();
+    window.addEventListener('resize', queue);
+    window.addEventListener('orientationchange', queue);
+    window.addEventListener('load', queue);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(queue);
+    if (window.ResizeObserver) {
+        var ro = new ResizeObserver(queue);
+        ro.observe(top);
+        ro.observe(bar);
+    }
+})();
+</script>
 </body>
 </html>
-
