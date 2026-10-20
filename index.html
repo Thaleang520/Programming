@@ -3,12 +3,11 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <meta name="theme-color" content="#07070a" />
     <title>Programming Language</title>
     <link rel="icon" type="image" href="Programming.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+Khmer:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Anton&family=Rajdhani:wght@500;700&display=swap');
         :root{
@@ -3381,581 +3380,162 @@ property --fring {
         color: white;
     }
 
+/* =====================================================================
+   RESPONSIVE LAYER (layout only - no font-family / weight changes)
+   ===================================================================== */
+html { -webkit-text-size-adjust: 100%; }
+img, svg { max-width: 100%; }
+.output-text img, .output-col img { height: auto; }
+.lesson-view { -webkit-overflow-scrolling: touch; overscroll-behavior: contain; }
+.lesson-content { overflow-wrap: anywhere; }
 
+/* ---------- Large laptops / desktops ---------- */
+@media (min-width: 1200px) {
+    .lesson-topbar, .lesson-hero, .book, .lesson-content, .notes-heading, .qcm { max-width: 1120px; }
+    .lesson-view { padding: 44px 48px 70px; }
+    .top-bar, .bottom-bar { width: min(460px, 40vw); }
+}
 
-/* ---------- Mobile and tablet support ---------- */
-@media (max-width: 700px) {
-    html, body {
-        min-height: 100%;
-        height: auto;
-        overflow-x: hidden;
-    }
-    body {
-        min-height: 100svh;
-        overflow-x: hidden;
-        overflow-y: auto;
-        justify-content: flex-start;
-    }
-    .top-bar {
-        top: max(18px, env(safe-area-inset-top));
-        width: calc(100% - 32px);
-        gap: 8px;
-    }
+/* ---------- Laptops / small laptops / tablets landscape ---------- */
+@media (max-width: 1100px) {
+    .lesson-view { padding: 30px 24px 50px; }
+    .book-page, .qcm-page { padding: 26px 24px; }
+    .toc-name { white-space: normal; }
+}
+
+/* Short laptop screens: keep carousel clear of top / bottom bars */
+@media (max-height: 760px) and (min-width: 701px) {
+    .top-bar { top: 14px; gap: 6px; }
     .rupp-logo { gap: 8px; }
-    .rupp-logo .icon-ring,
-    .rupp-logo .rupp-icon {
-        width: 64px;
-        height: 64px;
-    }
+    .rupp-logo .icon-ring, .rupp-logo .rupp-icon { width: 64px; height: 64px; }
+    .rupp-logo .word .line1 br { display: none; }
+    .bottom-bar { bottom: 14px; gap: 10px; }
+    .inner { --w: 120px; --h: 165px; }
+}
+@media (max-height: 620px) {
+    .Text { display: none; }
+}
+
+/* ---------- Tablets portrait ---------- */
+@media (max-width: 820px) {
+    .inner { --w: 112px; --h: 154px; --translateZ: calc(var(--w) * 1.9); }
+    .img img { width: 46px; height: 46px; }
+    .example-output-row { gap: 14px; }
+    .example-col, .output-col { flex: 1 1 100%; min-width: 0; }
+    .code-box, .code-inline, .output-text { min-width: 0; max-width: 100%; }
+    .code-row { gap: 8px; }
+    .unit-header { padding: 14px 16px 24px; }
+    .unit-header .page-right { left: auto; right: 14px; transform: none; top: 10px; }
+    .book-page .page-right { left: auto; right: 20px; transform: none; }
+}
+
+/* ---------- Phones ---------- */
+@media (max-width: 700px) {
+    html, body { height: 100%; min-height: 100dvh; }
+
+    /* Home carousel */
+    .top-bar { top: max(10px, env(safe-area-inset-top)); gap: 4px; width: 92vw; }
+    .rupp-logo { gap: 6px; }
+    .rupp-logo .icon-ring, .rupp-logo .rupp-icon { width: 54px; height: 54px; }
     .rupp-logo .icon-ring::before { inset: -5px; }
-    .rupp-logo .icon-ring::after { inset: -9px; }
-    .rupp-logo .word { gap: 2px; }
-    .rupp-logo .word .line1 { font-size: 14px; }
-    .rupp-logo .word .line2 { font-size: 20px; }
-    .wrapper {
-        width: 100%;
-        min-height: 100svh;
-        height: auto;
-        padding: 190px 12px 190px;
-        justify-content: center;
-        overflow: hidden;
-    }
-    .inner {
-        --w: 105px;
-        --h: 145px;
-        --translateZ: calc(var(--w) * 1.65);
-        --rotateX: -5deg;
-        transform-origin: center center;
-    }
-    .card { touch-action: manipulation; }
-    .img { gap: 12px; }
-    .img img { width: 48px; height: 48px; }
-    .img span { font-size: 11px; letter-spacing: 1px; }
-    .caption .brand { font-size: 18px; letter-spacing: 3px; }
-    .caption .sub { font-size: 9px; letter-spacing: 1.5px; }
-    .glow-floor { width: 90vw; max-width: 400px; }
-    .bottom-bar {
-        bottom: max(16px, env(safe-area-inset-bottom));
-        width: calc(100% - 28px);
-        gap: 10px;
-    }
-    .search-row input {
-        min-height: 44px;
-        font-size: 16px; /* avoids iOS zoom on focus */
-    }
-    .cat-row, .filter-row {
-        gap: 6px;
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-    .cat-row button, .cat-btn, .filter-btn {
-        min-height: 38px;
-        padding: 8px 10px;
-        font-size: 11px;
-        touch-action: manipulation;
-    }
-    .lesson-view {
-        padding: max(18px, env(safe-area-inset-top)) 14px max(28px, env(safe-area-inset-bottom));
-        -webkit-overflow-scrolling: touch;
-    }
-    .lesson-topbar {
-        gap: 10px;
-        margin-bottom: 16px;
-        flex-wrap: wrap;
-    }
-    .undo-hint { display: none; }
-    .lesson-hero {
-        padding: 34px 16px 24px;
-        margin-bottom: 18px;
-        overflow-wrap: anywhere;
-    }
-    .lesson-content {
-        padding: 18px 14px;
-        font-size: 15px;
-        line-height: 1.65;
-        overflow-wrap: anywhere;
-    }
-    .lesson-content img, .lesson-view img, .lesson-content video,
-    .lesson-view video, .lesson-content iframe, .lesson-view iframe {
-        max-width: 100%;
-    }
-    .lesson-content pre, .lesson-view pre {
-        max-width: 100%;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-    }
-    .lesson-content table, .lesson-view table {
-        display: block;
-        max-width: 100%;
-        overflow-x: auto;
-    }
-    .lesson-content input, .lesson-content select, .lesson-content textarea,
-    .lesson-view input, .lesson-view select, .lesson-view textarea {
-        max-width: 100%;
-        font-size: 16px;
-    }
-    .page-nav {
-        flex-wrap: wrap;
-        gap: 8px;
-    }
-    .page-nav button, .lesson-view button {
-        max-width: 100%;
-        min-height: 40px;
-        touch-action: manipulation;
-    }
-    .unit-header { padding: 16px 14px 20px; }
-    .q-text { font-size: 16px; }
-    .option { font-size: 14px; }
-}
-@media (max-width: 380px) {
-    .wrapper { padding-left: 8px; padding-right: 8px; }
-    .inner {
-        --w: 88px;
-        --h: 125px;
-        --translateZ: calc(var(--w) * 1.55);
-    }
-    .rupp-logo .word .line1 { font-size: 12px; }
+    .rupp-logo .icon-ring::after { inset: -10px; }
+    .rupp-logo .word .line1 br { display: none; }
+    .rupp-logo .word .line1 { font-size: 13px; }
     .rupp-logo .word .line2 { font-size: 18px; }
-    .lesson-view { padding-left: 10px; padding-right: 10px; }
-    .lesson-content { padding: 14px 10px; }
-}
-@media (max-height: 600px) and (max-width: 700px) {
-    .top-bar { position: absolute; }
-    .wrapper { padding-top: 165px; padding-bottom: 175px; }
-    .bottom-bar { position: absolute; }
-}
+    .bottom-bar { bottom: max(10px, env(safe-area-inset-bottom)); gap: 10px; width: 92vw; }
+    .Text { display: none; }
+    .cat-row { gap: 5px; }
+    .cat-btn { padding: 5px 10px; font-size: 10px; }
+    .search-row input { padding: 11px 14px 11px 40px; font-size: 16px; } /* 16px stops iOS zoom */
 
+    .wrapper { height: 100dvh; }
+    .inner { --w: 78px; --h: 108px; --translateZ: calc(var(--w) * 1.85); --rotateX: -8deg; }
+    .img { gap: 8px; padding: 0 4px; }
+    .img img { width: 34px; height: 34px; }
+    .img span { font-size: 9px; letter-spacing: 0.5px; text-align: center; overflow-wrap: anywhere; line-height: 1.15; }
+    .glow-floor { width: 80vw; }
 
-/* =====================================================================
-   MOBILE POLISH (appended last so it wins the cascade)
-   ===================================================================== */
-html {
-    -webkit-text-size-adjust: 100%;
-    text-size-adjust: 100%;
-    -webkit-tap-highlight-color: transparent;
-}
-.card, .cat-btn, .back-btn, .page-nav-btn, .option, .btn, button { touch-action: manipulation; }
-.lesson-view { overscroll-behavior: contain; -webkit-overflow-scrolling: touch; }
-
-/* Touch screens have no real hover: don't leave cards stuck enlarged after a tap */
-@media (hover: none) {
-    .card:hover {
-        --scale: 1;
-        filter:
-            brightness(1) contrast(1)
-            drop-shadow(0 0 6px rgba(var(--color-card), 0.45))
-            drop-shadow(0 0 0 rgba(var(--color-card), 0));
-    }
-}
-
-/* ---------- Home: phones in portrait AND short landscape screens ---------- */
-@media (max-width: 700px), (max-height: 520px) {
-    .wrapper {
-        height: auto;
-        min-height: 100vh;
-        min-height: 100dvh;
-        /* --top-h / --bar-h are measured by script so the carousel never sits under the bars */
-        padding:
-            calc(var(--top-h, 150px) + 10px)
-            max(12px, env(safe-area-inset-right))
-            calc(var(--bar-h, 170px) + 10px)
-            max(12px, env(safe-area-inset-left));
-    }
-    .inner {
-        --w: clamp(88px, 27vw, 118px);
-        --h: calc(var(--w) * 1.38);
-    }
-}
-
-/* ---------- Portrait phones ---------- */
-@media (max-width: 700px) {
-    body { min-height: 100dvh; }
-    .rupp-logo .word .line1 br { display: none; }   /* removes the blank line above "Royal University" */
-    .bottom-bar { gap: 8px; }
-
-    /* one swipeable row of filters instead of two wrapped rows */
-    .cat-row {
-        flex-wrap: nowrap;
-        justify-content: flex-start;
-        width: 100%;
-        overflow-x: auto;
-        overflow-y: hidden;
-        padding: 2px 14px 4px;
-        scrollbar-width: none;
-        -webkit-overflow-scrolling: touch;
-        scroll-snap-type: x proximity;
-        -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 14px, #000 calc(100% - 14px), transparent 100%);
-                mask-image: linear-gradient(90deg, transparent 0, #000 14px, #000 calc(100% - 14px), transparent 100%);
-    }
-    .cat-row::-webkit-scrollbar { display: none; }
-    .cat-row > .cat-btn { flex: 0 0 auto; white-space: nowrap; scroll-snap-align: center; min-height: 40px; display: flex; align-items: center; }
-    .cat-row > :first-child { margin-left: auto; }   /* centred when it fits, scrollable when it doesn't */
-    .cat-row > :last-child  { margin-right: auto; }
-
-    .Text .txt { gap: 2px; }
-    .Text .txt .line2 { font-size: 22px; }
-    .Text .txt .line1 { font-size: 15px; }
-}
-
-/* ---------- Landscape phones: compact one-row header and footer ---------- */
-@media (max-height: 520px) and (orientation: landscape) {
-    .top-bar {
-        top: max(8px, env(safe-area-inset-top));
-        left: max(14px, env(safe-area-inset-left));
-        transform: none;
-        width: auto;
-        align-items: flex-start;
-        gap: 0;
-    }
-    .rupp-logo { flex-direction: row; gap: 14px; align-items: center; }
-    .rupp-logo .icon-ring, .rupp-logo .rupp-icon { width: 40px; height: 40px; }
-    .rupp-logo .icon-ring::before { inset: -4px; }
-    .rupp-logo .icon-ring::after  { inset: -8px; }
-    .rupp-logo .word { align-items: flex-start; gap: 0; text-align: left; }
-    .rupp-logo .word .line1 { font-size: 11px; }
-    .rupp-logo .word .line1 br { display: none; }
-    .rupp-logo .word .line2 { font-size: 15px; }
-    .bottom-bar {
-        bottom: max(8px, env(safe-area-inset-bottom));
-        width: min(600px, calc(100% - 28px));
-        gap: 8px;
-    }
-    .search-row input { min-height: 40px; font-size: 16px; }
-    .cat-row { flex-wrap: nowrap; justify-content: center; gap: 6px; }
-    .cat-row > .cat-btn { flex: 0 0 auto; white-space: nowrap; min-height: 34px; padding: 4px 12px; }
-    .Text { display: none; }   /* title is redundant here and the space is precious */
-    .inner { --w: clamp(84px, 17vh, 110px); }
-    .glow-floor { display: none; }
-}
-
-/* ---------- Lesson & quiz pages on phones ---------- */
-@media (max-width: 700px) {
-    .lesson-view {
-        padding-left: max(14px, env(safe-area-inset-left));
-        padding-right: max(14px, env(safe-area-inset-right));
-    }
-    .back-btn { min-height: 44px; }
-
-    /* hero */
-    .hero-icon-wrap, .hero-icon { width: 56px; height: 56px; }
-    .hero-main { gap: 12px; padding-bottom: 16px; }
-    .hero-title { font-size: clamp(19px, 5.8vw, 26px); }
-
-    /* 2x2 info grid with sensible padding (was 3-line wrapping columns) */
-    .module-info { display: grid; grid-template-columns: 1fr 1fr; padding: 6px 0; }
-    .module-info .module-col { flex: none; padding: 14px 14px; gap: 6px; min-width: 0; }
-    .module-info .module-col:nth-child(2) { border-top: none; }
-
-    /* contents rows: let long titles wrap instead of being cut off */
-    .toc-row { font-size: 16px; gap: 8px; align-items: flex-start; line-height: 1.25; padding: 6px 0; }
-    .toc-num { width: auto; min-width: 22px; }
-    .toc-name { white-space: normal; flex: 1 1 auto; min-width: 0; }
-    .toc-dots { display: none; }
-    .toc-page { min-width: 0; white-space: nowrap; }
-
-    /* contents header: one tidy centred line instead of a ragged wrap */
-    .toc-header { justify-content: center; align-items: baseline; gap: 2px 10px; margin-bottom: 18px; text-align: center; }
-    .toc-title-left, .toc-title-right { font-size: 15px; }
-    .toc-title-center { font-size: 22px; }
-
-    /* lesson navigation as a tidy 3-row grid (the old flex row wrapped unevenly) */
-    .page-nav:not(:has(.exam-start-btn)) {
-        display: grid;
-        grid-template-columns: 44px minmax(0, 1fr) 44px auto;
-        gap: 6px;
-        align-items: center;
-    }
-    .page-nav:not(:has(.exam-start-btn)) > .module-col { display: none; }   /* empty desktop spacer */
-    .page-nav:not(:has(.exam-start-btn)) > .back-btn { grid-column: 1 / 3; grid-row: 1; }
-    .page-nav:not(:has(.exam-start-btn)) > .page-nav-btn:not([data-dir]) { grid-column: 3 / 5; grid-row: 1; }
-    .page-nav:not(:has(.exam-start-btn)) > [data-dir="-1"] { grid-column: 1; grid-row: 2; }
-    .page-nav:not(:has(.exam-start-btn)) > .page-nav-input { grid-column: 2; grid-row: 2; width: 100%; min-width: 0; }
-    .page-nav:not(:has(.exam-start-btn)) > [data-dir="1"]  { grid-column: 3; grid-row: 2; }
-    .page-nav:not(:has(.exam-start-btn)) > [data-dir="0"]  { grid-column: 4; grid-row: 2; }
-    .page-nav:not(:has(.exam-start-btn)) > .clock-wrap { grid-column: 1 / 3; grid-row: 3; margin: 0; justify-self: start; }
-    .page-nav:not(:has(.exam-start-btn)) > .page-nav-count {
-        grid-column: 3 / 5; grid-row: 3; margin: 0; padding: 0; border-left: 0; text-align: right; justify-self: end;
-    }
-
-    /* bottom navigation: real touch targets */
-    /* sticky offset is measured inside the view's bottom padding, so cancel exactly that padding to sit flush */
-    .page-nav,
-    .page-nav:has(.exam-start-btn) { bottom: calc(-1 * max(28px, env(safe-area-inset-bottom))); }
-    .page-nav { gap: 6px; padding: 8px 12px calc(8px + env(safe-area-inset-bottom)); }
-    .lesson-view .page-nav-btn { height: 44px; min-height: 44px; min-width: 44px; }
-    .page-nav-input { height: 44px; font-size: 16px; }
-
-    /* quiz */
-    .option { min-height: 48px; padding: 12px 14px; }
-    .q-step-btn { min-height: 44px; }
-    .btn { min-height: 46px; padding: 12px 24px; }
-    .results { padding: 24px 16px; }
-    .qcm .qcm-page .footer-actions { flex-wrap: wrap; margin-top: 24px; }
-}
-
-/* =====================================================================
-   LAPTOP POLISH (screens wider than a phone, shorter than a big monitor)
-   ===================================================================== */
-@media (min-width: 701px) and (min-height: 521px) {
-    /* reserve the real height of the header/footer so the carousel never runs under them */
-    .wrapper {
-        height: 100vh;
-        height: 100dvh;
-        padding: calc(var(--top-h, 180px) - 6px) 24px calc(var(--bar-h, 200px) + 56px);   /* biased upward: 3D tilt pushes front cards down */
-    }
-    /* front-most cards render ~1.8x larger because of the 3D perspective, so size from free height */
-    .inner {
-        --h: clamp(110px, calc((100dvh - var(--top-h, 200px) - var(--bar-h, 200px)) / 2.1), 190px);
-        --w: calc(var(--h) / 1.357);
-    }
-    /* wide enough for all seven filters on one row */
-    .bottom-bar { width: min(640px, 90vw); }
-    .cat-row { flex-wrap: nowrap; }
-    .cat-row > .cat-btn { flex: 0 0 auto; white-space: nowrap; }
-}
-
-/* typical laptop heights: compact header and footer */
-@media (min-width: 701px) and (max-height: 860px) {
-    .top-bar { top: 16px; gap: 6px; }
-    .rupp-logo { gap: 8px; }
-    .rupp-logo .icon-ring, .rupp-logo .rupp-icon { width: 72px; height: 72px; }
-    .rupp-logo .icon-ring::before { inset: -6px; }
-    .rupp-logo .icon-ring::after  { inset: -12px; }
-    .rupp-logo .word { gap: 2px; }
-    .rupp-logo .word .line1 { font-size: 16px; }
-    .rupp-logo .word .line1 br { display: none; }
-    .rupp-logo .word .line2 { font-size: 24px; }
-    .bottom-bar { bottom: 16px; gap: 10px; }
-    .Text .txt { gap: 2px; }
-    .Text .txt .line2 { font-size: 24px; }
-    .Text .txt .line1 { font-size: 16px; }
-}
-
-/* laptop lesson & quiz pages: nav flush with the bottom edge, tighter top so content shows sooner */
-@media (min-width: 701px) {
-    .lesson-view { padding-bottom: 48px; }
-    .page-nav,
-    .page-nav:has(.exam-start-btn) { bottom: -48px; }   /* cancels the 48px padding above */
-}
-@media (min-width: 701px) and (max-height: 860px) {
-    .lesson-view { padding-top: 24px; }
-    .lesson-topbar { margin-bottom: 14px; }
-    .hero-main { padding-bottom: 16px; }
-    .module-col { padding-top: 14px; padding-bottom: 14px; }
-}
-
-/* ---------- Phones: use the free height instead of leaving big empty bands ---------- */
-@media (max-width: 700px) and (min-height: 521px) {
-    .inner {
-        --w: clamp(96px, min(32vw, calc((100dvh - var(--top-h, 133px) - var(--bar-h, 170px)) / 4.1)), 150px);
-        --h: calc(var(--w) * 1.38);
-    }
-    .img { gap: calc(var(--w) * 0.1); }
-    .img img { width: calc(var(--w) * 0.46); height: calc(var(--w) * 0.46); }
-    .img span { font-size: calc(var(--w) * 0.088); letter-spacing: 1px; }
-}
-
-/* =====================================================================
-   MOBILE REDESIGN PASS 2 (phones, appended last so it wins the cascade)
-   Fixes: font-family typo, Khmer readability, stacked code/output blocks,
-   oversized unit headers / kicker, wasted padding, heavy effects.
-   ===================================================================== */
-
-/* Fix: the heading font is loaded as "Baloo 2" but was referenced as "Baloo" */
-.rupp-logo .word .line1,
-.rupp-logo .word .line2,
-.Text .txt .line1,
-.Text .txt .line2 { font-family: 'Baloo 2', var(--sans); }
-
-/* Khmer text needs a Khmer-capable font and a taller line-height everywhere */
-.khmer-line, .toc-name, .lesson-content {
-    font-family: 'Noto Sans Khmer', 'Khmer OS', 'Leelawadee UI', 'Inter', system-ui, sans-serif;
-}
-
-@media (max-width: 700px) {
-
-    /* ---------- Performance: lighter effects on phones ---------- */
-    .img { backdrop-filter: none; -webkit-backdrop-filter: none; }
-    .page-nav { backdrop-filter: none; -webkit-backdrop-filter: none; }
-    .lesson-hero { animation: hero-enter 0.6s ease both; }       /* drop sheen / drift loops */
-    .lesson-hero > * { animation-duration: 0.5s; }
-    .hero-title .hero-lang { animation: none; }
-    .hero-title .hero-title-alt { animation: none; }
-    body::after { opacity: 0.35; }
-
-    /* ---------- Home ---------- */
-    .search-row { --sc: 10px; }
-    .search-row input { font-size: 16px; padding-left: 40px; }
-    .cat-btn { font-size: 11px; }
-    .Text { margin-top: -2px; }
-
-    /* ---------- Lesson shell ---------- */
-    .lesson-view { padding-top: max(14px, env(safe-area-inset-top)); }
-    .lesson-topbar { margin-bottom: 12px; }
-    .lesson-topbar .back-btn { min-height: 44px; }
-    .lesson-hero { --oc: 20px; --c: 14px; padding: 28px 14px 0; margin-bottom: 14px; }
+    /* Lesson pages */
+    .lesson-view { padding: 14px 10px 36px; padding-left: max(10px, env(safe-area-inset-left)); padding-right: max(10px, env(safe-area-inset-right)); }
+    .lesson-topbar { gap: 10px; margin-bottom: 14px; flex-wrap: wrap; }
+    .undo-hint { display: none; }
+    .lesson-hero { --oc: 20px; --c: 14px; padding: 34px 16px 0; margin-bottom: 18px; }
     .lesson-hero::after { inset: 8px; }
-    .hero-main { padding-right: 0; gap: 12px; flex-wrap: nowrap; align-items: center; }
-    .hero-icon-wrap, .hero-icon { width: 52px; height: 52px; flex-shrink: 0; }
-    .hero-title { font-size: clamp(18px, 5.6vw, 24px); line-height: 1.2; word-break: break-word; }
-    .module-info { padding: 4px 0; }
-    .module-info .module-col { padding: 12px 12px; }
-    .module-badge { font-size: 9px; letter-spacing: 1.2px; }
-    .tools-list, .gen-label, .module-date { font-size: 13.5px; }
+    .hero-main { gap: 12px; padding-bottom: 16px; }
+    .hero-icon-wrap, .hero-icon { width: 54px; height: 54px; }
+    .module-info { padding: 10px 6px; }
+    .module-col { flex: 1 1 45%; padding: 14px 14px; }
+    .module-col + .module-col::before, .module-col + .module-col::after { display: none; }
 
-    /* ---------- Book pages (reading content) ---------- */
-    .book-page {
-        --oc: 16px;
-        min-height: 0;
-        padding: 18px 14px 22px;
-        margin-bottom: 16px;
-    }
-    .book-page .page-right,
-    .unit-header .page-right { display: none; }   /* unit number is already in the badge */
+    .book-page, .qcm-page { --oc: 14px; padding: 18px 14px; min-height: 0; margin-bottom: 16px; }
+    .toc-header { gap: 6px; margin-bottom: 16px; }
+    .toc-row { gap: 6px; padding: 6px 0; }
+    .toc-name { white-space: normal; line-height: 1.15; }
+    .toc-page { min-width: 44px; }
+    .toc-dots { min-width: 10px; }
 
-    .unit-header {
-        padding: 12px 12px 22px;
-        gap: 0;
-        flex-wrap: nowrap;
-        --oc: 14px;
-    }
-    .unit-badge { font-size: 13px; padding: 8px 14px 8px 12px; letter-spacing: 1px; --oc: 8px; flex-shrink: 0; }
-    .unit-chevrons { margin: 0 4px 0 -2px; transform: scale(0.8); transform-origin: left center; flex-shrink: 0; }
-    .unit-title {
-        font-size: clamp(18px, 6vw, 24px);
-        line-height: 1.15;
-        min-width: 0;
-        overflow-wrap: anywhere;
-    }
-    .unit-header .speed-lines { left: 96px; right: 12px; height: 10px; }
+    .unit-header { --oc: 12px; padding: 12px 12px 22px; gap: 4px; }
+    .unit-header .speed-lines { left: 90px; right: 12px; }
+    .unit-header .page-right { display: none; }
+    .book-page .page-right { display: none; }
+    .section-h, .subsection-h { overflow-wrap: anywhere; }
+    .subsection-h { text-indent: 14px; }
+    .khmer-line { text-indent: 10px; }
 
-    .section-h { font-size: 16px; margin: 20px 0 8px; line-height: 1.3; overflow-wrap: anywhere; }
-    .subsection-h {
-        font-size: 14.5px;
-        text-indent: 0;
-        padding-left: 10px;
-        border-left: 2px solid rgba(91,140,255,0.6);
-        margin: 18px 0 8px;
-        line-height: 1.35;
-        overflow-wrap: anywhere;
-    }
-    .khmer-line {
-        text-indent: 0;
-        font-size: 14.5px;
-        line-height: 1.95;                 /* Khmer glyphs have tall marks */
-        margin-bottom: 12px;
-    }
+    .code-row { flex-direction: column; gap: 4px; }
+    .code-label { width: auto; padding-top: 0; }
+    .code-inline { padding-top: 0; overflow-wrap: anywhere; }
+    .example-output-row { flex-direction: column; gap: 12px; }
+    .example-col, .output-col { flex-direction: column; gap: 4px; min-width: 0; width: 100%; }
+    .code-box { font-size: 11.5px; padding: 8px 10px; }
+    .output-text { font-size: 12px; }
+    .output-col img { max-width: 100% !important; width: auto; height: auto; }
 
-    /* Syntax row: label above the code */
-    .code-row { flex-direction: column; gap: 4px; margin-bottom: 12px; }
-    .code-label { width: auto; padding-top: 0; font-size: 11px; }
-    .code-inline {
-        display: block;
-        width: 100%;
-        font-size: 12.5px;
-        line-height: 1.55;
-        padding: 8px 10px;
-        background: rgba(255,10,124,0.06);
-        border-left: 2px solid #ff0a7c;
-        overflow-x: auto;
-        white-space: pre-wrap;
-        overflow-wrap: anywhere;
-    }
+    /* Bottom navigation bar */
+    .page-nav { --oc: 12px; flex-wrap: wrap; gap: 6px; padding: 10px 10px; bottom: -14px; justify-content: center; }
+    .page-nav .module-col { display: none; }
+    .page-nav-btn, .back-btn { min-width: 40px; height: 38px; padding: 0 10px; }
+    .page-nav-input { width: 56px; height: 38px; font-size: 16px; }
+    .page-nav-count { margin-left: 0; padding-left: 8px; }
+    .page-nav .clock-wrap { display: none; }
+    .page-nav:has(.exam-start-btn) { bottom: -14px; }
 
-    /* Example + Output: stack vertically, full width */
-    .example-output-row { flex-direction: column; gap: 12px; margin-bottom: 18px; }
-    .example-col, .output-col {
-        flex: none;
-        width: 100%;
-        min-width: 0;
-        flex-direction: column;
-        gap: 4px;
-    }
-    .code-box {
-        font-size: 12px;
-        line-height: 1.55;
-        padding: 10px 12px;
-        width: 100%;
-        tab-size: 4;
-        -webkit-overflow-scrolling: touch;
-    }
-    .output-text {
-        font-size: 12px;
-        width: 100%;
-        padding: 8px 10px;
-        background: rgba(255,255,255,0.04);
-        border-left: 2px solid #4fc9ff;
-        white-space: pre-wrap;
-        overflow-x: auto;
-    }
-    .output-col img { max-width: 100% !important; height: auto; max-height: 240px !important; align-self: flex-start; }
-
-    /* ---------- Table of contents ---------- */
-    .toc-row { font-size: 15px; padding: 7px 0; }
-    .toc-page { font-size: 13px; }
-
-    /* ---------- Bottom navigation (reading pages) ---------- */
-    .page-nav { --oc: 12px; padding: 8px 10px calc(8px + env(safe-area-inset-bottom)); }
-    .page-nav-count { font-size: 11px; }
-    .page-nav::before { display: none; }
-
-    /* ---------- Quiz / exam pages ---------- */
-    .qcm-page { --oc: 16px; padding: 18px 14px; min-height: 0; margin-bottom: 14px; }
+    /* Exam / QCM */
     .qcm-hero-content { padding: 4px 0 20px; }
-    .kicker { font-size: 20px; padding: 6px 12px; margin-bottom: 12px; letter-spacing: 0.08em; }
-    .kicker::before { font-size: 20px; }
-    h1 { font-size: clamp(24px, 8vw, 32px); }
-    .subtitle { font-size: 15px; }
-    .progress-shell { margin-top: 18px; }
-    .exam-time-note,
-    .qcm-hero-content .exam-time-note { float: none; display: inline-flex; margin-top: 8px; }
-    .q-card { padding: 16px 14px; border-radius: 12px; }
-    .q-head { gap: 10px; margin-bottom: 12px; }
-    .q-text { font-size: 16px; line-height: 1.4; }
-    .options { gap: 10px; }
-    .option { padding: 13px 12px; font-size: 15px; line-height: 1.35; }
-    .q-stepper { gap: 8px; }
-    .q-step-btn { flex: 0 0 auto; min-width: 88px; }
-    .q-step-count { font-size: 11.5px; text-align: center; flex: 1; }
-    .results .score { font-size: 48px; }
-
-    /* Exam nav: timer + start on row 1, unit controls on row 2 */
-    .page-nav:has(.exam-start-btn) {
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr 1fr;
-        gap: 6px;
-        align-items: center;
-    }
-    .page-nav:has(.exam-start-btn) .exam-countdown { grid-column: 1 / 3; grid-row: 1; justify-self: start; min-width: 0; }
-    .page-nav:has(.exam-start-btn) .exam-btn-slot { grid-column: 3 / 5; grid-row: 1; margin: 0; justify-self: end; }
-    .page-nav:has(.exam-start-btn) .exam-start-btn,
-    .page-nav:has(.exam-start-btn) .retry-exam-btn { min-width: 0; width: 100%; height: 44px; padding: 0 14px; font-size: 12px; }
-    .page-nav:has(.exam-start-btn) > .page-nav-btn[data-dir="-1"] { grid-column: 1; grid-row: 2; padding: 0 6px; }
-    .page-nav:has(.exam-start-btn) > .page-nav-input { grid-column: 2; grid-row: 2; width: 100%; min-width: 0; }
-    .page-nav:has(.exam-start-btn) > .page-nav-btn[data-dir="1"] { grid-column: 3; grid-row: 2; padding: 0 6px; }
-    .page-nav:has(.exam-start-btn) > .page-nav-btn[data-dir="0"] { grid-column: 4; grid-row: 2; padding: 0 6px; }
-    .page-nav:has(.exam-start-btn) > .page-nav-count { grid-column: 1 / 5; grid-row: 3; margin: 0; padding: 0; border: 0; text-align: center; }
-    .exam-countdown { transform: scale(0.9); transform-origin: left center; }
-
-    /* Notes box */
-    .notes-heading { font-size: 12px; margin-bottom: 8px; }
-    .lesson-content { min-height: 160px; border-radius: 12px; }
+    .kicker { max-width: 100%; padding: 6px 12px; }
+    .q-card { padding: 16px 14px; }
+    .q-head { gap: 10px; }
+    .option { padding: 10px 11px; gap: 10px; }
+    .q-stepper { flex-wrap: wrap; justify-content: center; }
+    .exam-countdown { min-width: 0; padding: 5px 8px; }
+    .exam-countdown .seg-digit { width: 12px; height: 22px; }
+    .exam-countdown .seg-colon { width: 5px; height: 22px; }
+    .exam-time-note, .qcm-hero-content .exam-time-note { float: none; margin-top: 10px; }
+    .results { padding: 22px 14px; }
+    .lesson-content { padding: 16px 14px; min-height: 200px; }
 }
 
-/* Very small phones */
+/* ---------- Very small phones ---------- */
 @media (max-width: 380px) {
-    .unit-badge { font-size: 11.5px; padding: 7px 10px; }
-    .unit-header .speed-lines { left: 84px; }
-    .hero-icon-wrap, .hero-icon { width: 44px; height: 44px; }
-    .page-nav:has(.exam-start-btn) .exam-start-btn,
-    .page-nav:has(.exam-start-btn) .retry-exam-btn { font-size: 11px; padding: 0 8px; }
-    .option { font-size: 14px; }
+    .inner { --w: 68px; --h: 96px; }
+    .img img { width: 28px; height: 28px; }
+    .module-col { flex: 1 1 100%; }
+    .code-box { font-size: 11px; }
 }
 
-/* Touch devices: no sticky hover lift on info columns */
+/* ---------- Phones in landscape (very short) ---------- */
+@media (max-height: 480px) and (orientation: landscape) {
+    .top-bar { display: none; }
+    .bottom-bar { flex-direction: row; align-items: center; width: 92vw; gap: 10px; bottom: 6px; }
+    .search-row { flex: 1 1 40%; }
+    .cat-row { flex: 1 1 60%; justify-content: flex-start; }
+    .inner { --w: 84px; --h: 116px; }
+}
+
+/* ---------- Touch devices: no sticky hover zoom ---------- */
 @media (hover: none) {
+    .card:hover { --scale: 1; filter: brightness(1) contrast(1) drop-shadow(0 0 6px rgba(var(--color-card), 0.45)); }
     .module-col:hover { transform: none; }
-    .cat-btn:hover { transform: none; }
 }
 </style>
 </head>
@@ -14231,6 +13811,15 @@ setupExam({
 })();
 
 
+
+
+
+
+
+
+
+
+
     /*
         7-segment layout
              A
@@ -14324,45 +13913,6 @@ for (let i = 0; i < 4; i++) {
         };
     }
 }
-</script>
-
-<script>
-/* Mobile layout helper: measures the fixed top/bottom bars so the carousel
-   always fits between them, and shortens the search placeholder on phones. */
-(function () {
-    var root = document.documentElement;
-    var top = document.getElementById('topBar');
-    var bar = document.querySelector('.bottom-bar');
-    var input = document.getElementById('search');
-    if (!top || !bar) return;
-
-    var fullPlaceholder = input ? input.getAttribute('placeholder') : '';
-    var phone = window.matchMedia('(max-width: 700px)');
-    var queued = false;
-
-    function measure() {
-        queued = false;
-        root.style.setProperty('--top-h', Math.ceil(top.getBoundingClientRect().bottom) + 'px');
-        root.style.setProperty('--bar-h', Math.ceil(window.innerHeight - bar.getBoundingClientRect().top) + 'px');
-        if (input) input.setAttribute('placeholder', phone.matches ? 'Search modules...' : fullPlaceholder);
-    }
-    function queue() {
-        if (queued) return;
-        queued = true;
-        requestAnimationFrame(measure);
-    }
-
-    measure();
-    window.addEventListener('resize', queue);
-    window.addEventListener('orientationchange', queue);
-    window.addEventListener('load', queue);
-    if (document.fonts && document.fonts.ready) document.fonts.ready.then(queue);
-    if (window.ResizeObserver) {
-        var ro = new ResizeObserver(queue);
-        ro.observe(top);
-        ro.observe(bar);
-    }
-})();
 </script>
 </body>
 </html>
