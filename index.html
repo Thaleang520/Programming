@@ -8,7 +8,7 @@
     <link rel="icon" type="image" href="Programming.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+Khmer:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Anton&family=Rajdhani:wght@500;700&display=swap');
         :root{
@@ -3753,6 +3753,209 @@ html {
     .img { gap: calc(var(--w) * 0.1); }
     .img img { width: calc(var(--w) * 0.46); height: calc(var(--w) * 0.46); }
     .img span { font-size: calc(var(--w) * 0.088); letter-spacing: 1px; }
+}
+
+/* =====================================================================
+   MOBILE REDESIGN PASS 2 (phones, appended last so it wins the cascade)
+   Fixes: font-family typo, Khmer readability, stacked code/output blocks,
+   oversized unit headers / kicker, wasted padding, heavy effects.
+   ===================================================================== */
+
+/* Fix: the heading font is loaded as "Baloo 2" but was referenced as "Baloo" */
+.rupp-logo .word .line1,
+.rupp-logo .word .line2,
+.Text .txt .line1,
+.Text .txt .line2 { font-family: 'Baloo 2', var(--sans); }
+
+/* Khmer text needs a Khmer-capable font and a taller line-height everywhere */
+.khmer-line, .toc-name, .lesson-content {
+    font-family: 'Noto Sans Khmer', 'Khmer OS', 'Leelawadee UI', 'Inter', system-ui, sans-serif;
+}
+
+@media (max-width: 700px) {
+
+    /* ---------- Performance: lighter effects on phones ---------- */
+    .img { backdrop-filter: none; -webkit-backdrop-filter: none; }
+    .page-nav { backdrop-filter: none; -webkit-backdrop-filter: none; }
+    .lesson-hero { animation: hero-enter 0.6s ease both; }       /* drop sheen / drift loops */
+    .lesson-hero > * { animation-duration: 0.5s; }
+    .hero-title .hero-lang { animation: none; }
+    .hero-title .hero-title-alt { animation: none; }
+    body::after { opacity: 0.35; }
+
+    /* ---------- Home ---------- */
+    .search-row { --sc: 10px; }
+    .search-row input { font-size: 16px; padding-left: 40px; }
+    .cat-btn { font-size: 11px; }
+    .Text { margin-top: -2px; }
+
+    /* ---------- Lesson shell ---------- */
+    .lesson-view { padding-top: max(14px, env(safe-area-inset-top)); }
+    .lesson-topbar { margin-bottom: 12px; }
+    .lesson-topbar .back-btn { min-height: 44px; }
+    .lesson-hero { --oc: 20px; --c: 14px; padding: 28px 14px 0; margin-bottom: 14px; }
+    .lesson-hero::after { inset: 8px; }
+    .hero-main { padding-right: 0; gap: 12px; flex-wrap: nowrap; align-items: center; }
+    .hero-icon-wrap, .hero-icon { width: 52px; height: 52px; flex-shrink: 0; }
+    .hero-title { font-size: clamp(18px, 5.6vw, 24px); line-height: 1.2; word-break: break-word; }
+    .module-info { padding: 4px 0; }
+    .module-info .module-col { padding: 12px 12px; }
+    .module-badge { font-size: 9px; letter-spacing: 1.2px; }
+    .tools-list, .gen-label, .module-date { font-size: 13.5px; }
+
+    /* ---------- Book pages (reading content) ---------- */
+    .book-page {
+        --oc: 16px;
+        min-height: 0;
+        padding: 18px 14px 22px;
+        margin-bottom: 16px;
+    }
+    .book-page .page-right,
+    .unit-header .page-right { display: none; }   /* unit number is already in the badge */
+
+    .unit-header {
+        padding: 12px 12px 22px;
+        gap: 0;
+        flex-wrap: nowrap;
+        --oc: 14px;
+    }
+    .unit-badge { font-size: 13px; padding: 8px 14px 8px 12px; letter-spacing: 1px; --oc: 8px; flex-shrink: 0; }
+    .unit-chevrons { margin: 0 4px 0 -2px; transform: scale(0.8); transform-origin: left center; flex-shrink: 0; }
+    .unit-title {
+        font-size: clamp(18px, 6vw, 24px);
+        line-height: 1.15;
+        min-width: 0;
+        overflow-wrap: anywhere;
+    }
+    .unit-header .speed-lines { left: 96px; right: 12px; height: 10px; }
+
+    .section-h { font-size: 16px; margin: 20px 0 8px; line-height: 1.3; overflow-wrap: anywhere; }
+    .subsection-h {
+        font-size: 14.5px;
+        text-indent: 0;
+        padding-left: 10px;
+        border-left: 2px solid rgba(91,140,255,0.6);
+        margin: 18px 0 8px;
+        line-height: 1.35;
+        overflow-wrap: anywhere;
+    }
+    .khmer-line {
+        text-indent: 0;
+        font-size: 14.5px;
+        line-height: 1.95;                 /* Khmer glyphs have tall marks */
+        margin-bottom: 12px;
+    }
+
+    /* Syntax row: label above the code */
+    .code-row { flex-direction: column; gap: 4px; margin-bottom: 12px; }
+    .code-label { width: auto; padding-top: 0; font-size: 11px; }
+    .code-inline {
+        display: block;
+        width: 100%;
+        font-size: 12.5px;
+        line-height: 1.55;
+        padding: 8px 10px;
+        background: rgba(255,10,124,0.06);
+        border-left: 2px solid #ff0a7c;
+        overflow-x: auto;
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
+    }
+
+    /* Example + Output: stack vertically, full width */
+    .example-output-row { flex-direction: column; gap: 12px; margin-bottom: 18px; }
+    .example-col, .output-col {
+        flex: none;
+        width: 100%;
+        min-width: 0;
+        flex-direction: column;
+        gap: 4px;
+    }
+    .code-box {
+        font-size: 12px;
+        line-height: 1.55;
+        padding: 10px 12px;
+        width: 100%;
+        tab-size: 4;
+        -webkit-overflow-scrolling: touch;
+    }
+    .output-text {
+        font-size: 12px;
+        width: 100%;
+        padding: 8px 10px;
+        background: rgba(255,255,255,0.04);
+        border-left: 2px solid #4fc9ff;
+        white-space: pre-wrap;
+        overflow-x: auto;
+    }
+    .output-col img { max-width: 100% !important; height: auto; max-height: 240px !important; align-self: flex-start; }
+
+    /* ---------- Table of contents ---------- */
+    .toc-row { font-size: 15px; padding: 7px 0; }
+    .toc-page { font-size: 13px; }
+
+    /* ---------- Bottom navigation (reading pages) ---------- */
+    .page-nav { --oc: 12px; padding: 8px 10px calc(8px + env(safe-area-inset-bottom)); }
+    .page-nav-count { font-size: 11px; }
+    .page-nav::before { display: none; }
+
+    /* ---------- Quiz / exam pages ---------- */
+    .qcm-page { --oc: 16px; padding: 18px 14px; min-height: 0; margin-bottom: 14px; }
+    .qcm-hero-content { padding: 4px 0 20px; }
+    .kicker { font-size: 20px; padding: 6px 12px; margin-bottom: 12px; letter-spacing: 0.08em; }
+    .kicker::before { font-size: 20px; }
+    h1 { font-size: clamp(24px, 8vw, 32px); }
+    .subtitle { font-size: 15px; }
+    .progress-shell { margin-top: 18px; }
+    .exam-time-note,
+    .qcm-hero-content .exam-time-note { float: none; display: inline-flex; margin-top: 8px; }
+    .q-card { padding: 16px 14px; border-radius: 12px; }
+    .q-head { gap: 10px; margin-bottom: 12px; }
+    .q-text { font-size: 16px; line-height: 1.4; }
+    .options { gap: 10px; }
+    .option { padding: 13px 12px; font-size: 15px; line-height: 1.35; }
+    .q-stepper { gap: 8px; }
+    .q-step-btn { flex: 0 0 auto; min-width: 88px; }
+    .q-step-count { font-size: 11.5px; text-align: center; flex: 1; }
+    .results .score { font-size: 48px; }
+
+    /* Exam nav: timer + start on row 1, unit controls on row 2 */
+    .page-nav:has(.exam-start-btn) {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        gap: 6px;
+        align-items: center;
+    }
+    .page-nav:has(.exam-start-btn) .exam-countdown { grid-column: 1 / 3; grid-row: 1; justify-self: start; min-width: 0; }
+    .page-nav:has(.exam-start-btn) .exam-btn-slot { grid-column: 3 / 5; grid-row: 1; margin: 0; justify-self: end; }
+    .page-nav:has(.exam-start-btn) .exam-start-btn,
+    .page-nav:has(.exam-start-btn) .retry-exam-btn { min-width: 0; width: 100%; height: 44px; padding: 0 14px; font-size: 12px; }
+    .page-nav:has(.exam-start-btn) > .page-nav-btn[data-dir="-1"] { grid-column: 1; grid-row: 2; padding: 0 6px; }
+    .page-nav:has(.exam-start-btn) > .page-nav-input { grid-column: 2; grid-row: 2; width: 100%; min-width: 0; }
+    .page-nav:has(.exam-start-btn) > .page-nav-btn[data-dir="1"] { grid-column: 3; grid-row: 2; padding: 0 6px; }
+    .page-nav:has(.exam-start-btn) > .page-nav-btn[data-dir="0"] { grid-column: 4; grid-row: 2; padding: 0 6px; }
+    .page-nav:has(.exam-start-btn) > .page-nav-count { grid-column: 1 / 5; grid-row: 3; margin: 0; padding: 0; border: 0; text-align: center; }
+    .exam-countdown { transform: scale(0.9); transform-origin: left center; }
+
+    /* Notes box */
+    .notes-heading { font-size: 12px; margin-bottom: 8px; }
+    .lesson-content { min-height: 160px; border-radius: 12px; }
+}
+
+/* Very small phones */
+@media (max-width: 380px) {
+    .unit-badge { font-size: 11.5px; padding: 7px 10px; }
+    .unit-header .speed-lines { left: 84px; }
+    .hero-icon-wrap, .hero-icon { width: 44px; height: 44px; }
+    .page-nav:has(.exam-start-btn) .exam-start-btn,
+    .page-nav:has(.exam-start-btn) .retry-exam-btn { font-size: 11px; padding: 0 8px; }
+    .option { font-size: 14px; }
+}
+
+/* Touch devices: no sticky hover lift on info columns */
+@media (hover: none) {
+    .module-col:hover { transform: none; }
+    .cat-btn:hover { transform: none; }
 }
 </style>
 </head>
