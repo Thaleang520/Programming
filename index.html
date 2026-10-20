@@ -3743,6 +3743,17 @@ html {
     .hero-main { padding-bottom: 16px; }
     .module-col { padding-top: 14px; padding-bottom: 14px; }
 }
+
+/* ---------- Phones: use the free height instead of leaving big empty bands ---------- */
+@media (max-width: 700px) and (min-height: 521px) {
+    .inner {
+        --w: clamp(96px, min(32vw, calc((100dvh - var(--top-h, 133px) - var(--bar-h, 170px)) / 4.1)), 150px);
+        --h: calc(var(--w) * 1.38);
+    }
+    .img { gap: calc(var(--w) * 0.1); }
+    .img img { width: calc(var(--w) * 0.46); height: calc(var(--w) * 0.46); }
+    .img span { font-size: calc(var(--w) * 0.088); letter-spacing: 1px; }
+}
 </style>
 </head>
 
