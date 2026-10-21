@@ -3781,10 +3781,145 @@ img, svg { max-width: 100%; }
                 rgba(8, 8, 12, 0.95) 100%);
     }
 }
+/* ---------- Page loader: gooey blob spinner (shows only if loading is slow) ---------- */
+.page-loader {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 26px;
+    background:
+        radial-gradient(ellipse 600px 400px at 50% 40%, rgba(164, 90, 255, 0.12), transparent 65%),
+        var(--bg);
+    opacity: 1;
+    transition: opacity 0.45s ease, visibility 0s linear 0.45s;
+}
+.page-loader.is-done {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+/* The overlay is opaque at once (same colour as the page, so nothing flashes);
+   the spinner itself only fades in after 0.35s, so fast loads never see it. */
+.page-loader .loader-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 26px;
+    opacity: 0;
+    animation: loader-in 0.4s ease 0.35s forwards;
+}
+@keyframes loader-in { to { opacity: 1; } }
+
+.blob-spinner {
+    position: relative;
+    width: 96px;
+    height: 96px;
+    filter: url(#blob-goo);
+    animation: blob-spin 3.2s linear infinite;
+}
+.blob-spinner .b {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border-radius: 50%;
+}
+.blob-spinner .b0 {
+    width: 40px; height: 40px;
+    margin: -20px 0 0 -20px;
+    background: var(--gold);
+    animation: blob-core 1.6s ease-in-out infinite;
+}
+.blob-spinner .b1,
+.blob-spinner .b2,
+.blob-spinner .b3 {
+    width: 24px; height: 24px;
+    margin: -12px 0 0 -12px;
+    animation: blob-orbit 2.4s ease-in-out infinite;
+}
+.blob-spinner .b1 { background: var(--teal);       --a: 0deg; }
+.blob-spinner .b2 { background: var(--cp-magenta); --a: 120deg; animation-delay: -0.8s; }
+.blob-spinner .b3 { background: var(--purple);     --a: 240deg; animation-delay: -1.6s; }
+
+@keyframes blob-spin {
+    to { transform: rotate(360deg); }
+}
+@keyframes blob-core {
+    0%, 100% { transform: scale(1); }
+    50%      { transform: scale(1.25); }
+}
+@keyframes blob-orbit {
+    0%, 100% { transform: rotate(var(--a)) translateX(10px) scale(0.9); }
+    50%      { transform: rotate(var(--a)) translateX(36px) scale(1.15); }
+}
+
+.page-loader .loader-text {
+    font-family: var(--body);
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    animation: loader-pulse 1.6s ease-in-out infinite;
+}
+@keyframes loader-pulse {
+    0%, 100% { opacity: 0.45; }
+    50%      { opacity: 1; }
+}
+@media (max-width: 700px) {
+    .blob-spinner { width: 80px; height: 80px; }
+    .page-loader .loader-text { font-size: 12px; letter-spacing: 3px; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .blob-spinner { animation-duration: 8s; }
+    .blob-spinner .b0, .blob-spinner .b1, .blob-spinner .b2, .blob-spinner .b3 { animation-duration: 6s; }
+}
 </style>
+<noscript><style>.page-loader{display:none!important}</style></noscript>
 </head>
 
 <body>
+<div class="page-loader" id="pageLoader" role="status" aria-live="polite" aria-label="Loading">
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+        <defs>
+            <filter id="blob-goo" x="-20%" y="-20%" width="140%" height="140%">
+                <feGaussianBlur in="SourceGraphic" stdDeviation="7" result="blur"/>
+                <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 20 -9" result="goo"/>
+                <feBlend in="SourceGraphic" in2="goo"/>
+            </filter>
+        </defs>
+    </svg>
+    <div class="loader-inner">
+        <div class="blob-spinner" aria-hidden="true">
+            <span class="b b0"></span>
+            <span class="b b1"></span>
+            <span class="b b2"></span>
+            <span class="b b3"></span>
+        </div>
+        <div class="loader-text">Loading</div>
+    </div>
+</div>
+<script>
+(function () {
+    var loader = document.getElementById('pageLoader');
+    if (!loader) return;
+    var done = false;
+    function hide() {
+        if (done) return;
+        done = true;
+        loader.classList.add('is-done');
+        setTimeout(function () { if (loader.parentNode) loader.parentNode.removeChild(loader); }, 700);
+    }
+    if (document.readyState === 'complete') hide();
+    else {
+        window.addEventListener('load', hide);
+        setTimeout(hide, 10000); // never block the page longer than 10s
+    }
+})();
+</script>
     <div class="transition-veil" id="veil"></div>
 
     <div class="top-bar" id="topBar">
