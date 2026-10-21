@@ -1656,14 +1656,6 @@ property --fring {
         } 
     
 
-        @media (max-width: 700px) { 
-            .hero-rupp { display: none; } 
-            .hero-seal { display: none; } 
-            .hero-main { padding-right: 0; } 
-            .module-col + .module-col::before { display: none; } 
-            .module-col { border-top: 1px solid rgba(var(--theme), 0.1); } 
-            .module-col:first-child { border-top: none; } 
-        }
 
         .lesson-content {
             max-width: 980px;
@@ -3405,10 +3397,6 @@ img, svg { max-width: 100%; }
 
 /* Short laptop screens: keep carousel clear of top / bottom bars */
 @media (max-height: 760px) and (min-width: 701px) {
-    .top-bar { top: 14px; gap: 6px; }
-    .rupp-logo { gap: 8px; }
-    .rupp-logo .icon-ring, .rupp-logo .rupp-icon { width: 64px; height: 64px; }
-    .rupp-logo .word .line1 br { display: none; }
     .bottom-bar { bottom: 14px; gap: 10px; }
     .inner { --w: 120px; --h: 165px; }
 }
@@ -3418,8 +3406,6 @@ img, svg { max-width: 100%; }
 
 /* ---------- Tablets portrait ---------- */
 @media (max-width: 820px) {
-    .inner { --w: 112px; --h: 154px; --translateZ: calc(var(--w) * 1.9); }
-    .img img { width: 46px; height: 46px; }
     .example-output-row { gap: 14px; }
     .example-col, .output-col { flex: 1 1 100%; min-width: 0; }
     .code-box, .code-inline, .output-text { min-width: 0; max-width: 100%; }
@@ -3434,14 +3420,6 @@ img, svg { max-width: 100%; }
     html, body { height: 100%; min-height: 100dvh; }
 
     /* Home carousel */
-    .top-bar { top: max(10px, env(safe-area-inset-top)); gap: 4px; width: 92vw; }
-    .rupp-logo { gap: 6px; }
-    .rupp-logo .icon-ring, .rupp-logo .rupp-icon { width: 54px; height: 54px; }
-    .rupp-logo .icon-ring::before { inset: -5px; }
-    .rupp-logo .icon-ring::after { inset: -10px; }
-    .rupp-logo .word .line1 br { display: none; }
-    .rupp-logo .word .line1 { font-size: 13px; }
-    .rupp-logo .word .line2 { font-size: 18px; }
     .bottom-bar { bottom: max(10px, env(safe-area-inset-bottom)); gap: 10px; width: 92vw; }
     .Text { display: none; }
     .cat-row { gap: 5px; }
@@ -3449,23 +3427,11 @@ img, svg { max-width: 100%; }
     .search-row input { padding: 11px 14px 11px 40px; font-size: 16px; } /* 16px stops iOS zoom */
 
     .wrapper { height: 100dvh; }
-    .inner { --w: 84px; --h: 150px; --translateZ: calc(var(--w) * 1.8); --rotateX: -8deg; }
-    .img { gap: 8px; padding: 0 4px; }
-    .img img { width: 34px; height: 34px; }
-    .img span { font-size: 9px; letter-spacing: 0.5px; text-align: center; overflow-wrap: anywhere; line-height: 1.15; }
     .glow-floor { width: 80vw; }
 
     /* Lesson pages */
     .lesson-view { padding: 14px 10px 36px; padding-left: max(10px, env(safe-area-inset-left)); padding-right: max(10px, env(safe-area-inset-right)); }
-    .lesson-topbar { gap: 10px; margin-bottom: 14px; flex-wrap: wrap; }
     .undo-hint { display: none; }
-    .lesson-hero { --oc: 20px; --c: 14px; padding: 34px 16px 0; margin-bottom: 18px; }
-    .lesson-hero::after { inset: 8px; }
-    .hero-main { gap: 12px; padding-bottom: 16px; }
-    .hero-icon-wrap, .hero-icon { width: 54px; height: 54px; }
-    .module-info { padding: 10px 6px; }
-    .module-col { flex: 1 1 45%; padding: 14px 14px; }
-    .module-col + .module-col::before, .module-col + .module-col::after { display: none; }
 
     .book-page, .qcm-page { --oc: 14px; padding: 18px 14px; min-height: 0; margin-bottom: 16px; }
     .toc-header { gap: 6px; margin-bottom: 16px; }
@@ -3489,16 +3455,12 @@ img, svg { max-width: 100%; }
     .example-col, .output-col { flex-direction: column; gap: 4px; min-width: 0; width: 100%; }
     .code-box { font-size: 11.5px; padding: 8px 10px; }
     .output-text { font-size: 12px; }
-    .output-col img { max-width: 100% !important; width: auto; height: auto; }
+    .output-col img, .output-text img { max-width: 100%; width: auto; height: auto; object-fit: contain; }
 
     /* Bottom navigation bar */
-    .page-nav { --oc: 12px; flex-wrap: wrap; gap: 6px; padding: 10px 10px; bottom: -14px; justify-content: center; }
+    .page-nav { flex-wrap: wrap; }
     .page-nav .module-col { display: none; }
-    .page-nav-btn, .back-btn { min-width: 40px; height: 38px; padding: 0 10px; }
-    .page-nav-input { width: 56px; height: 38px; font-size: 16px; }
-    .page-nav-count { margin-left: 0; padding-left: 8px; }
     .page-nav .clock-wrap { display: none; }
-    .page-nav:has(.exam-start-btn) { bottom: -14px; }
 
     /* Exam / QCM */
     .qcm-hero-content { padding: 4px 0 20px; }
@@ -3517,9 +3479,6 @@ img, svg { max-width: 100%; }
 
 /* ---------- Very small phones ---------- */
 @media (max-width: 380px) {
-    .inner { --w: 72px; --h: 132px; }
-    .img img { width: 28px; height: 28px; }
-    .module-col { flex: 1 1 100%; }
     .code-box { font-size: 11px; }
 }
 
@@ -3535,8 +3494,6 @@ img, svg { max-width: 100%; }
 /* ---------- Phone polish (no image sizes touched) ---------- */
 @media (max-width: 700px) {
     .lesson-view { padding-bottom: calc(64px + env(safe-area-inset-bottom)); }
-    .page-nav { padding: 8px 8px calc(8px + env(safe-area-inset-bottom)); gap: 5px; }
-    .page-nav-btn, .back-btn { height: 36px; }
     .code-box { -webkit-overflow-scrolling: touch; overscroll-behavior-x: contain; }
     .code-box::-webkit-scrollbar { height: 6px; }
     button, .cat-btn, .option, .page-nav-btn, .back-btn, .card { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
@@ -3546,6 +3503,213 @@ img, svg { max-width: 100%; }
 @media (hover: none) {
     .card:hover { --scale: 1; filter: brightness(1) contrast(1) drop-shadow(0 0 6px rgba(var(--color-card), 0.45)); }
     .module-col:hover { transform: none; }
+}
+
+/* =====================================================================
+   MOBILE POLISH LAYER (visual refinement only - fonts, weights and
+   image sizes are left untouched)
+   ===================================================================== */
+@media (max-width: 700px) {
+
+    :root { --m-radius: 16px; --m-glass: rgba(10, 8, 18, 0.72); }
+
+    /* ---------- Home: ambient depth + soft edges ---------- */
+    body::before {
+        background:
+            radial-gradient(ellipse 120% 55% at 50% 0%, rgba(164, 90, 255, 0.22), transparent 62%),
+            radial-gradient(ellipse 110% 45% at 50% 100%, rgba(95, 242, 216, 0.14), transparent 65%),
+            #07070a;
+    }
+    .top-bar::before, .bottom-bar::before {
+        content: ""; position: absolute; left: 50%; width: 100vw; transform: translateX(-50%);
+        pointer-events: none; z-index: -1;
+    }
+    .top-bar::before { top: calc(-1 * max(10px, env(safe-area-inset-top))); height: calc(100% + 40px);
+        background: linear-gradient(180deg, rgba(7,7,10,0.92) 0%, rgba(7,7,10,0.6) 60%, transparent 100%); }
+    .bottom-bar::before { bottom: calc(-1 * max(10px, env(safe-area-inset-bottom))); height: calc(100% + 60px);
+        background: linear-gradient(0deg, rgba(7,7,10,0.95) 0%, rgba(7,7,10,0.65) 60%, transparent 100%); }
+
+
+    /* Search: roomier, easier to tap */
+    .search-row { --sc: 14px; }
+    .search-row input { min-height: 48px; padding: 13px 16px 13px 44px; border-radius: 0; }
+
+    /* Categories: one swipeable row instead of a cramped wrap */
+    .cat-row {
+        flex-wrap: nowrap; justify-content: flex-start; gap: 8px;
+        width: 100vw; margin: 0 -3vw; padding: 2px 4vw 4px;
+        overflow-x: auto; scroll-snap-type: x proximity;
+        scrollbar-width: none; -webkit-overflow-scrolling: touch;
+    }
+    .cat-row::-webkit-scrollbar { display: none; }
+    .cat-btn { flex: 0 0 auto; scroll-snap-align: center; padding: 9px 16px; font-size: 11px; min-height: 36px; }
+    .bottom-bar { gap: 12px; width: 94vw; }
+
+    /* Carousel: slightly larger, calmer cards */
+
+    /* ---------- Lesson pages ---------- */
+    .lesson-view {
+        background:
+            radial-gradient(ellipse 120% 40% at 50% 0%, rgba(163, 92, 255, 0.16), transparent 70%),
+            #0a0a0d;
+        scroll-behavior: smooth;
+        padding-top: max(14px, env(safe-area-inset-top));
+    }
+
+
+    .book-page, .qcm-page {
+        padding: 22px 16px;
+        box-shadow: 0 14px 36px -18px rgba(0,0,0,0.85), inset 0 1px 0 rgba(255,255,255,0.04);
+    }
+    .lesson-content { font-size: 15.5px; line-height: 1.75; border-radius: var(--m-radius); padding: 18px 16px; }
+    .lesson-content p, .book-page p { margin-bottom: 0.9em; }
+    .section-h { font-size: 18px; margin-top: 1.4em; }
+    .subsection-h { font-size: 15px; }
+
+    .toc-row { padding: 9px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+
+    /* Code: card-like with soft edge, easy horizontal scroll */
+    .code-box {
+        border-radius: 12px; padding: 12px 14px; line-height: 1.6;
+        box-shadow: inset 0 0 0 1px rgba(255,255,255,0.06), 0 8px 20px -12px rgba(0,0,0,0.8);
+        scrollbar-width: thin;
+    }
+    .output-text { border-radius: 12px; padding: 12px 14px; line-height: 1.55; }
+    .output-col img { border-radius: 10px; }
+    .code-label { letter-spacing: 1px; opacity: 0.85; }
+
+
+    /* ---------- Exam / QCM ---------- */
+    .q-card { border-radius: var(--m-radius); padding: 18px 16px; box-shadow: 0 12px 30px -16px rgba(0,0,0,0.9); }
+    .q-text { line-height: 1.5; }
+    .q-stepper { gap: 8px; padding: 6px 0; }
+    .results { border-radius: var(--m-radius); }
+    .exam-countdown { border-radius: 12px; }
+
+    /* ---------- Focus + scroll niceties ---------- */
+    .lesson-view::-webkit-scrollbar { width: 3px; }
+    .lesson-view::-webkit-scrollbar-thumb { background: rgba(163,92,255,0.45); border-radius: 3px; }
+    a, button, .option, .card { -webkit-tap-highlight-color: transparent; }
+}
+
+@media (max-width: 380px) {
+    .cat-btn { padding: 8px 13px; }
+    .lesson-content { font-size: 15px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .lesson-view { scroll-behavior: auto; }
+}
+
+/* ---------- Home tweak: bigger logo/title, smaller search + categories (phones) ---------- */
+@media (max-width: 700px) {
+
+    .bottom-bar { gap: 8px; width: 88vw; }
+    .search-row { --sc: 10px; }
+    .search-row input { min-height: 38px; padding: 8px 12px 8px 36px; }
+    .cat-row { gap: 6px; }
+    .cat-btn { padding: 5px 11px; font-size: 9.5px; min-height: 28px; }
+}
+@media (max-width: 380px) {
+}
+
+/* ---------- Home tweak 2: keep PROGRAMMING LANGUAGE title, shorter search, centered categories ---------- */
+@media (max-width: 700px) {
+    .bottom-bar { width: 92vw; gap: 8px; align-items: center; }
+
+    .search-row { width: 70%; max-width: 280px; margin: 0 auto; }
+
+    .cat-row {
+        width: 100%; margin: 0; padding: 0;
+        flex-wrap: wrap; justify-content: center; align-items: center;
+        overflow: visible; scroll-snap-type: none;
+    }
+    .cat-btn { flex: 0 0 auto; }
+
+    .Text { display: block; text-align: center; margin-top: 2px; }
+    .Text .txt { gap: 2px; }
+    .Text .txt .line2 { font-size: 24px; }
+    .Text .txt .line1 { font-size: 15px; }
+}
+@media (max-width: 380px) {
+    .Text .txt .line2 { font-size: 21px; }
+    .Text .txt .line1 { font-size: 13px; }
+}
+
+/* ---------- Home tweak 3: smaller category buttons (phones) ---------- */
+@media (max-width: 700px) {
+    .cat-row { gap: 4px; }
+    .cat-btn { --k: 6px; padding: 3px 8px; font-size: 8.5px; letter-spacing: 0.5px; min-height: 22px; line-height: 1.4; }
+}
+@media (max-width: 380px) {
+    .cat-btn { padding: 3px 7px; font-size: 8px; min-height: 20px; }
+}
+
+
+
+/* ---------- Lesson hero: title row lower (phones) ---------- */
+@media (max-width: 700px) {
+    .lesson-hero { padding-top: 84px; }
+}
+
+/* ---------- Home tweak 5: slightly longer search bar, smaller cards (phones) ---------- */
+@media (max-width: 700px) {
+    .search-row { width: 84%; max-width: 340px; }
+    .inner { --w: 108px; --h: 148px; --translateZ: calc(var(--w) * 2.2); }
+    .img { gap: 12px; }
+    .img img { width: 46px; height: 46px; }
+    .img span { font-size: 11px; letter-spacing: 1.2px; }
+}
+
+/* ---------- Home tweak 6: bigger, lower logo + title (phones); smaller category buttons (desktop) ---------- */
+@media (max-width: 700px) {
+    .top-bar::before { top: calc(-1 * max(36px, calc(env(safe-area-inset-top) + 20px))); }
+}
+@media (max-width: 380px) {
+}
+@media (min-width: 701px) {
+    .cat-row { gap: 6px; }
+    .cat-btn { --k: 6px; padding: 3px 9px; font-size: 8.5px; letter-spacing: 0.5px; min-height: 22px; line-height: 1.4; }
+}
+
+/* ---------- Home tweak 7: longer search bar, bigger PROGRAMMING LANGUAGE title (phones) ---------- */
+@media (max-width: 700px) {
+    .search-row { width: 92%; max-width: 400px; }
+    .search-row input { font-size: 16px; min-height: 38px; padding: 8px 12px 8px 36px; }
+    .Text .txt .line2 { font-size: 34px; }
+    .Text .txt .line1 { font-size: 21px; }
+}
+@media (max-width: 380px) {
+    .Text .txt .line2 { font-size: 28px; }
+    .Text .txt .line1 { font-size: 17px; }
+}
+
+/* ---------- Lesson pages: page arrows / Page # / Go grouped on the right (phones) ---------- */
+@media (max-width: 700px) {
+    .page-nav > .page-nav-btn[data-dir="-1"] { margin-left: auto; }
+    .page-nav > .page-nav-count { margin-left: 0; }
+}
+
+/* ---------- Home tweak 8: carousel cards slightly higher on laptop / desktop ---------- */
+@media (min-width: 701px) {
+    .inner { top: -30px; }
+    .glow-floor { bottom: 15%; }
+}
+
+/* ---------- Home tweak 9: logo + title at desktop size on phones ---------- */
+@media (max-width: 700px) {
+}
+@media (max-width: 380px) {
+}
+
+/* ---------- Home tweak 9: top logo + title back to desktop size (phones) ---------- */
+@media (max-width: 700px) {
+    .top-bar::before { top: -30px; }
+}
+
+/* ---------- Home tweak 10: slightly smaller card images (laptop / desktop) ---------- */
+@media (min-width: 701px) {
+    .img img { width: 52px; height: 52px; }
 }
 </style>
 </head>
@@ -3650,7 +3814,7 @@ img, svg { max-width: 100%; }
 
         <div class="bottom-bar">
             <div class="search-row">
-                <input id="search" type="text" placeholder="search modules, functions, or categories...">
+                <input id="search" type="text" placeholder="search programming language....">
             </div>
             <div class="cat-row" id="catRow">
                 <div class="cat-btn active" data-cat="all">All</div>
