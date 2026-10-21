@@ -3735,6 +3735,16 @@ img, svg { max-width: 100%; }
     .Text .txt .line1 { font-size: 13px; }
 }
 
+/* ---------- Home tweak 12b: smaller cards, tighter ring (480px phones) ---------- */
+@media (max-width: 480px) {
+    /* 11 cards: R = 1.8 * w gives ~1px gap between neighbours */
+    .inner { --w: 92px; --h: 128px; --translateZ: calc(var(--w) * 1.8); }
+    .card { --cc: 12px; }
+    .img { gap: 10px; }
+    .img img { width: 38px; height: 38px; }
+    .img span { font-size: 10px; letter-spacing: 1px; }
+}
+
 /* ---------- Home tweak 13: smaller cards, tighter ring (380px phones) ---------- */
 @media (max-width: 380px) {
     /* 11 cards: chord = 2 * R * sin(180deg/11) ~ 0.563 * R  ->  R = 1.8 * w gives ~1px gap */
@@ -3743,6 +3753,33 @@ img, svg { max-width: 100%; }
     .img { gap: 8px; }
     .img img { width: 34px; height: 34px; }
     .img span { font-size: 9px; letter-spacing: 0.8px; }
+}
+
+/* ---------- Home tweak 14: smaller card decorations - data tabs + corner nodes (all phones) ---------- */
+@media (max-width: 700px) {
+    .img {
+        background:
+            /* data tab, top edge */
+            linear-gradient(rgb(var(--color-card)) 0 0) right 16px top 5px / 20px 2px no-repeat,
+            linear-gradient(rgb(var(--color-card)) 0 0) right 42px top 5px / 4px 2px no-repeat,
+            /* data tab, bottom edge */
+            linear-gradient(rgb(0, 229, 255) 0 0) left 16px bottom 5px / 20px 2px no-repeat,
+            linear-gradient(rgb(0, 229, 255) 0 0) left 42px bottom 5px / 4px 2px no-repeat,
+            /* corner nodes on the two sharp corners */
+            linear-gradient(rgb(255, 45, 170) 0 0) right 4px top 4px / 4px 4px no-repeat,
+            linear-gradient(rgb(255, 45, 170) 0 0) left 4px bottom 4px / 4px 4px no-repeat,
+            /* moving scan line */
+            linear-gradient(180deg,
+                transparent calc(var(--card-scan) - 8%),
+                rgba(var(--color-card), 0.12) var(--card-scan),
+                transparent calc(var(--card-scan) + 0.8%)),
+            /* static scanlines */
+            repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.22) 0 1px, transparent 1px 3px),
+            /* base */
+            linear-gradient(160deg,
+                rgba(20, 20, 28, 0.9) 0%,
+                rgba(8, 8, 12, 0.95) 100%);
+    }
 }
 </style>
 </head>
@@ -3847,7 +3884,7 @@ img, svg { max-width: 100%; }
 
         <div class="bottom-bar">
             <div class="search-row">
-                <input id="search" type="text" placeholder="search programming language...">
+                <input id="search" type="text" placeholder="search modules, functions, or categories...">
             </div>
             <div class="cat-row" id="catRow">
                 <div class="cat-btn active" data-cat="all">All</div>
