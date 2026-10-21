@@ -3734,6 +3734,16 @@ img, svg { max-width: 100%; }
     .Text .txt .line2 { font-size: 22px; }
     .Text .txt .line1 { font-size: 13px; }
 }
+
+/* ---------- Home tweak 13: smaller cards, tighter ring (380px phones) ---------- */
+@media (max-width: 380px) {
+    /* 11 cards: chord = 2 * R * sin(180deg/11) ~ 0.563 * R  ->  R = 1.8 * w gives ~1px gap */
+    .inner { --w: 82px; --h: 114px; --translateZ: calc(var(--w) * 1.8); }
+    .card { --cc: 11px; }
+    .img { gap: 8px; }
+    .img img { width: 34px; height: 34px; }
+    .img span { font-size: 9px; letter-spacing: 0.8px; }
+}
 </style>
 </head>
 
@@ -3837,7 +3847,7 @@ img, svg { max-width: 100%; }
 
         <div class="bottom-bar">
             <div class="search-row">
-                <input id="search" type="text" placeholder="search modules, functions, or categories...">
+                <input id="search" type="text" placeholder="search programming language...">
             </div>
             <div class="cat-row" id="catRow">
                 <div class="cat-btn active" data-cat="all">All</div>
