@@ -3781,7 +3781,7 @@ img, svg { max-width: 100%; }
                 rgba(8, 8, 12, 0.95) 100%);
     }
 }
-/* ---------- Page loader: gooey blob spinner (shows only if loading is slow) ---------- */
+/* ---------- Page loader: wobbling blob spinner (shows only if loading is slow) ---------- */
 .page-loader {
     position: fixed;
     inset: 0;
@@ -3815,45 +3815,18 @@ img, svg { max-width: 100%; }
 @keyframes loader-in { to { opacity: 1; } }
 
 .blob-spinner {
-    position: relative;
+    display: block;
     width: 96px;
     height: 96px;
-    filter: url(#blob-goo);
-    animation: blob-spin 3.2s linear infinite;
+    overflow: visible;
 }
-.blob-spinner .b {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    border-radius: 50%;
-}
-.blob-spinner .b0 {
-    width: 40px; height: 40px;
-    margin: -20px 0 0 -20px;
-    background: var(--gold);
-    animation: blob-core 1.6s ease-in-out infinite;
-}
-.blob-spinner .b1,
-.blob-spinner .b2,
-.blob-spinner .b3 {
-    width: 24px; height: 24px;
-    margin: -12px 0 0 -12px;
-    animation: blob-orbit 2.4s ease-in-out infinite;
-}
-.blob-spinner .b1 { background: var(--teal);       --a: 0deg; }
-.blob-spinner .b2 { background: var(--cp-magenta); --a: 120deg; animation-delay: -0.8s; }
-.blob-spinner .b3 { background: var(--purple);     --a: 240deg; animation-delay: -1.6s; }
-
-@keyframes blob-spin {
-    to { transform: rotate(360deg); }
-}
-@keyframes blob-core {
-    0%, 100% { transform: scale(1); }
-    50%      { transform: scale(1.25); }
-}
-@keyframes blob-orbit {
-    0%, 100% { transform: rotate(var(--a)) translateX(10px) scale(0.9); }
-    50%      { transform: rotate(var(--a)) translateX(36px) scale(1.15); }
+.blob-spinner path {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linejoin: round;
+    stroke-linecap: round;
+    filter: drop-shadow(0 0 3px);   /* glow in the stroke's own colour */
 }
 
 .page-loader .loader-text {
@@ -3873,32 +3846,14 @@ img, svg { max-width: 100%; }
     .blob-spinner { width: 80px; height: 80px; }
     .page-loader .loader-text { font-size: 12px; letter-spacing: 3px; }
 }
-@media (prefers-reduced-motion: reduce) {
-    .blob-spinner { animation-duration: 8s; }
-    .blob-spinner .b0, .blob-spinner .b1, .blob-spinner .b2, .blob-spinner .b3 { animation-duration: 6s; }
-}
 </style>
 <noscript><style>.page-loader{display:none!important}</style></noscript>
 </head>
 
 <body>
 <div class="page-loader" id="pageLoader" role="status" aria-live="polite" aria-label="Loading">
-    <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
-        <defs>
-            <filter id="blob-goo" x="-20%" y="-20%" width="140%" height="140%">
-                <feGaussianBlur in="SourceGraphic" stdDeviation="7" result="blur"/>
-                <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 20 -9" result="goo"/>
-                <feBlend in="SourceGraphic" in2="goo"/>
-            </filter>
-        </defs>
-    </svg>
     <div class="loader-inner">
-        <div class="blob-spinner" aria-hidden="true">
-            <span class="b b0"></span>
-            <span class="b b1"></span>
-            <span class="b b2"></span>
-            <span class="b b3"></span>
-        </div>
+        <svg class="blob-spinner" viewBox="0 0 96 96" aria-hidden="true" focusable="false"></svg>
         <div class="loader-text">Loading</div>
     </div>
 </div>
@@ -3906,6 +3861,53 @@ img, svg { max-width: 100%; }
 (function () {
     var loader = document.getElementById('pageLoader');
     if (!loader) return;
+
+    /* ---- wobbling outline blob (port of the Tk make_blob) ---- */
+    var NS = 'http://www.w3.org/2000/svg';
+    var svg = loader.querySelector('.blob-spinner');
+    var C = 48;                                   // centre of the 96x96 box
+    var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var k = reduce ? 0.3 : 1;
+
+    function mid(a, b) { return [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2]; }
+    function f(n) { return n.toFixed(2); }
+
+    function makeBlob(color, n, speed, phase) {
+        var path = document.createElementNS(NS, 'path');
+        path.style.color = color;
+        svg.appendChild(path);
+        return function (time) {                  // time in ms
+            var t = time * speed + phase;         // 0.005 rad/ms == Tk's 0.15 per 30ms tick
+            var pts = [];
+            for (var i = 0; i < n; i++) {
+                var th = i * 2 * Math.PI / n;
+                var r = (C - 10) + 5 * Math.sin(th * 3 + t);
+                pts.push([C + r * Math.cos(th), C + r * Math.sin(th)]);
+            }
+            // like Tk smooth=True: points are control points, curve runs through the midpoints
+            var s0 = mid(pts[n - 1], pts[0]);
+            var d = 'M' + f(s0[0]) + ' ' + f(s0[1]);
+            for (var j = 0; j < n; j++) {
+                var p = pts[j], e = mid(p, pts[(j + 1) % n]);
+                d += ' Q' + f(p[0]) + ' ' + f(p[1]) + ' ' + f(e[0]) + ' ' + f(e[1]);
+            }
+            path.setAttribute('d', d + 'Z');
+        };
+    }
+
+    var blobs = [
+        makeBlob('var(--gold)',       8,  0.0050, 0),
+        makeBlob('var(--teal)',       8, -0.0035, 2),
+        makeBlob('var(--cp-magenta)', 8,  0.0025, 4)
+    ];
+    function frame(now) {
+        if (!document.body.contains(loader)) return;   // loader removed -> stop
+        for (var i = 0; i < blobs.length; i++) blobs[i](now * k);
+        requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+
+    /* ---- hide when the page has loaded ---- */
     var done = false;
     function hide() {
         if (done) return;
@@ -4019,7 +4021,7 @@ img, svg { max-width: 100%; }
 
         <div class="bottom-bar">
             <div class="search-row">
-                <input id="search" type="text" placeholder="search modules, functions, or categories...">
+                <input id="search" type="text" placeholder="search programming language...">
             </div>
             <div class="cat-row" id="catRow">
                 <div class="cat-btn active" data-cat="all">All</div>
