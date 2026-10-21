@@ -3711,6 +3711,29 @@ img, svg { max-width: 100%; }
 @media (min-width: 701px) {
     .img img { width: 52px; height: 52px; }
 }
+
+/* ---------- Home tweak 11: smaller logo text, cards closer together (phones) ---------- */
+@media (max-width: 700px) {
+    .rupp-logo .word .line1 { font-size: 15px; }
+    .rupp-logo .word .line2 { font-size: 22px; }
+    .inner { --translateZ: calc(var(--w) * 1.85); }
+}
+@media (max-width: 380px) {
+    .rupp-logo .word .line1 { font-size: 13px; }
+    .rupp-logo .word .line2 { font-size: 19px; }
+}
+
+/* ---------- Home tweak 12: smaller top logo + smaller bottom title (phones) ---------- */
+@media (max-width: 700px) {
+    .rupp-logo .icon-ring, .rupp-logo .rupp-icon { width: 58px; height: 58px; }
+    .Text .txt .line2 { font-size: 26px; }
+    .Text .txt .line1 { font-size: 16px; }
+}
+@media (max-width: 380px) {
+    .rupp-logo .icon-ring, .rupp-logo .rupp-icon { width: 50px; height: 50px; }
+    .Text .txt .line2 { font-size: 22px; }
+    .Text .txt .line1 { font-size: 13px; }
+}
 </style>
 </head>
 
@@ -3814,7 +3837,7 @@ img, svg { max-width: 100%; }
 
         <div class="bottom-bar">
             <div class="search-row">
-                <input id="search" type="text" placeholder="search programming language....">
+                <input id="search" type="text" placeholder="search modules, functions, or categories...">
             </div>
             <div class="cat-row" id="catRow">
                 <div class="cat-btn active" data-cat="all">All</div>
