@@ -3857,71 +3857,6 @@ img, svg { max-width: 100%; }
         <div class="loader-text">Loading</div>
     </div>
 </div>
-<script>
-(function () {
-    var loader = document.getElementById('pageLoader');
-    if (!loader) return;
-
-    /* ---- wobbling outline blob (port of the Tk make_blob) ---- */
-    var NS = 'http://www.w3.org/2000/svg';
-    var svg = loader.querySelector('.blob-spinner');
-    var C = 48;                                   // centre of the 96x96 box
-    var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
-    var k = reduce ? 0.3 : 1;
-
-    function mid(a, b) { return [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2]; }
-    function f(n) { return n.toFixed(2); }
-
-    function makeBlob(color, n, speed, phase) {
-        var path = document.createElementNS(NS, 'path');
-        path.style.color = color;
-        svg.appendChild(path);
-        return function (time) {                  // time in ms
-            var t = time * speed + phase;         // 0.005 rad/ms == Tk's 0.15 per 30ms tick
-            var pts = [];
-            for (var i = 0; i < n; i++) {
-                var th = i * 2 * Math.PI / n;
-                var r = (C - 10) + 5 * Math.sin(th * 3 + t);
-                pts.push([C + r * Math.cos(th), C + r * Math.sin(th)]);
-            }
-            // like Tk smooth=True: points are control points, curve runs through the midpoints
-            var s0 = mid(pts[n - 1], pts[0]);
-            var d = 'M' + f(s0[0]) + ' ' + f(s0[1]);
-            for (var j = 0; j < n; j++) {
-                var p = pts[j], e = mid(p, pts[(j + 1) % n]);
-                d += ' Q' + f(p[0]) + ' ' + f(p[1]) + ' ' + f(e[0]) + ' ' + f(e[1]);
-            }
-            path.setAttribute('d', d + 'Z');
-        };
-    }
-
-    var blobs = [
-        makeBlob('var(--gold)',       8,  0.0050, 0),
-        makeBlob('var(--teal)',       8, -0.0035, 2),
-        makeBlob('var(--cp-magenta)', 8,  0.0025, 4)
-    ];
-    function frame(now) {
-        if (!document.body.contains(loader)) return;   // loader removed -> stop
-        for (var i = 0; i < blobs.length; i++) blobs[i](now * k);
-        requestAnimationFrame(frame);
-    }
-    requestAnimationFrame(frame);
-
-    /* ---- hide when the page has loaded ---- */
-    var done = false;
-    function hide() {
-        if (done) return;
-        done = true;
-        loader.classList.add('is-done');
-        setTimeout(function () { if (loader.parentNode) loader.parentNode.removeChild(loader); }, 700);
-    }
-    if (document.readyState === 'complete') hide();
-    else {
-        window.addEventListener('load', hide);
-        setTimeout(hide, 10000); // never block the page longer than 10s
-    }
-})();
-</script>
     <div class="transition-veil" id="veil"></div>
 
     <div class="top-bar" id="topBar">
@@ -8023,7 +7958,216 @@ print(result)</div>
                         <div class="output-text">[10. 20. 30. 40.]</div>
                     </div>
                 </div>
-
+                <div class="section-h">3 NumPy Mathematical Functions</div>
+                <div class="subsection-h">3.13 np.sign()</div>
+                <div class="khmer-line">np.sign ប្រើសម្រាប់ពិនិត្យ និងបញ្ជាក់ពីសញ្ញាគណិតវិទ្យា (Sign/Indication) នៃធាតុនីមួយៗនៅក្នុង Array ថាតើវាជាលេខវិជ្ជមាន អវិជ្ជមាន ឬសូន្យ។</div>
+                <div class="code-row">
+                    <span class="code-label syntax">Syntax</span>
+                    <span class="code-inline">np.sign(x)</span>
+                </div>
+                <div class="example-output-row">
+                    <div class="example-col">
+                        <span class="code-label example">Example</span>
+                        <div class="code-box">import numpy as np
+a = np.array([-10, 20, -30, 40])
+result = np.fabs(a)
+print(result)</div>
+                    </div>
+                    <div class="output-col">
+                        <span class="code-label output">Output</span>
+                        <div class="output-text">[-1 -1 0 1 1]</div>
+                    </div>
+                </div>
+                <div class="subsection-h">3.14 np.reciprocal</div>
+                <div class="khmer-line">np.reciprocal ប្រើសម្រាប់គណនាតម្លៃចម្រាស (Reciprocal) នៃធាតុនីមួយៗនៅក្នុង Array ពោលគឺគណនារូបមន្ត 1/x។</div>
+                <div class="code-row">
+                    <span class="code-label syntax">Syntax</span>
+                    <span class="code-inline">np.reciprocal(a)</span>
+                </div>
+                <div class="example-output-row">
+                    <div class="example-col">
+                        <span class="code-label example">Example</span>
+                        <div class="code-box">import numpy as np
+a = np.array([1.0, 2.0, 4.0, 5.0])
+result = np.reciprocal(a)
+print(result)</div>
+                    </div>
+                    <div class="output-col">
+                        <span class="code-label output">Output</span>
+                        <div class="output-text">[1. 0.5 0.25 0.2 ]</div>
+                    </div>
+                </div>
+                <div class="subsection-h">3.15 np.sqrt(a)</div>
+                <div class="khmer-line">np.sqrt() សម្រាប់គណនារឹសការ៉េ (Square Root - √x) នៃគ្រប់ធាតុទាំងអស់នៅក្នុង Array ឬចំនួនទោល។ វាគណនាតម្លៃជាលក្ខណៈ Element-wise (គណនាមួយធាតុៗ) និងផ្ដល់លទ្ធផលមកវិញជាប្រភេទ Float។</div>
+                <div class="code-row">
+                    <span class="code-label syntax">Syntax</span>
+                    <span class="code-inline">np.sqrt(a)</span>
+                </div>
+                <div class="example-output-row">
+                    <div class="example-col">
+                        <span class="code-label example">Example</span>
+                        <div class="code-box">import numpy as np
+a = np.array([4, 9, 16, 25])
+result = np.sqrt(a)
+print(result)</div>
+                    </div>
+                    <div class="output-col">
+                        <span class="code-label output">Output</span>
+                        <div class="output-text">[2. 3. 4. 5.]</div>
+                    </div>
+                </div>
+                <div class="subsection-h">3.16 np.cbrt</div>
+                <div class="khmer-line">np.cbrt ប្រើសម្រាប់គណនារឹសទី ៣ (Cube Root) នៃធាតុទាំងអស់នៅក្នុង Array ពោលគឺគណនារូបមន្ត ∛x។</div>
+                <div class="code-row">
+                    <span class="code-label syntax">Syntax</span>
+                    <span class="code-inline">np.cbrt(a)</span>
+                </div>
+                <div class="example-output-row">
+                    <div class="example-col">
+                        <span class="code-label example">Example</span>
+                        <div class="code-box">import numpy as np
+a = np.array([8, 27, 64])
+result = np.cbrt(a)
+print(result)</div>
+                    </div>
+                    <div class="output-col">
+                        <span class="code-label output">Output</span>
+                        <div class="output-text">[2. 3. 4.]</div>
+                    </div>
+                </div>
+                <div class="subsection-h">3.17 np.square</div>
+                <div class="khmer-line">np.square ប្រើសម្រាប់គណនាការ៉េ (Square) នៃធាតុទាំងអស់នៅក្នុង Array ពោលគឺគណនារូបមន្ត x² (គុណតម្លៃនោះនឹងខ្លួនវាផ្ទាល់)។</div>
+                <div class="code-row">
+                    <span class="code-label syntax">Syntax</span>
+                    <span class="code-inline">np.square(a)</span>
+                </div>
+                <div class="example-output-row">
+                    <div class="example-col">
+                        <span class="code-label example">Example</span>
+                        <div class="code-box">import numpy as np
+a = np.array([2, 3, 4, 5])
+result = np.square(a)
+print(result)</div>
+                    </div>
+                    <div class="output-col">
+                        <span class="code-label output">Output</span>
+                        <div class="output-text">[ 4  9 16 25]</div>
+                    </div>
+                </div>
+                <div class="subsection-h">3.18 np.exp(a)</div>
+                <div class="khmer-line">np.exp(a) សម្រាប់គណនាតម្លៃស្វ័យគុណនៃគោល e (Exponential - eᵃ) ទៅលើរាល់ធាតុទាំងអស់ដែលមាននៅក្នុង Array ឬអថេរ a។ តម្លៃ e គឺជាចំនួនថេររបស់អយល័រ (Euler's number) ដែលមានតម្លៃប្រហាក់ប្រហែល 2.71828។</div>
+                <div class="code-row">
+                    <span class="code-label syntax">Syntax</span>
+                    <span class="code-inline">np.exp(a)</span>
+                </div>
+                <div class="example-output-row">
+                    <div class="example-col">
+                        <span class="code-label example">Example</span>
+                        <div class="code-box">import numpy as np
+a = np.array([0, 1, 2, 3])
+result = np.round(np.exp(a), 3)
+print(result)</div>
+                    </div>
+                    <div class="output-col">
+                        <span class="code-label output">Output</span>
+                        <div class="output-text">[ 1.     2.718  7.389 20.086]</div>
+                    </div>
+                </div>
+                <div class="subsection-h">3.19 np.exp2()</div>
+                <div class="khmer-line">np.exp2 ប្រើសម្រាប់គណនាស្វ័យគុណដែលមានគោល ២ (Base-2 Exponential) នៃធាតុទាំងអស់នៅក្នុង Array ពោលគឺគណនារូបមន្ត 2ˣ។</div>
+                <div class="code-row">
+                    <span class="code-label syntax">Syntax</span>
+                    <span class="code-inline">np.exp2(a)</span>
+                </div>
+                <div class="example-output-row">
+                    <div class="example-col">
+                        <span class="code-label example">Example</span>
+                        <div class="code-box">import numpy as np
+a = np.array([1, 2, 3, 4])
+result = np.exp2(a)
+print(result)</div>
+                    </div>
+                    <div class="output-col">
+                        <span class="code-label output">Output</span>
+                        <div class="output-text">[ 2.  4.  8. 16.]</div>
+                    </div>
+                </div>
+                <div class="subsection-h">3.20 np.log()</div>
+                <div class="khmer-line">np.log ប្រើសម្រាប់គណនា ឡូការីតធម្មជាតិ (Natural Logarithm) នៃធាតុទាំងអស់នៅក្នុង Array ពោលគឺគណនារូបមន្ត ln(x) ឬ logₑ(x) ដែលមានគោល e (e ≈ 2.718)។</div>
+                <div class="code-row">
+                    <span class="code-label syntax">Syntax</span>
+                    <span class="code-inline">np.log(a)</span>
+                </div>
+                <div class="example-output-row">
+                    <div class="example-col">
+                        <span class="code-label example">Example</span>
+                        <div class="code-box">import numpy as np
+a = np.array([1, 2, 4, 8])
+result = np.round(np.log(a),3)
+print(result)</div>
+                    </div>
+                    <div class="output-col">
+                        <span class="code-label output">Output</span>
+                        <div class="output-text">[0.    0.693 1.386 2.079]</div>
+                    </div>
+                </div>
+                <div class="subsection-h">3.21 np.log2()</div>
+                <div class="khmer-line">np.log2 ប្រើសម្រាប់គណនា ឡូការីតគោល ២ (Base-2 Logarithm) នៃធាតុទាំងអស់នៅក្នុង Array ពោលគឺគណនារូបមន្ត log₂(x)។</div>
+                <div class="code-row">
+                    <span class="code-label syntax">Syntax</span>
+                    <span class="code-inline">np.log2(a)</span>
+                </div>
+                <div class="example-output-row">
+                    <div class="example-col">
+                        <span class="code-label example">Example</span>
+                        <div class="code-box">import numpy as np
+a = np.array([1, 2, 4, 8, 16])
+result = np.log2(a)
+print(result)</div>
+                    </div>
+                    <div class="output-col">
+                        <span class="code-label output">Output</span>
+                        <div class="output-text">[0. 1. 2. 3. 4.]</div>
+                    </div>
+                </div>
+                <div class="subsection-h">3.22 np.log10()</div>
+                <div class="khmer-line">np.log10 ប្រើសម្រាប់គណនា ឡូការីតគោល ១០ (Base-10 Logarithm) នៃធាតុទាំងអស់នៅក្នុង Array ពោលគឺគណនារូបមន្ត log₁₀(x)។</div>
+                <div class="code-row">
+                    <span class="code-label syntax">Syntax</span>
+                    <span class="code-inline">np.log10(a)</span>
+                </div>
+                <div class="example-output-row">
+                    <div class="example-col">
+                        <span class="code-label example">Example</span>
+                        <div class="code-box">import numpy as np
+a = np.array([1, 10, 100, 1000])
+result = np.log10(a)
+print(result)</div>
+                    </div>
+                    <div class="output-col">
+                        <span class="code-label output">Output</span>
+                        <div class="output-text">[0. 1. 2. 3.]</div>
+                    </div>
+                </div>
+                <div class="subsection-h">3.23 np.log1p()</div>
+                <div class="khmer-line">np.log1p ប្រើសម្រាប់គណនា ឡូការីតធម្មជាតិ (Natural Logarithm) នៃតម្លៃ 1 + x ពោលគឺគណនារូបមន្ត ln(1 + x)។</div>
+                <div class="code-row">
+                    <span class="code-label syntax">Syntax</span>
+                    <span class="code-inline">np.log1p(a)</span>
+                </div>
+                <div class="example-output-row">
+                    <div class="example-col">
+                        <span class="code-label example">Example</span>
+                        <div class="code-box">import numpy as np
+a = np.array([0, 1, 2, 3])
+result = np.round(np.log1p(a),3)
+print(result)</div>
+                    </div>
+                    <div class="output-col">
+                        <span class="code-label output">Output</span>
+                        <div class="output-text">[0.    0.693 1.099 1.386]</div>
+                    </div>
+                </div>
 
 
 
@@ -10464,9 +10608,6 @@ ThisIsAVeryLongWord<wbr>ThatCanBreakHere</div>
                     </div>
                 </div>
 
-
-
-
             </div>
             <!--end page-->
 
@@ -10537,7 +10678,7 @@ ThisIsAVeryLongWord<wbr>ThatCanBreakHere</div>
             
                 <div class="toc-list">
                     <div class="toc-row" style="color:#c23bd8;">
-                        <span class="toc-num">01</span><span class="toc-name">Import sys</span>
+                        <span class="toc-num">01</span><span class="toc-name">Selectors</span>
                         <span class="toc-dots"></span><span class="toc-page" style="color:#5b6bff;">10–25</span>
                     </div>
                     <div class="toc-row" style="color:#9b4dff;">
@@ -10647,7 +10788,7 @@ ThisIsAVeryLongWord<wbr>ThatCanBreakHere</div>
                     </div>
                     <div class="output-col">
                         <span class="code-label output">Output</span>
-                        <img src="1css1.1.png" alt="Universal Selector output" style="max-width:250px;max-height:200px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);box-shadow:0 8px 20px rgba(0,0,0,0.4);">
+                        <img src="1css1.1.png" alt="Universal Selector output" style="max-width:200px;max-height:200px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);box-shadow:0 8px 20px rgba(0,0,0,0.4);">
                     </div>
                 </div>
 
@@ -10680,7 +10821,7 @@ ThisIsAVeryLongWord<wbr>ThatCanBreakHere</div>
                     </div>
                     <div class="output-col">
                         <span class="code-label output">Output</span>
-                        <img src="1css1.2.png" alt="Element Selector output" style="max-width:250px;max-height:200px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);box-shadow:0 8px 20px rgba(0,0,0,0.4);">
+                        <img src="1css1.2.png" alt="Element Selector output" style="max-width:200px;max-height:200px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);box-shadow:0 8px 20px rgba(0,0,0,0.4);">
                     </div>
                 </div>
 
@@ -10713,7 +10854,7 @@ ThisIsAVeryLongWord<wbr>ThatCanBreakHere</div>
                     </div>
                     <div class="output-col">
                         <span class="code-label output">Output</span>
-                        <img src="1css1.3.png" alt="Class Selector output" style="max-width:250px;max-height:200px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);box-shadow:0 8px 20px rgba(0,0,0,0.4);">
+                        <img src="1css1.3.png" alt="Class Selector output" style="max-width:200px;max-height:200px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);box-shadow:0 8px 20px rgba(0,0,0,0.4);">
                     </div>
                 </div>
 
@@ -10756,7 +10897,7 @@ ThisIsAVeryLongWord<wbr>ThatCanBreakHere</div>
                     </div>
                     <div class="output-col">
                         <span class="code-label output">Output</span>
-                        <img src="1css1.4.png" alt="ID Selector output" style="max-width:250px;max-height:200px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);box-shadow:0 8px 20px rgba(0,0,0,0.4);">
+                        <img src="1css1.4.png" alt="ID Selector output" style="max-width:200px;max-height:200px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);box-shadow:0 8px 20px rgba(0,0,0,0.4);">
                     </div>
                 </div>
 
@@ -10790,7 +10931,7 @@ ThisIsAVeryLongWord<wbr>ThatCanBreakHere</div>
                     </div>
                     <div class="output-col">
                         <span class="code-label output">Output</span>
-                        <img src="1css2.1.png" alt="Grouping Selector output" style="max-width:250px;max-height:200px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);box-shadow:0 8px 20px rgba(0,0,0,0.4);">
+                        <img src="1css2.1.png" alt="Grouping Selector output" style="max-width:200px;max-height:200px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);box-shadow:0 8px 20px rgba(0,0,0,0.4);">
                     </div>
                 </div>
 
@@ -10823,7 +10964,7 @@ ThisIsAVeryLongWord<wbr>ThatCanBreakHere</div>
                     </div>
                     <div class="output-col">
                         <span class="code-label output">Output</span>
-                        <img src="1css2.2.png" alt="Descendant Selector output" style="max-width:250px;max-height:200px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);box-shadow:0 8px 20px rgba(0,0,0,0.4);">
+                        <img src="1css2.2.png" alt="Descendant Selector output" style="max-width:200px;max-height:200px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);box-shadow:0 8px 20px rgba(0,0,0,0.4);">
                     </div>
                 </div>
 
@@ -10860,7 +11001,7 @@ ThisIsAVeryLongWord<wbr>ThatCanBreakHere</div>
                     </div>
                     <div class="output-col">
                         <span class="code-label output">Output</span>
-                        <img src="1css2.3.png" alt="Child Selector output" style="max-width:250px;max-height:200px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);box-shadow:0 8px 20px rgba(0,0,0,0.4);">
+                        <img src="1css2.3.png" alt="Child Selector output" style="max-width:200px;max-height:200px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);box-shadow:0 8px 20px rgba(0,0,0,0.4);">
                     </div>
                 </div>
 
@@ -10894,7 +11035,7 @@ ThisIsAVeryLongWord<wbr>ThatCanBreakHere</div>
                     </div>
                     <div class="output-col">
                         <span class="code-label output">Output</span>
-                        <img src="1css2.4.png" alt="Adjacent Sibling Combinator output" style="max-width:250px;max-height:200px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);box-shadow:0 8px 20px rgba(0,0,0,0.4);">
+                        <img src="1css2.4.png" alt="Adjacent Sibling Combinator output" style="max-width:200px;max-height:200px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);box-shadow:0 8px 20px rgba(0,0,0,0.4);">
                     </div>
                 </div>
 
@@ -10932,11 +11073,530 @@ ThisIsAVeryLongWord<wbr>ThatCanBreakHere</div>
                     </div>
                     <div class="output-col">
                         <span class="code-label output">Output</span>
-                        <img src="1css2.5.png" alt="General Sibling Combinator output" style="max-width:250px;max-height:200px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);box-shadow:0 8px 20px rgba(0,0,0,0.4);">
+                        <img src="1css2.5.png" alt="General Sibling Combinator output" style="max-width:200px;max-height:200px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);box-shadow:0 8px 20px rgba(0,0,0,0.4);">
                     </div>
                 </div>
-
-
+                <div class="section-h">3 Attribute Selectors</div>
+                <div class="subsection-h">3.1 [attr]</div>
+                <div class="khmer-line">[attr] គឺជា Attribute Selector (Selector ផ្អែកលើគុណលក្ខណៈ)។ វាត្រូវបានប្រើដើម្បីជ្រើសរើសរាល់ធាតុ HTML ទាំងឡាយណាដែលមានឈ្មោះ Attribute នោះ ដោយមិនខ្វល់ថាវាមានតម្លៃ (Value) អ្វីឡើយ។</div>
+                <div class="code-row">
+                    <span class="code-label syntax">Syntax</span>
+                    <span class="code-inline">[attr]{properties}</span>
+                </div>
+                <div class="example-output-row">
+                    <div class="example-col">
+                        <span class="code-label example">Example</span>
+                        <div class="code-box">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;style&gt;
+    [title] {
+      color: blue;
+      font-size: 20px;
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;p title="Hello"&gt;This paragraph is selected.&lt;/p&gt;
+  &lt;p&gt;This paragraph is NOT selected.&lt;/p&gt;
+  &lt;button title="Click me"&gt;Button is selected.&lt;/button&gt;
+&lt;/body&gt;
+&lt;/html&gt;</div>
+                    </div>
+                    <div class="output-col">
+                        <span class="code-label output">Output</span>
+                        <div class="output-text"><img src="1css3.1.png" style="max-width:200px;max-height: 200px; border-radius:8px; border:1px solid rgba(255,255,255,0.12); box-shadow:0 8px 20px rgba(0,0,0,0.4);"></div>
+                    </div>
+                </div>
+                <div class="subsection-h">3.2 [attr="val"]</div>
+                <div class="khmer-line">[attr="val"] គឺជា Exact Attribute Value Selector។ វាត្រូវបានប្រើដើម្បីជ្រើសរើសរាល់ធាតុ HTML ទាំងឡាយណាដែលមាន Attribute ចំឈ្មោះនោះ ហើយមានតម្លៃ (Value) ដូចបេះបិទទៅនឹងអ្វីដែលបានកំណត់(គិតទាំងអក្សរតូច-ធំ និងដកឃ្លា)។</div>
+                <div class="code-row">
+                    <span class="code-label syntax">Syntax</span>
+                    <span class="code-inline">[attr="val"]{properties}</span>
+                </div>
+                <div class="example-output-row">
+                    <div class="example-col">
+                        <span class="code-label example">Example</span>
+                        <div class="code-box">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;style&gt;
+    input[type="text"] {
+      border: 2px solid blue;
+      padding: 8px;
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;input type="text" placeholder="Name"&gt;
+  &lt;input type="password" placeholder="Password"&gt;
+  &lt;input type="email" placeholder="Email"&gt;
+&lt;/body&gt;
+&lt;/html&gt;</div>
+                    </div>
+                    <div class="output-col">
+                        <span class="code-label output">Output</span>
+                        <div class="output-text"><img src="1css3.2.png" style="max-width:200px;max-height: 200px; border-radius:8px; border:1px solid rgba(255,255,255,0.12); box-shadow:0 8px 20px rgba(0,0,0,0.4);"></div>
+                    </div>
+                </div>
+                <div class="subsection-h">3.3 [attr~="val"]</div>
+                <div class="khmer-line">[attr~="val"] គឺជា Whitespace-separated Attribute Value Selector។ វាត្រូវបានប្រើដើម្បីជ្រើសរើសរាល់ធាតុ HTML ទាំងឡាយណាដែលនៅក្នុង Attribute របស់វា មានពាក្យ (Word) មួយដែលដូចបេះបិទទៅនឹង "val" ដោយពាក្យនោះត្រូវបានញែកចេញពីពាក្យដទៃដោយការដកឃ្លា (Space)។</div>
+                <div class="code-row">
+                    <span class="code-label syntax">Syntax</span>
+                    <span class="code-inline">[attr~="val"]{properties}</span>
+                </div>
+                <div class="example-output-row">
+                    <div class="example-col">
+                        <span class="code-label example">Example</span>
+                        <div class="code-box">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;style&gt;
+    [class~="active"] {
+      color: red;
+      font-weight: bold;
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;p class="active"&gt;Paragraph 1&lt;/p&gt;&lt;br&gt;&lt;br&gt;
+  &lt;p class="active-box"&gt;Paragraph 2&lt;/p&gt;&lt;br&gt;&lt;br&gt;
+  &lt;p class="text active"&gt;Paragraph 3&lt;/p&gt;
+  &lt;p class="text"&gt;Paragraph 4&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</div>
+                    </div>
+                    <div class="output-col">
+                        <span class="code-label output">Output</span>
+                        <div class="output-text"><img src="1css3.3.png" style="max-width:200px;max-height: 200px; border-radius:8px; border:1px solid rgba(255,255,255,0.12); box-shadow:0 8px 20px rgba(0,0,0,0.4);"></div>
+                    </div>
+                </div>
+                <div class="subsection-h">3.4 [attr |="val"]</div>
+                <div class="khmer-line">[attr|="val"] គឺជា Dash-separated Attribute Value Selector។ វាត្រូវបានប្រើដើម្បីជ្រើសរើសរាល់ធាតុ HTML ទាំងឡាយណាដែលតម្លៃ (Value) នៃ Attribute របស់វាគឺជា "val" ចំតែម្តង ឬ ចាប់ផ្តើមដំបូងដោយ "val" ហើយតាមពីក្រោយដោយសញ្ញាគំនូសភ្ជាប់ - (Hyphen)។</div>
+                <div class="code-row">
+                    <span class="code-label syntax">Syntax</span>
+                    <span class="code-inline">[attr |="val"]{properties}</span>
+                </div>
+                <div class="example-output-row">
+                    <div class="example-col">
+                        <span class="code-label example">Example</span>
+                        <div class="code-box">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;style&gt;
+    [lang|="en"] {
+      color: blue;
+      font-size: 20px;
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;p lang="en"&gt;English&lt;/p&gt;
+  &lt;p lang="en-US"&gt;English (US)&lt;/p&gt;
+  &lt;p lang="en-GB"&gt;English (UK)&lt;/p&gt;
+  &lt;p lang="kh"&gt;Khmer&lt;/p&gt;
+  &lt;p lang="english"&gt;Not selected&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</div>
+                    </div>
+                    <div class="output-col">
+                        <span class="code-label output">Output</span>
+                        <div class="output-text"><img src="1css3.4.png" style="max-width:200px;max-height: 200px; border-radius:8px; border:1px solid rgba(255,255,255,0.12); box-shadow:0 8px 20px rgba(0,0,0,0.4);"></div>
+                    </div>
+                </div>
+                <div class="subsection-h">3.5 [attr ^="val"]</div>
+                <div class="khmer-line">[attr^="val"] គឺជា Prefix Attribute Selector (Selector ស្វែងរកបុព្វបទ)។ វាត្រូវបានប្រើដើម្បីជ្រើសរើសរាល់ធាតុ HTML ទាំងឡាយណាដែលតម្លៃ (Value) នៃ Attribute របស់វា ចាប់ផ្តើមដំបូងបង្អស់ដោយចង្កោមអក្សរ "val"។</div>
+                <div class="code-row">
+                    <span class="code-label syntax">Syntax</span>
+                    <span class="code-inline">[attr ^="val"]{properties}</span>
+                </div>
+                <div class="example-output-row">
+                    <div class="example-col">
+                        <span class="code-label example">Example</span>
+                        <div class="code-box">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;style&gt;
+    [href^="https"] {
+      color: rgb(128, 0, 0);
+      font-weight: bold;
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;a href="https://google.com"&gt;Google&lt;/a&gt;
+  &lt;a href="https://youtube.com"&gt;YouTube&lt;/a&gt;
+  &lt;a href="http://example.com"&gt;Example&lt;/a&gt;
+  &lt;a href="www.test.com"&gt;Test&lt;/a&gt;
+&lt;/body&gt;
+&lt;/html&gt;</div>
+                    </div>
+                    <div class="output-col">
+                        <span class="code-label output">Output</span>
+                        <div class="output-text"><img src="1css3.5.png" style="max-width:200px;max-height: 200px; border-radius:8px; border:1px solid rgba(255,255,255,0.12); box-shadow:0 8px 20px rgba(0,0,0,0.4);"></div>
+                    </div>
+                </div>
+                <div class="subsection-h">3.6 [attr $="val"]</div>
+                <div class="khmer-line">[attr$="val"] គឺជា Suffix Attribute Selector (Selector ស្វែងរកបច្ច័យ)។ វាត្រូវបានប្រើដើម្បីជ្រើសរើសរាល់ធាតុ HTML ទាំងឡាយណាដែលតម្លៃ (Value) នៃ Attribute របស់វា បញ្ចប់ទៅដោយចង្កោមអក្សរ "val" ចំចុងក្រោយគេបង្អស់។</div>
+                <div class="code-row">
+                    <span class="code-label syntax">Syntax</span>
+                    <span class="code-inline">[attr $="val"]{properties}</span>
+                </div>
+                <div class="example-output-row">
+                    <div class="example-col">
+                        <span class="code-label example">Example</span>
+                        <div class="code-box">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;style&gt;
+    [href$=".pdf"] {
+      color: red;
+      font-weight: bold;
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;a href="lesson.pdf"&gt;Lesson PDF&lt;/a&gt;
+  &lt;a href="book.pdf"&gt;Book PDF&lt;/a&gt;
+  &lt;a href="image.jpg"&gt;Image&lt;/a&gt;
+  &lt;a href="document.docx"&gt;Document&lt;/a&gt;
+&lt;/body&gt;
+&lt;/html&gt;</div>
+                    </div>
+                    <div class="output-col">
+                        <span class="code-label output">Output</span>
+                        <div class="output-text"><img src="1css3.6.png" style="max-width:200px;max-height: 200px; border-radius:8px; border:1px solid rgba(255,255,255,0.12); box-shadow:0 8px 20px rgba(0,0,0,0.4);"></div>
+                    </div>
+                </div>
+                <div class="subsection-h">3.7 [attr *="val"]</div>
+                <div class="khmer-line">[attr*="val"] គឺជា Substring Attribute Selector (Selector ស្វែងរកផ្នែកខ្លះនៃពាក្យ)។ វាត្រូវបានប្រើដើម្បីជ្រើសរើសរាល់ធាតុ HTML ទាំងឡាយណាដែលតម្លៃ (Value) នៃ Attribute របស់វា មានផ្ទុកចង្កោមអក្សរ "val" នៅកន្លែងណាក៏បាន មិនថានៅខាងដើម ចំកណ្តាល ឬនៅខាងចុងបញ្ចប់ឡើយ។</div>
+                <div class="code-row">
+                    <span class="code-label syntax">Syntax</span>
+                    <span class="code-inline">[attr *="val"]{properties}</span>
+                </div>
+                <div class="example-output-row">
+                    <div class="example-col">
+                        <span class="code-label example">Example</span>
+                        <div class="code-box">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;style&gt;
+    [class*="menu"] {
+      color: blue;
+      font-weight: bold;
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;p class="menu-home"&gt;Home&lt;/p&gt;
+  &lt;p class="main-menu"&gt;Menu&lt;/p&gt;
+  &lt;p class="submenu"&gt;Sub Menu&lt;/p&gt;
+  &lt;p class="content"&gt;Content&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</div>
+                    </div>
+                    <div class="output-col">
+                        <span class="code-label output">Output</span>
+                        <div class="output-text"><img src="1css3.7.png" style="max-width:200px;max-height: 200px; border-radius:8px; border:1px solid rgba(255,255,255,0.12); box-shadow:0 8px 20px rgba(0,0,0,0.4);"></div>
+                    </div>
+                </div>
+                <div class="subsection-h">3.8 [attr="val" i]</div>
+                <div class="khmer-line">[attr="val" i] គឺជា Case-insensitive Attribute Selector។ ការបន្ថែមអក្សរ i (មកពីពាក្យថា insensitive) នៅពីមុខវង់ក្រចកបិទ គឺដើម្បីប្រាប់ CSS ថា មិនបាច់ខ្វល់ ឬគិតអំពីអក្សរតូច ឬអក្សរធំ (Case) ឡើយ នៅពេលប្រៀបធៀបតម្លៃរបស់ Attribute។</div>
+                <div class="code-row">
+                    <span class="code-label syntax">Syntax</span>
+                    <span class="code-inline">[attr *="val" i]{properties}</span>
+                </div>
+                <div class="example-output-row">
+                    <div class="example-col">
+                        <span class="code-label example">Example</span>
+                        <div class="code-box">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;style&gt;
+    [type="text" i] {
+      border: 2px solid blue;
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;input type="text" placeholder="Name"&gt;
+  &lt;input type="TEXT" placeholder="Username"&gt;
+  &lt;input type="TeXt" placeholder="Email"&gt;
+  &lt;input type="password" placeholder="Password"&gt;
+&lt;/body&gt;
+&lt;/html&gt;</div>
+                    </div>
+                    <div class="output-col">
+                        <span class="code-label output">Output</span>
+                        <div class="output-text"><img src="1css3.8.png" style="max-width:200px;max-height: 200px; border-radius:8px; border:1px solid rgba(255,255,255,0.12); box-shadow:0 8px 20px rgba(0,0,0,0.4);"></div>
+                    </div>
+                </div>
+                <div class="section-h">4 Pseudo-classes</div>
+                <div class="subsection-h">4.1 :hover</div>
+                <div class="khmer-line">:hover គឺជា Pseudo-class (ថ្នាក់ក្លែងក្លាយ)។ វាត្រូវបានប្រើដើម្បីដាក់ស្ទីល (Styling) ទៅលើធាតុ HTML ណាមួយ នៅពេលដែលអ្នកប្រើប្រាស់យកកណ្តុរ (Mouse cursor) ទៅដាក់ពីលើ ឬអូសកាត់វា។</div>
+                <div class="code-row">
+                    <span class="code-label syntax">Syntax</span>
+                    <span class="code-inline">selector:hover { properties }</span>
+                </div>
+                <div class="example-output-row">
+                    <div class="example-col">
+                        <span class="code-label example">Example</span>
+                        <div class="code-box">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;style&gt;
+    button {
+      background-color: gray;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+    }
+    button:hover {
+      background-color: blue;
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;button&gt;Move Mouse Here&lt;/button&gt;
+&lt;/body&gt;
+&lt;/html&gt;</div>
+                    </div>
+                    <div class="output-col">
+                        <span class="code-label output">Output</span>
+                        <div class="output-text"><img src="1css4.1.png" style="max-width:250px;max-height: 200px; border-radius:8px; border:1px solid rgba(255,255,255,0.12); box-shadow:0 8px 20px rgba(0,0,0,0.4);"></div>
+                    </div>
+                </div>
+                <div class="subsection-h">4.2 :focus</div>
+                <div class="khmer-line">focus គឺជា Pseudo-class មួយដែលត្រូវបានប្រើដើម្បីដាក់ស្ទីល (Styling) ទៅលើធាតុ HTML ណាមួយ នៅពេលដែលវាត្រូវបានជ្រើសរើស ឬកំពុងទទួលយកការវាយបញ្ចូល (Focused) ពីអ្នកប្រើប្រាស់ mozilla.org។</div>
+                <div class="code-row">
+                    <span class="code-label syntax">Syntax</span>
+                    <span class="code-inline">selector:focus { properties }</span>
+                </div>
+                <div class="example-output-row">
+                    <div class="example-col">
+                        <span class="code-label example">Example</span>
+                        <div class="code-box">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;style&gt;
+    input {
+      padding: 10px;
+      border: 2px solid gray;
+    }
+    input:focus {
+      border: 2px solid blue;
+      outline: none;
+      background-color: lightblue;
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;input type="text" placeholder="Enter your name"&gt;
+&lt;/body&gt;
+&lt;/html&gt;</div>
+                    </div>
+                    <div class="output-col">
+                        <span class="code-label output">Output</span>
+                        <div class="output-text"><img src="1css4.2.png" style="max-width:250px;max-height: 200px; border-radius:8px; border:1px solid rgba(255,255,255,0.12); box-shadow:0 8px 20px rgba(255,255,255,0.4);"></div>
+                    </div>
+                </div>
+                <div class="subsection-h">4.3 :focus-visible</div>
+                <div class="khmer-line">:focus-visible គឺជា Pseudo-class ជំនាន់ថ្មីដែលត្រូវបានបង្កើតឡើងដើម្បីដោះស្រាយបញ្ហាសម្រស់ (Aesthetics) និងលទ្ធភាពប្រើប្រាស់ (Accessibility)។វាដំណើរការស្រដៀងនឹង :focus ដែរ ប៉ុន្តែវាមានភាពឆ្លាតវៃជាង៖ វានឹងបង្ហាញស្ទីល Focus ឡើង តែនៅពេលដែល Browser គិតថាវាចាំបាច់ប៉ុណ្ណោះ (ភាគច្រើនគឺនៅពេលអ្នកប្រើប្រាស់បញ្ជាគេហទំព័រដោយប្រើ Keyboard ដូចជាការចុចគ្រាប់ចុច Tab) mozilla.org។ បើអ្នកប្រើប្រាស់ចុចដោយប្រើ Mouse ឬ ម្រាមដៃ (Touch) នោះស្ទីល Focus នឹងមិនបង្ហាញមកទើសភ្នែកឡើយ ។</div>
+                <div class="code-row">
+                    <span class="code-label syntax">Syntax</span>
+                    <span class="code-inline">selector:focus-visible { properties }</span>
+                </div>
+                <div class="example-output-row">
+                    <div class="example-col">
+                        <span class="code-label example">Example</span>
+                        <div class="code-box">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;style&gt;
+    button {
+      padding: 10px 20px;
+      border: 2px solid gray;
+      background: white;
+    }
+    button:focus-visible {
+      outline: 3px solid blue;
+      outline-offset: 3px;
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;button&gt;Click Me&lt;/button&gt;
+  &lt;button&gt;Next&lt;/button&gt;
+&lt;/body&gt;
+&lt;/html&gt;</div>
+                    </div>
+                    <div class="output-col">
+                        <span class="code-label output">Output</span>
+                        <div class="output-text"><img src="1css4.3.png" style="max-width:250px;max-height: 200px; border-radius:8px; border:1px solid rgba(255,255,255,0.12); box-shadow:0 8px 20px rgba(255,255,255,0.4);"></div>
+                    </div>
+                </div>
+                <div class="subsection-h">4.4 :focus-within</div>
+                <div class="khmer-line">:focus-within គឺជា Pseudo-class មួយដែលត្រូវបានប្រើដើម្បីដាក់ស្ទីល (Styling) ទៅលើធាតុ Parent (ធាតុជាម៉ែឪ ឬប្រអប់ធំខាងក្រៅ) ឱ្យតែមានធាតុក្រោមកូនណាមួយនៅក្នុងនោះទទួលបាន Focus ។</div>
+                <div class="code-row">
+                    <span class="code-label syntax">Syntax</span>
+                    <span class="code-inline">selector:focus-within { properties }</span>
+                </div>
+                <div class="example-output-row">
+                    <div class="example-col">
+                        <span class="code-label example">Example</span>
+                        <div class="code-box">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;style&gt;
+    .form-box {
+      padding: 20px;
+      border: 2px solid gray;
+    }
+    .form-box:focus-within {
+      border-color: blue;
+      background-color: lightblue;
+    }
+    input {
+      padding: 8px;
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;div class="form-box"&gt;
+    &lt;label&gt;Name:&lt;/label&gt;
+    &lt;input type="text" placeholder="Enter your name"&gt;
+  &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</div>
+                    </div>
+                    <div class="output-col">
+                        <span class="code-label output">Output</span>
+                        <div class="output-text"><img src="1css4.4.png" style="max-width:250px;max-height: 200px; border-radius:8px; border:1px solid rgba(255,255,255,0.12); box-shadow:0 8px 20px rgba(255,255,255,0.4);"></div>
+                    </div>
+                </div>
+                <div class="subsection-h">4.5 :active</div>
+                <div class="khmer-line">:active គឺជា Pseudo-class (ថ្នាក់ក្លែងក្លាយ) ដែលត្រូវបានប្រើដើម្បីដាក់ស្ទីល (Styling) ទៅលើធាតុ HTML ណាមួយ នៅក្នុងអំឡុងពេលដែលធាតុនោះកំពុងត្រូវបានចុច ឬសង្កត់ជាប់ (Active) ដោយអ្នកប្រើប្រាស់។</div>
+                <div class="code-row">
+                    <span class="code-label syntax">Syntax</span>
+                    <span class="code-inline">selector:active { properties }</span>
+                </div>
+                <div class="example-output-row">
+                    <div class="example-col">
+                        <span class="code-label example">Example</span>
+                        <div class="code-box">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;style&gt;
+    button {
+      background: black;
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      font-size: 20px;
+      cursor: pointer;
+    }
+    button:active {
+      background: red;
+      transform: scale(0.9);
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;button&gt;Click Me&lt;/button&gt;
+&lt;/body&gt;
+&lt;/html&gt;</div>
+                    </div>
+                    <div class="output-col">
+                        <span class="code-label output">Output</span>
+                        <div class="output-text"><img src="1css4.5.png" style="max-width:250px;max-height: 200px; border-radius:8px; border:1px solid rgba(255,255,255,0.12); box-shadow:0 8px 20px rgba(255,255,255,0.4);"></div>
+                    </div>
+                </div>
+                <div class="subsection-h">4.6 :visited</div>
+                <div class="khmer-line">:visited គឺជា Pseudo-class មួយដែលត្រូវបានប្រើដើម្បីដាក់ស្ទីល (Styling) ទៅលើតំណភ្ជាប់ (&lt;a&gt;) ទាំងឡាយណាដែលអ្នកប្រើប្រាស់ធ្លាប់បានចុច (Click) ចូលទៅមើលរួចហើយ។</div>
+                <div class="code-row">
+                    <span class="code-label syntax">Syntax</span>
+                    <span class="code-inline">selector:visited  { properties }</span>
+                </div>
+                <div class="example-output-row">
+                    <div class="example-col">
+                        <span class="code-label example">Example</span>
+                        <div class="code-box">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;title&gt;:visited Example&lt;/title&gt;
+  &lt;style&gt;
+    a {
+      color: blue;
+      font-size: 20px;
+      text-decoration: none;
+    }
+    a:visited {
+      color: rgb(118, 1, 173);
+    }
+    a:hover {
+      color: red;
+    }
+    a:active {
+      color: green;
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;CSS :visited Example&lt;/h1&gt;
+  &lt;a href="https://www.google.com"&gt;
+    Visit Google
+  &lt;/a&gt;
+&lt;/body&gt;
+&lt;/html&gt;</div>
+                    </div>
+                    <div class="output-col">
+                        <span class="code-label output">Output</span>
+                        <div class="output-text"><img src="1css4.6.png" style="max-width:250px;max-height: 200px; border-radius:8px; border:1px solid rgba(255,255,255,0.12); box-shadow:0 8px 20px rgba(255,255,255,0.4);"></div>
+                    </div>
+                </div>
+                <div class="subsection-h">4.7 :link</div>
+                <div class="khmer-line">:link គឺជា Pseudo-classមួយដែលត្រូវបានប្រើដើម្បីដាក់ស្ទីល (Styling) ទៅលើរាល់តំណភ្ជាប់ (&lt;a&gt;) ទាំងឡាយណាដែលមិនទាន់ត្រូវបានអ្នកប្រើប្រាស់ចុច (Click) ចូលទៅមើលឡើយ។</div>
+                <div class="code-row">
+                    <span class="code-label syntax">Syntax</span>
+                    <span class="code-inline">selector:link  { properties }</span>
+                </div>
+                <div class="example-output-row">
+                    <div class="example-col">
+                        <span class="code-label example">Example</span>
+                        <div class="code-box">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;title&gt;:link Example&lt;/title&gt;
+  &lt;style&gt;
+    a:link {
+      color: blue;
+      font-size: 25px;
+      text-decoration: none;
+    }
+    a:visited {
+      color: purple;
+    }
+    a:hover {
+      color: red;
+    }
+    a:active {
+      color: green;
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;CSS :link Example&lt;/h1&gt;
+  &lt;a href="https://www.google.com"&gt;
+    Visit Google
+  &lt;/a&gt;
+&lt;/body&gt;
+&lt;/html&gt;</div>
+                    </div>
+                    <div class="output-col">
+                        <span class="code-label output">Output</span>
+                        <div class="output-text"><img src="1css4.7.png" style="max-width:200px;max-height: 200px; border-radius:8px; border:1px solid rgba(255,255,255,0.12); box-shadow:0 8px 20px rgba(255,255,255,0.4);"></div>
+                    </div>
+                </div>
 
 
 
@@ -13536,20 +14196,8 @@ Program finished normally.</div>
         </div>
     </div>
 </div>
-
 <!--================================================================================================================================-->
-
-
-
-
-
-
-
 <script>
-
-
-
-
         const searchInput = document.getElementById('search');
         const catButtons = document.querySelectorAll('.cat-btn');
         const cards = document.querySelectorAll('.card');
@@ -13559,7 +14207,6 @@ Program finished normally.</div>
         const topBar = document.getElementById('topBar');
         const lessonViews = document.querySelectorAll('.lesson-view');
 <!--================================================================================================================================-->
-
         // Java TEST button -> Java QCM lesson view
         const javaQcmTestBtn = document.getElementById('java-qcm-test');
         if (javaQcmTestBtn) {
@@ -14985,6 +15632,70 @@ for (let i = 0; i < 4; i++) {
         };
     }
 }
+
+    (function () {
+        var loader = document.getElementById('pageLoader');
+        if (!loader) return;
+
+        /* ---- wobbling outline blob (port of the Tk make_blob) ---- */
+        var NS = 'http://www.w3.org/2000/svg';
+        var svg = loader.querySelector('.blob-spinner');
+        var C = 48;                                   // centre of the 96x96 box
+        var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+        var k = reduce ? 0.3 : 1;
+
+        function mid(a, b) { return [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2]; }
+        function f(n) { return n.toFixed(2); }
+
+        function makeBlob(color, n, speed, phase) {
+            var path = document.createElementNS(NS, 'path');
+            path.style.color = color;
+            svg.appendChild(path);
+            return function (time) {                  // time in ms
+                var t = time * speed + phase;         // 0.005 rad/ms == Tk's 0.15 per 30ms tick
+                var pts = [];
+                for (var i = 0; i < n; i++) {
+                    var th = i * 2 * Math.PI / n;
+                    var r = (C - 10) + 5 * Math.sin(th * 3 + t);
+                    pts.push([C + r * Math.cos(th), C + r * Math.sin(th)]);
+                }
+                // like Tk smooth=True: points are control points, curve runs through the midpoints
+                var s0 = mid(pts[n - 1], pts[0]);
+                var d = 'M' + f(s0[0]) + ' ' + f(s0[1]);
+                for (var j = 0; j < n; j++) {
+                    var p = pts[j], e = mid(p, pts[(j + 1) % n]);
+                    d += ' Q' + f(p[0]) + ' ' + f(p[1]) + ' ' + f(e[0]) + ' ' + f(e[1]);
+                }
+                path.setAttribute('d', d + 'Z');
+            };
+        }
+
+        var blobs = [
+            makeBlob('var(--gold)',       8,  0.0050, 0),
+            makeBlob('var(--teal)',       8, -0.0035, 2),
+            makeBlob('var(--cp-magenta)', 8,  0.0025, 4)
+        ];
+        function frame(now) {
+            if (!document.body.contains(loader)) return;   // loader removed -> stop
+            for (var i = 0; i < blobs.length; i++) blobs[i](now * k);
+            requestAnimationFrame(frame);
+        }
+        requestAnimationFrame(frame);
+
+        /* ---- hide when the page has loaded ---- */
+        var done = false;
+        function hide() {
+            if (done) return;
+            done = true;
+            loader.classList.add('is-done');
+            setTimeout(function () { if (loader.parentNode) loader.parentNode.removeChild(loader); }, 700);
+        }
+        if (document.readyState === 'complete') hide();
+        else {
+            window.addEventListener('load', hide);
+            setTimeout(hide, 10000); // never block the page longer than 10s
+        }
+    })();
 </script>
 </body>
 </html>
