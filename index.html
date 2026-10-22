@@ -1208,13 +1208,13 @@ property --fring {
     pointer-events: none;
     z-index: 2;
     background:
-        conic-gradient(from var(--angle),
+        /* conic-gradient(from var(--angle),
             transparent 0,
             rgba(var(--neon-2), 1) 0.4%,
             rgba(var(--neon-3), 0.85) 8%,
             transparent 42%,
-            transparent 100%),
-        linear-gradient(rgba(var(--neon-3), 0.30) 0 0);      /* static neon line */
+            transparent 100%), */
+        linear-gradient(rgba(var(--theme), 0.80) 0 0);      /* static neon line */
 
     /* ring with cut corners (top-left and bottom-right) */
     clip-path: polygon(evenodd,
@@ -1236,9 +1236,9 @@ property --fring {
     );
 
 
-    animation:
+    /* animation:
         comet        9s linear infinite reverse,
-        cyber-glitch 6s steps(1, end) infinite;
+        cyber-glitch 6s steps(1, end) infinite; */
 
 }
 
@@ -1250,13 +1250,13 @@ property --fring {
     pointer-events: none;
     z-index: 1;
     background:
-        conic-gradient(from var(--angle),
+        /* conic-gradient(from var(--angle),
             transparent 0,
             rgba(var(--neon-2), 1) 0.4%,
             rgba(var(--neon-3), 0.85) 8%,
             transparent 42%,
-            transparent 100%),
-        linear-gradient(rgba(var(--neon-3), 0.30) 0 0);      /* static neon line */
+            transparent 100%), */
+        linear-gradient(rgba(var(--neon-2), 0.80) 0 0);      /* static neon line */
 
     clip-path: polygon(evenodd,
         0 var(--c),
@@ -1276,9 +1276,9 @@ property --fring {
         var(--t) calc(var(--c) + var(--t) * 0.414)
     );
 
-    animation:
+    /* animation:
         comet        9s linear infinite reverse,
-        cyber-glitch 6s steps(1, end) infinite;
+        cyber-glitch 6s steps(1, end) infinite; */
 
 }
 
@@ -1546,7 +1546,7 @@ property --fring {
     padding: 20px 20px;
     gap: 0;
     /* neon top edge: pink, theme, cyan */
-    border-top: 3px solid transparent;
+    border-top: 2px solid transparent;
     border-image: linear-gradient(90deg, rgba(var(--theme),0.8), rgb(var(--theme)) 50%, rgba(var(--theme),0.5)) 0.5;
     background:
         repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.02) 0 1px, transparent 1px 3px),
@@ -13031,18 +13031,14 @@ Your number is 89</div>
 public class Main {
   public static void main(String[] args) {
     Scanner input = new Scanner("Hello Java World");
-    System.out.println(input.next());
-    System.out.println(input.next());
-    System.out.println(input.next());
+    System.out.println(input.nextLine());
     input.close();
   }
 }</div>
                     </div>
                     <div class="output-col">
                         <span class="code-label output">Output</span>
-                        <div class="output-text">Hello
-Java
-World</div>
+                        <div class="output-text">Hello Java World</div>
                     </div>
                 </div>
 
@@ -13428,6 +13424,316 @@ Java
 World</div>
                     </div>
                 </div>
+                <div class="section-h">2 Reading Input</div>
+                <div class="subsection-h">2.1 input.next()</div>
+                <div class="khmer-line">next() គឺជា Method របស់ Scanner ដែលប្រើសម្រាប់អានពាក្យមួយពីទិន្នន័យបញ្ចូល ដោយបញ្ឈប់នៅពេលជួបចន្លោះ (whitespace) ដូចជា Space ឬ Enter។</div>
+                <div class="code-row">
+                    <span class="code-label syntax">Syntax</span>
+                    <span class="code-inline">input.next()</span>
+                </div>
+                <div class="example-output-row">
+                    <div class="example-col">
+                        <span class="code-label example">Example</span>
+                        <div class="code-box">import java.util.Scanner;
+public class Main {
+  public static void main(String[] args) {
+    Scanner input = new Scanner("Hello Java World");
+    System.out.println(input.next());
+    System.out.println(input.next());
+    System.out.println(input.next());
+    input.close();
+  }
+}</div>
+                    </div>
+                    <div class="output-col">
+                        <span class="code-label output">Output</span>
+                        <div class="output-text">Hello
+Java
+World</div>
+                    </div>
+                </div>
+                <div class="subsection-h">2.2 input.next(String pattern)</div>
+                <div class="khmer-line">next(String pattern) គឺជា Method របស់ Scanner ដែលប្រើសម្រាប់អានពាក្យមួយដែលត្រូវគ្នានឹងលំនាំ (Regular Expression) ដែលបានកំណត់ក្នុង pattern។ បើទិន្នន័យមិនត្រូវនឹងលំនាំ វានឹងបង្កើតកំហុស InputMismatchException។</div>
+                <div class="code-row">
+                    <span class="code-label syntax">Syntax</span>
+                    <span class="code-inline">input.next(Pattern pattern)</span>
+                </div>
+                <div class="example-output-row">
+                    <div class="example-col">
+                        <span class="code-label example">Example</span>
+                        <div class="code-box">import java.util.Scanner;
+public class Main {
+  public static void main(String[] args) {
+    Scanner input = new Scanner("123 ABC 456");
+    System.out.println(input.next("\\d+"));
+    System.out.println(input.next("[A-Z]+"));
+    System.out.println(input.next("\\d+"));
+    input.close();
+  }
+}</div>
+                    </div>
+                    <div class="output-col">
+                        <span class="code-label output">Output</span>
+                        <div class="output-text">123
+ABC
+456</div>
+                    </div>
+                </div>
+                <div class="subsection-h">2.3 nextLine()</div>
+                <div class="khmer-line">nextLine() គឺជា Method របស់ Scanner ដែលប្រើសម្រាប់អានអត្ថបទមួយបន្ទាត់ទាំងមូល រួមទាំងចន្លោះ (Spaces) រហូតដល់ចុងបន្ទាត់។</div>
+                <div class="code-row">
+                    <span class="code-label syntax">Syntax</span>
+                    <span class="code-inline">input.nextLine()</span>
+                </div>
+                <div class="example-output-row">
+                    <div class="example-col">
+                        <span class="code-label example">Example</span>
+                        <div class="code-box">import java.util.Scanner;
+public class Main {
+  public static void main(String[] args) {
+    Scanner sc = new Scanner(System.in);
+    System.out.print("Enter your name: ");
+    String name = sc.nextLine();
+    System.out.println("Hello, " + name);
+    sc.close();
+  }
+}</div>
+                    </div>
+                    <div class="output-col">
+                        <span class="code-label output">Output</span>
+                        <div class="output-text">Enter your name: Wei Mo
+Hello, Wei Mo</div>
+                    </div>
+                </div>
+                <div class="subsection-h">2.4 nextInt(int radix)</div>
+                <div class="khmer-line">nextInt(int radix) គឺជា Method របស់ Scanner ដែលប្រើសម្រាប់អានទិន្នន័យប្រភេទចំនួនគត់ (int) ដោយកំណត់ប្រព័ន្ធលេខ (radix) ដែលត្រូវប្រើក្នុងការបកស្រាយតម្លៃ ដូចជា ប្រព័ន្ធគោលពីរ (Binary), គោលប្រាំបី (Octal) និងគោលដប់ប្រាំមួយ (Hexadecimal)។</div>
+                <div class="code-row">
+                    <span class="code-label syntax">Syntax</span>
+                    <span class="code-inline">input.nextInt(int radix)</span>
+                </div>
+                <div class="example-output-row">
+                    <div class="example-col">
+                        <span class="code-label example">Example</span>
+                        <div class="code-box">import java.util.Scanner;
+public class Main {
+  public static void main(String[] args) {
+    Scanner input = new Scanner("1010");
+    int number = input.nextInt(2);
+    System.out.println(number);
+    input.close();
+  }
+}</div>
+                    </div>
+                    <div class="output-col">
+                        <span class="code-label output">Output</span>
+                        <div class="output-text">10</div>
+                    </div>
+                </div>
+                <div class="subsection-h">2.5 nextLong()</div>
+                <div class="khmer-line">nextLong() គឺជា Method របស់ Scanner ដែលប្រើសម្រាប់អានទិន្នន័យប្រភេទចំនួនគត់វែង (long) ពីប្រភពទិន្នន័យបញ្ចូលពី Keyboard។</div>
+                <div class="code-row">
+                    <span class="code-label syntax">Syntax</span>
+                    <span class="code-inline">input.nextLong() || nextLong(int radix)</span>
+                </div>
+                <div class="example-output-row">
+                    <div class="example-col">
+                        <span class="code-label example">Example</span>
+                        <div class="code-box">import java.util.Scanner;
+public class Main {
+  public static void main(String[] args) {
+    Scanner input = new Scanner("Hello Java World");
+    String text = input.nextLine();
+    System.out.println(text);
+    input.close();
+  }
+}</div>
+                    </div>
+                    <div class="output-col">
+                        <span class="code-label output">Output</span>
+                        <div class="output-text">Enter a long number: 093960389
+Your number is 93960389</div>
+                    </div>
+                </div>
+                <div class="subsection-h">2.6 nextShort()</div>
+                <div class="khmer-line">nextShort() គឺជា Method របស់ Scanner ដែលប្រើសម្រាប់អានទិន្នន័យប្រភេទចំនួនគត់ខ្លី (short) ពីប្រភពទិន្នន័យបញ្ចូល ពី Keyboard។</div>
+                <div class="code-row">
+                    <span class="code-label syntax">Syntax</span>
+                    <span class="code-inline">input.nextShort() || nextShort(int radix)</span>
+                </div>
+                <div class="example-output-row">
+                    <div class="example-col">
+                        <span class="code-label example">Example</span>
+                        <div class="code-box">import java.util.Scanner;
+public class Main {
+  public static void main(String[] args) {
+    Scanner input = new Scanner(System.in);
+    System.out.print("Enter a short number: ");
+    short number = input.nextShort();
+    System.out.println("Your number is " + number);
+    input.close();
+  }
+}</div>
+                    </div>
+                    <div class="output-col">
+                        <span class="code-label output">Output</span>
+                        <div class="output-text">Enter a short number: 1256
+Your number is 1256</div>
+                    </div>
+                </div>
+                <div class="subsection-h">2.7 nextByte()</div>
+                <div class="khmer-line">nextByte() គឺជា Method របស់ Scanner ដែលប្រើសម្រាប់អានទិន្នន័យប្រភេទចំនួនគត់ខ្នាតតូច (byte) ពីប្រភពទិន្នន័យបញ្ចូលពី Keyboard។ byte អាចផ្ទុកតម្លៃពី -128 ដល់ 127។</div>
+                <div class="code-row">
+                    <span class="code-label syntax">Syntax</span>
+                    <span class="code-inline">input.nextByte() || nextByte(int radix)</span>
+                </div>
+                <div class="example-output-row">
+                    <div class="example-col">
+                        <span class="code-label example">Example</span>
+                        <div class="code-box">import java.util.Scanner;
+public class Main {
+  public static void main(String[] args) {
+    Scanner input = new Scanner(System.in);
+    System.out.print("Enter a byte number: ");
+    byte number = input.nextByte();
+    System.out.println("Your number is " + number);
+    input.close();
+  }
+}</div>
+                    </div>
+                    <div class="output-col">
+                        <span class="code-label output">Output</span>
+                        <div class="output-text">Enter a byte number: 100
+Your number is 100</div>
+                    </div>
+                </div>
+                <div class="subsection-h">2.8 nextFloat()</div>
+                <div class="khmer-line">nextFloat() គឺជា Method របស់ Scanner ដែលប្រើសម្រាប់អានទិន្នន័យប្រភេទលេខទសភាគ (float) ពីប្រភពទិន្នន័យបញ្ចូល ដូចជា Keyboard។</div>
+                <div class="code-row">
+                    <span class="code-label syntax">Syntax</span>
+                    <span class="code-inline">input.nextFloat()</span>
+                </div>
+                <div class="example-output-row">
+                    <div class="example-col">
+                        <span class="code-label example">Example</span>
+                        <div class="code-box">import java.util.Scanner;
+public class Main {
+  public static void main(String[] args) {
+    Scanner input = new Scanner(System.in);
+    System.out.print("Enter a float number: ");
+    float number = input.nextFloat();
+    System.out.println("Your number is " + number);
+    input.close();
+  }
+}</div>
+                    </div>
+                    <div class="output-col">
+                        <span class="code-label output">Output</span>
+                        <div class="output-text">Enter a float number: 12.5
+Your number is 12.5</div>
+                    </div>
+                </div>
+                <div class="subsection-h">2.9 nextDouble()</div>
+                <div class="khmer-line">nextDouble() គឺជា Method របស់ Scanner ដែលប្រើសម្រាប់អានទិន្នន័យប្រភេទលេខទសភាគ (double) ពីប្រភពទិន្នន័យបញ្ចូល Keyboard។</div>
+                <div class="code-row">
+                    <span class="code-label syntax">Syntax</span>
+                    <span class="code-inline">input.nextFloat()</span>
+                </div>
+                <div class="example-output-row">
+                    <div class="example-col">
+                        <span class="code-label example">Example</span>
+                        <div class="code-box">import java.util.Scanner;
+public class Main {
+  public static void main(String[] args) {
+    Scanner input = new Scanner(System.in);
+    System.out.print("Enter a double number: ");
+    double number = input.nextDouble();
+    System.out.println("Your number is " + number);
+    input.close();
+  }
+}</div>
+                    </div>
+                    <div class="output-col">
+                        <span class="code-label output">Output</span>
+                        <div class="output-text">Enter a double number: 123.456
+Your number is 123.456</div>
+                    </div>
+                </div>
+                <div class="subsection-h">2.11 nextBoolean()</div>
+                <div class="khmer-line">nextBoolean() គឺជា Method របស់ Scanner ដែលប្រើសម្រាប់អានទិន្នន័យប្រភេទ Boolean ដែលមានតម្លៃតែពីរប៉ុណ្ណោះ គឺ true និង false។</div>
+                <div class="code-row">
+                    <span class="code-label syntax">Syntax</span>
+                    <span class="code-inline">input.nextBoolean()</span>
+                </div>
+                <div class="example-output-row">
+                    <div class="example-col">
+                        <span class="code-label example">Example</span>
+                        <div class="code-box">import java.util.Scanner;
+public class Main { 
+  public static void main(String[] args) {
+    Scanner input = new Scanner(System.in);
+    System.out.print("Are you a student? ");
+    boolean student = input.nextBoolean();
+    System.out.println("Student: " + student);
+    input.close();
+  }
+}</div>
+                    </div>
+                    <div class="output-col">
+                        <span class="code-label output">Output</span>
+                        <div class="output-text">Are you a student? true
+Student: true</div>
+                    </div>
+                </div>
+                <div class="section-h">3 Checking Input</div>
+                <div class="khmer-line">Checking Input គឺជាការត្រួតពិនិត្យទិន្នន័យបញ្ចូលដោយប្រើ Method របស់ Scanner ដើម្បីពិនិត្យថា តើទិន្នន័យមាន ឬត្រូវនឹងប្រភេទដែលយើងចង់អានឬអត់។</div>
+                <div class="code-row">
+                    <span class="code-label syntax">Syntax</span>
+                    <span class="code-inline">input.hasNext___()</span>
+                </div>
+                <div class="example-output-row">
+                    <div class="example-col">
+                        <span class="code-label example">Example</span>
+                        <div class="code-box">import java.util.Scanner;
+public class Main {
+  public static void main(String[] args) {
+    Scanner input = new Scanner(System.in);
+    System.out.print("Enter an integer: ");
+    if (input.hasNextInt()) {
+      int number = input.nextInt();
+      System.out.println("Number: " + number);
+    } else {
+      System.out.println("Invalid input!");
+    }
+    input.close();
+  }
+}</div>
+                    </div>
+                    <div class="output-col">
+                        <span class="code-label output">Output</span>
+                        <div class="output-text">Enter an integer: Hello
+Invalid input!</div>
+                    </div>
+                </div>
+                <div class="section-h">4 Searching and Skipping</div>
+                <div class="subsection-h">4.1 findInLine()</div>
+                <div class="khmer-line">findInLine() គឺជា Methods របស់ Scanner ដែលប្រើសម្រាប់ស្វែងរកអត្ថបទដែលត្រូវនឹងលំនាំ (Regular Expression) នៅក្នុងបន្ទាត់បច្ចុប្បន្ន។ វាត្រឡប់អត្ថបទដែលរកឃើញ ឬ null ប្រសិនបើរកមិនឃើញ។</div>
+                <div class="code-row">
+                    <span class="code-label syntax">Syntax</span>
+                    <span class="code-inline">input.findInLine(String pattern)</span>
+                </div>
+                <div class="example-output-row">
+                    <div class="example
+
+
+
+
+
+
+
+
+
+
+
 
 
 
