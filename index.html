@@ -3847,7 +3847,7 @@ img, svg { max-width: 100%; }
     .page-loader .loader-text { font-size: 12px; letter-spacing: 3px; }
 }
 
-/* ---------- Section input (between Page # and →): same look as the page input ---------- */
+/* ---------- Section input (after Page #, before Go): same look as the page input ---------- */
 .section-jump-input {
     width: 80px;
     height: 34px;
@@ -4243,8 +4243,10 @@ Program finished normally.</div>
                 <div class="module-col"></div>
                 <div class="clock-wrap"><div class="time-row time-row-clock"></div></div>
                 <button class="page-nav-btn" data-dir="-1">&larr;</button>
-                <input type="number" class="page-nav-input" min="1" placeholder="Page #">
                 <button class="page-nav-btn" data-dir="1">&rarr;</button>
+                <input type="number" class="page-nav-input" min="1" placeholder="Page #">
+                <!-- SECTION input: edit placeholder / title here -->
+                <input type="text" class="section-jump-input" inputmode="decimal" maxlength="8" autocomplete="off" placeholder="Section #" title="Type a section (2) or subsection (2.1) number, then press Go" aria-label="Section or subsection number">
                 <button class="page-nav-btn" data-dir="0">Go</button>
                 <span class="page-nav-count"></span>
             </div>
@@ -4695,8 +4697,10 @@ Cursor row: 1</div>
                 <div class="module-col"></div>
                 <div class="clock-wrap"><div class="time-row time-row-clock"></div></div>
                 <button class="page-nav-btn" data-dir="-1">&larr;</button>
-                <input type="number" class="page-nav-input" min="1" placeholder="Page #">
                 <button class="page-nav-btn" data-dir="1">&rarr;</button>
+                <input type="number" class="page-nav-input" min="1" placeholder="Page #">
+                <!-- SECTION input: edit placeholder / title here -->
+                <input type="text" class="section-jump-input" inputmode="decimal" maxlength="8" autocomplete="off" placeholder="Section #" title="Type a section (2) or subsection (2.1) number, then press Go" aria-label="Section or subsection number">
                 <button class="page-nav-btn" data-dir="0">Go</button>
                 <span class="page-nav-count"></span>
             </div>
@@ -18837,8 +18841,419 @@ root.mainloop()</div>
                         <div class="output-text"><img src="tk2.30.png" style="max-width:250px;max-height: 200px; border-radius:8px; border:1px solid rgba(255,255,255,0.12); box-shadow:0 8px 20px rgba(0,0,0,0.4);"></div>
                     </div>
                 </div>
-
-
+              <div class="subsection-h">2.31 root.attributes("-topmost",True)</div> 
+              <div class="khmer-line"> 
+ប្រើសម្រាប់កំណត់ឱ្យផ្ទាំង Window អណ្តែតនៅខាងលើគេជានិច្ច (Always on Top)។
+              </div> 
+              <div class="code-row"> 
+                  <span class="code-label syntax">Syntax</span> 
+                  <span class="code-inline">root.attributes("-topmost", True/False)</span> 
+              </div> 
+              <div class="example-output-row"> 
+                  <div class="example-col"> 
+                      <span class="code-label example">Example</span> 
+                      <div class="code-box">import tkinter as tk
+root = tk.Tk()
+root.title("Topmost Window"); 
+root.attributes("-topmost", True)
+tk.Label(root, text="I stay on top 👀").pack(padx=20, pady=20)
+root.mainloop()</div> 
+                  </div> 
+                  <div class="output-col"> 
+                      <span class="code-label output">Output</span> 
+                      <img src="tk2.31.png" alt="Topmost Window" style="max-width:250px;max-height: 200px; border-radius:8px; border:1px solid rgba(0,0,0,0.12); box-shadow:0 8px 20px rgba(0,0,0,0.4);"> 
+                  </div> 
+              </div>
+              <div class="subsection-h">2.32 root.attributes("-alpha",0.9)</div> 
+              <div class="khmer-line"> 
+ប្រើសម្រាប់កំណត់កម្រិតភាពថ្លាឆ្លុះ (Opacity / Transparency) នៃផ្ទាំង Window ទាំងមូល។
+              </div> 
+              <div class="code-row"> 
+                  <span class="code-label syntax">Syntax</span> 
+                  <span class="code-inline">root.attributes("-alpha", num)</span> 
+              </div> 
+              <div class="example-output-row"> 
+                  <div class="example-col"> 
+                      <span class="code-label example">Example</span> 
+                      <div class="code-box">import tkinter as tk
+root = tk.Tk()
+root.title("Transparency Controller")
+def change_alpha(value):
+    root.attributes("-alpha", float(value))
+slider = tk.Scale(root, from_=0.2, to=1.0, resolution=0.1,
+                  orient="horizontal", command=change_alpha)
+slider.set(1.0); slider.pack(padx=20, pady=20)
+tk.Label(root, text="Move slider to change transparency").pack()
+root.mainloop()</div> 
+                  </div> 
+                  <div class="output-col"> 
+                      <span class="code-label output">Output</span> 
+                      <img src="tk2.32.png" alt="Transparency Controller" style="max-width:250px;max-height: 200px; border-radius:8px; border:1px solid rgba(0,0,0,0.12); box-shadow:0 8px 20px rgba(0,0,0,0.4);"> 
+                  </div> 
+              </div>
+              <div class="subsection-h">2.33 root.protocol("WM_DELETE_WINDOW",fn)</div> 
+              <div class="khmer-line"> 
+ប្រើសម្រាប់ចាប់យកព្រឹត្តិការណ៍នៅពេលដែលអ្នកប្រើប្រាស់ចុចប៊ូតុងបិទ (X) នៅលើរបារបង្អួច (Title Bar) ហើយរត់ទៅអនុវត្តអនុគមន៍ fn ជំនួសវិញ។តាមធម្មតា នៅពេលចុចប៊ូតុងបិទ (X) កម្មវិធីនឹងបិទភ្លាមៗ។ ប៉ុន្តែនៅពេលអ្នកប្រើប្រាស់មុខងារនេះ Tkinter នឹងផ្អាកការបិទនោះសិន រួចទៅហៅអនុគមន៍ fn ដែលអ្នកបានកំណត់ ដើម្បីឱ្យអ្នកបញ្ជា ឬសួរនាំមុននឹងបិទពិតប្រាកដ។
+              </div> 
+              <div class="code-row"> 
+                  <span class="code-label syntax">Syntax</span> 
+                  <span class="code-inline">root.protocol("WM_DELETE_WINDOW", name_of_function)</span> 
+              </div> 
+              <div class="example-output-row"> 
+                  <div class="example-col"> 
+                      <span class="code-label example">Example</span> 
+                      <div class="code-box">import tkinter as tk
+from tkinter import messagebox
+root = tk.Tk()
+def on_close():
+    if messagebox.askyesno("Exit", "Do you want to quit?"):
+        root.destroy()
+root.protocol("WM_DELETE_WINDOW", on_close)
+root.mainloop()</div> 
+                  </div> 
+                  <div class="output-col"> 
+                      <span class="code-label output">Output</span> 
+                      <img src="tk2.33.png" alt="Window Close Confirmation" style="max-width:250px;max-height: 200px; border-radius:8px; border:1px solid rgba(0,0,0,0.12); box-shadow:0 8px 20px rgba(0,0,0,0.4);"> 
+                  </div> 
+              </div>
+              <div class="subsection-h">2.34 root.withdraw()</div> 
+              <div class="khmer-line"> 
+ប្រើសម្រាប់លាក់ផ្ទាំង Window ចោលទាំងស្រុងពីលើអេក្រង់ (Hide Window)
+              </div> 
+              <div class="code-row"> 
+                  <span class="code-label syntax">Syntax</span> 
+                  <span class="code-inline">root.withdraw()</span> 
+              </div> 
+              <div class="example-output-row"> 
+                  <div class="example-col"> 
+                      <span class="code-label example">Example</span> 
+                      <div class="code-box">import tkinter as tk
+root = tk.Tk(); root.title("Main Window")
+def open_login(): 
+    root.withdraw()  # Hide main window
+    login = tk.Toplevel()
+    def back(): 
+        login.destroy()
+        root.deiconify()  
+    tk.Label(login, text="Login Window").pack(pady=10)
+    tk.Button(login, text="Back", command=back).pack()
+tk.Button(root, text="Open Login", command=open_login).pack(pady=20)
+root.mainloop()</div> 
+                  </div> 
+                  <div class="output-col"> 
+                      <span class="code-label output">Output</span> 
+                      <img src="tk2.34.png" alt="Hide Main Window and Open Login" style="max-width:250px;max-height: 200px; border-radius:8px; border:1px solid rgba(0,0,0,0.12); box-shadow:0 8px 20px rgba(0,0,0,0.4);"> 
+                  </div> 
+              </div>
+              <div class="subsection-h">2.35 root.deiconify() and root.iconify()</div> 
+              <div class="khmer-line"> 
+ប្រើសម្រាប់លាក់ផ្ទាំង Window ចោលទាំងស្រុងពីលើអេក្រង់ (Hide Window)/ប្រើសម្រាប់បង្រួមផ្ទាំង Window ទម្លាក់ទៅលើរបារ Taskbar របស់កុំព្យូទ័រ (Minimize Window)។
+              </div> 
+              <div class="code-row"> 
+                  <span class="code-label syntax">Syntax</span> 
+                  <span class="code-inline">root.deiconify() <br>root.iconify()</span> 
+              </div> 
+              <div class="example-output-row"> 
+                  <div class="example-col"> 
+                      <span class="code-label example">Example</span> 
+                      <div class="code-box">import tkinter as tk
+root = tk.Tk()
+root.geometry("400x200")
+def minimize():
+    root.iconify()
+def restore():
+    root.deiconify()
+tk.Button(root, text="Minimize", command=minimize).pack(pady=10)
+tk.Button(root, text="Restore", command=restore).pack(pady=10)
+root.mainloop()</div> 
+                  </div> 
+                  <div class="output-col"> 
+                      <span class="code-label output">Output</span> 
+                      <img src="tk2.35.png" alt="Minimize and Restore Window" style="max-width:250px;max-height: 200px; border-radius:8px; border:1px solid rgba(0,0,0,0.12); box-shadow:0 8px 20px rgba(0,0,0,0.4);"> 
+                  </div> 
+              </div>
+              <div class="subsection-h">2.36 root.state()</div> 
+              <div class="khmer-line"> 
+ប្រើសម្រាប់ពិនិត្យមើល ឬកំណត់ស្ថានភាពបង្ហាញរបស់ផ្ទាំង Window (Window State) ។
+              </div> 
+              <div class="code-row"> 
+                  <span class="code-label syntax">Syntax</span> 
+                  <span class="code-inline">root.state("Name_Status")</span> 
+              </div> 
+              <div class="example-output-row"> 
+                  <div class="example-col"> 
+                      <span class="code-label example">Example</span> 
+                      <div class="code-box">import tkinter as tk
+root = tk.Tk()
+root.after(2000, lambda: root.state("iconic"))   
+root.after(2000, lambda: root.state("normal")) 
+root.after(2000, lambda: root.state("zoomed")) 
+root.mainloop()</div> 
+                  </div> 
+                  <div class="output-col"> 
+                      <span class="code-label output">Output</span> 
+                      <img src="tk2.36.png" alt="Window States" style="max-width:250px;max-height: 200px; border-radius:8px; border:1px solid rgba(0,0,0,0.12); box-shadow:0 8px 20px rgba(0,0,0,0.4);"> 
+                  </div> 
+                </div>
+            <div class="section-h">3 Layout</div>
+            <div class="subsection-h">3.1 widget.pack(side=tk.ZONE)</div> 
+            <div class="khmer-line"> 
+ប្រើសម្រាប់កំណត់ទិសដៅ ឬជ្រុងនៃផ្ទាំងបង្អួច (Window/Frame) ដែល Widget ត្រូវរត់ទៅផ្អឹបនៅទីនោះ។
+            </div> 
+            <div class="code-row"> 
+                <span class="code-label syntax">Syntax</span> 
+                <span class="code-inline">widget.pack(side=tk.ZONE)</span> 
+            </div> 
+            <div class="code-row"> 
+                <span class="code-label syntax">Zone</span> 
+                <span class="code-inline">
+tk.LEFT	-> Place against the left side<br>
+tk.RIGHT	-> Place against the right side<br>
+tk.TOP	-> Place against the top side (default)<br>
+tk.BOTTOM	-> Place against the bottom side<br>                 
+                </span> 
+            </div> 
+            <div class="example-output-row"> 
+                <div class="example-col"> 
+                    <span class="code-label example">Example</span> 
+                    <div class="code-box">import tkinter as tk
+root = tk.Tk()
+tk.Button(root, text="Left").pack(side=tk.LEFT)
+tk.Button(root, text="Right").pack(side=tk.RIGHT)
+tk.Button(root, text="Top").pack(side=tk.TOP)
+tk.Button(root, text="Bottom").pack(side=tk.BOTTOM)
+root.mainloop()</div> 
+                </div> 
+                <div class="output-col"> 
+                    <span class="code-label output">Output</span> 
+                    <img src="tk3.1.png" alt="Pack Widget Sides" style="max-width:250px;max-height: 200px; border-radius:8px; border:1px solid rgba(0,0,0,0.12); box-shadow:0 8px 20px rgba(0,0,0,0.4);"> 
+                </div> 
+            </div>
+            <div class="subsection-h">3.2 widget.pack(fill=tk.X/Y)</div> 
+            <div class="khmer-line"> 
+tk.X: ពង្រីក Widget ឱ្យលាតសន្ធឹងពេញជួរដេក (Horizontally)។ <br> tk.Y: ពង្រីក Widget ឱ្យលាតសន្ធឹងពេញជួរឈរ (Vertically)។
+            </div> 
+            <div class="code-row"> 
+                <span class="code-label syntax">Syntax</span> 
+                <span class="code-inline">widget.pack(fill="x")<br>widget.pack(fill=tk.X)</span> 
+            </div> 
+            <div class="example-output-row"> 
+                <div class="example-col"> 
+                    <span class="code-label example">Example</span> 
+                    <div class="code-box">import tkinter as tk
+root = tk.Tk()
+tk.Label(root, text="Name").pack(fill=tk.X)
+tk.Entry(root).pack(fill=tk.Y)
+tk.Button(root, text="Submit",bg="lightgreen").pack(fill=tk.X)
+root.mainloop()</div> 
+                </div> 
+                <div class="output-col"> 
+                    <span class="code-label output">Output</span> 
+                    <img src="tk3.2.png" alt="Pack Fill X and Y" style="max-width:250px;max-height: 200px; border-radius:8px; border:1px solid rgba(0,0,0,0.12); box-shadow:0 8px 20px rgba(0,0,0,0.4);"> 
+                </div> 
+            </div>
+            <div class="subsection-h">3.3 widget.pack(fill=tk.BOTH/NONE/expand=True)</div> 
+            <div class="khmer-line"> 
+ត្រូវបានប្រើសម្រាប់កំណត់ថាតើ Widget ត្រូវពង្រីកខ្លួនឱ្យពេញផ្ទៃទំនេរ ឬរក្សាទំហំដើមដដែល BOTH (ពង្រីកពេញផ្ទៃទាំងស្រុង)/NONE (រក្សាទំហំដើម - មិនពង្រីក)។
+            </div> 
+            <div class="code-row"> 
+                <span class="code-label syntax">Syntax</span> 
+                <span class="code-inline">widget.pack(fill=tk.BOTH, expand=True) || widget.pack(fill="both", expand=True)</span> 
+            </div> 
+            <div class="example-output-row"> 
+                <div class="example-col"> 
+                    <span class="code-label example">Example</span> 
+                    <div class="code-box">import tkinter as tk
+root = tk.Tk()
+root.geometry("400x300")
+tk.Label(root, text="NONE (default)").pack()
+tk.Button(root, text="Button 1").pack(fill=tk.NONE)
+tk.Label(root, text="BOTH").pack()
+tk.Button(root, text="Button 2").pack(fill=tk.BOTH)
+root.mainloop()</div> 
+                </div> 
+                <div class="output-col"> 
+                    <span class="code-label output">Output</span> 
+                    <img src="tk3.3.png" alt="Pack Fill Both and None" style="max-width:250px;max-height: 200px; border-radius:8px; border:1px solid rgba(0,0,0,0.12); box-shadow:0 8px 20px rgba(0,0,0,0.4);"> 
+                </div> 
+            </div>
+            <div class="subsection-h">3.4 widget.pack(padx=x,pady=y)</div> 
+            <div class="khmer-line"> 
+ប្រើសម្រាប់បង្កើតចន្លោះគម្លាត ឬដកឃ្លាខាងក្រៅ (External Padding) ជុំវិញ Widget នោះ ដើម្បីកុំឱ្យវាស្ថិតនៅផ្អឹបគ្នាជិតពេកជាមួយ Widget ផ្សេងទៀត ឬផ្អឹបនឹងគែមនៃផ្ទាំងបង្អួច។
+padx=10: បង្កើតគម្លាតខាងក្រៅផ្នែកខាងឆ្វេង និងខាងស្តាំ (ជួរដេក / Horizontal)
+pady=5: បង្កើតគម្លាតខាងក្រៅផ្នែកខាងលើ និងខាងក្រោម (ជួរឈរ / Vertical) ចំនួន 5 ភីកសែល (Pixels)
+            </div> 
+            <div class="code-row"> 
+                <span class="code-label syntax">Syntax</span> 
+                <span class="code-inline">widget.pack(padx=(x1, x2))<br>widget.pack(pady=(y1, y2))</span> 
+            </div> 
+            <div class="example-output-row"> 
+                <div class="example-col"> 
+                    <span class="code-label example">Example</span> 
+                    <div class="code-box">import tkinter as tk
+root = tk.Tk()
+tk.Button(root,text="Button 0").pack(padx=(10, 20),pady=(5, 15))
+tk.Button(root, text="Button 1").pack(padx=10, pady=5)
+tk.Button(root, text="Button 2").pack(padx=10, pady=10)
+tk.Button(root, text="Button 3").pack(padx=10, pady=15)
+root.mainloop()</div> 
+                </div> 
+                <div class="output-col"> 
+                    <span class="code-label output">Output</span> 
+                    <img src="tk3.4.png" alt="Pack External Padding" style="max-width:250px;max-height: 200px; border-radius:8px; border:1px solid rgba(0,0,0,0.12); box-shadow:0 8px 20px rgba(0,0,0,0.4);"> 
+                </div> 
+            </div>
+            <div class="subsection-h">3.5 widget.pack(ipadx=x,ipady=y)</div> 
+            <div class="khmer-line"> 
+ប្រើសម្រាប់បង្កើតចន្លោះគម្លាត ឬដកឃ្លាសាច់ខាងក្នុង (Internal Padding) របស់ Widget នោះ វាមានតួនាទីធ្វើឱ្យទំហំសាច់របស់ Widget នោះរីកធំធាត់ធំជាងមុន ដោយសារតែវាបន្ថែមផ្ទៃដីពីខាងក្នុង ចេញពីអក្សរ ឬរូបភាពទៅកាន់គែមបង្អួចរបស់ Widget ខ្លួនឯង។
+            </div> 
+            <div class="code-row"> 
+                <span class="code-label syntax">Syntax</span> 
+                <span class="code-inline">widget.pack(ipadx=x,ipady=y)</span> 
+            </div> 
+            <div class="example-output-row"> 
+                <div class="example-col"> 
+                    <span class="code-label example">Example</span> 
+                    <div class="code-box">import tkinter as tk
+root = tk.Tk()
+tk.Button(root,text="Button",bd=5).pack(
+padx=20,pady=10,ipadx=20,ipady=10)
+root.mainloop()</div> 
+                </div> 
+                <div class="output-col"> 
+                    <span class="code-label output">Output</span> 
+                    <img src="tk3.5.png" alt="Pack Internal Padding" style="max-width:250px;max-height: 200px; border-radius:8px; border:1px solid rgba(0,0,0,0.12); box-shadow:0 8px 20px rgba(0,0,0,0.4);"> 
+                </div> 
+            </div>
+            <div class="subsection-h">3.6 widget.pack(anchor=tk.NW)</div> 
+            <div class="khmer-line"> 
+ប្រើសម្រាប់តម្រឹម ឬរុញ Widget ទៅដាក់នៅជ្រុងខាងលើឆ្វេងបង្អស់ (North-West) នៃផ្ទៃដីទំនេររបស់វា។ ពាក្យថា Anchor មានន័យថា "យុថ្កា" ដែលប្រើសម្រាប់បោះទីតាំងឱ្យ Widget ទៅផ្អឹបនៅតាមទិសដៅរបស់ត្រីវិស័យ។
+            </div> 
+            <div class="code-row"> 
+                <span class="code-label syntax">Syntax</span> 
+                <span class="code-inline">widget.pack(anchor=tk.Position)</span> 
+            </div> 
+            <div class="code-row"> 
+                <span class="code-label syntax">Anchor</span> 
+                <span class="code-inline">tk.NW  -> Place against the north-west (top-left) side<br>
+tk.N  -> Place against the north (top) side<br>
+tk.NE  -> Place against the north-east (top-right) side<br>
+tk.W  -> Place against the west (left) side<br>
+tk.CENTER  -> Place at the center<br>
+tk.E  -> Place against the east (right) side<br>
+tk.SW  -> Place against the south-west (bottom-left) side<br>
+tk.S  -> Place against the south (bottom) side<br>
+tk.SE -> Place against the south-east (bottom-right) side</span> 
+            </div>                 
+            <div class="example-output-row"> 
+                <div class="example-col"> 
+                    <span class="code-label example">Example</span> 
+                    <div class="code-box">import tkinter as tk
+root = tk.Tk()
+root.geometry("300x200")
+tk.Button(root,text="Top Left").pack(anchor=tk.NW)
+root.mainloop()</div> 
+                </div> 
+                <div class="output-col"> 
+                    <span class="code-label output">Output</span> 
+                    <img src="tk3.6.png" alt="Pack Anchor North West" style="max-width:250px;max-height: 200px; border-radius:8px; border:1px solid rgba(0,0,0,0.12); box-shadow:0 8px 20px rgba(0,0,0,0.4);"> 
+                </div> 
+            </div>
+            <div class="subsection-h">3.7 widget.pack_forget()</div> 
+            <div class="khmer-line"> 
+ត្រូវបានប្រើសម្រាប់លាក់ ឬដក Widget នោះចេញពីលើអេក្រង់ជាបណ្តោះអាសន្ន
+            </div> 
+            <div class="code-row"> 
+                <span class="code-label syntax">Syntax</span> 
+                <span class="code-inline">widget.pack_forget()</span> 
+            </div> 
+            <div class="example-output-row"> 
+                <div class="example-col"> 
+                    <span class="code-label example">Example</span> 
+                    <div class="code-box">import tkinter as tk
+root = tk.Tk()
+btn = tk.Button(root, text="Hide Me")
+btn.pack()
+def hide(): 
+btn.pack_forget()
+tk.Button(root, text="Hide Button", command=hide).pack()
+root.mainloop()</div> 
+                </div> 
+                <div class="output-col"> 
+                    <span class="code-label output">Output</span> 
+                    <img src="tk3.7.png" alt="Pack Forget Widget" style="max-width:250px;max-height: 200px; border-radius:8px; border:1px solid rgba(0,0,0,0.12); box-shadow:0 8px 20px rgba(0,0,0,0.4);"> 
+                </div> 
+            </div>
+            <div class="subsection-h">3.8 widget.pack_info()</div> 
+            <div class="khmer-line"> 
+ប្រើសម្រាប់ទាញយកព័ត៌មាន និងការកំណត់ (Configuration Parameters) ទាំងអស់របស់ Widget នោះ ដែលកំពុងត្រូវបានគ្រប់គ្រងដោយ pack Geometry Manager ។
+            </div> 
+            <div class="code-row"> 
+                <span class="code-label syntax">Syntax</span> 
+                <span class="code-inline">widget.pack_info()</span> 
+            </div> 
+            <div class="example-output-row"> 
+                <div class="example-col"> 
+                    <span class="code-label example">Example</span> 
+                    <div class="code-box">import tkinter as tk
+root = tk.Tk()
+btn = tk.Button(root, text="Hello")
+btn.pack(side=tk.LEFT, padx=10, pady=5)
+print(btn.pack_info())
+root.mainloop()</div> 
+                </div> 
+                <div class="output-col"> 
+                    <span class="code-label output">Output</span> 
+                    <img src="tk3.8.png" alt="Pack Info Output" style="max-width:250px;max-height: 200px; border-radius:8px; border:1px solid rgba(0,0,0,0.12); box-shadow:0 8px 20px rgba(0,0,0,0.4);"> 
+                </div> 
+            </div>
+            <div class="subsection-h">3.9 widget.grid(row=0,column=0)</div> 
+            <div class="khmer-line"> 
+ប្រើសម្រាប់រៀបចំទីតាំងរបស់ Widget ឱ្យស្ថិតនៅក្នុងទម្រង់ជាតារាង ឬក្រឡាចត្រង្គ (Grid Layout) ដោយកំណត់ចំជួរដេកទី ០ (row=0) និងជួរឈរទី ០ (column=0) ។
+            </div> 
+            <div class="code-row"> 
+                <span class="code-label syntax">Syntax</span> 
+                <span class="code-inline">widget.grid(row=r,column=c)</span> 
+            </div> 
+            <div class="example-output-row"> 
+                <div class="example-col"> 
+                    <span class="code-label example">Example</span> 
+                    <div class="code-box">import tkinter as tk
+root = tk.Tk()
+tk.Label(root, text="Name:").grid(row=0, column=0)
+tk.Entry(root).grid(row=0, column=1)
+root.mainloop()</div> 
+                </div> 
+                <div class="output-col"> 
+                    <span class="code-label output">Output</span> 
+                    <img src="tk3.9.png" alt="Grid Layout" style="max-width:250px;max-height: 200px; border-radius:8px; border:1px solid rgba(0,0,0,0.12); box-shadow:0 8px 20px rgba(0,0,0,0.4);"> 
+                </div> 
+            </div>
+            <div class="subsection-h">3.10 widget.grid(columnspan=n)</div> 
+            <div class="khmer-line"> 
+ប្រើសម្រាប់រួមបញ្ចូល ឬពង្រីកក្រឡារបស់ Widget ឱ្យលាតសន្ធឹងកាត់ទទឹងជួរឈរ (Columns) ចំនួន n ក្រឡា ។ វាមានមុខងារដូចគ្នាបេះបិទទៅនឹងការប្រើប្រាស់ "Merge Cells" នៅក្នុងកម្មវិធី Microsoft Excel ដែរ ។
+            </div> 
+            <div class="code-row"> 
+                <span class="code-label syntax">Syntax</span> 
+                <span class="code-inline">widget.grid(row=r, column=c, columnspan=N)</span> 
+            </div> 
+            <div class="example-output-row"> 
+                <div class="example-col"> 
+                    <span class="code-label example">Example</span> 
+                    <div class="code-box">import tkinter as tk
+root = tk.Tk()
+tk.Label(root, text="Username").grid(row=0, column=0)
+tk.Entry(root).grid(row=0, column=1)
+tk.Label(root, text="Password").grid(row=1, column=0)
+tk.Entry(root, show="*").grid(row=1, column=1)
+tk.Button(root, text="Login").grid(row=2,column=0,columnspan=2)
+root.mainloop()</div> 
+                </div> 
+                <div class="output-col"> 
+                    <span class="code-label output">Output</span> 
+                    <img src="tk3.10.png" alt="Grid Column Span" style="max-width:250px;max-height: 200px; border-radius:8px; border:1px solid rgba(0,0,0,0.12); box-shadow:0 8px 20px rgba(0,0,0,0.4);"> 
+                </div> 
+            </div>
 
 
 
@@ -19182,8 +19597,10 @@ sys.stdout.write("Hello, world!\n")</div>
                 <div class="module-col"></div>
                 <div class="clock-wrap"><div class="time-row time-row-clock"></div></div>
                 <button class="page-nav-btn" data-dir="-1">&larr;</button>
-                <input type="number" class="page-nav-input" min="1" placeholder="Page #">
                 <button class="page-nav-btn" data-dir="1">&rarr;</button>
+                <input type="number" class="page-nav-input" min="1" placeholder="Page #">
+                <!-- SECTION input: edit placeholder / title here -->
+                <input type="text" class="section-jump-input" inputmode="decimal" maxlength="8" autocomplete="off" placeholder="Section #" title="Type a section (2) or subsection (2.1) number, then press Go" aria-label="Section or subsection number">
                 <button class="page-nav-btn" data-dir="0">Go</button>
                 <span class="page-nav-count"></span>
             </div>
@@ -20386,8 +20803,10 @@ ThisIsAVeryLongWord<wbr>ThatCanBreakHere</div>
                 <div class="module-col"></div>
                 <div class="clock-wrap"><div class="time-row time-row-clock"></div></div>
                 <button class="page-nav-btn" data-dir="-1">&larr;</button>
-                <input type="number" class="page-nav-input" min="1" placeholder="Page #">
                 <button class="page-nav-btn" data-dir="1">&rarr;</button>
+                <input type="number" class="page-nav-input" min="1" placeholder="Page #">
+                <!-- SECTION input: edit placeholder / title here -->
+                <input type="text" class="section-jump-input" inputmode="decimal" maxlength="8" autocomplete="off" placeholder="Section #" title="Type a section (2) or subsection (2.1) number, then press Go" aria-label="Section or subsection number">
                 <button class="page-nav-btn" data-dir="0">Go</button>
                 <span class="page-nav-count"></span>
             </div>
@@ -21862,8 +22281,10 @@ Program finished normally.</div>
                 <div class="module-col"></div>
                 <div class="clock-wrap"><div class="time-row time-row-clock"></div></div>
                 <button class="page-nav-btn" data-dir="-1">&larr;</button>
-                <input type="number" class="page-nav-input" min="1" placeholder="Page #">
                 <button class="page-nav-btn" data-dir="1">&rarr;</button>
+                <input type="number" class="page-nav-input" min="1" placeholder="Page #">
+                <!-- SECTION input: edit placeholder / title here -->
+                <input type="text" class="section-jump-input" inputmode="decimal" maxlength="8" autocomplete="off" placeholder="Section #" title="Type a section (2) or subsection (2.1) number, then press Go" aria-label="Section or subsection number">
                 <button class="page-nav-btn" data-dir="0">Go</button>
                 <span class="page-nav-count"></span>
             </div>
@@ -22902,8 +23323,10 @@ c = +5.50000</div>
                 <div class="module-col"></div>
                 <div class="clock-wrap"><div class="time-row time-row-clock"></div></div>
                 <button class="page-nav-btn" data-dir="-1">&larr;</button>
-                <input type="number" class="page-nav-input" min="1" placeholder="Page #">
                 <button class="page-nav-btn" data-dir="1">&rarr;</button>
+                <input type="number" class="page-nav-input" min="1" placeholder="Page #">
+                <!-- SECTION input: edit placeholder / title here -->
+                <input type="text" class="section-jump-input" inputmode="decimal" maxlength="8" autocomplete="off" placeholder="Section #" title="Type a section (2) or subsection (2.1) number, then press Go" aria-label="Section or subsection number">
                 <button class="page-nav-btn" data-dir="0">Go</button>
                 <span class="page-nav-count"></span>
             </div>
@@ -23092,8 +23515,10 @@ Address: 0x7ffee3a1c05c</div>
                 <button class="page-nav-btn" id="c-qcm-test">Test &rarr;</button>
                 <div class="module-col"></div>
                 <button class="page-nav-btn" data-dir="-1">&larr;</button>
-                <input type="number" class="page-nav-input" min="1" placeholder="Page #">
                 <button class="page-nav-btn" data-dir="1">&rarr;</button>
+                <input type="number" class="page-nav-input" min="1" placeholder="Page #">
+                <!-- SECTION input: edit placeholder / title here -->
+                <input type="text" class="section-jump-input" inputmode="decimal" maxlength="8" autocomplete="off" placeholder="Section #" title="Type a section (2) or subsection (2.1) number, then press Go" aria-label="Section or subsection number">
                 <button class="page-nav-btn" data-dir="0">Go</button>
                 <span class="page-nav-count"></span>
             </div>
@@ -29262,217 +29687,230 @@ public class Main {
 						<div class="output-text">2</div>
 					</div>
 				</div>
-                <div class="section-h">9 CAPACITY</div>
-
-                <div class="subsection-h">9.1 ensureCapacity(minCapacity)</div>
-                <div class="khmer-line">ប្រើដើម្បីធានាថា ArrayList មាន capacity យ៉ាងតិចតាមចំនួនដែលបានកំណត់ ដើម្បីកាត់បន្ថយការពង្រីក memory ពេលបន្ថែមធាតុ។</div>
-                <div class="code-label">syntax</div>
-                <div class="code-box">list.ensureCapacity(minCapacity);</div>
-                <div class="example-output">
-                    <div>
-                        <div class="code-label">example</div>
-                        <div class="code-box">import java.util.ArrayList;
+            <div class="section-h">9 CAPACITY</div>
+            <div class="subsection-h">9.1 list.ensureCapacity(minCapacity)</div>
+            <div class="khmer-line">កំណត់ទំហំផ្ទុកជាមុន ដើម្បីកាត់បន្ថយការពង្រីក ArrayList នៅពេលបន្ថែមធាតុច្រើន។</div>
+            <div class="code-row">
+                <span class="code-label syntax">Syntax</span>
+                <span class="code-inline">list.ensureCapacity(minCapacity);</span>
+            </div>
+            <div class="example-output-row">
+                <div class="example-col">
+                    <span class="code-label example">Example</span>
+                    <div class="code-box">import java.util.ArrayList;
 public class Main {
     public static void main(String[] args) {
         ArrayList&lt;String&gt; list = new ArrayList&lt;&gt;();
         list.ensureCapacity(100);
-        list.add("Java");
+        list.add("A");
+        list.add("B");
         System.out.println(list);
     }
 }</div>
-                    </div>
-                    <div>
-                        <div class="code-label">output</div>
-                        <div class="code-box">[Java]</div>
-                    </div>
                 </div>
-
-                <div class="subsection-h">9.2 trimToSize()</div>
-                <div class="khmer-line">ប្រើដើម្បីកាត់បន្ថយ capacity របស់ ArrayList ឱ្យសមនឹងចំនួនធាតុបច្ចុប្បន្ន។</div>
-                <div class="code-label">syntax</div>
-                <div class="code-box">list.trimToSize();</div>
-                <div class="example-output">
-                    <div>
-                        <div class="code-label">example</div>
-                        <div class="code-box">import java.util.ArrayList;
-public class Main {
-    public static void main(String[] args) {
-        ArrayList&lt;String&gt; list = new ArrayList&lt;&gt;(100);
-        list.add("Java");
-        list.add("Python");
-        list.trimToSize();
-        System.out.println(list.size());
-    }
-}</div>
-                    </div>
-                    <div>
-                        <div class="code-label">output</div>
-                        <div class="code-box">2</div>
-                    </div>
+                <div class="output-col">
+                    <span class="code-label output">Output</span>
+                    <div class="output-text">[A, B]</div>
                 </div>
+            </div>
 
-                <div class="section-h">10 COPY</div>
-
-                <div class="subsection-h">10.1 clone()</div>
-                <div class="khmer-line">ប្រើដើម្បីបង្កើតច្បាប់ចម្លង (shallow copy) របស់ ArrayList។ វាចម្លងបញ្ជី ប៉ុន្តែមិនចម្លង Object ដែលនៅខាងក្នុងទេ។</div>
-                <div class="code-label">syntax</div>
-                <div class="code-box">Object copy = list.clone();</div>
-                <div class="example-output">
-                    <div>
-                        <div class="code-label">example</div>
-                        <div class="code-box">import java.util.ArrayList;
+            <div class="subsection-h">9.2 list.trimToSize()</div>
+            <div class="khmer-line">កាត់បន្ថយទំហំផ្ទុកខាងក្នុងរបស់ ArrayList ឱ្យសមនឹងចំនួនធាតុបច្ចុប្បន្ន។</div>
+            <div class="code-row">
+                <span class="code-label syntax">Syntax</span>
+                <span class="code-inline">list.trimToSize();</span>
+            </div>
+            <div class="example-output-row">
+                <div class="example-col">
+                    <span class="code-label example">Example</span>
+                    <div class="code-box">import java.util.ArrayList;
 public class Main {
     public static void main(String[] args) {
         ArrayList&lt;String&gt; list = new ArrayList&lt;&gt;();
-        list.add("Java");
+        list.add("A");
+        list.add("B");
+        list.trimToSize();
+        System.out.println(list);
+    }
+}</div>
+                </div>
+                <div class="output-col">
+                    <span class="code-label output">Output</span>
+                    <div class="output-text">[A, B]</div>
+                </div>
+            </div>
+
+            <div class="section-h">10 COPY</div>
+            <div class="subsection-h">10.1 list.clone()</div>
+            <div class="khmer-line">បង្កើតច្បាប់ចម្លងរាក់ (shallow copy) របស់ ArrayList ហើយត្រឡប់តម្លៃជាប្រភេទ Object។</div>
+            <div class="code-row">
+                <span class="code-label syntax">Syntax</span>
+                <span class="code-inline">ArrayList&lt;String&gt; copy = (ArrayList&lt;String&gt;) list.clone();</span>
+            </div>
+            <div class="example-output-row">
+                <div class="example-col">
+                    <span class="code-label example">Example</span>
+                    <div class="code-box">import java.util.ArrayList;
+public class Main {
+    public static void main(String[] args) {
+        ArrayList&lt;String&gt; list = new ArrayList&lt;&gt;();
+        list.add("A");
+        list.add("B");
         ArrayList&lt;String&gt; copy =
             (ArrayList&lt;String&gt;) list.clone();
-        copy.add("Python");
+        copy.add("C");
         System.out.println(list);
         System.out.println(copy);
     }
 }</div>
-                    </div>
-                    <div>
-                        <div class="code-label">output</div>
-                        <div class="code-box">[Java]
-            [Java, Python]</div>
-                    </div>
                 </div>
+                <div class="output-col">
+                    <span class="code-label output">Output</span>
+                    <div class="output-text">[A, B]
+[A, B, C]</div>
+                </div>
+            </div>
 
-                <div class="section-h">11 STATIC (called on List, not on your list)</div>
-                <div class="subsection-h">11.1 List.of(a, b, c)</div>
-                <div class="khmer-line">បង្កើត List ដែលមិនអាចបន្ថែម លុប ឬកែប្រែធាតុបាន។ មានចាប់ពី Java 9+ ហើយមិនអនុញ្ញាតឱ្យមាន null។</div>
-                <div class="code-label">syntax</div>
-                <div class="code-box">List&lt;String&gt; list = List.of(a, b, c);</div>
-                <div class="example-output">
-                    <div>
-                        <div class="code-label">example</div>
-                        <div class="code-box">import java.util.List;
+            <div class="section-h">11 STATIC</div>
+
+            <div class="subsection-h">11.1 List.of(a, b, c)</div>
+            <div class="khmer-line">បង្កើត List ដែលមិនអាចបន្ថែម លុប ឬកែប្រែធាតុបាន។ មានចាប់ពី Java 9។</div>
+            <div class="code-row">
+                <span class="code-label syntax">Syntax</span>
+                <span class="code-inline">List&lt;String&gt; list = List.of(a, b, c);</span>
+            </div>
+            <div class="example-output-row">
+                <div class="example-col">
+                    <span class="code-label example">Example</span>
+                    <div class="code-box">import java.util.List;
 public class Main {
     public static void main(String[] args) {
-        List&lt;String&gt; list =
-            List.of("Java", "Python", "C++");
+        List&lt;String&gt; list = List.of("A", "B", "C");
         System.out.println(list);
     }
 }</div>
-                    </div>
-                    <div>
-                        <div class="code-label">output</div>
-                        <div class="code-box">[Java, Python, C++]</div>
-                    </div>
                 </div>
+                <div class="output-col">
+                    <span class="code-label output">Output</span>
+                    <div class="output-text">[A, B, C]</div>
+                </div>
+            </div>
 
-                <div class="subsection-h">11.2 List.copyOf(collection)</div>
-                <div class="khmer-line">បង្កើត List មិនអាចកែប្រែបាន ដោយចម្លងធាតុពី Collection ផ្សេង។ មានចាប់ពី Java 10+ ហើយមិនអនុញ្ញាតឱ្យមាន null។</div>
-                <div class="code-label">syntax</div>
-                <div class="code-box">List&lt;String&gt; copy = List.copyOf(collection);</div>
-                <div class="example-output">
-                    <div>
-                        <div class="code-label">example</div>
-                        <div class="code-box">import java.util.ArrayList;
+            <div class="subsection-h">11.2 List.copyOf(collection)</div>
+            <div class="khmer-line">បង្កើត List ដែលមិនអាចកែប្រែបាន ដោយចម្លងធាតុពី Collection ផ្សេង។ មានចាប់ពី Java 10។</div>
+            <div class="code-row">
+                <span class="code-label syntax">Syntax</span>
+                <span class="code-inline">List&lt;String&gt; copy = List.copyOf(collection);</span>
+            </div>
+            <div class="example-output-row">
+                <div class="example-col">
+                    <span class="code-label example">Example</span>
+                    <div class="code-box">import java.util.ArrayList;
 import java.util.List;
 public class Main {
     public static void main(String[] args) {
-        ArrayList&lt;String&gt; list = new ArrayList&lt;&gt;();
-        list.add("Java");
-        list.add("Python");
-        List&lt;String&gt; copy = List.copyOf(list);
+        ArrayList&lt;String&gt; source = new ArrayList&lt;&gt;();
+        source.add("A");
+        source.add("B");
+        List&lt;String&gt; copy = List.copyOf(source);
         System.out.println(copy);
     }
 }</div>
-                    </div>
-                    <div>
-                        <div class="code-label">output</div>
-                        <div class="code-box">[Java, Python]</div>
-                    </div>
                 </div>
+                <div class="output-col">
+                    <span class="code-label output">Output</span>
+                    <div class="output-text">[A, B]</div>
+                </div>
+            </div>
 
-                <div class="section-h">12 FROM Object</div>
+            <div class="section-h">12 FROM Object</div>
 
-                <div class="subsection-h">12.1 toString()</div>
-                <div class="khmer-line">បម្លែង ArrayList ទៅជាអត្ថបទ (String) ដែលបង្ហាញធាតុក្នុងទម្រង់ [a, b, c]។</div>
-                <div class="code-label">syntax</div>
-                <div class="code-box">list.toString();</div>
-                <div class="example-output">
-                    <div>
-                        <div class="code-label">example</div>
-                        <div class="code-box">import java.util.ArrayList;
+            <div class="subsection-h">12.1 list.toString()</div>
+            <div class="khmer-line">បម្លែងធាតុក្នុង ArrayList ទៅជាខ្សែអក្សរ (String) សម្រាប់បង្ហាញ។</div>
+            <div class="code-row">
+                <span class="code-label syntax">Syntax</span>
+                <span class="code-inline">list.toString();</span>
+            </div>
+            <div class="example-output-row">
+                <div class="example-col">
+                    <span class="code-label example">Example</span>
+                    <div class="code-box">import java.util.ArrayList;
+
 public class Main {
     public static void main(String[] args) {
         ArrayList&lt;String&gt; list = new ArrayList&lt;&gt;();
-        list.add("Java");
-        list.add("Python");
+        list.add("A");
+        list.add("B");
         System.out.println(list.toString());
     }
 }</div>
-                    </div>
-                    <div>
-                        <div class="code-label">output</div>
-                        <div class="code-box">[Java, Python]</div>
-                    </div>
                 </div>
+                <div class="output-col">
+                    <span class="code-label output">Output</span>
+                    <div class="output-text">[A, B]</div>
+                </div>
+            </div>
 
-                <div class="subsection-h">12.2 getClass()</div>
-                <div class="khmer-line">ប្រើដើម្បីទទួលបាន Class object ដែលបង្ហាញប្រភេទពិតរបស់ Object។</div>
-                <div class="code-label">syntax</div>
-                <div class="code-box">list.getClass();</div>
-                <div class="example-output">
-                    <div>
-                        <div class="code-label">example</div>
-                        <div class="code-box">import java.util.ArrayList;
+            <div class="subsection-h">12.2 list.getClass()</div>
+            <div class="khmer-line">ត្រឡប់ Class object ដែលបង្ហាញប្រភេទថ្នាក់របស់វត្ថុ។</div>
+            <div class="code-row">
+                <span class="code-label syntax">Syntax</span>
+                <span class="code-inline">list.getClass();</span>
+            </div>
+            <div class="example-output-row">
+                <div class="example-col">
+                    <span class="code-label example">Example</span>
+                    <div class="code-box">import java.util.ArrayList;
 public class Main {
     public static void main(String[] args) {
         ArrayList&lt;String&gt; list = new ArrayList&lt;&gt;();
-        System.out.println(list.getClass().getName());
+        System.out.println(list.getClass());
     }
 }</div>
-                    </div>
-                    <div>
-                        <div class="code-label">output</div>
-                        <div class="code-box">java.util.ArrayList</div>
-                    </div>
                 </div>
+                <div class="output-col">
+                    <span class="code-label output">Output</span>
+                    <div class="output-text">class java.util.ArrayList</div>
+                </div>
+            </div>
 
-                <div class="subsection-h">12.3 wait()</div>
-                <div class="khmer-line">ប្រើដើម្បីឱ្យ Thread បច្ចុប្បន្នរង់ចាំ។ ត្រូវប្រើក្នុង synchronized context លើ Object ដូចគ្នា។</div>
-                <div class="code-label">syntax</div>
-                <div class="code-box">synchronized (list) {
-                list.wait();
-            }</div>
-                <div class="example-output">
-                    <div>
-                        <div class="code-label">example</div>
-                        <div class="code-box">import java.util.ArrayList;
+            <div class="subsection-h">12.3 list.wait()</div>
+            <div class="khmer-line">ធ្វើឱ្យ Thread បច្ចុប្បន្នរង់ចាំ រហូតដល់ Thread ផ្សេងហៅ notify() ឬ notifyAll() លើវត្ថុដូចគ្នា។ ត្រូវប្រើក្នុង synchronized block ឬ method។</div>
+            <div class="code-row">
+                <span class="code-label syntax">Syntax</span>
+                <span class="code-inline">list.wait();</span>
+            </div>
+            <div class="example-output-row">
+                <div class="example-col">
+                    <span class="code-label example">Example</span>
+                    <div class="code-box">import java.util.ArrayList;
 public class Main {
     public static void main(String[] args)
-        throws InterruptedException {
+            throws InterruptedException {
         ArrayList&lt;String&gt; list = new ArrayList&lt;&gt;();
         synchronized (list) {
-            System.out.println("Waiting");
             list.wait(100);
-            System.out.println("Finished");
+            System.out.println("Finished waiting");
         }
     }
 }</div>
-                    </div>
-                    <div>
-                        <div class="code-label">output</div>
-                        <div class="code-box">Waiting
-            Finished</div>
-                    </div>
                 </div>
+                <div class="output-col">
+                    <span class="code-label output">Output</span>
+                    <div class="output-text">Finished waiting</div>
+                </div>
+            </div>
 
-                <div class="subsection-h">12.4 notify()</div>
-                <div class="khmer-line">ដាស់ Thread មួយដែលកំពុងរង់ចាំលើ Object ដូចគ្នា។ ត្រូវហៅក្នុង synchronized context។</div>
-                <div class="code-label">syntax</div>
-                <div class="code-box">synchronized (list) {
-                list.notify();
-            }</div>
-                <div class="example-output">
-                    <div>
-                        <div class="code-label">example</div>
-                        <div class="code-box">import java.util.ArrayList;
+            <div class="subsection-h">12.4 list.notify()</div>
+            <div class="khmer-line">ដាស់ Thread មួយដែលកំពុងរង់ចាំលើវត្ថុដូចគ្នា។ ត្រូវប្រើក្នុង synchronized block ឬ method។</div>
+            <div class="code-row">
+                <span class="code-label syntax">Syntax</span>
+                <span class="code-inline">list.notify();</span>
+            </div>
+            <div class="example-output-row">
+                <div class="example-col">
+                    <span class="code-label example">Example</span>
+                    <div class="code-box">import java.util.ArrayList;
 public class Main {
     public static void main(String[] args) {
         ArrayList&lt;String&gt; list = new ArrayList&lt;&gt;();
@@ -29482,51 +29920,52 @@ public class Main {
         }
     }
 }</div>
-                    </div>
-                    <div>
-                        <div class="code-label">output</div>
-                        <div class="code-box">Notification sent</div>
-                    </div>
                 </div>
+                <div class="output-col">
+                    <span class="code-label output">Output</span>
+                    <div class="output-text">Notification sent</div>
+                </div>
+            </div>
 
-                <div class="subsection-h">12.5 notifyAll()</div>
-                <div class="khmer-line">ដាស់ Thread ទាំងអស់ដែលកំពុងរង់ចាំលើ Object ដូចគ្នា។ ត្រូវហៅក្នុង synchronized context។</div>
-                <div class="code-label">syntax</div>
-                <div class="code-box">synchronized (list) {
-                list.notifyAll();
-            }</div>
-                <div class="example-output">
-                    <div>
-                        <div class="code-label">example</div>
-                        <div class="code-box">import java.util.ArrayList;
+            <div class="subsection-h">12.5 list.notifyAll()</div>
+            <div class="khmer-line">ដាស់ Thread ទាំងអស់ដែលកំពុងរង់ចាំលើវត្ថុដូចគ្នា។ ត្រូវប្រើក្នុង synchronized block ឬ method។</div>
+            <div class="code-row">
+                <span class="code-label syntax">Syntax</span>
+                <span class="code-inline">list.notifyAll();</span>
+            </div>
+            <div class="example-output-row">
+                <div class="example-col">
+                    <span class="code-label example">Example</span>
+                    <div class="code-box">import java.util.ArrayList;
 public class Main {
     public static void main(String[] args) {
         ArrayList&lt;String&gt; list = new ArrayList&lt;&gt;();
         synchronized (list) {
             list.notifyAll();
-            System.out.println("All notified");
+            System.out.println("All waiting threads notified");
         }
     }
 }</div>
-                    </div>
-                    <div>
-                        <div class="code-label">output</div>
-                        <div class="code-box">All notified</div>
-                    </div>
                 </div>
+                <div class="output-col">
+                    <span class="code-label output">Output</span>
+                    <div class="output-text">All waiting threads notified</div>
+                </div>
+            </div>
 
-                <div class="section-h">13 PROTECTED (only for subclasses)</div>
-
-                <div class="subsection-h">13.1 removeRange(from, to)</div>
-                <div class="khmer-line">ជា protected method ដែលប្រើដើម្បីលុបធាតុចាប់ពី index from ដល់មុន index to។ អាចហៅដោយផ្ទាល់ពី subclass របស់ ArrayList។</div>
-                <div class="code-label">syntax</div>
-                <div class="code-box">protected void removeRange(int fromIndex, int toIndex);</div>
-                <div class="example-output">
-                    <div>
-                        <div class="code-label">example</div>
-                        <div class="code-box">import java.util.ArrayList;
+            <div class="section-h">13 PROTECTED</div>
+            <div class="subsection-h">13.1 removeRange(from, to)</div>
+            <div class="khmer-line">លុបធាតុចាប់ពី index from រហូតដល់មុន index to។ Method នេះជា protected ហើយអាចប្រើដោយផ្ទាល់ក្នុង subclass ប៉ុណ្ណោះ។</div>
+            <div class="code-row">
+                <span class="code-label syntax">Syntax</span>
+                <span class="code-inline">removeRange(from, to);</span>
+            </div>
+            <div class="example-output-row">
+                <div class="example-col">
+                    <span class="code-label example">Example</span>
+                    <div class="code-box">import java.util.ArrayList;
 class MyList&lt;E&gt; extends ArrayList&lt;E&gt; {
-    void deleteRange(int from, int to) {
+    public void deleteRange(int from, int to) {
         removeRange(from, to);
     }
 }
@@ -29536,44 +29975,48 @@ public class Main {
         list.add("A");
         list.add("B");
         list.add("C");
-        list.deleteRange(1, 2);
+        list.add("D");
+        list.deleteRange(1, 3);
         System.out.println(list);
     }
 }</div>
-                    </div>
-                    <div>
-                        <div class="code-label">output</div>
-                        <div class="code-box">[A, C]</div>
-                    </div>
                 </div>
+                <div class="output-col">
+                    <span class="code-label output">Output</span>
+                    <div class="output-text">[A, D]</div>
+                </div>
+            </div>
 
-                <div class="subsection-h">13.2 modCount</div>
-                <div class="khmer-line">ជា protected field ដែលរាប់ចំនួនការកែប្រែរចនាសម្ព័ន្ធរបស់ ArrayList។ វាត្រូវបានប្រើសម្រាប់ការត្រួតពិនិត្យ concurrent modification ហើយមិនគួរកែប្រែដោយផ្ទាល់ទេ។</div>
-                <div class="code-label">syntax</div>
-                <div class="code-box">protected transient int modCount;</div>
-                <div class="example-output">
-                    <div>
-                        <div class="code-label">example</div>
-                        <div class="code-box">import java.util.ArrayList;
+            <div class="subsection-h">13.2 modCount</div>
+            <div class="khmer-line">វាល protected ដែលតាមដានចំនួនដងនៃការកែប្រែរចនាសម្ព័ន្ធរបស់ ArrayList។ ជាទូទៅប្រើក្នុង subclass មិនមែនសម្រាប់ប្រើផ្ទាល់ពីខាងក្រៅទេ។</div>
+            <div class="code-row">
+                <span class="code-label syntax">Syntax</span>
+                <span class="code-inline">modCount</span>
+            </div>
+            <div class="example-output-row">
+                <div class="example-col">
+                    <span class="code-label example">Example</span>
+                    <div class="code-box">import java.util.ArrayList;
 class MyList&lt;E&gt; extends ArrayList&lt;E&gt; {
-    int getModificationCount() {
+    public int getModificationCount() {
         return modCount;
     }
 }
 public class Main {
     public static void main(String[] args) {
         MyList&lt;String&gt; list = new MyList&lt;&gt;();
-        list.add("Java");
-        list.add("Python");
+        list.add("A");
+        list.add("B");
         System.out.println(list.getModificationCount());
     }
 }</div>
-                    </div>
-                    <div>
-                        <div class="code-label">output</div>
-                        <div class="code-box">2</div>
-                    </div>
                 </div>
+                <div class="output-col">
+                    <span class="code-label output">Output</span>
+                    <div class="output-text">2</div>
+                </div>
+            </div>
+   
 
             </div>
             <!--end page-->
@@ -29643,7 +30086,114 @@ public class Main {
                         <div class="speed-lines"></div>
                     </div>
                 </div>
+            <div class="section-h">1 CONSTRUCTORS</div>
 
+            <div class="subsection-h">1.1 new File(String pathname)</div>
+            <div class="khmer-line">បង្កើត File object ដោយប្រើ Path របស់ឯកសារ ឬថត។</div>
+            <div class="code-row">
+                <span class="code-label syntax">Syntax</span>
+                <span class="code-inline">File f = new File(String pathname);</span>
+            </div>
+            <div class="example-output-row">
+                <div class="example-col">
+                    <span class="code-label example">Example</span>
+                    <div class="code-box">import java.io.File;
+
+public class Main {
+    public static void main(String[] args) {
+        File f = new File("data.txt");
+        System.out.println(f.getPath());
+        System.out.println(f.exists());
+    }
+}</div>
+                </div>
+                <div class="output-col">
+                    <span class="code-label output">Output</span>
+                    <div class="code-box">data.txt
+false</div>
+                </div>
+            </div>
+
+            <div class="subsection-h">1.2 new File(String parent, String child)</div>
+            <div class="khmer-line">បង្កើត File object ដោយបញ្ចូល Path របស់ថតមេ និងឈ្មោះឯកសារកូន។</div>
+            <div class="code-row">
+                <span class="code-label syntax">Syntax</span>
+                <span class="code-inline">File f = new File(String parent, String child);</span>
+            </div>
+            <div class="example-output-row">
+                <div class="example-col">
+                    <span class="code-label example">Example</span>
+                    <div class="code-box">import java.io.File;
+
+public class Main {
+    public static void main(String[] args) {
+        File f = new File("C:/Users/ASUS", "data.txt");
+        System.out.println(f.getPath());
+        System.out.println(f.getName());
+    }
+}</div>
+                </div>
+                <div class="output-col">
+                    <span class="code-label output">Output</span>
+                    <div class="code-box">C:\Users\ASUS\data.txt
+data.txt</div>
+                </div>
+            </div>
+
+            <div class="subsection-h">1.3 new File(File parent, String child)</div>
+            <div class="khmer-line">បង្កើត File object ដោយប្រើ File object របស់ថតមេ និងឈ្មោះឯកសារកូន។</div>
+            <div class="code-row">
+                <span class="code-label syntax">Syntax</span>
+                <span class="code-inline">File f = new File(File parent, String child);</span>
+            </div>
+            <div class="example-output-row">
+                <div class="example-col">
+                    <span class="code-label example">Example</span>
+                    <div class="code-box">import java.io.File;
+
+public class Main {
+    public static void main(String[] args) {
+        File parent = new File("C:/Users/ASUS");
+        File f = new File(parent, "data.txt");
+        System.out.println(f.getPath());
+        System.out.println(f.getName());
+    }
+}</div>
+                </div>
+                <div class="output-col">
+                    <span class="code-label output">Output</span>
+                    <div class="code-box">C:\Users\ASUS\data.txt
+data.txt</div>
+                </div>
+            </div>
+
+            <div class="subsection-h">1.4 new File(URI uri)</div>
+            <div class="khmer-line">បង្កើត File object ដោយប្រើ URI ដែលតំណាងឱ្យទីតាំងឯកសារ។ URI ត្រូវតែជាប្រភេទ file URI ដែលត្រឹមត្រូវ។</div>
+            <div class="code-row">
+                <span class="code-label syntax">Syntax</span>
+                <span class="code-inline">File f = new File(URI uri);</span>
+            </div>
+            <div class="example-output-row">
+                <div class="example-col">
+                    <span class="code-label example">Example</span>
+                    <div class="code-box">import java.io.File;
+import java.net.URI;
+
+public class Main {
+    public static void main(String[] args) {
+        URI uri = URI.create("file:///C:/Users/ASUS/data.txt");
+        File f = new File(uri);
+        System.out.println(f.getPath());
+        System.out.println(f.getName());
+    }
+}</div>
+                </div>
+                <div class="output-col">
+                    <span class="code-label output">Output</span>
+                    <div class="code-box">C:\Users\ASUS\data.txt
+data.txt</div>
+                </div>
+            </div>
 
 
 
@@ -30888,7 +31438,7 @@ public class Main {
                 </div>
                 <div class="output-col">
                     <span class="code-label output">Output</span>
-                    <div class="code-box">saveButton</div>
+                    <div class="output-text">saveButton</div>
                 </div>
             </div>
 
@@ -30917,7 +31467,7 @@ public class Main {
                 </div>
                 <div class="output-col">
                     <span class="code-label output">Output</span>
-                    <img src="sw2.17.png" alt="Focusable button in a JFrame" style="max-width:180px;max-height:180px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);box-shadow:0 8px 20px rgba(0,0,0,0.4);">
+                    <img src="sw2.17.png" alt="Focusable button in a JFrame" style="max-width:250px;max-height:200px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);box-shadow:0 8px 20px rgba(0,0,0,0.4);">
                 </div>
             </div>
 
@@ -30946,7 +31496,7 @@ public class Main {
                 </div>
                 <div class="output-col">
                     <span class="code-label output">Output</span>
-                    <img src="sw2.18.png" alt="Text field requesting focus" style="max-width:180px;max-height:180px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);box-shadow:0 8px 20px rgba(0,0,0,0.4);">
+                    <img src="sw2.18.png" alt="Text field requesting focus" style="max-width:250px;max-height:200px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);box-shadow:0 8px 20px rgba(0,0,0,0.4);">
                 </div>
             </div>
 
@@ -30977,7 +31527,7 @@ public class Main {
                 </div>
                 <div class="output-col">
                     <span class="code-label output">Output</span>
-                    <img src="sw2.19.png" alt="Text field requesting focus within its window" style="max-width:180px;max-height:180px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);box-shadow:0 8px 20px rgba(0,0,0,0.4);">
+                    <img src="sw2.19.png" alt="Text field requesting focus within its window" style="max-width:250px;max-height:200px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);box-shadow:0 8px 20px rgba(0,0,0,0.4);">
                 </div>
             </div>
 
@@ -31010,7 +31560,7 @@ public class Main {
                 </div>
                 <div class="output-col">
                     <span class="code-label output">Output</span>
-                    <img src="sw2.20.png" alt="Button centered horizontally using BoxLayout alignment" style="max-width:180px;max-height:180px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);box-shadow:0 8px 20px rgba(0,0,0,0.4);">
+                    <img src="sw2.20.png" alt="Button centered horizontally using BoxLayout alignment" style="max-width:250px;max-height:200px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);box-shadow:0 8px 20px rgba(0,0,0,0.4);">
                 </div>
             </div>
 
@@ -31040,7 +31590,7 @@ public class Main {
                 </div>
                 <div class="output-col">
                     <span class="code-label output">Output</span>
-                    <img src="sw2.21.png" alt="Child button added to a JPanel" style="max-width:180px;max-height:180px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);box-shadow:0 8px 20px rgba(0,0,0,0.4);">
+                    <img src="sw2.21.png" alt="Child button added to a JPanel" style="max-width:250px;max-height:200px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);box-shadow:0 8px 20px rgba(0,0,0,0.4);">
                 </div>
             </div>
 
@@ -31049,6 +31599,15 @@ public class Main {
             <div class="code-row">
                 <span class="code-label syntax">Syntax</span>
                 <span class="code-inline">c.add(child, constraints);</span>
+            </div>
+            <div class="code-row">
+                <span class="code-label syntax">Regions</span>
+                <span class="code-inline">NORTH -> top<br>
+SOUTH  -> bottom<br>
+WEST   -> left <br>
+EAST   -> Right<br>
+CENTER -> middle<br>                   
+                </span>
             </div>
             <div class="example-output-row">
                 <div class="example-col">
@@ -31071,7 +31630,7 @@ public class Main {
                 </div>
                 <div class="output-col">
                     <span class="code-label output">Output</span>
-                    <img src="sw2.22.png" alt="Button added to the north region of a BorderLayout" style="max-width:180px;max-height:180px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);box-shadow:0 8px 20px rgba(0,0,0,0.4);">
+                    <img src="sw2.22.png" alt="Button added to the north region of a BorderLayout" style="max-width:250px;max-height:200px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);box-shadow:0 8px 20px rgba(0,0,0,0.4);">
                 </div>
             </div>
 
@@ -31102,7 +31661,7 @@ public class Main {
                 </div>
                 <div class="output-col">
                     <span class="code-label output">Output</span>
-                    <img src="sw2.23.png" alt="Empty panel after removing its button" style="max-width:180px;max-height:180px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);box-shadow:0 8px 20px rgba(0,0,0,0.4);">
+                    <img src="sw2.23.png" alt="Empty panel after removing its button" style="max-width:250px;max-height:200px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);box-shadow:0 8px 20px rgba(0,0,0,0.4);">
                 </div>
             </div>
 
@@ -31133,7 +31692,7 @@ public class Main {
                 </div>
                 <div class="output-col">
                     <span class="code-label output">Output</span>
-                    <img src="sw2.24.png" alt="Empty panel after removing all child components" style="max-width:180px;max-height:180px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);box-shadow:0 8px 20px rgba(0,0,0,0.4);">
+                    <img src="sw2.24.png" alt="Empty panel after removing all child components" style="max-width:250px;max-height:200px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);box-shadow:0 8px 20px rgba(0,0,0,0.4);">
                 </div>
             </div>
 
@@ -31165,7 +31724,7 @@ public class Main {
                 </div>
                 <div class="output-col">
                     <span class="code-label output">Output</span>
-                    <img src="sw2.25.png" alt="Two buttons arranged with FlowLayout" style="max-width:180px;max-height:180px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);box-shadow:0 8px 20px rgba(0,0,0,0.4);">
+                    <img src="sw2.25.png" alt="Two buttons arranged with FlowLayout" style="max-width:250px;max-height:200px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);box-shadow:0 8px 20px rgba(0,0,0,0.4);">
                 </div>
             </div>
 
@@ -31195,7 +31754,7 @@ public class Main {
                 </div>
                 <div class="output-col">
                     <span class="code-label output">Output</span>
-                    <img src="sw2.26.png" alt="Panel containing a new button after layout validation" style="max-width:180px;max-height:180px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);box-shadow:0 8px 20px rgba(0,0,0,0.4);">
+                    <img src="sw2.26.png" alt="Panel containing a new button after layout validation" style="max-width:250px;max-height:200px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);box-shadow:0 8px 20px rgba(0,0,0,0.4);">
                 </div>
             </div>
 
@@ -31226,7 +31785,7 @@ public class Main {
                 </div>
                 <div class="output-col">
                     <span class="code-label output">Output</span>
-                    <img src="sw2.27.png" alt="Blue panel repainted in the frame" style="max-width:180px;max-height:180px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);box-shadow:0 8px 20px rgba(0,0,0,0.4);">
+                    <img src="sw2.27.png" alt="Blue panel repainted in the frame" style="max-width:250px;max-height:200px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);box-shadow:0 8px 20px rgba(0,0,0,0.4);">
                 </div>
             </div>
 
@@ -31250,7 +31809,7 @@ public class Main {
                 </div>
                 <div class="output-col">
                     <span class="code-label output">Output</span>
-                    <div class="code-box">150</div>
+                    <div class="output-text">150</div>
                 </div>
             </div>
 
@@ -31274,7 +31833,7 @@ public class Main {
                 </div>
                 <div class="output-col">
                     <span class="code-label output">Output</span>
-                    <div class="code-box">50</div>
+                    <div class="output-text">50</div>
                 </div>
             </div>
 
@@ -31298,7 +31857,7 @@ public class Main {
                 </div>
                 <div class="output-col">
                     <span class="code-label output">Output</span>
-                    <div class="code-box">30</div>
+                    <div class="output-text">30</div>
                 </div>
             </div>
 
@@ -31322,7 +31881,7 @@ public class Main {
                 </div>
                 <div class="output-col">
                     <span class="code-label output">Output</span>
-                    <div class="code-box">40</div>
+                    <div class="output-text">40</div>
                 </div>
             </div>
 
@@ -31346,7 +31905,7 @@ public class Main {
                 </div>
                 <div class="output-col">
                     <span class="code-label output">Output</span>
-                    <div class="code-box">java.awt.Dimension[width=150,height=50]</div>
+                    <div class="output-text">java.awt.Dimension[width=150,height=50]</div>
                 </div>
             </div>
 
@@ -31371,7 +31930,7 @@ public class Main {
                 </div>
                 <div class="output-col">
                     <span class="code-label output">Output</span>
-                    <div class="code-box">true</div>
+                    <div class="output-text">true</div>
                 </div>
             </div>
 
@@ -31396,7 +31955,7 @@ public class Main {
                 </div>
                 <div class="output-col">
                     <span class="code-label output">Output</span>
-                    <div class="code-box">2</div>
+                    <div class="output-text">2</div>
                 </div>
             </div>
 
@@ -31421,7 +31980,7 @@ public class Main {
                 </div>
                 <div class="output-col">
                     <span class="code-label output">Output</span>
-                    <div class="code-box">2</div>
+                    <div class="output-text">2</div>
                 </div>
             </div>
 
@@ -31445,7 +32004,7 @@ public class Main {
                 </div>
                 <div class="output-col">
                     <span class="code-label output">Output</span>
-                    <div class="code-box">true</div>
+                    <div class="output-text">true</div>
                 </div>
             </div>
 
@@ -31469,7 +32028,7 @@ public class Main {
                 </div>
                 <div class="output-col">
                     <span class="code-label output">Output</span>
-                    <div class="code-box">false</div>
+                    <div class="output-text">false</div>
                 </div>
             </div>
 
@@ -31505,7 +32064,7 @@ class MyPanel extends JPanel {
                 </div>
                 <div class="output-col">
                     <span class="code-label output">Output</span>
-                    <img src="sw2.38.png" alt="JPanel displaying a red circle drawn with paintComponent" style="max-width:180px;max-height:180px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);box-shadow:0 8px 20px rgba(0,0,0,0.4);">
+                    <img src="sw2.38.png" alt="JPanel displaying a red circle drawn with paintComponent" style="max-width:250px;max-height:200px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);box-shadow:0 8px 20px rgba(0,0,0,0.4);">
                 </div>
             </div>
             <div class="section-h">3 JPanel</div>
@@ -31740,7 +32299,7 @@ public class Main {
 public class Main {
     public static void main(String[] args) {
         JFrame f = new JFrame("JLabel Icon");
-        ImageIcon icon = new ImageIcon("rupp.png");
+        ImageIcon icon = new ImageIcon("abstract.png");
         JLabel l = new JLabel(icon);
         f.add(l);
         f.setSize(400, 300);
@@ -31805,7 +32364,7 @@ public class Main {
                 </div>
                 <div class="output-col">
                     <span class="code-label output">Output</span>
-                    <div class="code-box">Hello Java</div>
+                    <div class="output-text">Hello Java</div>
                 </div>
             </div>
 
@@ -34992,8 +35551,10 @@ public class Main {
             <div class="module-col"></div>
             <div class="clock-wrap"><div class="time-row time-row-clock"></div></div>
             <button class="page-nav-btn" data-dir="-1">&larr;</button>
-            <input type="number" class="page-nav-input" min="1" placeholder="Page #">
             <button class="page-nav-btn" data-dir="1">&rarr;</button>
+            <input type="number" class="page-nav-input" min="1" placeholder="Page #">
+            <!-- SECTION input: edit placeholder / title here -->
+            <input type="text" class="section-jump-input" inputmode="decimal" maxlength="8" autocomplete="off" placeholder="Section #" title="Type a section (2) or subsection (2.1) number, then press Go" aria-label="Section or subsection number">
             <button class="page-nav-btn" data-dir="0">Go</button>
             <span class="page-nav-count"></span>
         </div>
@@ -35321,8 +35882,10 @@ Program finished normally.</div>
             <div class="module-col"></div>
             <div class="clock-wrap"><div class="time-row time-row-clock"></div></div>
             <button class="page-nav-btn" data-dir="-1">&larr;</button>
-            <input type="number" class="page-nav-input" min="1" placeholder="Page #">
             <button class="page-nav-btn" data-dir="1">&rarr;</button>
+            <input type="number" class="page-nav-input" min="1" placeholder="Page #">
+            <!-- SECTION input: edit placeholder / title here -->
+            <input type="text" class="section-jump-input" inputmode="decimal" maxlength="8" autocomplete="off" placeholder="Section #" title="Type a section (2) or subsection (2.1) number, then press Go" aria-label="Section or subsection number">
             <button class="page-nav-btn" data-dir="0">Go</button>
             <span class="page-nav-count"></span>
         </div>
@@ -36136,24 +36699,29 @@ Program finished normally.</div>
                 }
             });
 
-            // Section input (between Page # and →), connected to the Go button:
+            // Section input (after Page #, before Go), connected to the Go button:
             // type a section number, press Go (or Enter) -> jumps to that section.
             // If a page number is typed too, Go opens that page first, then finds the section.
             const homeBtn = nav.querySelector(':scope > .back-btn');
             const goBtn = nav.querySelector('.page-nav-btn[data-dir="0"]');
             const sectionHeads = Array.from(book.querySelectorAll('.section-h, .subsection-h'));   // sections (2) and subsections (2.1)
+            if (!sectionHeads.length) nav.querySelectorAll('.section-jump-input').forEach(el => el.style.display = 'none');
             if (homeBtn && goBtn && sectionHeads.length) {
-                const secInput = document.createElement('input');
-                secInput.type = 'text';
-                secInput.inputMode = 'decimal';
-                secInput.maxLength = 8;
-                secInput.className = 'section-jump-input';
-                secInput.placeholder = 'Section #';
-                secInput.title = 'Type a section (2) or subsection (2.1) number, then press Go';
-                secInput.setAttribute('aria-label', 'Section or subsection number');
+                // Use the Section input written in the HTML; create one only if a nav has none.
+                let secInput = nav.querySelector('.section-jump-input');
+                if (!secInput) {
+                    secInput = document.createElement('input');
+                    secInput.type = 'text';
+                    secInput.inputMode = 'decimal';
+                    secInput.maxLength = 8;
+                    secInput.className = 'section-jump-input';
+                    secInput.placeholder = 'Section #';
+                    secInput.title = 'Type a section (2) or subsection (2.1) number, then press Go';
+                    secInput.setAttribute('aria-label', 'Section or subsection number');
+                    secInput.autocomplete = 'off';
+                    input.after(secInput);
+                }
                 secInput.addEventListener('input', () => { secInput.value = secInput.value.replace(/[^\d.]/g, ''); });
-                secInput.autocomplete = 'off';
-                input.after(secInput);   // between Page # and →
 
                 function jumpToSection() {
                     const q = secInput.value.trim().replace(/\.+$/, '');
@@ -37249,9 +37817,6 @@ for (let i = 0; i < 4; i++) {
             setTimeout(hide, 10000); // never block the page longer than 10s
         }
     })();
-
-
-    
 </script>
 </body>
 </html>
