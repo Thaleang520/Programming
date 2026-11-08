@@ -2332,7 +2332,7 @@ property --fring {
         scrollbar-color: #7b2dff transparent;
     }
 }
-/* ---------- Copy button for code boxes ---------- */
+/* ---------- Windows 11 style copy button ---------- */
 .code-wrap {
     position: relative;
     flex: 1;
@@ -2341,81 +2341,73 @@ property --fring {
 }
 .code-wrap > .code-box {
     flex: 1;
-    padding-right: 74px;          /* keeps code from sliding under the button */
+    padding-right: 104px;               /* room for the button */
     user-select: text;
     -webkit-user-select: text;
 }
+
 .copy-btn {
     position: absolute;
     top: 6px;
     right: 6px;
     z-index: 3;
-    padding: 3px 10px;
-    font-family: var(--mono);
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: var(--cp-cyan, #00f0ff);
-    background: rgba(0, 0, 0, 0.65);
-    border: 1px solid rgba(0, 240, 255, 0.45);
-    border-radius: 0;
-    cursor: pointer;
-    opacity: 0.75;
-    transition: opacity .15s ease, color .15s ease, border-color .15s ease, background .15s ease;
-}
-.code-wrap:hover .copy-btn,
-.copy-btn:focus-visible { opacity: 1; }
-.copy-btn:hover {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    height: 26px;
+    padding: 0 10px;
+    font-family: "Segoe UI Variable", "Segoe UI", system-ui, sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0;
+    text-transform: none;
     color: #fff;
-    border-color: #ff2a6d;
-    background: rgba(255, 42, 109, 0.25);
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-top-color: rgba(255, 255, 255, 0.14);   /* Fluent top highlight */
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background .1s ease, border-color .1s ease;
+}
+.copy-btn svg {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+.copy-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+.copy-btn:active {
+    background: rgba(255, 255, 255, 0.04);
+    color: rgba(255, 255, 255, 0.7);
+    border-color: rgba(255, 255, 255, 0.06);
+}
+.copy-btn:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: 1px;
 }
 .copy-btn.copied {
-    color: #3ad67c;
-    border-color: #3ad67c;
-    background: rgba(58, 214, 124, 0.12);
-    opacity: 1;
+    background: #0f7b0f;                /* Windows success green */
+    border-color: rgba(255, 255, 255, 0.12);
+    color: #fff;
 }
-@media (max-width: 700px) {
-    .code-wrap { width: 100%; flex: none; }
-    .copy-btn { opacity: 1; padding: 6px 12px; font-size: 11px; } /* easier to tap */
-}
-/* ---------- Mobile: tap the code box to copy ---------- */
+
+/* Mobile: tap anywhere on the code box to copy; button is just the indicator */
 @media (max-width: 400px), (hover: none) {
-    .copy-btn { display: none; }
-
     .code-wrap { width: 100%; flex: none; }
-
     .code-wrap > .code-box {
-        padding: 26px 14px 10px;      /* room for the label above the code */
+        padding: 38px 14px 10px;        /* button sits above the code */
         cursor: pointer;
-        -webkit-tap-highlight-color: rgba(0, 240, 255, 0.25);
+        -webkit-tap-highlight-color: rgba(255, 255, 255, 0.12);
     }
-
-    /* label in the top-right corner */
-    .code-wrap::after {
-        content: "Tap to copy";
-        position: absolute;
-        top: 6px;
-        right: 10px;
-        z-index: 3;
-        pointer-events: none;
-        font-family: var(--mono);
-        font-size: 10px;
-        font-weight: 700;
-        letter-spacing: 1px;
-        text-transform: uppercase;
-        color: var(--cp-cyan, #00f0ff);
-        opacity: 0.8;
-    }
-    .code-wrap.copied::after {
-        content: "Copied!";
-        color: #3ad67c;
-        opacity: 1;
-    }
-    .code-wrap.copied > .code-box {
-        box-shadow: inset 0 0 0 1px #3ad67c, inset 0 0 18px rgba(58, 214, 124, 0.18);
+    .copy-btn {
+        height: 28px;
+        pointer-events: none;           /* the box handles the tap */
     }
 }
 
@@ -77528,15 +77520,20 @@ Program finished normally.</div>
         });
     });
     </script>
-<script>
+    <script>
 (function () {
-    const mobileMQ = window.matchMedia('(max-width: 700px), (hover: none)');
+    const mobileMQ = window.matchMedia('(max-width: 400px), (hover: none)');
+
+    const ICON_COPY = '<svg viewBox="0 0 16 16" aria-hidden="true">' +
+        '<rect x="5.5" y="5.5" width="8" height="8" rx="1.5"/>' +
+        '<path d="M10.5 3.5v-.5A1.5 1.5 0 0 0 9 1.5H3.5A1.5 1.5 0 0 0 2 3v5.5A1.5 1.5 0 0 0 3.5 10H4"/></svg>';
+    const ICON_CHECK = '<svg viewBox="0 0 16 16" aria-hidden="true">' +
+        '<path d="M3 8.5l3.2 3.2L13 4.8"/></svg>';
 
     async function copyText(text) {
         try {
             await navigator.clipboard.writeText(text);
         } catch (err) {
-            // fallback for older browsers / non-https
             const ta = document.createElement('textarea');
             ta.value = text;
             ta.style.cssText = 'position:fixed;opacity:0;';
@@ -77558,31 +77555,28 @@ Program finished normally.</div>
         const btn = document.createElement('button');
         btn.type = 'button';
         btn.className = 'copy-btn';
-        btn.textContent = 'Copy';
         btn.setAttribute('aria-label', 'Copy code');
+        btn.innerHTML = ICON_COPY + '<span>Copy</span>';
         wrap.appendChild(btn);
 
         let timer = null;
         async function doCopy() {
             await copyText(box.innerText.replace(/\u00a0/g, ' '));
-            btn.textContent = 'Copied!';
+            btn.innerHTML = ICON_CHECK + '<span>Copied</span>';
             btn.classList.add('copied');
-            wrap.classList.add('copied');
             clearTimeout(timer);
             timer = setTimeout(() => {
-                btn.textContent = 'Copy';
+                btn.innerHTML = ICON_COPY + '<span>Copy</span>';
                 btn.classList.remove('copied');
-                wrap.classList.remove('copied');
             }, 1500);
         }
 
-        // Desktop: Copy button
+        // Desktop: click the button
         btn.addEventListener('click', (e) => { e.stopPropagation(); doCopy(); });
 
         // Mobile: one tap on the code box
         box.addEventListener('click', () => {
             if (!mobileMQ.matches) return;
-            // don't copy if the user is selecting text by hand
             if (String(window.getSelection()).length > 0) return;
             doCopy();
         });
