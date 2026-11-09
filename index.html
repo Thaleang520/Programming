@@ -3926,7 +3926,7 @@ img, svg { max-width: 100%; }
 .copy-btn:focus-visible { opacity: 1; }
 .copy-btn { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
 /* hover styles only on devices that really hover, so a phone tap = one tap, not hover + click */
-@media (hover: hover) {
+@media (hover: hover) and (pointer: fine) {
     .code-wrap:hover .copy-btn { opacity: 1; }
     .copy-btn:hover {
         color: #fff;
@@ -3940,11 +3940,12 @@ img, svg { max-width: 100%; }
     background: rgba(58, 214, 124, 0.12);
     opacity: 1;
 }
-@media (max-width: 700px) {
-    .code-wrap { width: 100%; flex: none; }
-    .copy-btn { opacity: 1; padding: 6px 12px; font-size: 11px; }
+.copy-btn:active { color: #3ad67c; border-color: #3ad67c; background: rgba(58, 214, 124, 0.12); }
+@media (pointer: coarse), (hover: none) {
+    .copy-btn:hover { color: var(--cp-cyan, #00f0ff); border-color: rgba(0, 240, 255, 0.45); background: rgba(0, 0, 0, 0.65); }
+    .copy-btn.copied:hover { color: #3ad67c; border-color: #3ad67c; background: rgba(58, 214, 124, 0.12); }
 }
-@media (max-width: 400px) {
+@media (max-width: 700px) {
     .code-wrap { width: 100%; flex: none; }
     .copy-btn { opacity: 1; padding: 6px 12px; font-size: 11px; }
 }
@@ -4122,7 +4123,7 @@ img, svg { max-width: 100%; }
             
                 <div class="toc-list">
                     <div class="toc-row" style="color:#c23bd8;">
-                        <span class="toc-num">01</span><span class="toc-name">Import</span>
+                        <span class="toc-num">01</span><span class="toc-name">Import sys</span>
                         <span class="toc-dots"></span><span class="toc-page" style="color:#5b6bff;">10–25</span>
                     </div>
                     <div class="toc-row" style="color:#9b4dff;">
@@ -73350,6 +73351,13 @@ Program finished normally.</div>
             if (!box || !btn) return;
             btn.addEventListener('click', async () => {
                 const text = box.innerText;
+                btn.textContent = 'Copied!';
+                btn.classList.add('copied');
+                clearTimeout(btn._t);
+                btn._t = setTimeout(() => {
+                    btn.textContent = 'Copy';
+                    btn.classList.remove('copied');
+                }, 1500);
                 try {
                     if (navigator.clipboard && window.isSecureContext) {
                         await navigator.clipboard.writeText(text);
@@ -73359,12 +73367,6 @@ Program finished normally.</div>
                 } catch (e) {
                     fallbackCopy(text);
                 }
-                btn.textContent = 'Copied!';
-                btn.classList.add('copied');
-                setTimeout(() => {
-                    btn.textContent = 'Copy';
-                    btn.classList.remove('copied');
-                }, 1500);
             });
         });
     </script>
