@@ -2332,87 +2332,6 @@ property --fring {
         scrollbar-color: #7b2dff transparent;
     }
 }
-/* ---------- Copy button for code boxes ---------- */
-.code-wrap {
-    position: relative;
-    flex: 1;
-    min-width: 0;
-    display: flex;
-}
-.code-wrap > .code-box {
-    flex: 1;
-    padding-right: 74px;          /* keeps code from sliding under the button */
-    user-select: text;
-    -webkit-user-select: text;
-}
-.copy-btn {
-    position: absolute;
-    top: 6px;
-    right: 6px;
-    z-index: 3;
-    padding: 3px 10px;
-    font-family: var(--mono);
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: var(--cp-cyan, #00f0ff);
-    background: rgba(0, 0, 0, 0.65);
-    border: 1px solid rgba(0, 240, 255, 0.45);
-    border-radius: 0;
-    cursor: pointer;
-    opacity: 0.75;
-    transition: opacity .15s ease, color .15s ease, border-color .15s ease, background .15s ease;
-}
-.code-wrap:hover .copy-btn,
-.copy-btn:focus-visible { opacity: 1; }
-.copy-btn:hover {
-    color: #fff;
-    border-color: #ff2a6d;
-    background: rgba(255, 42, 109, 0.25);
-}
-.copy-btn.copied {
-    color: #3ad67c;
-    border-color: #3ad67c;
-    background: rgba(58, 214, 124, 0.12);
-    opacity: 1;
-}
-.copy-btn { min-width: 64px; text-align: center; touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
-@media (max-width: 700px) {
-    .code-wrap { width: 100%; flex: none; }
-    .code-wrap > .code-box { padding-right: 64px; }   /* room for the small button */
-    .copy-btn {
-        top: 4px;
-        right: 4px;
-        min-width: 54px;
-        padding: 4px 6px;
-        font-size: 10px;
-        letter-spacing: .5px;
-        line-height: 1.3;
-        opacity: 1;
-    }
-    .copy-btn:hover { color: var(--cp-cyan, #00f0ff); border-color: rgba(0,240,255,.45); background: rgba(0,0,0,.65); }
-    .copy-btn:active { color: #fff; border-color: #ff2a6d; background: rgba(255,42,109,.25); }
-    .copy-btn.copied, .copy-btn.copied:hover { color: #3ad67c; border-color: #3ad67c; background: rgba(58,214,124,.12); }
-}
-@media (max-width: 400px) {
-    .code-wrap { width: 100%; flex: none; }
-    .code-wrap > .code-box { padding-right: 64px; }   /* room for the small button */
-    .copy-btn {
-        top: 4px;
-        right: 4px;
-        min-width: 54px;
-        padding: 4px 6px;
-        font-size: 10px;
-        letter-spacing: .5px;
-        line-height: 1.3;
-        opacity: 1;
-    }
-    .copy-btn:hover { color: var(--cp-cyan, #00f0ff); border-color: rgba(0,240,255,.45); background: rgba(0,0,0,.65); }
-    .copy-btn:active { color: #fff; border-color: #ff2a6d; background: rgba(255,42,109,.25); }
-    .copy-btn.copied, .copy-btn.copied:hover { color: #3ad67c; border-color: #3ad67c; background: rgba(58,214,124,.12); }
-}
-
 
         .code-inline {
             flex: 1;
@@ -3970,6 +3889,56 @@ img, svg { max-width: 100%; }
     0%, 100% { transform: translateX(0); }
     25% { transform: translateX(-4px); }
     75% { transform: translateX(4px); }
+}
+
+/* ---------- Copy button for code boxes ---------- */
+.code-wrap {
+    position: relative;
+    flex: 1;
+    min-width: 0;
+    display: flex;
+}
+.code-wrap > .code-box {
+    flex: 1;
+    padding-right: 74px;
+    user-select: text;
+    -webkit-user-select: text;
+}
+.copy-btn {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    z-index: 3;
+    padding: 3px 10px;
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--cp-cyan, #00f0ff);
+    background: rgba(0, 0, 0, 0.65);
+    border: 1px solid rgba(0, 240, 255, 0.45);
+    border-radius: 0;
+    cursor: pointer;
+    opacity: 0.75;
+    transition: opacity .15s ease, color .15s ease, border-color .15s ease, background .15s ease;
+}
+.code-wrap:hover .copy-btn,
+.copy-btn:focus-visible { opacity: 1; }
+.copy-btn:hover {
+    color: #fff;
+    border-color: #ff2a6d;
+    background: rgba(255, 42, 109, 0.25);
+}
+.copy-btn.copied {
+    color: #3ad67c;
+    border-color: #3ad67c;
+    background: rgba(58, 214, 124, 0.12);
+    opacity: 1;
+}
+@media (max-width: 700px) {
+    .code-wrap { width: 100%; flex: none; }
+    .copy-btn { opacity: 1; padding: 6px 12px; font-size: 11px; }
 }
 </style>
 <noscript><style>.page-loader{display:none!important}</style></noscript>
@@ -73342,19 +73311,52 @@ Program finished normally.</div>
                 secInput.addEventListener('keydown', e => { if (e.key === 'Enter') jumpToSection(); });
             }
         });
+        // ---------- Copy buttons: wrap every .code-box and add a Copy button ----------
         document.querySelectorAll('.code-box').forEach(box => {
-            let btn = box.querySelector('.copy-btn');
-            if (!btn) return;
-            btn.addEventListener('click', () => {
-                const text = box.querySelector('.code-text')?.innerText ?? box.innerText.replace('Copy', '').trim();
-                navigator.clipboard.writeText(text).then(() => {
-                    btn.textContent = 'Copied!';
-                    btn.classList.add('copied');
-                    setTimeout(() => {
-                        btn.textContent = 'Copy';
-                        btn.classList.remove('copied');
-                    }, 1500);
-                });
+            if (box.parentElement.classList.contains('code-wrap')) return;
+            const wrap = document.createElement('div');
+            wrap.className = 'code-wrap';
+            box.parentNode.insertBefore(wrap, box);
+            wrap.appendChild(box);
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'copy-btn';
+            btn.textContent = 'Copy';
+            wrap.appendChild(btn);
+        });
+
+        function fallbackCopy(text) {
+            const ta = document.createElement('textarea');
+            ta.value = text;
+            ta.style.position = 'fixed';
+            ta.style.opacity = '0';
+            document.body.appendChild(ta);
+            ta.select();
+            try { document.execCommand('copy'); } catch (e) {}
+            document.body.removeChild(ta);
+        }
+
+        document.querySelectorAll('.code-wrap').forEach(wrap => {
+            const box = wrap.querySelector('.code-box');
+            const btn = wrap.querySelector('.copy-btn');
+            if (!box || !btn) return;
+            btn.addEventListener('click', async () => {
+                const text = box.innerText;
+                try {
+                    if (navigator.clipboard && window.isSecureContext) {
+                        await navigator.clipboard.writeText(text);
+                    } else {
+                        fallbackCopy(text);   // works when opened as a local file
+                    }
+                } catch (e) {
+                    fallbackCopy(text);
+                }
+                btn.textContent = 'Copied!';
+                btn.classList.add('copied');
+                setTimeout(() => {
+                    btn.textContent = 'Copy';
+                    btn.classList.remove('copied');
+                }, 1500);
             });
         });
     </script>
@@ -74480,59 +74482,5 @@ Program finished normally.</div>
             }
         })();
     </script>
-    <script>
-document.querySelectorAll('.code-box').forEach(box => {
-    if (box.parentElement.classList.contains('code-wrap')) return;
-
-    // wrap the box so the button stays fixed while the code scrolls sideways
-    const wrap = document.createElement('div');
-    wrap.className = 'code-wrap';
-    box.parentNode.insertBefore(wrap, box);
-    wrap.appendChild(box);
-
-    const btn = document.createElement('button');
-    btn.type = 'button';
-    btn.className = 'copy-btn';
-    btn.textContent = 'Copy';
-    btn.setAttribute('aria-label', 'Copy code');
-    wrap.appendChild(btn);
-
-    let resetTimer;
-    const flash = (label, ok) => {
-        btn.textContent = label;
-        btn.classList.toggle('copied', ok);
-        clearTimeout(resetTimer);
-        resetTimer = setTimeout(() => {
-            btn.textContent = 'Copy';
-            btn.classList.remove('copied');
-        }, 1500);
-    };
-    const legacyCopy = (text) => {
-        const ta = document.createElement('textarea');
-        ta.value = text;
-        ta.setAttribute('readonly', '');          // stops iOS keyboard / zoom
-        ta.style.cssText = 'position:fixed;top:0;left:0;width:1px;height:1px;opacity:0;font-size:16px;';
-        document.body.appendChild(ta);
-        try { ta.focus({ preventScroll: true }); } catch (_) {}
-        ta.select();
-        ta.setSelectionRange(0, text.length);     // required on iOS Safari
-        let ok = false;
-        try { ok = document.execCommand('copy'); } catch (_) {}
-        ta.remove();
-        return ok;
-    };
-    btn.addEventListener('click', async (e) => {
-        e.stopPropagation();
-        e.preventDefault();
-        const text = box.innerText.replace(/\u00a0/g, ' ').replace(/\s+$/, '');
-        let ok = false;
-        if (navigator.clipboard && window.isSecureContext) {
-            try { await navigator.clipboard.writeText(text); ok = true; } catch (_) {}
-        }
-        if (!ok) ok = legacyCopy(text);
-        flash(ok ? 'Copied!' : 'Failed', ok);
-    });
-});
-</script>
 </body>
 </html>
