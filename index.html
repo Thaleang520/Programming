@@ -3923,12 +3923,16 @@ img, svg { max-width: 100%; }
     opacity: 0.75;
     transition: opacity .15s ease, color .15s ease, border-color .15s ease, background .15s ease;
 }
-.code-wrap:hover .copy-btn,
 .copy-btn:focus-visible { opacity: 1; }
-.copy-btn:hover {
-    color: #fff;
-    border-color: #ff2a6d;
-    background: rgba(255, 42, 109, 0.25);
+.copy-btn { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+/* hover styles only on devices that really hover, so a phone tap = one tap, not hover + click */
+@media (hover: hover) {
+    .code-wrap:hover .copy-btn { opacity: 1; }
+    .copy-btn:hover {
+        color: #fff;
+        border-color: #ff2a6d;
+        background: rgba(255, 42, 109, 0.25);
+    }
 }
 .copy-btn.copied {
     color: #3ad67c;
@@ -3937,6 +3941,10 @@ img, svg { max-width: 100%; }
     opacity: 1;
 }
 @media (max-width: 700px) {
+    .code-wrap { width: 100%; flex: none; }
+    .copy-btn { opacity: 1; padding: 6px 12px; font-size: 11px; }
+}
+@media (max-width: 400px) {
     .code-wrap { width: 100%; flex: none; }
     .copy-btn { opacity: 1; padding: 6px 12px; font-size: 11px; }
 }
@@ -4114,7 +4122,7 @@ img, svg { max-width: 100%; }
             
                 <div class="toc-list">
                     <div class="toc-row" style="color:#c23bd8;">
-                        <span class="toc-num">01</span><span class="toc-name">Import sys</span>
+                        <span class="toc-num">01</span><span class="toc-name">Import</span>
                         <span class="toc-dots"></span><span class="toc-page" style="color:#5b6bff;">10–25</span>
                     </div>
                     <div class="toc-row" style="color:#9b4dff;">
