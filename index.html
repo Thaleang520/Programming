@@ -2,15 +2,33 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
+    <meta name="color-scheme" content="dark light" />
+    <meta name="theme-color" content="#07070a" />
+    <script>try{if(localStorage.getItem("pl-theme")==="light")document.documentElement.setAttribute("data-theme","light");}catch(e){}</script>
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>Programming Language</title>
     <link rel="icon" type="image" href="Programming.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Anton&family=Rajdhani:wght@500;700&display=swap');
         :root{
+    --g-hero:linear-gradient(150deg, #1c1812 0%, #0b0a08 48%, #18140f 100%);
+    --g-page:linear-gradient(150deg, #12101c 0%, #07070d 60%, #0d0b15 100%);
+    --g-unit:linear-gradient(160deg, #14111f 0%, #07070d 55%, #0f0b17 100%);
+    --g-nav:linear-gradient(180deg, rgba(13,13,24,0.94), rgba(7,7,13,0.97));
+    --g-img:linear-gradient(160deg,   rgba(20, 20, 28, 0.9) 0%,   rgba(8, 8, 12, 0.95) 100%);
+    --g-catrow:linear-gradient(160deg, rgba(20, 20, 28, 0.95), rgba(8, 8, 12, 0.98));
+    --g-catbtn:linear-gradient(160deg, rgba(20, 20, 28, 0.85), rgba(8, 8, 12, 0.92));
+    --g-search:linear-gradient(160deg, rgba(22, 12, 36, 0.92), rgba(9, 5, 16, 0.96));
+    --c-fill:#0b0b10;
+    --g-results:linear-gradient(180deg, #12101c, #09080f);
+    --g-qcard:linear-gradient(160deg, rgba(255,255,255,0.03), rgba(0,0,0,0.25));
+    --g-modinfo:linear-gradient(180deg, rgba(0, 0, 0, 0.3), transparent);
+    --c-notice:#07070d;
+}
+:root{
             --bg:#07070a;
             --bg-panel:#0d0d11;
             --bg-card:#111116;
@@ -303,7 +321,7 @@
         /* soft diagonal sheen (was opaque before, hiding everything below it) */
         linear-gradient(135deg, rgba(0, 229, 255, 0.08), rgba(255, 45, 170, 0.06) 60%, transparent),
         repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.22) 0 1px, transparent 1px 3px),
-        linear-gradient(160deg, rgba(22, 12, 36, 0.92), rgba(9, 5, 16, 0.96));
+        var(--g-search);
     box-shadow: inset 0 0 20px rgba(23, 230, 208, 0.08);
     transition: box-shadow 0.2s ease;
 }
@@ -427,7 +445,7 @@
     position: absolute;
     inset: 1px;
     z-index: -1;
-    background: linear-gradient(160deg, rgba(20, 20, 28, 0.95), rgba(8, 8, 12, 0.98));
+    background: var(--g-catrow);
     clip-path: polygon(
         0 calc(var(--k) - 0.4px), calc(var(--k) - 0.4px) 0, 100% 0,
         100% calc(100% - var(--k) + 0.4px), calc(100% - var(--k) + 0.4px) 100%, 0 100%
@@ -440,7 +458,7 @@
     background: linear-gradient(135deg, rgb(0, 229, 255), rgb(255, 45, 170));
 }
 .cat-row button:hover::before {
-    background: linear-gradient(160deg, rgba(0, 229, 255, 0.14), rgba(255, 45, 170, 0.10)), #0b0b10;
+    background: linear-gradient(160deg, rgba(0, 229, 255, 0.14), rgba(255, 45, 170, 0.10)), var(--c-fill);
     box-shadow: inset 0 0 10px rgba(0, 229, 255, 0.35);
 }
 
@@ -460,7 +478,7 @@
 .cat-row button.active::before,
 .cat-row button.is-active::before,
 .cat-row button[aria-pressed="true"]::before {
-    background: linear-gradient(160deg, rgba(0, 229, 255, 0.28), rgba(255, 45, 170, 0.22)), #0b0b10;
+    background: linear-gradient(160deg, rgba(0, 229, 255, 0.28), rgba(255, 45, 170, 0.22)), var(--c-fill);
     box-shadow: inset 0 0 12px rgba(0, 229, 255, 0.45);
 }
 
@@ -621,8 +639,8 @@
         drop-shadow(0 0 40px rgba(var(--color-card), 0.9))
         drop-shadow(0 0 90px rgba(var(--color-card), 0.4));
     transition:
-        transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
-        opacity 0.5s ease 0.18s,
+        transform 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+        opacity 0.45s ease 0.3s,
         filter 0.4s ease;
 }
 .card.is-launching .img,
@@ -632,7 +650,9 @@
 
 .card.is-fading-out {
     opacity: 0;
-    transition: opacity 0.4s ease;
+    --scale: 0.8;
+    filter: blur(3px) brightness(0.6);
+    transition: opacity 0.45s ease, transform 0.5s ease, filter 0.45s ease;
     pointer-events: none;
 }
 
@@ -676,9 +696,7 @@
         /* static scanlines */
         repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.22) 0 1px, transparent 1px 3px),
         /* base */
-        linear-gradient(160deg,
-            rgba(20, 20, 28, 0.9) 0%,
-            rgba(8, 8, 12, 0.95) 100%);
+        var(--g-img);
 
     box-shadow: inset 0 0 25px rgba(var(--color-card), 0.14);
     transition: box-shadow 0.4s ease;
@@ -823,11 +841,11 @@
         .transition-veil {
             position: fixed;
             inset: 0;
-            background: radial-gradient(circle at center, rgba(255,255,255,0.9) 0%, #000 75%);
+            background: radial-gradient(circle at center, rgba(var(--veil-color, 255,255,255), 0.55) 0%, rgba(0,0,0,0.92) 70%);
             opacity: 0;
             pointer-events: none;
             z-index: 40;
-            transition: opacity 0.45s ease;
+            transition: opacity 0.5s ease;
         }
 
         .transition-veil.is-active {
@@ -994,7 +1012,7 @@ property --fring {
     position: absolute;
     inset: 1px;
     z-index: -1;
-    background: linear-gradient(160deg, rgba(20, 20, 28, 0.85), rgba(8, 8, 12, 0.92));
+    background: var(--g-catbtn);
     clip-path: polygon(
         0 calc(var(--k) - 0.4px), calc(var(--k) - 0.4px) 0, 100% 0,
         100% calc(100% - var(--k) + 0.4px), calc(100% - var(--k) + 0.4px) 100%, 0 100%
@@ -1008,7 +1026,7 @@ property --fring {
     transform: translateY(-1px);
 }
 .cat-btn:hover::before {
-    background: linear-gradient(160deg, rgba(0, 229, 255, 0.14), rgba(255, 45, 170, 0.10)), #0b0b10;
+    background: linear-gradient(160deg, rgba(0, 229, 255, 0.14), rgba(255, 45, 170, 0.10)), var(--c-fill);
     box-shadow: inset 0 0 10px rgba(0, 229, 255, 0.35);
 }
 
@@ -1025,7 +1043,7 @@ property --fring {
     background: linear-gradient(135deg, rgb(244, 193, 79), rgb(255, 45, 170));
 }
 .cat-btn.active::before {
-    background: linear-gradient(160deg, rgba(244, 193, 79, 0.22), rgba(255, 45, 170, 0.12)), #0b0b10;
+    background: linear-gradient(160deg, rgba(244, 193, 79, 0.22), rgba(255, 45, 170, 0.12)), var(--c-fill);
     box-shadow: inset 0 0 12px rgba(244, 193, 79, 0.35);
 }
 
@@ -1092,6 +1110,14 @@ property --fring {
         .lesson-view.is-active {
             opacity: 1;
             pointer-events: auto;
+            animation: lesson-in 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        @keyframes lesson-in {
+            from { opacity: 0; transform: scale(1.06); filter: blur(8px); }
+            to   { opacity: 1; transform: none;        filter: blur(0); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .lesson-view.is-active { animation: none; }
         }
 
         .lesson-topbar {
@@ -1184,7 +1210,7 @@ property --fring {
         radial-gradient(ellipse 720px 320px at var(--gx) var(--gy), rgba(var(--theme), 0.22), transparent 65%),
         radial-gradient(ellipse 500px 260px at var(--g2x) var(--g2y), rgba(var(--theme), 0.11), transparent 65%),
         /* base */
-        linear-gradient(150deg, #1c1812 0%, #0b0a08 48%, #18140f 100%);
+        var(--g-hero);
 
     box-shadow:
         inset 0 0 70px rgba(0,0,0,0.45),
@@ -1657,7 +1683,7 @@ property --fring {
     border-image: linear-gradient(90deg, rgba(var(--theme),0.8), rgb(var(--theme)) 50%, rgba(var(--theme),0.5)) 0.5;
     background:
         repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.02) 0 1px, transparent 1px 3px),
-        linear-gradient(180deg, rgba(0, 0, 0, 0.3), transparent);
+        var(--g-modinfo);
 }
  
 /* ---------- Column ---------- */
@@ -1867,7 +1893,7 @@ property --fring {
         repeating-linear-gradient(0deg,  rgba(0, 240, 255, 0.03) 0 1px, transparent 1px 24px),
         repeating-linear-gradient(90deg, rgba(0, 240, 255, 0.03) 0 1px, transparent 1px 24px),
         /* base */
-        linear-gradient(150deg, #12101c 0%, #07070d 60%, #0d0b15 100%);
+        var(--g-page);
     /* outer shadows would be clipped, so the depth is inset */
     box-shadow:
         inset 0 0 70px rgba(0, 0, 0, 0.65),
@@ -2042,7 +2068,7 @@ property --fring {
         repeating-linear-gradient(0deg,  rgba(0, 240, 255, 0.035) 0 1px, transparent 1px 24px),
         repeating-linear-gradient(90deg, rgba(0, 240, 255, 0.035) 0 1px, transparent 1px 24px),
         /* base */
-        linear-gradient(160deg, #14111f 0%, #07070d 55%, #0f0b17 100%);
+        var(--g-unit);
     /* outer shadows would be clipped, so everything is inset */
     box-shadow:
         inset 0 0 60px rgba(0, 0, 0, 0.6),
@@ -2585,7 +2611,7 @@ property --fring {
     margin: 0 0 20px;
     background:
         repeating-linear-gradient(0deg, rgba(255,255,255,0.022) 0 1px, transparent 1px 3px),
-        linear-gradient(180deg, rgba(13,13,24,0.94), rgba(7,7,13,0.97));
+        var(--g-nav);
     backdrop-filter: blur(12px);
     /* Outer shadows would be clipped, so the glow is inset */
     box-shadow: inset 0 0 30px rgba(0, 240, 255, 0.06);
@@ -2830,6 +2856,7 @@ property --fring {
 .page-nav-input::-webkit-outer-spin-button,
 .page-nav-input::-webkit-inner-spin-button {
     -webkit-appearance: none;
+    appearance: none;
     margin: 0;
 }
  
@@ -3095,7 +3122,7 @@ property --fring {
         repeating-linear-gradient(0deg,  rgba(0, 240, 255, 0.03) 0 1px, transparent 1px 24px),
         repeating-linear-gradient(90deg, rgba(0, 240, 255, 0.03) 0 1px, transparent 1px 24px),
         /* base */
-        linear-gradient(150deg, #12101c 0%, #07070d 60%, #0d0b15 100%);
+        var(--g-page);
     /* outer shadows would be clipped, so the depth is inset */
     box-shadow:
         inset 0 0 70px rgba(0, 0, 0, 0.65),
@@ -3247,7 +3274,7 @@ property --fring {
     .q-step-count{
         font-family:var(--mono); font-size:12.5px; color:var(--text-secondary); letter-spacing:0.04em;
     }
-    .q-step-btn{ padding:10px 20px; }
+    .q-step-btn{ padding:0 20px; height:34px; font-size:16px; }
 
     .btn{
         font-family:var(--mono); font-size:15px; font-weight:700; letter-spacing:0.02em;
@@ -3480,10 +3507,10 @@ property --fring {
 /* =====================================================================
    RESPONSIVE LAYER (layout only - no font-family / weight changes)
    ===================================================================== */
-html { -webkit-text-size-adjust: 100%; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 img, svg { max-width: 100%; }
 .output-text img, .output-col img { height: auto; }
-.lesson-view { -webkit-overflow-scrolling: touch; overscroll-behavior: contain; }
+.lesson-view { overscroll-behavior: contain; }
 .lesson-content { overflow-wrap: anywhere; }
 
 /* ---------- Large laptops / desktops ---------- */
@@ -3600,7 +3627,7 @@ img, svg { max-width: 100%; }
 /* ---------- Phone polish (no image sizes touched) ---------- */
 @media (max-width: 700px) {
     .lesson-view { padding-bottom: calc(64px + env(safe-area-inset-bottom)); }
-    .code-box { -webkit-overflow-scrolling: touch; overscroll-behavior-x: contain; }
+    .code-box { overscroll-behavior-x: contain; }
     button, .cat-btn, .option, .page-nav-btn, .back-btn, .card { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
     .book-page .page-right { left: auto; right: 16px; transform: none; }
 }
@@ -3645,7 +3672,7 @@ img, svg { max-width: 100%; }
         flex-wrap: nowrap; justify-content: flex-start; gap: 8px;
         width: 100vw; margin: 0 -3vw; padding: 2px 4vw 4px;
         overflow-x: auto; scroll-snap-type: x proximity;
-        scrollbar-width: none; -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
     }
     .cat-row::-webkit-scrollbar { display: none; }
     .cat-btn { flex: 0 0 auto; scroll-snap-align: center; padding: 9px 16px; font-size: 11px; min-height: 36px; }
@@ -3919,9 +3946,7 @@ img, svg { max-width: 100%; }
             /* static scanlines */
             repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.22) 0 1px, transparent 1px 3px),
             /* base */
-            linear-gradient(160deg,
-                rgba(20, 20, 28, 0.9) 0%,
-                rgba(8, 8, 12, 0.95) 100%);
+            var(--g-img);
     }
 }
 /* ---------- Page loader: glowing blob orb + live progress ---------- */
@@ -4233,6 +4258,954 @@ img, svg { max-width: 100%; }
     .lesson-hero .hero-title .hero-lang { font-size: 24px; letter-spacing: 2px; }
     .lesson-hero .hero-title .hero-title-alt { font-size: 8.5px; letter-spacing: 0.08em; }
 }
+
+/* ---------- Mobile quiz polish ---------- */
+@media (max-width: 700px) {
+    /* more room: flatter frames, no forced min-height */
+    .qcm-page { min-height: 0; padding: 18px 12px 16px; }
+    .q-card { background: transparent; border: 0; border-radius: 0; box-shadow: none; padding: 4px 2px 6px; margin-bottom: 22px; }
+    .q-card:not(:last-child) { padding-bottom: 22px; border-bottom: 1px solid var(--border-soft); }
+    .q-head { flex-direction: column; gap: 4px; margin-bottom: 14px; }
+    .q-num { min-width: 0; font-size: 12px; letter-spacing: 0.12em; }
+    .q-text { font-size: 18px; line-height: 1.4; }
+
+    /* big, easy tap targets */
+    .options { gap: 10px; }
+    .option {
+        min-height: 54px; padding: 12px 14px; font-size: 16px; line-height: 1.35;
+        border-radius: 12px; touch-action: manipulation; -webkit-tap-highlight-color: transparent;
+        transition: transform .1s ease, border-color .15s ease, background .15s ease;
+    }
+    .option .letter { width: 30px; height: 30px; font-size: 13px; border-radius: 8px; }
+    .option:active:not(.disabled) { transform: scale(0.98); background: rgba(163,92,255,0.14); border-color: var(--purple); }
+    .option:hover:not(.selected):not(.correct):not(.incorrect) { border-color: var(--border); color: var(--text-secondary); }
+
+    /* Prev / counter / Next on one row, thumb sized */
+    .q-stepper { flex-wrap: nowrap; justify-content: space-between; gap: 10px; margin-top: 16px; padding-top: 14px; }
+    .q-step-btn { flex: 1 1 0; height: 34px; min-height: 0; padding: 0 8px; font-size: 16px; justify-content: center; }
+    .q-step-count { flex: 0 0 auto; font-size: 12px; text-align: center; }
+
+    /* Exam bar: two rows.  Row 1 = timer + Start/Retry, row 2 = ← Unit # → Go */
+    .page-nav:has(.exam-start-btn) {
+        display: grid;
+        grid-template-columns: 1fr 1.4fr 1fr 1fr;
+        grid-template-areas:
+            "timer timer btn btn"
+            "prev  unit  next go";
+        gap: 8px; padding: 10px 12px; margin-bottom: 12px; align-items: center;
+        bottom: calc(-12px + env(safe-area-inset-bottom));
+    }
+    .page-nav:has(.exam-start-btn) .exam-countdown { grid-area: timer; justify-self: start; }
+    .page-nav:has(.exam-start-btn) .exam-btn-slot { grid-area: btn; margin-left: 0; }
+    .page-nav:has(.exam-start-btn) .exam-start-btn,
+    .page-nav:has(.exam-start-btn) .retry-exam-btn { width: 100%; min-width: 0; height: 34px; min-height: 0; }
+    .page-nav:has(.exam-start-btn) > .page-nav-btn[data-dir="-1"] { grid-area: prev; }
+    .page-nav:has(.exam-start-btn) > .page-nav-input { grid-area: unit; width: 100%; }
+    .page-nav:has(.exam-start-btn) > .page-nav-btn[data-dir="1"] { grid-area: next; }
+    .page-nav:has(.exam-start-btn) > .page-nav-btn[data-dir="0"] { grid-area: go; }
+    .page-nav:has(.exam-start-btn) > .page-nav-btn { width: 100%; padding: 0; }
+    .page-nav:has(.exam-start-btn) .page-nav-count { display: none; }
+
+    .results { padding: 20px 14px; margin-bottom: 20px; }
+}
+
+/* ---------- Exam timer: "TIME" panel with big green 7-segment digits ---------- */
+.exam-countdown.c2-display {
+    --oc: 10px; --ot: 2px;
+    gap: 4px;
+    min-width: 0;
+    padding: 8px 18px 8px 52px;
+    justify-content: center;
+    background:
+        radial-gradient(ellipse 80% 120% at 60% 50%, rgba(58, 214, 124, 0.10), transparent 70%),
+        linear-gradient(180deg, #03080a, #06100f);
+    box-shadow: inset 0 0 22px rgba(58, 214, 124, 0.10);
+}
+.exam-countdown.c2-display::before {
+    background: linear-gradient(115deg, #2cf5d0 0%, currentColor 70%);
+}
+/* vertical "TIME" label with divider line */
+.exam-countdown.c2-display::after {
+    content: "TIME";
+    position: absolute; left: 0; top: 7px; bottom: 7px; width: 40px;
+    display: flex; align-items: center; justify-content: center;
+    writing-mode: vertical-rl; transform: rotate(180deg);
+    font: 700 10px/1 var(--mono); letter-spacing: 0.22em;
+    color: rgba(190, 235, 225, 0.75);
+    border-left: 1px solid rgba(44, 245, 208, 0.45);
+    z-index: 2; pointer-events: none;
+}
+.exam-countdown.c2-display .seg-digit { width: 26px; height: 42px; }
+.exam-countdown.c2-display .seg-colon { width: 10px; height: 42px; }
+.exam-countdown.c2-display .seg { stroke: currentColor; stroke-width: 2.2; stroke-linejoin: round; opacity: 0.10; }
+.exam-countdown.c2-display .seg.on {
+    opacity: 1;
+    filter: drop-shadow(0 0 3px currentColor) drop-shadow(0 0 9px currentColor);
+}
+.exam-countdown.c2-display .dot { filter: drop-shadow(0 0 3px currentColor) drop-shadow(0 0 8px currentColor); }
+
+@media (max-width: 700px) {
+    .exam-countdown.c2-display { padding: 6px 12px 6px 38px; gap: 2px; }
+    .exam-countdown.c2-display::after { width: 28px; font-size: 8.5px; top: 6px; bottom: 6px; }
+    .exam-countdown.c2-display .seg-digit { width: 18px; height: 30px; }
+    .exam-countdown.c2-display .seg-colon { width: 7px; height: 30px; }
+}
+
+/* quiz progress bar removed (elements kept so the quiz script still works) */
+.qcm-hero-content .progress-shell,
+.qcm-hero-content .progress-label { display: none !important; }
+
+/* tighten gap between the unit header and the QCM panel
+   (progress bar is hidden, so its reserved space is no longer needed) */
+.qcm-hero-content { padding: 6px 0 0 !important; }
+.qcm-hero-content .unit-header { margin-bottom: 0; }
+.qcm-hero-content + .qcm, .book + .qcm { margin-top: 0; }
+@media (max-width: 700px) {
+    .qcm-hero-content { padding: 4px 0 0 !important; }
+    .book + .qcm { margin-top: 0; }
+}
+
+/* exam clock: same height as the Go button (34px) on desktop and mobile */
+.exam-countdown.c2-display {
+    box-sizing: border-box; height: 34px !important; min-height: 0 !important;
+    padding: 0 12px 0 34px !important; gap: 2px; align-items: center;
+}
+.exam-countdown.c2-display .seg-digit { width: 14px !important; height: 22px !important; }
+.exam-countdown.c2-display .seg-colon { width: 5px !important; height: 22px !important; }
+/* desktop / laptop: Start & Retry exam buttons also 34px so the whole row lines up */
+.page-nav:has(.exam-start-btn) .exam-start-btn,
+.page-nav:has(.exam-start-btn) .retry-exam-btn { height: 34px; min-height: 0; }
+.exam-countdown.c2-display::after { width: 26px; font-size: 8px; top: 4px; bottom: 4px; }
+.exam-countdown.c2-display .seg-digit { width: 14px; height: 22px; }
+.exam-countdown.c2-display .seg-colon { width: 5px; height: 22px; }
+
+/* =====================================================================
+   QCM page polish  (cyber theme: cyan / pink / violet, mono + display)
+   ===================================================================== */
+
+/* --- locked notice (before Start Exam) --- */
+.exam-locked-notice {
+    display: flex; align-items: center; justify-content: center; text-align: center;
+    min-height: 200px; padding: 28px 20px; margin: 4px 0;
+    font: 600 15px/1.6 var(--mono); letter-spacing: 0.02em;
+    color: rgba(190, 235, 245, 0.85);
+    border: 1px dashed rgba(0, 240, 255, 0.35);
+    border-radius: 12px;
+    background:
+        radial-gradient(ellipse 60% 90% at 50% 0%, rgba(0, 240, 255, 0.09), transparent 70%),
+        repeating-linear-gradient(135deg, rgba(255,255,255,0.02) 0 8px, transparent 8px 16px);
+    text-shadow: 0 0 14px rgba(0, 240, 255, 0.35);
+}
+
+/* --- question card --- */
+.q-card { animation: qcmIn .35s ease both; }
+@keyframes qcmIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+.q-head { align-items: center; }
+.q-num {
+    display: inline-flex; align-items: center; justify-content: center;
+    padding: 5px 12px; min-width: 0;
+    font: 700 13px/1 var(--mono); letter-spacing: 0.14em;
+    color: var(--cp-cyan, #00f0ff);
+    border: 1px solid rgba(0, 240, 255, 0.45);
+    border-radius: 999px;
+    background: linear-gradient(180deg, rgba(0,240,255,0.14), rgba(0,240,255,0.03));
+    box-shadow: 0 0 14px rgba(0, 240, 255, 0.18), inset 0 0 8px rgba(0, 240, 255, 0.10);
+    text-shadow: 0 0 8px rgba(0, 240, 255, 0.7);
+}
+.q-text { color: #f2f5ff; font-weight: 700; letter-spacing: 0.005em; text-shadow: 0 1px 0 rgba(0,0,0,0.5); }
+
+/* --- options --- */
+.options { gap: 10px; }
+.option {
+    position: relative; overflow: hidden;
+    border: 1px solid rgba(160, 175, 255, 0.16);
+    border-radius: 12px;
+    background:
+        linear-gradient(90deg, rgba(0,240,255,0.00), rgba(0,240,255,0.00)),
+        linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.01));
+    color: #c9d0e6;
+    box-shadow: inset 3px 0 0 rgba(160,175,255,0.10);
+    transition: border-color .18s ease, background .18s ease, color .18s ease,
+                box-shadow .18s ease, transform .15s ease;
+}
+.option .letter {
+    font: 700 13px var(--mono);
+    color: #aab3d4;
+    border: 1px solid rgba(160, 175, 255, 0.28);
+    border-radius: 8px;
+    background: rgba(255,255,255,0.04);
+    transition: inherit;
+}
+.option:hover:not(.disabled) {
+    border-color: rgba(0, 240, 255, 0.55);
+    color: #fff;
+    background: linear-gradient(90deg, rgba(0,240,255,0.10), rgba(144,0,255,0.05));
+    box-shadow: inset 3px 0 0 var(--cp-cyan, #00f0ff), 0 0 18px rgba(0,240,255,0.12);
+    transform: translateX(3px);
+}
+.option:hover:not(.disabled) .letter {
+    color: #07070d; background: var(--cp-cyan, #00f0ff); border-color: var(--cp-cyan, #00f0ff);
+    box-shadow: 0 0 12px rgba(0,240,255,0.6);
+}
+.option.selected {
+    border-color: rgba(144, 0, 255, 0.7); color: #fff;
+    background: linear-gradient(90deg, rgba(144,0,255,0.20), rgba(255,42,109,0.06));
+    box-shadow: inset 3px 0 0 var(--cp-violet, #9000ff);
+}
+.option.selected .letter { color: #fff; background: var(--cp-violet, #9000ff); border-color: var(--cp-violet, #9000ff); }
+
+/* graded states with icons */
+.option.correct {
+    border-color: rgba(58, 214, 124, 0.8); color: #fff;
+    background: linear-gradient(90deg, rgba(58,214,124,0.20), rgba(58,214,124,0.04));
+    box-shadow: inset 3px 0 0 var(--green), 0 0 18px rgba(58,214,124,0.14);
+}
+.option.correct .letter { color: #04120a; background: var(--green); border-color: var(--green); }
+.option.correct::after {
+    content: "\2713"; margin-left: auto; padding-left: 10px;
+    font: 800 18px/1 var(--mono); color: var(--green); text-shadow: 0 0 10px rgba(58,214,124,0.7);
+}
+.option.incorrect {
+    border-color: rgba(255, 92, 122, 0.8); color: #fff;
+    background: linear-gradient(90deg, rgba(255,92,122,0.20), rgba(255,92,122,0.04));
+    box-shadow: inset 3px 0 0 var(--red), 0 0 18px rgba(255,92,122,0.14);
+}
+.option.incorrect .letter { color: #1a0509; background: var(--red); border-color: var(--red); }
+.option.incorrect::after {
+    content: "\2717"; margin-left: auto; padding-left: 10px;
+    font: 800 18px/1 var(--mono); color: var(--red); text-shadow: 0 0 10px rgba(255,92,122,0.7);
+}
+.option.disabled { transform: none; }
+
+/* --- stepper --- */
+.q-stepper { border-top: 1px solid transparent;
+    border-image: linear-gradient(90deg, transparent, rgba(0,240,255,0.35), rgba(255,42,109,0.35), transparent) 1; }
+.q-step-count {
+    padding: 6px 14px; border-radius: 999px;
+    font: 700 12px/1 var(--mono); letter-spacing: 0.12em; text-transform: uppercase;
+    color: #bfe9f2; border: 1px solid rgba(0,240,255,0.25); background: rgba(0,240,255,0.05);
+}
+.q-step-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+
+/* --- results --- */
+.results {
+    position: relative; overflow: hidden;
+    border: 1px solid rgba(0, 240, 255, 0.35); border-radius: 16px;
+    background:
+        radial-gradient(ellipse 70% 120% at 50% 0%, rgba(144,0,255,0.22), transparent 70%),
+        radial-gradient(ellipse 60% 100% at 50% 100%, rgba(0,240,255,0.10), transparent 70%),
+        var(--g-results);
+    box-shadow: 0 0 30px rgba(144, 0, 255, 0.18), inset 0 0 40px rgba(0,0,0,0.5);
+}
+.results.show { animation: qcmIn .45s ease both; }
+.results .score {
+    font-size: clamp(56px, 9vw, 84px); letter-spacing: 0.04em;
+    background: linear-gradient(90deg, var(--cp-pink, #ff2a6d), var(--cp-violet, #9000ff) 50%, var(--cp-cyan, #00f0ff));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    filter: drop-shadow(0 0 18px rgba(144, 0, 255, 0.45));
+}
+.results .score-label {
+    font: 700 12px var(--mono); letter-spacing: 0.35em; color: #9fb0d0;
+}
+.results .verdict {
+    display: inline-block; margin-top: 18px; padding: 10px 20px; max-width: 90%;
+    font: 600 16px/1.4 var(--body, 'Rajdhani', sans-serif); color: #eaf6ff;
+    border: 1px solid rgba(244,193,79,0.4); border-radius: 999px;
+    background: rgba(244,193,79,0.07);
+}
+.results .verdict:empty { display: none; }
+
+/* --- desktop: cleaner question card --- */
+@media (min-width: 701px) {
+    .q-card {
+        position: relative;
+        background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.008));
+        border: 1px solid rgba(160,175,255,0.14);
+        border-radius: 14px;
+        padding: 26px 26px 24px;
+        box-shadow: inset 0 1px 0 rgba(255,255,255,0.05), 0 18px 40px -24px rgba(0,0,0,0.9);
+    }
+    .q-card::before {
+        content: ""; position: absolute; left: 0; top: 18px; bottom: 18px; width: 3px; border-radius: 3px;
+        background: linear-gradient(180deg, var(--cp-pink, #ff2a6d), var(--cp-violet, #9000ff), var(--cp-cyan, #00f0ff));
+        box-shadow: 0 0 12px rgba(144,0,255,0.6);
+    }
+    .q-text { font-size: 21px; }
+    .option { padding: 13px 16px; font-size: 16.5px; }
+    .option .letter { width: 28px; height: 28px; }
+    .q-stepper { margin-top: 22px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .q-card, .results.show { animation: none; }
+    .option:hover:not(.disabled) { transform: none; }
+}
+
+/* =====================================================================
+   QCM  CYBERPUNK layer: chamfered cuts, neon rings, scanlines, glitch
+   ===================================================================== */
+
+/* scanlines + slow sweep over the whole QCM panel */
+.qcm-page::after {
+    content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 3;
+    background:
+        linear-gradient(180deg, transparent 0, rgba(0,240,255,0.07) 50%, transparent 100%) 0 -30% / 100% 30% no-repeat,
+        repeating-linear-gradient(0deg, rgba(0,0,0,0.18) 0 1px, transparent 1px 3px);
+    mix-blend-mode: screen; opacity: .55;
+    animation: cpSweep 7s linear infinite;
+}
+@keyframes cpSweep { to { background-position: 0 130%, 0 0; } }
+
+/* ---- locked notice: terminal style ---- */
+.exam-locked-notice {
+    flex-direction: column; gap: 10px; border-radius: 0;
+    border: 1px solid rgba(255, 42, 109, 0.45);
+    background:
+        repeating-linear-gradient(0deg, rgba(255,255,255,0.025) 0 1px, transparent 1px 3px),
+        radial-gradient(ellipse 60% 90% at 50% 0%, rgba(255,42,109,0.12), transparent 70%),
+        var(--c-notice);
+    color: #cfeaf3; text-shadow: 0 0 10px rgba(0,240,255,0.5);
+    clip-path: polygon(0 14px, 14px 0, 100% 0, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0 100%);
+}
+.exam-locked-notice::before {
+    content: "// ACCESS LOCKED";
+    font: 800 13px var(--mono); letter-spacing: 0.4em; color: var(--cp-pink, #ff2a6d);
+    text-shadow: 2px 0 rgba(0,240,255,0.6), -2px 0 rgba(255,42,109,0.6);
+    animation: cpFlicker 3.2s steps(1) infinite;
+}
+@keyframes cpFlicker { 0%,92%,100% { opacity: 1; } 93% { opacity: .3; } 95% { opacity: 1; } 97% { opacity: .5; } }
+
+/* ---- question number: neon tag ---- */
+.q-num {
+    border-radius: 0; border: 0; padding: 7px 16px 7px 14px;
+    font: 400 20px/1 var(--display); letter-spacing: 0.12em;
+    color: #07070d; background: linear-gradient(100deg, var(--cp-cyan, #00f0ff), #5ff2d8);
+    clip-path: polygon(0 0, 100% 0, calc(100% - 9px) 100%, 0 100%);
+    box-shadow: none; text-shadow: none;
+    filter: drop-shadow(0 0 8px rgba(0,240,255,0.6));
+}
+.q-num::before { content: "//"; margin-right: 6px; opacity: .55; }
+.q-text { text-shadow: 1.5px 0 rgba(255,42,109,0.35), -1.5px 0 rgba(0,240,255,0.35); }
+
+/* ---- options: chamfered neon plates ---- */
+.option {
+    --oc: 10px; --ot: 1px;
+    border: 0; border-radius: 0; padding: 14px 18px;
+    background:
+        repeating-linear-gradient(0deg, rgba(255,255,255,0.02) 0 1px, transparent 1px 3px),
+        linear-gradient(100deg, rgba(0,240,255,0.05), rgba(144,0,255,0.03) 60%, rgba(255,42,109,0.04));
+    box-shadow: none;
+    clip-path: polygon(0 var(--oc), var(--oc) 0, 100% 0, 100% calc(100% - var(--oc)), calc(100% - var(--oc)) 100%, 0 100%);
+}
+.option::before {
+    content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 2;
+    background: linear-gradient(115deg, rgba(0,240,255,0.55), rgba(144,0,255,0.5) 55%, rgba(255,42,109,0.55));
+    opacity: .55; transition: opacity .18s ease;
+    clip-path: polygon(evenodd,
+        0 var(--oc), var(--oc) 0, 100% 0, 100% calc(100% - var(--oc)), calc(100% - var(--oc)) 100%, 0 100%, 0 var(--oc),
+        var(--ot) calc(var(--oc) + var(--ot) * .414), calc(var(--oc) + var(--ot) * .414) var(--ot),
+        calc(100% - var(--ot)) var(--ot), calc(100% - var(--ot)) calc(100% - var(--oc) - var(--ot) * .414),
+        calc(100% - var(--oc) - var(--ot) * .414) calc(100% - var(--ot)), var(--ot) calc(100% - var(--ot)),
+        var(--ot) calc(var(--oc) + var(--ot) * .414));
+}
+.option .letter {
+    border: 0; border-radius: 0; color: var(--cp-cyan, #00f0ff);
+    background: rgba(0,240,255,0.10);
+    clip-path: polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px);
+}
+.option:hover:not(.disabled) {
+    background:
+        repeating-linear-gradient(0deg, rgba(255,255,255,0.03) 0 1px, transparent 1px 3px),
+        linear-gradient(100deg, rgba(0,240,255,0.20), rgba(144,0,255,0.12) 60%, rgba(255,42,109,0.12));
+    box-shadow: inset 0 0 24px rgba(0,240,255,0.18);
+    text-shadow: 0 0 10px rgba(0,240,255,0.55);
+}
+.option:hover:not(.disabled)::before { opacity: 1; }
+.option:hover:not(.disabled) .letter { color: #07070d; background: var(--cp-cyan, #00f0ff); box-shadow: none; }
+
+.option.selected {
+    background: linear-gradient(100deg, rgba(144,0,255,0.32), rgba(255,42,109,0.14));
+    box-shadow: inset 0 0 26px rgba(144,0,255,0.3);
+}
+.option.selected::before { opacity: 1; background: linear-gradient(115deg, var(--cp-violet, #9000ff), var(--cp-pink, #ff2a6d)); }
+.option.selected .letter { color: #fff; background: var(--cp-violet, #9000ff); }
+
+.option.correct {
+    background: linear-gradient(100deg, rgba(58,214,124,0.28), rgba(0,240,255,0.08));
+    box-shadow: inset 0 0 26px rgba(58,214,124,0.28);
+}
+.option.correct::before { opacity: 1; background: linear-gradient(115deg, var(--green), #5ff2d8); }
+.option.incorrect {
+    background: linear-gradient(100deg, rgba(255,42,109,0.30), rgba(144,0,255,0.08));
+    box-shadow: inset 0 0 26px rgba(255,42,109,0.28);
+    animation: cpGlitch .4s steps(2) 1;
+}
+.option.incorrect::before { opacity: 1; background: linear-gradient(115deg, var(--cp-pink, #ff2a6d), var(--red)); }
+@keyframes cpGlitch {
+    0% { transform: translateX(0); } 25% { transform: translateX(-4px); }
+    50% { transform: translateX(3px); } 75% { transform: translateX(-2px); } 100% { transform: none; }
+}
+
+/* ---- stepper counter: cut-corner tag ---- */
+.q-step-count {
+    border: 0; border-radius: 0; padding: 8px 18px; color: var(--cp-cyan, #00f0ff);
+    background: rgba(0,240,255,0.07); box-shadow: inset 0 -2px 0 rgba(0,240,255,0.5);
+    clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+    text-shadow: 0 0 8px rgba(0,240,255,0.6);
+}
+
+/* ---- results: HUD score panel ---- */
+.results {
+    border: 0; border-radius: 0;
+    clip-path: polygon(0 20px, 20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%);
+    box-shadow: inset 0 0 50px rgba(144,0,255,0.25), inset 0 0 0 1px rgba(0,240,255,0.4);
+}
+.results .score { position: relative; animation: cpScore 5s steps(1) infinite; }
+@keyframes cpScore {
+    0%,94%,100% { filter: drop-shadow(0 0 18px rgba(144,0,255,0.5)); }
+    95% { filter: drop-shadow(5px 0 0 rgba(0,240,255,0.8)) drop-shadow(-5px 0 0 rgba(255,42,109,0.8)); }
+    97% { filter: drop-shadow(-3px 0 0 rgba(0,240,255,0.8)) drop-shadow(3px 0 0 rgba(255,42,109,0.8)); }
+}
+.results .score-label { color: var(--cp-cyan, #00f0ff); text-shadow: 0 0 10px rgba(0,240,255,0.6); }
+.results .verdict {
+    border-radius: 0; border: 1px solid rgba(244,193,79,0.55);
+    clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+    color: var(--cp-gold, #f4c14f); text-shadow: 0 0 10px rgba(244,193,79,0.5);
+    text-transform: uppercase; letter-spacing: 0.08em; font-size: 14px;
+}
+
+/* ---- desktop question card: HUD frame ---- */
+@media (min-width: 701px) {
+    .q-card {
+        --oc: 16px; --ot: 1px;
+        border: 0; border-radius: 0; box-shadow: none; overflow: hidden;
+        background:
+            repeating-linear-gradient(0deg, rgba(255,255,255,0.018) 0 1px, transparent 1px 3px),
+            radial-gradient(ellipse 500px 200px at 0% 0%, rgba(144,0,255,0.14), transparent 70%),
+            var(--g-qcard);
+        clip-path: polygon(0 var(--oc), var(--oc) 0, 100% 0, 100% calc(100% - var(--oc)), calc(100% - var(--oc)) 100%, 0 100%);
+    }
+    .q-card::before {
+        inset: 0; width: auto; top: 0; bottom: 0; left: 0; border-radius: 0; box-shadow: none; z-index: 2;
+        pointer-events: none;
+        background: linear-gradient(115deg, var(--cp-pink, #ff2a6d), var(--cp-violet, #9000ff) 50%, var(--cp-cyan, #00f0ff));
+        opacity: .8;
+        clip-path: polygon(evenodd,
+            0 var(--oc), var(--oc) 0, 100% 0, 100% calc(100% - var(--oc)), calc(100% - var(--oc)) 100%, 0 100%, 0 var(--oc),
+            var(--ot) calc(var(--oc) + var(--ot) * .414), calc(var(--oc) + var(--ot) * .414) var(--ot),
+            calc(100% - var(--ot)) var(--ot), calc(100% - var(--ot)) calc(100% - var(--oc) - var(--ot) * .414),
+            calc(100% - var(--oc) - var(--ot) * .414) calc(100% - var(--ot)), var(--ot) calc(100% - var(--ot)),
+            var(--ot) calc(var(--oc) + var(--ot) * .414));
+    }
+    .q-card::after {
+        content: "SYS//QCM"; position: absolute; top: 10px; right: 26px;
+        font: 700 10px var(--mono); letter-spacing: 0.3em; color: rgba(0,240,255,0.55);
+        pointer-events: none;
+    }
+}
+@media (max-width: 700px) {
+    .option { --oc: 8px; padding: 12px 14px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .qcm-page::after, .exam-locked-notice::before, .results .score, .option.incorrect { animation: none; }
+}
+
+/* ===== QCM: no animation (static design) ===== */
+.qcm-page::after,
+.exam-locked-notice::before,
+.q-card,
+.results.show,
+.results .score,
+.option.incorrect { animation: none !important; }
+.qcm-page::after { background-position: 0 0, 0 0; }
+.option, .option::before, .option .letter, .q-card, .q-step-count { transition: none !important; }
+.option:hover:not(.disabled) { transform: none; }
+
+html[data-theme="light"] {
+    color-scheme: light;
+    --g-hero:linear-gradient(150deg, #ffffff 0%, #f8f9fc 55%, #ffffff 100%);
+    --g-page:linear-gradient(150deg, #ffffff 0%, #f9f8fe 60%, #ffffff 100%);
+    --g-unit:linear-gradient(160deg, #f4f1fd 0%, #ffffff 55%, #f1f8fb 100%);
+    --g-nav:linear-gradient(180deg, rgba(255,255,255,0.96), rgba(247,248,252,0.98));
+    --g-img:linear-gradient(160deg, rgba(255,255,255,0.96) 0%, rgba(244,246,251,0.98) 100%);
+    --g-catrow:linear-gradient(160deg, #ffffff, #f3f5fa);
+    --g-catbtn:linear-gradient(160deg, #ffffff, #f3f5fa);
+    --g-search:linear-gradient(160deg, #ffffff, #f4f6fb);
+    --c-fill:#ffffff;
+    --g-results:linear-gradient(180deg, #ffffff, #f7f6fd);
+    --g-qcard:linear-gradient(160deg, rgba(255,255,255,0), rgba(20,30,70,0.04));
+    --g-modinfo:linear-gradient(180deg, rgba(30,40,80,0.05), transparent);
+    --c-notice:#ffffff;
+    --bg:#ffffff; --bg-panel:#f5f6fa; --bg-card:#ffffff;
+    --border:#d3d8e4; --border-soft:#e4e7ef;
+    --text-primary:#14151c; --text-secondary:#454959; --text-tertiary:#737788;
+    --teal:#00806c; --purple:#7a2fe0; --green:#16a34a; --red:#dc2650;
+    --cp-void:#ffffff; --cp-panel:#f5f6fa;
+    --cp-text:#14151c; --cp-text-dim:#454959; --cp-text-faint:#737788;
+    --m-glass: rgba(255,255,255,0.88);
+    --ink-cyan:#00798a; --ink-pink:#d4175c; --ink-violet:#6a1fd6; --ink-gold:#946000;
+}
+html[data-theme="light"], html[data-theme="light"] body { background:#ffffff; color:var(--text-primary); }
+html[data-theme="light"] body::before { background:#ffffff; }
+html[data-theme="light"] body::after { display:none; }
+html[data-theme="light"] /* ---------- home / carousel ---------- */
+.top-bar::before { background: linear-gradient(180deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.6) 60%, transparent 100%); }
+html[data-theme="light"] .bottom-bar::before { background: linear-gradient(0deg, rgba(255,255,255,0.96) 0%, rgba(255,255,255,0.65) 60%, transparent 100%); }
+html[data-theme="light"] .rupp-logo .rupp-icon { background:#ffffff; box-shadow: 0 2px 14px rgba(244,193,79,0.45), 0 0 0 1px rgba(0,0,0,0.06); }
+html[data-theme="light"] .rupp-logo .word .line1, html[data-theme="light"] .rupp-logo .word .line2, html[data-theme="light"] .Text .txt .line1, html[data-theme="light"] .Text .txt .line2 { color:#14151c; text-shadow:none; }
+html[data-theme="light"] .caption .brand { color:var(--teal); text-shadow:none; }
+html[data-theme="light"] .caption .brand b { color:#14151c; }
+html[data-theme="light"] .glow-floor { background: radial-gradient(ellipse at center, rgba(132,0,255,0.08) 70%, transparent 70%); }
+html[data-theme="light"] .transition-veil { background: radial-gradient(circle at center, rgba(var(--veil-color, 255,255,255), 0.45) 0%, rgba(255,255,255,0.97) 70%); }
+html[data-theme="light"] .search-row input, html[data-theme="light"] .search-row input:focus { background-color:#ffffff; background-image:none; color:#14151c; }
+html[data-theme="light"] .search-row input { box-shadow: inset 0 0 14px rgba(0,150,170,0.06); border-color: rgba(0,150,170,0.45); }
+html[data-theme="light"] .search-row input::placeholder { color:#8a8ea0; }
+html[data-theme="light"] .cat-row button:hover, html[data-theme="light"] .cat-row button.active, html[data-theme="light"] .cat-row button.is-active, html[data-theme="light"] .cat-row button[aria-pressed="true"] { color:#14151c; }
+html[data-theme="light"] .cat-btn.active { color:var(--ink-gold); }
+html[data-theme="light"] .filter-btn { background-color:#ffffff; }
+html[data-theme="light"] .filter-btn:hover { color:var(--ink-cyan); text-shadow:none; }
+html[data-theme="light"] .filter-btn.active { color:var(--ink-gold); text-shadow:none; }
+html[data-theme="light"] .filter-btn:focus-visible { color:var(--ink-gold); }
+html[data-theme="light"] .card:hover { filter: brightness(1.03) contrast(1.02) drop-shadow(0 0 8px rgba(var(--color-card),0.55)) drop-shadow(0 0 20px rgba(var(--color-card),0.25)); }
+html[data-theme="light"] .card.is-launching { filter: brightness(1.05) drop-shadow(0 0 40px rgba(var(--color-card),0.6)) drop-shadow(0 0 90px rgba(var(--color-card),0.3)); }
+html[data-theme="light"] .card.is-fading-out { filter: blur(3px); }
+html[data-theme="light"] .img img { filter: drop-shadow(0 0 8px rgba(var(--color-card),0.5)); }
+html[data-theme="light"] .img span {
+    color: rgb(var(--color-card));
+    color: color-mix(in srgb, rgb(var(--color-card)) 58%, #000);
+    text-shadow:none;
+}
+html[data-theme="light"] /* ---------- page loader ---------- */
+.loader-percent { text-shadow:none; }
+html[data-theme="light"] .loader-bar { background: rgba(0,0,0,0.08); }
+html[data-theme="light"] .page-loader::before { opacity:0.5; }
+html[data-theme="light"] /* ---------- lesson view ---------- */
+.lesson-view {
+    background: radial-gradient(ellipse 120% 40% at 50% 0%, rgba(163,92,255,0.07), transparent 70%), #ffffff;
+    color:#14151c;
+}
+html[data-theme="light"] .undo-hint { color:#8a8ea0; }
+html[data-theme="light"] .lesson-hero { box-shadow: inset 0 0 44px rgba(var(--theme), 0.06); }
+html[data-theme="light"] .hero-title .hero-lang, html[data-theme="light"] .lesson-hero .hero-title .hero-lang {
+    color: rgb(var(--theme));
+    color: color-mix(in srgb, rgb(var(--theme)) 62%, #000);
+    text-shadow:none;
+}
+html[data-theme="light"] .hero-title .hero-title-alt, html[data-theme="light"] .lesson-hero .hero-title .hero-title-alt {
+    color: rgb(var(--theme));
+    color: color-mix(in srgb, rgb(var(--theme)) 55%, #000);
+    text-shadow:none;
+}
+html[data-theme="light"] .hero-seal span { color: rgba(var(--theme),0.95); }
+html[data-theme="light"] .module-badge {
+    color: rgb(var(--theme));
+    color: color-mix(in srgb, rgb(var(--theme)) 60%, #000);
+    text-shadow:none;
+}
+html[data-theme="light"] .tools-list, html[data-theme="light"] .gen-label, html[data-theme="light"] .module-date { color:#2b2f40; }
+html[data-theme="light"] .lesson-content { color:#14151c; background:#fafbfd; border-color:var(--border); }
+html[data-theme="light"] .lesson-content:empty::before { color:#9a9eaf; }
+html[data-theme="light"] /* ---------- book pages / table of contents ---------- */
+.book-page, html[data-theme="light"] .qcm-page { box-shadow: inset 0 0 40px rgba(144,0,255,0.05); }
+html[data-theme="light"] .unit-header { box-shadow: inset 0 0 44px rgba(0,240,255,0.06); }
+html[data-theme="light"] .toc-title-left, html[data-theme="light"] .toc-title-right { color:var(--ink-gold); text-shadow:none; }
+html[data-theme="light"] .toc-title-center { color:#14151c; text-shadow:none; }
+html[data-theme="light"] .book-page .page-right, html[data-theme="light"] .unit-header .page-right { color:#14151c; text-shadow:none; }
+html[data-theme="light"] .toc-row { border-bottom-color: rgba(0,0,0,0.08); }
+html[data-theme="light"] .unit-title { color:#14151c; text-shadow: 2px 2px 0 rgba(255,42,109,0.22); }
+html[data-theme="light"] .unit-chevrons svg:nth-child(2) { color:#00a9bd; }
+html[data-theme="light"] /* ---------- lesson text ---------- */
+.section-h { color:#7c2fe0; text-shadow:none; }
+html[data-theme="light"] .subsection-h { color:#2f5fd6; text-shadow:none; }
+html[data-theme="light"] .khmer-line { color:#1c1e29; }
+html[data-theme="light"] .khmer-line .en { color:#5a5e70; }
+html[data-theme="light"] .code-label.syntax { color:#b01a8f; text-shadow:none; }
+html[data-theme="light"] .code-label.example, html[data-theme="light"] .code-label.output { color:#0a7bb0; text-shadow:none; }
+html[data-theme="light"] .code-box { color:#1d2030; background:#f4f6fb; box-shadow: inset 0 0 14px rgba(123,45,255,0.05); }
+html[data-theme="light"] .code-box::-webkit-scrollbar-track { background: rgba(0,0,0,0.05); }
+html[data-theme="light"] .code-inline { color:#c4125f; text-shadow:none; }
+html[data-theme="light"] .output-text { color:#14151c; }
+html[data-theme="light"] .notes-heading { color:var(--text-tertiary); }
+html[data-theme="light"] /* ---------- navigation / buttons / inputs ---------- */
+.page-nav-btn, html[data-theme="light"] .back-btn { color:var(--text-secondary); }
+html[data-theme="light"] .page-nav-btn:hover, html[data-theme="light"] .back-btn:hover { color:var(--ink-cyan); text-shadow:none; }
+html[data-theme="light"] .page-nav-btn:active, html[data-theme="light"] .back-btn:active { color:var(--ink-pink); text-shadow:none; }
+html[data-theme="light"] .page-nav-go { color:var(--ink-pink); }
+html[data-theme="light"] .page-nav-go:hover { color:var(--ink-pink); text-shadow:none; }
+html[data-theme="light"] .page-nav:has(.exam-start-btn) .exam-start-btn { color:var(--ink-gold); text-shadow:none; }
+html[data-theme="light"] .page-nav:has(.exam-start-btn) .exam-start-btn:hover { color:#6b4500; text-shadow:none; }
+html[data-theme="light"] .page-nav:has(.exam-start-btn) .retry-exam-btn { color:var(--ink-violet); text-shadow:none; }
+html[data-theme="light"] .page-nav:has(.exam-start-btn) .retry-exam-btn:hover { color:#4a12a8; text-shadow:none; }
+html[data-theme="light"] .page-nav-btn:disabled { --ring: rgba(0,0,0,0.14); }
+html[data-theme="light"] .page-nav-count b { color:var(--ink-gold); text-shadow:none; }
+html[data-theme="light"] .page-nav-input, html[data-theme="light"] .section-jump-input {
+    background:#ffffff; color:#14151c; border-color: rgba(0,150,170,0.5);
+    box-shadow: inset 0 0 10px rgba(0,150,170,0.06);
+}
+html[data-theme="light"] .page-nav-input:focus, html[data-theme="light"] .section-jump-input:focus { border-color:#00a9bd; border-bottom-color:#ff2a6d; }
+html[data-theme="light"] .copy-btn { color:var(--ink-cyan); background:#ffffff; border:1px solid rgba(0,150,170,0.5); }
+html[data-theme="light"] .copy-btn:hover { color:var(--ink-pink); border-color:#ff2a6d; background:rgba(255,42,109,0.08); }
+html[data-theme="light"] .copy-btn.copied, html[data-theme="light"] .copy-btn:active, html[data-theme="light"] .copy-btn.copied:hover { color:#138a46; border-color:#138a46; background:rgba(58,214,124,0.14); }
+html[data-theme="light"] .exam-locked-notice { color:#2b2f40; text-shadow:none; }
+html[data-theme="light"] .exam-time-note { color:var(--text-tertiary); }
+html[data-theme="light"] .qcm-hero-content .exam-time-note { background: rgba(0,0,0,0.04); }
+html[data-theme="light"] /* ---------- QCM / exam ---------- */
+.q-text { color:#14151c; text-shadow:none; }
+html[data-theme="light"] .q-num { text-shadow:none; }
+html[data-theme="light"] .q-step-count { color:var(--ink-cyan); text-shadow:none; }
+html[data-theme="light"] .option { color:#2b2f40; }
+html[data-theme="light"] .option .letter { color:var(--ink-cyan); }
+html[data-theme="light"] .option:hover:not(.disabled) { color:#14151c; text-shadow:none; box-shadow: inset 0 0 20px rgba(0,240,255,0.12); }
+html[data-theme="light"] .option:hover:not(.disabled) .letter { color:#07070d; }
+html[data-theme="light"] .option.selected { color:#14151c; background: linear-gradient(100deg, rgba(144,0,255,0.14), rgba(255,42,109,0.06)); box-shadow: inset 0 0 20px rgba(144,0,255,0.12); }
+html[data-theme="light"] .option.selected .letter { color:#ffffff; }
+html[data-theme="light"] .option.correct { color:#14151c; background: linear-gradient(100deg, rgba(58,214,124,0.24), rgba(0,240,255,0.06)); box-shadow: inset 0 0 20px rgba(58,214,124,0.16); }
+html[data-theme="light"] .option.incorrect { color:#14151c; background: linear-gradient(100deg, rgba(255,42,109,0.18), rgba(144,0,255,0.05)); box-shadow: inset 0 0 20px rgba(255,42,109,0.14); }
+html[data-theme="light"] .option.correct::after { color:#138a46; text-shadow:none; }
+html[data-theme="light"] .option.incorrect::after { color:#d4175c; text-shadow:none; }
+html[data-theme="light"] .results { box-shadow: inset 0 0 40px rgba(144,0,255,0.08), inset 0 0 0 1px rgba(0,150,170,0.4); }
+html[data-theme="light"] .results .score { filter: drop-shadow(0 0 10px rgba(144,0,255,0.2)); }
+html[data-theme="light"] .results .score-label { color:var(--ink-cyan); text-shadow:none; }
+html[data-theme="light"] .results .verdict { color:var(--ink-gold); text-shadow:none; }
+html[data-theme="light"] .q-card::after { color: rgba(0,150,170,0.6); }
+
+html[data-theme="light"] .search-row input:focus { box-shadow: 0 0 0 3px rgba(0,150,170,0.18), 0 4px 18px rgba(0,150,170,0.12), inset 0 0 12px rgba(0,150,170,0.06); }
+html[data-theme="light"] .page-nav .clock-wrap { background: linear-gradient(180deg,#0b0b14,#15151f); border-radius: 6px; padding: 0 8px; box-shadow: inset 0 0 8px rgba(0,0,0,0.6); }
+html[data-theme="light"] body { background:#ffffff; color:var(--text-primary); }
+
+/* theme toggle: cyberpunk mode switch */
+.theme-toggle{
+  --tc:10px; --tt:1.5px;
+  position:fixed;top:max(12px,env(safe-area-inset-top));right:max(12px,env(safe-area-inset-right));z-index:9999;
+  display:flex;align-items:center;gap:10px;height:40px;padding:0 16px 0 12px;margin:0;border:0;border-radius:0;cursor:pointer;
+  font-family:var(--body,'Rajdhani',sans-serif);font-weight:700;font-size:13px;letter-spacing:.14em;text-transform:uppercase;line-height:1;
+  color:#e9fdff;text-shadow:0 0 8px rgba(0,240,255,.7);
+  background:linear-gradient(160deg,#12101c,#07070d);
+  clip-path:polygon(0 var(--tc),var(--tc) 0,100% 0,100% calc(100% - var(--tc)),calc(100% - var(--tc)) 100%,0 100%);
+  -webkit-tap-highlight-color:transparent;transition:transform .15s ease;
+}
+.theme-toggle::before{
+  content:"";position:absolute;inset:0;pointer-events:none;z-index:2;
+  background:linear-gradient(115deg,#ff2a6d 0%,#9000ff 50%,#00f0ff 100%);
+  clip-path:polygon(evenodd,
+    0 var(--tc),var(--tc) 0,100% 0,100% calc(100% - var(--tc)),calc(100% - var(--tc)) 100%,0 100%,0 var(--tc),
+    var(--tt) calc(var(--tc) + var(--tt)*.414),calc(var(--tc) + var(--tt)*.414) var(--tt),calc(100% - var(--tt)) var(--tt),
+    calc(100% - var(--tt)) calc(100% - var(--tc) - var(--tt)*.414),calc(100% - var(--tc) - var(--tt)*.414) calc(100% - var(--tt)),var(--tt) calc(100% - var(--tt)));
+}
+.theme-toggle::after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:repeating-linear-gradient(0deg,rgba(255,255,255,.05) 0 1px,transparent 1px 3px),
+             linear-gradient(115deg,rgba(255,42,109,.10),transparent 45%,rgba(0,240,255,.10));
+}
+.theme-toggle .tt-track{
+  position:relative;flex:0 0 auto;width:36px;height:16px;
+  background:rgba(0,240,255,.10);box-shadow:inset 0 0 0 1px rgba(0,240,255,.55),inset 0 0 8px rgba(0,240,255,.25);
+  clip-path:polygon(0 4px,4px 0,100% 0,100% calc(100% - 4px),calc(100% - 4px) 100%,0 100%);
+}
+.theme-toggle .tt-knob{
+  position:absolute;top:3px;left:3px;width:10px;height:10px;background:#00f0ff;
+  box-shadow:0 0 8px #00f0ff,0 0 16px rgba(0,240,255,.6);
+  transition:transform .28s cubic-bezier(.6,-.3,.3,1.4),background .2s,box-shadow .2s;
+}
+.theme-toggle .tt-text{display:flex;align-items:baseline;gap:6px;position:relative;z-index:1}
+.theme-toggle .tt-tag{font-size:10px;letter-spacing:.2em;color:#ff2a6d;text-shadow:0 0 6px rgba(255,42,109,.6)}
+.theme-toggle .tt-state{min-width:3.2em;color:#e9fdff}
+.theme-toggle:hover .tt-track{box-shadow:inset 0 0 0 1px #00f0ff,inset 0 0 12px rgba(0,240,255,.45)}
+.theme-toggle:hover .tt-state{text-shadow:0 0 10px rgba(0,240,255,.95),0 0 22px rgba(0,240,255,.5)}
+.theme-toggle:active{transform:scale(.96)}
+.theme-toggle:focus-visible{outline:2px solid #f4c14f;outline-offset:3px}
+.theme-toggle.glitch{animation:ttGlitch .32s steps(2,end)}
+@keyframes ttGlitch{
+  0%{transform:translate(0,0);text-shadow:2px 0 #ff2a6d,-2px 0 #00f0ff}
+  25%{transform:translate(-2px,1px)}
+  50%{transform:translate(2px,-1px);text-shadow:-2px 0 #ff2a6d,2px 0 #00f0ff}
+  75%{transform:translate(-1px,0)}
+  100%{transform:translate(0,0)}
+}
+/* light mode look */
+html[data-theme="light"] .theme-toggle{color:#14151c;text-shadow:none;background:linear-gradient(160deg,#ffffff,#eef1f8)}
+html[data-theme="light"] .theme-toggle::after{background:repeating-linear-gradient(0deg,rgba(0,0,0,.035) 0 1px,transparent 1px 3px),linear-gradient(115deg,rgba(255,42,109,.08),transparent 45%,rgba(0,200,220,.10))}
+html[data-theme="light"] .theme-toggle .tt-track{background:rgba(255,42,109,.08);box-shadow:inset 0 0 0 1px rgba(212,23,92,.6),inset 0 0 8px rgba(212,23,92,.15)}
+html[data-theme="light"] .theme-toggle .tt-knob{transform:translateX(20px);background:#ff2a6d;box-shadow:0 0 8px rgba(255,42,109,.7)}
+html[data-theme="light"] .theme-toggle .tt-tag{color:#d4175c;text-shadow:none}
+html[data-theme="light"] .theme-toggle .tt-state{color:#14151c}
+html[data-theme="light"] .theme-toggle:hover .tt-state{text-shadow:none;color:#6a1fd6}
+@media (max-width:700px){
+  .theme-toggle{height:36px;padding:0 12px 0 10px;gap:8px;font-size:12px}
+  .theme-toggle .tt-tag{display:none}
+}
+
+/* ===== white theme polish ===== */
+html[data-theme="light"] body::before {
+  background:
+    radial-gradient(ellipse 900px 500px at 50% 0%, rgba(144,0,255,0.07), transparent 60%),
+    radial-gradient(ellipse 700px 500px at 50% 100%, rgba(0,200,220,0.08), transparent 65%),
+    #ffffff;
+}
+html[data-theme="light"] .lesson-view {
+  background: radial-gradient(ellipse 120% 40% at 50% 0%, rgba(163,92,255,0.08), transparent 70%), #f5f6fb;
+}
+/* stronger, more readable accent colors on white */
+html[data-theme="light"] .book-page, html[data-theme="light"] .qcm-page, html[data-theme="light"] .unit-header, html[data-theme="light"] .page-nav, html[data-theme="light"] .back-btn,
+html[data-theme="light"] .page-nav-btn, html[data-theme="light"] .exam-start-btn, html[data-theme="light"] .retry-exam-btn {
+  --cp-cyan:#00b4cc; --cp-pink:#e0245e; --cp-violet:#7a1fe0; --cp-gold:#d79a00;
+}
+html[data-theme="light"] .unit-header .corner.br, html[data-theme="light"] .unit-chevrons svg:nth-child(2) { --cp-cyan:#00b4cc; }
+/* pages tinted by each language's own color */
+html[data-theme="light"] .card { --g-img: linear-gradient(160deg, rgba(var(--color-card),0.16) 0%, rgba(255,255,255,0.98) 62%); }
+html[data-theme="light"] .lesson-hero { --g-hero: linear-gradient(150deg, rgba(var(--theme),0.13) 0%, #ffffff 55%, rgba(var(--theme),0.07) 100%); }
+/* soft depth on elements that are not clipped */
+html[data-theme="light"] .lesson-content { box-shadow: 0 1px 2px rgba(20,30,70,0.06), 0 8px 24px -14px rgba(20,30,70,0.18); }
+html[data-theme="light"] .code-box { box-shadow: inset 0 0 0 1px rgba(20,30,70,0.07), inset 0 0 14px rgba(123,45,255,0.04); }
+html[data-theme="light"] .search-row input { box-shadow: 0 6px 18px -12px rgba(20,30,70,0.35), inset 0 0 10px rgba(0,150,170,0.05); }
+html[data-theme="light"] .rupp-logo .rupp-icon { box-shadow: 0 4px 16px rgba(244,193,79,0.45), 0 0 0 1px rgba(20,30,70,0.08); }
+html[data-theme="light"] ::selection { background: rgba(144,0,255,0.2); color:#14151c; }
+/* state fixes (so the light rules never beat the hover/active/disabled ones) */
+html[data-theme="light"] .filter-btn:not(.active) { background-color:#ffffff; }
+html[data-theme="light"] .filter-btn.active { background-color: rgba(244,193,79,0.18); }
+html[data-theme="light"] .page-nav-btn:disabled, html[data-theme="light"] .back-btn:disabled { color:var(--text-tertiary); }
+html[data-theme="light"] .option.correct .letter { color:#04120a; }
+html[data-theme="light"] .option.incorrect .letter { color:#1a0509; }
+html[data-theme="light"] .option:hover:not(.disabled) .letter { color:#07070d; }
+html[data-theme="light"] .lesson-view::-webkit-scrollbar-track { background:#eef0f6; }
+
+/* ===== white theme: cleaner background + softer text shadows ===== */
+html[data-theme="light"] body::before {
+  background:
+    radial-gradient(ellipse 1000px 520px at 50% -4%, rgba(144,0,255,0.06), transparent 62%),
+    radial-gradient(ellipse 800px 520px at 50% 104%, rgba(0,200,220,0.07), transparent 66%),
+    linear-gradient(180deg, #ffffff 0%, #fbfcfe 100%);
+}
+html[data-theme="light"] .glow-floor { background: radial-gradient(ellipse at center, rgba(132,0,255,0.13) 70%, transparent 70%); filter: blur(14px); }
+html[data-theme="light"] .lesson-view {
+  background: radial-gradient(ellipse 120% 40% at 50% 0%, rgba(163,92,255,0.06), transparent 70%), #fafbfe;
+}
+/* home */
+html[data-theme="light"] .rupp-logo .word .line1, html[data-theme="light"] .rupp-logo .word .line2, html[data-theme="light"] .Text .txt .line1, html[data-theme="light"] .Text .txt .line2 {
+  text-shadow: 0 1px 0 rgba(255,255,255,0.9), 0 3px 12px rgba(244,193,79,0.5);
+}
+html[data-theme="light"] .caption .brand { text-shadow: 0 1px 0 rgba(255,255,255,0.9), 0 3px 14px rgba(0,128,108,0.28); }
+html[data-theme="light"] .img span { text-shadow: 0 1px 0 rgba(255,255,255,0.85), 0 2px 10px rgba(var(--color-card),0.5); }
+html[data-theme="light"] .loader-percent { text-shadow: 0 4px 18px rgba(144,0,255,0.3); }
+/* lesson hero */
+html[data-theme="light"] .hero-title .hero-lang, html[data-theme="light"] .lesson-hero .hero-title .hero-lang {
+  text-shadow: 0 1px 0 rgba(255,255,255,0.8), 2px 3px 0 rgba(var(--theme),0.22), 0 6px 20px rgba(var(--theme),0.45);
+}
+html[data-theme="light"] .hero-title .hero-title-alt, html[data-theme="light"] .lesson-hero .hero-title .hero-title-alt { text-shadow: 0 1px 8px rgba(var(--theme),0.35); }
+html[data-theme="light"] .module-badge { text-shadow: 0 1px 8px rgba(var(--theme),0.4); }
+/* book pages */
+html[data-theme="light"] .unit-title { text-shadow: 2px 2px 0 rgba(255,42,109,0.26), 0 5px 18px rgba(122,60,255,0.28); }
+html[data-theme="light"] .toc-title-left, html[data-theme="light"] .toc-title-right { text-shadow: 0 2px 10px rgba(215,154,0,0.4); }
+html[data-theme="light"] .toc-title-center { text-shadow: 0 2px 10px rgba(0,180,204,0.3); }
+html[data-theme="light"] .book-page .page-right, html[data-theme="light"] .unit-header .page-right { text-shadow: 0 2px 8px rgba(224,36,94,0.3); }
+/* lesson text */
+html[data-theme="light"] .section-h { text-shadow: 0 2px 10px rgba(124,47,224,0.28); }
+html[data-theme="light"] .subsection-h { text-shadow: 0 2px 10px rgba(47,95,214,0.25); }
+html[data-theme="light"] .code-label.syntax { text-shadow: 0 1px 8px rgba(176,26,143,0.28); }
+html[data-theme="light"] .code-label.example, html[data-theme="light"] .code-label.output { text-shadow: 0 1px 8px rgba(10,123,176,0.28); }
+html[data-theme="light"] .code-inline { text-shadow: 0 1px 6px rgba(196,18,95,0.22); }
+html[data-theme="light"] .q-text { text-shadow: 0 1px 0 rgba(255,255,255,0.9); }
+/* buttons and QCM */
+html[data-theme="light"] .page-nav-btn:hover, html[data-theme="light"] .back-btn:hover, html[data-theme="light"] .filter-btn:hover { text-shadow: 0 1px 8px rgba(0,180,204,0.4); }
+html[data-theme="light"] .page-nav-btn:active, html[data-theme="light"] .back-btn:active, html[data-theme="light"] .page-nav-go:hover { text-shadow: 0 1px 8px rgba(224,36,94,0.4); }
+html[data-theme="light"] .page-nav:has(.exam-start-btn) .exam-start-btn, html[data-theme="light"] .page-nav:has(.exam-start-btn) .exam-start-btn:hover { text-shadow: 0 1px 8px rgba(215,154,0,0.4); }
+html[data-theme="light"] .page-nav:has(.exam-start-btn) .retry-exam-btn, html[data-theme="light"] .page-nav:has(.exam-start-btn) .retry-exam-btn:hover { text-shadow: 0 1px 8px rgba(122,31,224,0.35); }
+html[data-theme="light"] .page-nav-count b { text-shadow: 0 1px 8px rgba(215,154,0,0.4); }
+html[data-theme="light"] .q-step-count, html[data-theme="light"] .results .score-label { text-shadow: 0 1px 8px rgba(0,180,204,0.35); }
+html[data-theme="light"] .results .verdict { text-shadow: 0 1px 8px rgba(215,154,0,0.4); }
+html[data-theme="light"] .option:hover:not(.disabled) { text-shadow: 0 1px 8px rgba(0,180,204,0.25); }
+html[data-theme="light"] .option.correct::after { text-shadow: 0 1px 8px rgba(22,163,74,0.4); }
+html[data-theme="light"] .option.incorrect::after { text-shadow: 0 1px 8px rgba(224,36,94,0.4); }
+
+/* ===== white theme: richer text colors ===== */
+html[data-theme="light"] {
+  --text-primary:#0f1226; --text-secondary:#3a3f58; --text-tertiary:#666b85;
+  --ink-cyan:#0e7490; --ink-pink:#be185d; --ink-violet:#6d28d9; --ink-gold:#a16207;
+}
+html[data-theme="light"] .lesson-hero[style*="240,219,79"] { --ink:#a87800; }
+html[data-theme="light"] .lesson-hero[style*="172,130,230"] { --ink:#7a3fd1; }
+html[data-theme="light"] .lesson-hero[style*="70,130,180"] { --ink:#1f6fb0; }
+html[data-theme="light"] .lesson-hero[style*="227,79,38"] { --ink:#d03a12; }
+html[data-theme="light"] .lesson-hero[style*="38,77,228"] { --ink:#1f3fd0; }
+html[data-theme="light"] .lesson-hero[style*="0,89,156"] { --ink:#00508f; }
+html[data-theme="light"] .lesson-hero[style*="168,176,184"] { --ink:#5d6872; }
+html[data-theme="light"] .lesson-hero[style*="176,30,33"] { --ink:#a8161a; }
+html[data-theme="light"] .lesson-hero[style*="40,100,180"] { --ink:#1c5fb0; }
+html[data-theme="light"] .card[style*="240, 219, 79"] { --ink:#a87800; }
+html[data-theme="light"] .card[style*="172, 130, 230"] { --ink:#7a3fd1; }
+html[data-theme="light"] .card[style*="70, 130, 180"] { --ink:#1f6fb0; }
+html[data-theme="light"] .card[style*="227, 79, 38"] { --ink:#d03a12; }
+html[data-theme="light"] .card[style*="38, 77, 228"] { --ink:#1f3fd0; }
+html[data-theme="light"] .card[style*="0, 89, 156"] { --ink:#00508f; }
+html[data-theme="light"] .card[style*="168, 176, 184"] { --ink:#5d6872; }
+html[data-theme="light"] .card[style*="176, 30, 33"] { --ink:#a8161a; }
+html[data-theme="light"] .card[style*="40, 100, 180"] { --ink:#1c5fb0; }
+
+html[data-theme="light"] .hero-title .hero-lang, html[data-theme="light"] .lesson-hero .hero-title .hero-lang,
+html[data-theme="light"] .hero-title .hero-title-alt, html[data-theme="light"] .lesson-hero .hero-title .hero-title-alt,
+html[data-theme="light"] .module-badge { color: var(--ink, #14151c); }
+html[data-theme="light"] .img span { color: var(--ink, #14151c); }
+html[data-theme="light"] .lesson-view, html[data-theme="light"] .lesson-content { color:#0f1226; }
+html[data-theme="light"] .rupp-logo .word .line1, html[data-theme="light"] .rupp-logo .word .line2, html[data-theme="light"] .Text .txt .line1, html[data-theme="light"] .Text .txt .line2,
+html[data-theme="light"] .caption .brand b, html[data-theme="light"] .toc-title-center, html[data-theme="light"] .unit-title,
+html[data-theme="light"] .book-page .page-right, html[data-theme="light"] .unit-header .page-right, html[data-theme="light"] .q-text, html[data-theme="light"] .output-text { color:#0f1226; }
+html[data-theme="light"] .tools-list, html[data-theme="light"] .gen-label, html[data-theme="light"] .module-date { color:#1e2238; }
+html[data-theme="light"] .khmer-line { color:#151830; }
+html[data-theme="light"] .khmer-line .en { color:#4a4f6a; }
+html[data-theme="light"] .section-h { color:#6d28d9; }
+html[data-theme="light"] .subsection-h { color:#1d4ed8; }
+html[data-theme="light"] .code-label.syntax { color:#a21caf; }
+html[data-theme="light"] .code-label.example, html[data-theme="light"] .code-label.output { color:#0369a1; }
+html[data-theme="light"] .code-inline { color:#be123c; }
+html[data-theme="light"] .code-box { color:#1b1f3b; }
+html[data-theme="light"] .option { color:#1e2238; }
+html[data-theme="light"] .option:hover:not(.disabled), html[data-theme="light"] .option.selected, html[data-theme="light"] .option.correct, html[data-theme="light"] .option.incorrect { color:#0f1226; }
+html[data-theme="light"] .page-nav-btn, html[data-theme="light"] .back-btn { color:#3a3f58; }
+html[data-theme="light"] .page-nav-btn:hover, html[data-theme="light"] .back-btn:hover { color:#0e7490; }
+html[data-theme="light"] .page-nav-btn:disabled, html[data-theme="light"] .back-btn:disabled { color:#8a8fa8; }
+html[data-theme="light"] .exam-locked-notice { color:#1e2238; }
+html[data-theme="light"] .search-row input, html[data-theme="light"] .page-nav-input, html[data-theme="light"] .section-jump-input { color:#0f1226; }
+
+/* ===== white theme: beautiful home page ===== */
+@keyframes lightAuroraDrift {
+  0%   { transform: translate3d(-2%,-1%,0) scale(1); }
+  100% { transform: translate3d(2%,2%,0) scale(1.08); }
+}
+@keyframes lightOrbitSpin { to { transform: translate(-50%,-50%) rotate(360deg); } }
+html[data-theme="light"] body::after {
+  display:block; content:""; position:fixed; inset:-10%; z-index:0; pointer-events:none; opacity:.95;
+  background:
+    radial-gradient(ellipse 45% 40% at 18% 22%, rgba(167,139,250,0.30), transparent 70%),
+    radial-gradient(ellipse 40% 38% at 82% 18%, rgba(251,191,36,0.22), transparent 70%),
+    radial-gradient(ellipse 42% 40% at 78% 82%, rgba(94,234,212,0.26), transparent 70%),
+    radial-gradient(ellipse 38% 36% at 20% 84%, rgba(244,114,182,0.20), transparent 70%);
+  background-size:auto;
+  animation: lightAuroraDrift 22s ease-in-out infinite alternate;
+}
+/* thin gradient orbit ring behind the carousel */
+html[data-theme="light"] #carouselView::before {
+  content:""; position:absolute; left:50%; top:46%; z-index:0; pointer-events:none;
+  width:min(86vw,640px); aspect-ratio:1; border-radius:50%;
+  transform:translate(-50%,-50%);
+  border:1.5px solid transparent;
+  background: conic-gradient(from 0deg, rgba(167,139,250,0), rgba(167,139,250,0.6), rgba(236,72,153,0) 40%, rgba(6,182,212,0.55) 70%, rgba(6,182,212,0)) border-box;
+  -webkit-mask: linear-gradient(#000 0 0) padding-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;
+  animation: lightOrbitSpin 48s linear infinite;
+}
+html[data-theme="light"] .glow-floor {
+  background: radial-gradient(ellipse at center, rgba(124,58,237,0.24) 0%, rgba(236,72,153,0.10) 55%, transparent 74%);
+  filter: blur(8px);
+}
+/* cards: soft colored lift instead of a neon glow */
+html[data-theme="light"] .card { filter: drop-shadow(0 12px 18px rgba(var(--color-card),0.30)) drop-shadow(0 2px 3px rgba(20,30,70,0.10)); }
+html[data-theme="light"] .card:hover { filter: brightness(1.02) drop-shadow(0 16px 24px rgba(var(--color-card),0.42)) drop-shadow(0 2px 4px rgba(20,30,70,0.12)); }
+html[data-theme="light"] .card.is-launching { filter: brightness(1.05) drop-shadow(0 0 40px rgba(var(--color-card),0.6)) drop-shadow(0 0 90px rgba(var(--color-card),0.3)); }
+html[data-theme="light"] .card.is-hidden { filter: blur(2px) grayscale(1); }
+html[data-theme="light"] .card.is-fading-out { filter: blur(3px); }
+html[data-theme="light"] .img img { filter: drop-shadow(0 4px 6px rgba(var(--color-card),0.35)); }
+/* gradient title */
+html[data-theme="light"] .Text .txt .line2 {
+  background: linear-gradient(90deg,#f59e0b,#ec4899);
+  -webkit-background-clip:text; background-clip:text; color:transparent; -webkit-text-fill-color:transparent;
+  text-shadow:none; filter: drop-shadow(0 2px 6px rgba(236,72,153,0.25));
+}
+html[data-theme="light"] .Text .txt .line1 {
+  background: linear-gradient(90deg,#06b6d4,#7c3aed);
+  -webkit-background-clip:text; background-clip:text; color:transparent; -webkit-text-fill-color:transparent;
+  text-shadow:none; filter: drop-shadow(0 2px 6px rgba(124,58,237,0.25));
+}
+/* category chips: solid gradient when active */
+html[data-theme="light"] .cat-btn.active::before { background: linear-gradient(135deg,#fbbf24,#f43f5e); box-shadow:none; }
+html[data-theme="light"] .cat-btn.active { color:#ffffff; text-shadow:0 1px 2px rgba(0,0,0,0.28); }
+html[data-theme="light"] .cat-btn:not(.active):hover { color:#0f1226; }
+html[data-theme="light"] .search-row input:focus { box-shadow: 0 0 0 3px rgba(124,58,237,0.16), 0 8px 22px -10px rgba(124,58,237,0.4), inset 0 0 12px rgba(0,150,170,0.05); }
+@media (prefers-reduced-motion: reduce) {
+  html[data-theme="light"] body::after, html[data-theme="light"] #carouselView::before { animation:none; }
+}
+
+/* ===== white theme: Royal University of Phnom Penh logo ===== */
+html[data-theme="light"] .rupp-logo .icon-ring::before {
+  border: 1px solid rgba(217,119,6,0.28); border-top-color: rgba(124,58,237,0.85); border-right-color: rgba(6,182,212,0.5);
+}
+html[data-theme="light"] .rupp-logo .icon-ring::after {
+  border: 1px solid rgba(217,119,6,0.14); border-bottom-color: rgba(236,72,153,0.7);
+}
+html[data-theme="light"] .rupp-logo .rupp-icon {
+  background:#ffffff;
+  box-shadow: 0 0 0 3px #ffffff, 0 0 0 4.5px rgba(244,193,79,0.75), 0 10px 26px rgba(244,193,79,0.5), 0 4px 10px rgba(20,30,70,0.12);
+}
+html[data-theme="light"] .rupp-logo .word .line1 {
+  background: linear-gradient(90deg,#1e3a8a,#7c3aed);
+  -webkit-background-clip:text; background-clip:text; color:transparent; -webkit-text-fill-color:transparent;
+  text-shadow:none; filter: drop-shadow(0 2px 5px rgba(124,58,237,0.22));
+}
+html[data-theme="light"] .rupp-logo .word .line2 {
+  background: linear-gradient(90deg,#d97706,#e11d48);
+  -webkit-background-clip:text; background-clip:text; color:transparent; -webkit-text-fill-color:transparent;
+  text-shadow:none; filter: drop-shadow(0 2px 6px rgba(225,29,72,0.22));
+  border-bottom-color: rgba(217,119,6,0.4);
+}
+html[data-theme="light"] .rupp-logo .word .line2::before { display:none; }
+html[data-theme="light"] .rupp-logo .word .line2::after { background: linear-gradient(90deg, transparent, #f59e0b, #ec4899, transparent); }
+
+/* ===== white theme: golden RUPP logo ===== */
+@keyframes ruppGoldShine { 0% { background-position: 0% 50%; } 100% { background-position: 200% 50%; } }
+html[data-theme="light"] .rupp-logo .word .line1, html[data-theme="light"] .rupp-logo .word .line2 {
+  background: linear-gradient(100deg,#8f5f00 0%,#d99a00 22%,#f5c93a 38%,#d99a00 55%,#8f5f00 72%,#d99a00 88%,#8f5f00 100%);
+  background-size: 200% 100%;
+  -webkit-background-clip:text; background-clip:text; color:transparent; -webkit-text-fill-color:transparent;
+  text-shadow:none;
+  filter: drop-shadow(0 1px 0 rgba(120,80,0,0.35)) drop-shadow(0 3px 8px rgba(217,154,0,0.35));
+  animation: ruppGoldShine 7s linear infinite;
+}
+html[data-theme="light"] .rupp-logo .word .line2 { border-bottom-color: rgba(217,154,0,0.5); }
+html[data-theme="light"] .rupp-logo .word .line2::after { background: linear-gradient(90deg, transparent, #f5c93a, #d99a00, #f5c93a, transparent); }
+html[data-theme="light"] .rupp-logo .icon-ring::before {
+  border: 1px solid rgba(217,154,0,0.3); border-top-color: rgba(217,154,0,0.95); border-right-color: rgba(245,201,58,0.55);
+}
+html[data-theme="light"] .rupp-logo .icon-ring::after {
+  border: 1px solid rgba(217,154,0,0.16); border-bottom-color: rgba(180,120,0,0.7);
+}
+html[data-theme="light"] .rupp-logo .rupp-icon {
+  box-shadow: 0 0 0 3px #ffffff, 0 0 0 5px rgba(217,154,0,0.85), 0 10px 26px rgba(217,154,0,0.5), 0 4px 10px rgba(20,30,70,0.12);
+}
+@media (prefers-reduced-motion: reduce) {
+  html[data-theme="light"] .rupp-logo .word .line1, html[data-theme="light"] .rupp-logo .word .line2 { animation:none; }
+}
+
+/* ===== white theme: RUPP icon rings + glow same as dark mode ===== */
+html[data-theme="light"] .rupp-logo .icon-ring::before {
+  display:block;
+  border: 1px solid rgba(244, 193, 79, 0.25); border-top-color: rgba(64, 226, 255, 0.85); border-right-color: rgba(64, 226, 255, 0.35);
+}
+html[data-theme="light"] .rupp-logo .icon-ring::after {
+  display:block;
+  border: 1px solid rgba(244, 193, 79, 0.1); border-bottom-color: rgba(255, 64, 200, 0.6);
+}
+html[data-theme="light"] .rupp-logo .rupp-icon {
+  background:transparent;
+  box-shadow: 0 0 16px rgba(244, 193, 79, 0.55), 0 0 36px rgba(244, 193, 79, 0.28), 0 0 64px rgba(244, 193, 79, 0.14);
+}
+
+/* ===== no theme button on the loading screen or the home page (only inside lessons) ===== */
+.theme-toggle { transition: opacity .3s ease, transform .15s ease; }
+body:has(#carouselView:not(.is-hidden-view)) .theme-toggle,
+body:has(#pageLoader:not(.is-done)) .theme-toggle { opacity:0; visibility:hidden; pointer-events:none; }
+
+/* ===== Royal University of Phnom Penh text: no animation ===== */
+.rupp-logo .word, .rupp-logo .word .line1, .rupp-logo .word .line2,
+.rupp-logo .word .line1::before, .rupp-logo .word .line1::after,
+.rupp-logo .word .line2::before, .rupp-logo .word .line2::after,
+html[data-theme="light"] .rupp-logo .word .line1, html[data-theme="light"] .rupp-logo .word .line2 { animation:none !important; transition:none !important; }
+
+/* ===== lessons: Home button left, mode button right, same row ===== */
+.lesson-topbar { align-items:center; }
+.lesson-topbar .theme-toggle { position:relative; top:auto; right:auto; z-index:auto; flex:0 0 auto; height:34px; padding:0 12px 0 10px; gap:8px; font-size:12px; }
+.lesson-topbar .theme-toggle { margin-left:auto; }
+@media (min-width:701px) { .lesson-topbar .undo-hint ~ .theme-toggle { margin-left:0; } }
 </style>
 <noscript><style>.page-loader{display:none!important}</style></noscript>
 </head>
@@ -25043,7 +26016,7 @@ print(np.copysign(a, b))</div>
                         <span class="code-label example">Example</span>
                         <div class="code-box">import numpy as np
 print(np.nextafter(1.0, 2.0) > 1.0)
-print(np.nextafter(1.0, 2.0) < 2.0)</div>
+print(np.nextafter(1.0, 2.0) &lt; 2.0)</div>
                     </div>
                     <div class="output-col">
                         <span class="code-label output">Output</span>
@@ -36389,7 +37362,7 @@ def update_measurement(event=None):
     canvas.create_rectangle(x_start, y_center - height // 2,
          x_start + width, y_center + height // 2,outline="#4a90e2", width=2)
     canvas.create_text(x_start, y_center, text=text, font=font_obj, anchor="w")
-entry.bind("<KeyRelease>", update_measurement)
+entry.bind("&lt;KeyRelease&gt;", update_measurement)
 update_measurement()
 root.mainloop()</div>
                     </div>
@@ -46365,7 +47338,7 @@ int main() {
   				<div class="khmer-line">ប្រើសម្រាប់សរសេរទិន្នន័យទៅក្នុង File ជាទម្រង់ Binary (Bytes) ដោយប្រើ ios::binary និង write()។</div>
   				<div class="code-row">
   					<span class="code-label syntax">Syntax</span>
-  					<span class="code-inline">out.write((char*)&variable, sizeof(variable));</span>
+  					<span class="code-inline">out.write((char*)&amp;variable, sizeof(variable));</span>
   				</div>
   				<div class="example-output-row">
   					<div class="example-col">
@@ -46375,7 +47348,7 @@ using namespace std;
 int main() {
     int number = 100;
     ofstream out("data.bin", ios::binary);
-    out.write((char*)&number, sizeof(number));
+    out.write((char*)&amp;number, sizeof(number));
     out.close();
     return 0;
 }</div>
@@ -46389,7 +47362,7 @@ int main() {
   				<div class="khmer-line">ប្រើសម្រាប់អានទិន្នន័យពី File ដែលរក្សាទុកជាទម្រង់ Binary ចូលក្នុង Variable ឬ Buffer។</div>
   				<div class="code-row">
   					<span class="code-label syntax">Syntax</span>
-  					<span class="code-inline">in.read((char*)&variable, sizeof(variable));</span>
+  					<span class="code-inline">in.read((char*)&amp;variable, sizeof(variable));</span>
   				</div>
   				<div class="example-output-row">
   					<div class="example-col">
@@ -46400,11 +47373,11 @@ using namespace std;
 int main() {
     int number = 100;
     ofstream out("data.bin", ios::binary);
-    out.write((char*)&number, sizeof(number));
+    out.write((char*)&amp;number, sizeof(number));
     out.close();
     int result = 0;
     ifstream in("data.bin", ios::binary);
-    in.read((char*)&result, sizeof(result));
+    in.read((char*)&amp;result, sizeof(result));
     in.close();
     cout &lt;&lt; result;
     return 0;
@@ -46420,8 +47393,8 @@ int main() {
   				<div class="khmer-line">ប្រើសម្រាប់សរសេរ និងអាន Array ទាំងមូលជាទម្រង់ Binary ដោយប្រើ sizeof() ដើម្បីកំណត់ទំហំ Bytes របស់ Array។</div>
   				<div class="code-row">
   					<span class="code-label syntax">Syntax</span>
-  					<span class="code-inline">out.write((char*)&array, sizeof(array));
-in.read((char*)&array, sizeof(array));</span>
+  					<span class="code-inline">out.write((char*)&amp;array, sizeof(array));
+in.read((char*)&amp;array, sizeof(array));</span>
   				</div>
   				<div class="example-output-row">
   					<div class="example-col">
@@ -46432,11 +47405,11 @@ using namespace std;
 int main() {
     int numbers[] = {10, 20, 30};
     ofstream out("data.bin", ios::binary);
-    out.write((char*)&numbers, sizeof(numbers));
+    out.write((char*)&amp;numbers, sizeof(numbers));
     out.close();
     int result[3] = {};
     ifstream in("data.bin", ios::binary);
-    in.read((char*)&result, sizeof(result));
+    in.read((char*)&amp;result, sizeof(result));
     in.close();
     for (int x : result) {
         cout &lt;&lt; x &lt;&lt; " ";
@@ -52252,7 +53225,7 @@ C++</div>
 					<span class="code-label syntax">Syntax</span>
 					<span class="code-inline">2 * Math.PI</span>
 				</div>
-				<div class="example-output-row"sss>
+				<div class="example-output-row">
 					<div class="example-col">
 						<span class="code-label example">Example</span>
 						<div class="code-box">public class Main {
@@ -54020,7 +54993,7 @@ public class Main {
 import java.util.List;
 public class Main {
     public static void main(String[] args) {
-        List<String> list = Arrays.asList("Java", "Python", "C++");
+        List&lt;String&gt; list = Arrays.asList("Java", "Python", "C++");
         System.out.println(list);
     }
 }</div>
@@ -54186,7 +55159,7 @@ import java.util.Spliterator;
 public class Main {
     public static void main(String[] args) {
         String[] arr = {"Java", "Python", "C++"};
-        Spliterator<String> sp = Arrays.spliterator(arr);
+        Spliterator&lt;String&gt; sp = Arrays.spliterator(arr);
         sp.forEachRemaining(System.out::println);
     }
 }</div>
@@ -54212,7 +55185,7 @@ import java.util.Spliterator;
 public class Main {
     public static void main(String[] args) {
         String[] arr = {"Java", "Python", "C++", "HTML"};
-        Spliterator<String> sp = Arrays.spliterator(arr, 1, 3);
+        Spliterator&lt;String&gt; sp = Arrays.spliterator(arr, 1, 3);
         sp.forEachRemaining(System.out::println);
     }
 }</div>
@@ -57919,7 +58892,7 @@ public class Main {
 import java.util.Map;
 public class Main {
     public static void main(String[] args) {
-        Map&lt;String, Integer&gt; map = new HashMap<>();
+        Map&lt;String, Integer&gt; map = new HashMap&lt;&gt;();
         map.put("Apple", 10);
         map.put("Banana", 20);
         map.forEach((k, v) ->
@@ -57950,7 +58923,7 @@ Note: HashMap iteration order is not guaranteed.</div>
 import java.util.Map;
 public class Main {
     public static void main(String[] args) {
-        Map&lt;String, Integer&gt; map = new HashMap<>();
+        Map&lt;String, Integer&gt; map = new HashMap&lt;&gt;();
         map.put("Apple", 10);
         map.put("Banana", 20);
         for (String k : map.keySet()) {
@@ -57981,7 +58954,7 @@ Note: HashMap iteration order is not guaranteed.</div>
 import java.util.Map;
 public class Main {
     public static void main(String[] args) {
-        Map&lt;String, Integer&gt; map = new HashMap<>();
+        Map&lt;String, Integer&gt; map = new HashMap&lt;&gt;();
         map.put("Apple", 10);
         map.put("Banana", 20);
         for (int v : map.values()) {
@@ -58012,7 +58985,7 @@ Note: HashMap iteration order is not guaranteed.</div>
 import java.util.Map;
 public class Main {
     public static void main(String[] args) {
-        Map&lt;String, Integer&gt; map = new HashMap<>();
+        Map&lt;String, Integer&gt; map = new HashMap&lt;&gt;();
         map.put("Apple", 10);
         map.put("Banana", 20);
         for (Map.Entry&lt;String, Integer&gt; e : map.entrySet()) {
@@ -58147,7 +59120,7 @@ public class Main {
 import java.util.Map;
 public class Main {
     public static void main(String[] args) {
-        Map&lt;String, Integer&gt; original = new HashMap<>();
+        Map&lt;String, Integer&gt; original = new HashMap&lt;&gt;();
         original.put("Apple", 10);
         original.put("Banana", 20);
         Map&lt;String, Integer&gt; copy = Map.copyOf(original);
@@ -58452,7 +59425,7 @@ public class Main {
 import java.util.Map;
 public class Main {
     public static void main(String[] args) {
-        Map&lt;String, Integer&gt; map = new LinkedHashMap<>();
+        Map&lt;String, Integer&gt; map = new LinkedHashMap&lt;&gt;();
         map.put("Apple", 10);
         map.put("Banana", 20);
         String result = map.toString();
@@ -58478,7 +59451,7 @@ public class Main {
 import java.util.Map;
 public class Main {
     public static void main(String[] args) {
-        Map&lt;String, Integer&gt; map = new HashMap<>();
+        Map&lt;String, Integer&gt; map = new HashMap&lt;&gt;();
         System.out.println(map.getClass());
     }
 }</div>
@@ -68773,7 +69746,7 @@ public class Main {
         JFrame f = new JFrame("HTML Content Type");
         JEditorPane ep = new JEditorPane();
         ep.setContentType("text/html");
-        ep.setText("<html><body>Hello <b>Java</b></body></html>");
+        ep.setText("&lt;html&gt;&lt;body&gt;Hello &lt;b&gt;Java&lt;/b&gt;&lt;/body&gt;&lt;/html&gt;");
         ep.setEditable(false);
         f.setLayout(new BorderLayout());
         f.add(new JScrollPane(ep), BorderLayout.CENTER);
@@ -68806,7 +69779,7 @@ public class Main {
         JFrame f = new JFrame("HTML Bold Text");
         JEditorPane ep = new JEditorPane();
         ep.setContentType("text/html");
-        ep.setText("<html><b>bold</b></html>");
+        ep.setText("&lt;html&gt;&lt;b&gt;bold&lt;/b&gt;&lt;/html&gt;");
         ep.setEditable(false);
         f.setLayout(new BorderLayout());
         f.add(ep, BorderLayout.CENTER);
@@ -75620,9 +76593,9 @@ Program finished normally.</div>
                 <button class="page-nav-btn exam-start-btn" id="startExamJ01">Start Exam</button>
                 <button class="page-nav-btn retry-exam-btn" id="retryBtnJ01" style="display:none;">Retry Exam</button>
             </div>
-            <button class="page-nav-btn" data-dir="-1">&larr; Back</button>
+            <button class="page-nav-btn" data-dir="-1" aria-label="Back">&larr;</button>
             <input type="number" class="page-nav-input" min="1" placeholder="Unit #">
-            <button class="page-nav-btn" data-dir="1">Next &rarr;</button>
+            <button class="page-nav-btn" data-dir="1" aria-label="Next">&rarr;</button>
             <button class="page-nav-btn" data-dir="0">Go</button>
             <span class="page-nav-count"></span>
         </div>
@@ -75669,9 +76642,9 @@ Program finished normally.</div>
                 <button class="page-nav-btn exam-start-btn" id="startExamJ02">Start Exam</button>
                 <button class="page-nav-btn retry-exam-btn" id="retryBtnJ02" style="display:none;">Retry Exam</button>
             </div>
-            <button class="page-nav-btn" data-dir="-1">&larr; Back</button>
+            <button class="page-nav-btn" data-dir="-1" aria-label="Back">&larr;</button>
             <input type="number" class="page-nav-input" min="1" placeholder="Unit #">
-            <button class="page-nav-btn" data-dir="1">Next &rarr;</button>
+            <button class="page-nav-btn" data-dir="1" aria-label="Next">&rarr;</button>
             <button class="page-nav-btn" data-dir="0">Go</button>
             <span class="page-nav-count"></span>
         </div>
@@ -75718,9 +76691,9 @@ Program finished normally.</div>
                 <button class="page-nav-btn exam-start-btn" id="startExamJ03">Start Exam</button>
                 <button class="page-nav-btn retry-exam-btn" id="retryBtnJ03" style="display:none;">Retry Exam</button>
             </div>
-            <button class="page-nav-btn" data-dir="-1">&larr; Back</button>
+            <button class="page-nav-btn" data-dir="-1" aria-label="Back">&larr;</button>
             <input type="number" class="page-nav-input" min="1" placeholder="Unit #">
-            <button class="page-nav-btn" data-dir="1">Next &rarr;</button>
+            <button class="page-nav-btn" data-dir="1" aria-label="Next">&rarr;</button>
             <button class="page-nav-btn" data-dir="0">Go</button>
             <span class="page-nav-count"></span>
         </div>
@@ -75769,9 +76742,9 @@ Program finished normally.</div>
                 <button class="page-nav-btn retry-exam-btn" id="retryBtnPy01" style="display:none;">Retry Exam</button>
             </div>
         
-            <button class="page-nav-btn" data-dir="-1">&larr; Back</button>
+            <button class="page-nav-btn" data-dir="-1" aria-label="Back">&larr;</button>
             <input type="number" class="page-nav-input" min="1" placeholder="Unit #">
-            <button class="page-nav-btn" data-dir="1">Next &rarr;</button>
+            <button class="page-nav-btn" data-dir="1" aria-label="Next">&rarr;</button>
             <button class="page-nav-btn" data-dir="0">Go</button>
             <span class="page-nav-count"></span>
         </div>
@@ -75819,9 +76792,9 @@ Program finished normally.</div>
                 <button class="page-nav-btn retry-exam-btn" id="retryBtnPy02" style="display:none;">Retry Exam</button>
             </div>
 
-            <button class="page-nav-btn" data-dir="-1">&larr; Back</button>
+            <button class="page-nav-btn" data-dir="-1" aria-label="Back">&larr;</button>
             <input type="number" class="page-nav-input" min="1" placeholder="Unit #">
-            <button class="page-nav-btn" data-dir="1">Next &rarr;</button>
+            <button class="page-nav-btn" data-dir="1" aria-label="Next">&rarr;</button>
             <button class="page-nav-btn" data-dir="0">Go</button>
             <span class="page-nav-count"></span>
         </div>
@@ -75869,9 +76842,9 @@ Program finished normally.</div>
                 <button class="page-nav-btn retry-exam-btn" id="retryBtnPy03" style="display:none;">Retry Exam</button>
             </div>
 
-            <button class="page-nav-btn" data-dir="-1">&larr; Back</button>
+            <button class="page-nav-btn" data-dir="-1" aria-label="Back">&larr;</button>
             <input type="number" class="page-nav-input" min="1" placeholder="Unit #">
-            <button class="page-nav-btn" data-dir="1">Next &rarr;</button>
+            <button class="page-nav-btn" data-dir="1" aria-label="Next">&rarr;</button>
             <button class="page-nav-btn" data-dir="0">Go</button>
             <span class="page-nav-count"></span>
         </div>
@@ -75922,9 +76895,9 @@ Program finished normally.</div>
                 <button class="page-nav-btn retry-exam-btn" id="retryBtnReact01" style="display:none;">Retry Exam</button>
             </div>
             <div class="module-col"></div>
-            <button class="page-nav-btn" data-dir="-1">&larr; Back</button>
+            <button class="page-nav-btn" data-dir="-1" aria-label="Back">&larr;</button>
             <input type="number" class="page-nav-input" min="1" placeholder="Unit #">
-            <button class="page-nav-btn" data-dir="1">Next &rarr;</button>
+            <button class="page-nav-btn" data-dir="1" aria-label="Next">&rarr;</button>
             <button class="page-nav-btn" data-dir="0">Go</button>
             <span class="page-nav-count"></span>
         </div>
@@ -75961,9 +76934,9 @@ Program finished normally.</div>
                 <button class="page-nav-btn retry-exam-btn" id="retryBtnReact02" style="display:none;">Retry Exam</button>
             </div>
 
-            <button class="page-nav-btn" data-dir="-1">&larr; Back</button>
+            <button class="page-nav-btn" data-dir="-1" aria-label="Back">&larr;</button>
             <div class="module-col"></div>
-            <button class="page-nav-btn" data-dir="1">Next &rarr;</button><input type="number" class="page-nav-input" min="1" placeholder="Unit #">
+            <button class="page-nav-btn" data-dir="1" aria-label="Next">&rarr;</button><input type="number" class="page-nav-input" min="1" placeholder="Unit #">
             <button class="page-nav-btn" data-dir="0">Go</button>
             <span class="page-nav-count"></span>
         </div>
@@ -76000,9 +76973,9 @@ Program finished normally.</div>
                 <button class="page-nav-btn retry-exam-btn" id="retryBtnReact03" style="display:none;">Retry Exam</button>
             </div>
             <div class="module-col"></div>
-            <button class="page-nav-btn" data-dir="-1">&larr; Back</button>
+            <button class="page-nav-btn" data-dir="-1" aria-label="Back">&larr;</button>
             <input type="number" class="page-nav-input" min="1" placeholder="Unit #">
-            <button class="page-nav-btn" data-dir="1">Next &rarr;</button>
+            <button class="page-nav-btn" data-dir="1" aria-label="Next">&rarr;</button>
             <button class="page-nav-btn" data-dir="0">Go</button>
             <span class="page-nav-count"></span>
         </div>
@@ -76038,9 +77011,9 @@ Program finished normally.</div>
                 <button class="page-nav-btn retry-exam-btn" id="retryBtnJS" style="display:none;">Retry Exam</button>
             </div>
             <div class="module-col"></div>
-            <button class="page-nav-btn" data-dir="-1">&larr; Back</button>
+            <button class="page-nav-btn" data-dir="-1" aria-label="Back">&larr;</button>
             <input type="number" class="page-nav-input" min="1" placeholder="Unit #">
-            <button class="page-nav-btn" data-dir="1">Next &rarr;</button>
+            <button class="page-nav-btn" data-dir="1" aria-label="Next">&rarr;</button>
             <button class="page-nav-btn" data-dir="0">Go</button>
             <span class="page-nav-count"></span>
         </div>
@@ -76076,9 +77049,9 @@ Program finished normally.</div>
                 <button class="page-nav-btn retry-exam-btn" id="retryBtnCSharp" style="display:none;">Retry Exam</button>
             </div>
             <div class="module-col"></div>
-            <button class="page-nav-btn" data-dir="-1">&larr; Back</button>
+            <button class="page-nav-btn" data-dir="-1" aria-label="Back">&larr;</button>
             <input type="number" class="page-nav-input" min="1" placeholder="Unit #">
-            <button class="page-nav-btn" data-dir="1">Next &rarr;</button>
+            <button class="page-nav-btn" data-dir="1" aria-label="Next">&rarr;</button>
             <button class="page-nav-btn" data-dir="0">Go</button>
             <span class="page-nav-count"></span>
         </div>
@@ -76114,9 +77087,9 @@ Program finished normally.</div>
                 <button class="page-nav-btn retry-exam-btn" id="retryBtnHtml5" style="display:none;">Retry Exam</button>
             </div>
             <div class="module-col"></div>
-            <button class="page-nav-btn" data-dir="-1">&larr; Back</button>
+            <button class="page-nav-btn" data-dir="-1" aria-label="Back">&larr;</button>
             <input type="number" class="page-nav-input" min="1" placeholder="Unit #">
-            <button class="page-nav-btn" data-dir="1">Next &rarr;</button>
+            <button class="page-nav-btn" data-dir="1" aria-label="Next">&rarr;</button>
             <button class="page-nav-btn" data-dir="0">Go</button>
             <span class="page-nav-count"></span>
         </div>
@@ -76152,9 +77125,9 @@ Program finished normally.</div>
                 <button class="page-nav-btn retry-exam-btn" id="retryBtnCss3" style="display:none;">Retry Exam</button>
             </div>
             <div class="module-col"></div>
-            <button class="page-nav-btn" data-dir="-1">&larr; Back</button>
+            <button class="page-nav-btn" data-dir="-1" aria-label="Back">&larr;</button>
             <input type="number" class="page-nav-input" min="1" placeholder="Unit #">
-            <button class="page-nav-btn" data-dir="1">Next &rarr;</button>
+            <button class="page-nav-btn" data-dir="1" aria-label="Next">&rarr;</button>
             <button class="page-nav-btn" data-dir="0">Go</button>
             <span class="page-nav-count"></span>
         </div>
@@ -76190,9 +77163,9 @@ Program finished normally.</div>
                 <button class="page-nav-btn retry-exam-btn" id="retryBtnCpp" style="display:none;">Retry Exam</button>
             </div>
             <div class="module-col"></div>
-            <button class="page-nav-btn" data-dir="-1">&larr; Back</button>
+            <button class="page-nav-btn" data-dir="-1" aria-label="Back">&larr;</button>
             <input type="number" class="page-nav-input" min="1" placeholder="Unit #">
-            <button class="page-nav-btn" data-dir="1">Next &rarr;</button>
+            <button class="page-nav-btn" data-dir="1" aria-label="Next">&rarr;</button>
             <button class="page-nav-btn" data-dir="0">Go</button>
             <span class="page-nav-count"></span>
         </div>
@@ -76228,9 +77201,9 @@ Program finished normally.</div>
                 <button class="page-nav-btn retry-exam-btn" id="retryBtnC" style="display:none;">Retry Exam</button>
             </div>
             <div class="module-col"></div>
-            <button class="page-nav-btn" data-dir="-1">&larr; Back</button>
+            <button class="page-nav-btn" data-dir="-1" aria-label="Back">&larr;</button>
             <input type="number" class="page-nav-input" min="1" placeholder="Unit #">
-            <button class="page-nav-btn" data-dir="1">Next &rarr;</button>
+            <button class="page-nav-btn" data-dir="1" aria-label="Next">&rarr;</button>
             <button class="page-nav-btn" data-dir="0">Go</button>
             <span class="page-nav-count"></span>
         </div>
@@ -76653,11 +77626,31 @@ Program finished normally.</div>
                 else if (e.key === 'ArrowRight') vel -= 90;
             });
 
+            // Smoothly turn the ring so card `index` faces the viewer (shortest way round)
+            let facing = false;
+            window.faceCard = function (index, ms) {
+                return new Promise(resolve => {
+                    const step = 360 / 11;
+                    const base = -index * step;
+                    const target = base + Math.round((ry - base) / 360) * 360;
+                    const from = ry, t0 = performance.now();
+                    facing = true; vel = 0;
+                    const ease = t => t < .5 ? 4*t*t*t : 1 - Math.pow(-2*t + 2, 3) / 2;
+                    (function go(now) {
+                        const t = Math.min((now - t0) / ms, 1);
+                        ry = from + (target - from) * ease(t);
+                        render();
+                        if (t < 1) requestAnimationFrame(go);
+                        else { facing = false; resolve(); }
+                    })(t0);
+                });
+            };
+
             function tick(now) {
                 const dt = Math.min((now - lastFrame) / 1000, 0.05);
                 lastFrame = now;
                 const hidden = carouselView.classList.contains('is-hidden-view');
-                if (!dragging && !hidden && !isLaunching) {
+                if (!dragging && !hidden && !isLaunching && !facing) {
                     ry += vel * dt;
                     vel *= Math.pow(0.04, dt);            // friction
                     if (!reduce && Math.abs(vel) < IDLE) ry += IDLE * dt; // idle spin
@@ -76686,22 +77679,22 @@ Program finished normally.</div>
                 isLaunching = true;
                 inner.classList.add('is-paused');
 
-                cards.forEach(other => {
-                    if (other === card) {
-                        other.classList.add('is-launching');
-                    } else {
-                        other.classList.add('is-fading-out');
-                    }
-                });
+                // Stage 1: others fall back while the ring turns the chosen card to the front
+                cards.forEach(other => { if (other !== card) other.classList.add('is-fading-out'); });
+                veil.style.setProperty('--veil-color', getComputedStyle(card).getPropertyValue('--color-card') || '255,255,255');
+                const idx = Number(card.style.getPropertyValue('--index')) || 0;
+                const reduceM = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-                requestAnimationFrame(() => {
-                    if (isLaunching) veil.classList.add('is-active');
+                (window.faceCard ? window.faceCard(idx, reduceM ? 1 : 420) : Promise.resolve()).then(() => {
+                    if (!isLaunching) return; // cancelled meanwhile
+                    // Stage 2: card flies at the viewer, glow washes the screen, lesson fades in
+                    card.classList.add('is-launching');
+                    veil.classList.add('is-active');
+                    launchTimer = setTimeout(() => {
+                        launchTimer = null;
+                        openLesson(lessonId);
+                    }, 560);
                 });
-
-                launchTimer = setTimeout(() => {
-                    launchTimer = null;
-                    openLesson(lessonId);
-                }, 550);
             });
         });
 
@@ -77042,7 +78035,7 @@ Program finished normally.</div>
             const prevBtn = document.createElement('button');
             prevBtn.type = 'button';
             prevBtn.className = 'page-nav-btn q-step-btn';
-            prevBtn.textContent = '\u2190 Back';
+            prevBtn.textContent = '\u2190'; prevBtn.setAttribute('aria-label','Back');
             prevBtn.disabled = qi === 0;
             prevBtn.addEventListener('click', () => { currentQ--; render(); });
             const counter = document.createElement('span');
@@ -77051,7 +78044,7 @@ Program finished normally.</div>
             const nextBtn = document.createElement('button');
             nextBtn.type = 'button';
             nextBtn.className = 'page-nav-btn q-step-btn';
-            nextBtn.textContent = 'Next \u2192';
+            nextBtn.textContent = '\u2192'; nextBtn.setAttribute('aria-label','Next');
             nextBtn.disabled = qi === config.questions.length - 1;
             nextBtn.addEventListener('click', () => { currentQ++; render(); });
             stepper.appendChild(prevBtn);
@@ -78022,5 +79015,41 @@ Program finished normally.</div>
             }
         })();
     </script>
+<button type="button" class="theme-toggle" id="themeToggle" aria-label="Switch theme" title="Switch theme"><span class="tt-track" aria-hidden="true"><span class="tt-knob"></span></span><span class="tt-text"><span class="tt-state" id="themeState">DARK</span></span></button>
+<script>
+(function(){
+  var root=document.documentElement,btn=document.getElementById("themeToggle"),
+      meta=document.querySelector('meta[name="theme-color"]');
+  function paint(){
+    var light=root.getAttribute("data-theme")==="light";
+    var st=document.getElementById("themeState");if(st)st.textContent=light?"LIGHT":"DARK";
+    btn.setAttribute("aria-label",light?"Switch to dark theme":"Switch to light theme");
+    btn.title=btn.getAttribute("aria-label");
+    if(meta)meta.setAttribute("content",light?"#ffffff":"#07070a");
+  }
+  btn.addEventListener("click",function(){
+    btn.classList.remove("glitch");void btn.offsetWidth;btn.classList.add("glitch");
+    var light=root.getAttribute("data-theme")==="light";
+    if(light)root.removeAttribute("data-theme");else root.setAttribute("data-theme","light");
+    try{localStorage.setItem("pl-theme",light?"dark":"light");}catch(e){}
+    paint();
+  });
+  paint();
+})();
+</script>
+<script>
+(function(){
+  var btn=document.getElementById("themeToggle");
+  if(!btn) return;
+  function place(){
+    var view=document.querySelector(".lesson-view.is-active");
+    var bar=view&&view.querySelector(".lesson-topbar");
+    if(bar&&btn.parentNode!==bar) bar.appendChild(btn);
+  }
+  var mo=new MutationObserver(place);
+  document.querySelectorAll(".lesson-view").forEach(function(v){mo.observe(v,{attributes:true,attributeFilter:["class"]});});
+  place();
+})();
+</script>
 </body>
 </html>
