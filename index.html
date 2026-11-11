@@ -5206,6 +5206,12 @@ html[data-theme="light"] .rupp-logo .word .line1, html[data-theme="light"] .rupp
 .lesson-topbar .theme-toggle { position:relative; top:auto; right:auto; z-index:auto; flex:0 0 auto; height:34px; padding:0 12px 0 10px; gap:8px; font-size:12px; }
 .lesson-topbar .theme-toggle { margin-left:auto; }
 @media (min-width:701px) { .lesson-topbar .undo-hint ~ .theme-toggle { margin-left:0; } }
+
+/* ===== mobile fix: light-mode decorations must never widen the page ===== */
+html, body { max-width:100%; overflow-x:clip; }
+html[data-theme="light"] body::after { inset:0; overflow:clip; }          /* was inset:-10% -> bled past screen edges */
+html[data-theme="light"] #carouselView { overflow:clip; }                   /* spinning orbit ring's rotated box grew past screen width */
+html[data-theme="light"] #carouselView::before { max-width:100%; }
 </style>
 <noscript><style>.page-loader{display:none!important}</style></noscript>
 </head>
@@ -79015,41 +79021,41 @@ Program finished normally.</div>
             }
         })();
     </script>
-<button type="button" class="theme-toggle" id="themeToggle" aria-label="Switch theme" title="Switch theme"><span class="tt-track" aria-hidden="true"><span class="tt-knob"></span></span><span class="tt-text"><span class="tt-state" id="themeState">DARK</span></span></button>
-<script>
-(function(){
-  var root=document.documentElement,btn=document.getElementById("themeToggle"),
-      meta=document.querySelector('meta[name="theme-color"]');
-  function paint(){
-    var light=root.getAttribute("data-theme")==="light";
-    var st=document.getElementById("themeState");if(st)st.textContent=light?"LIGHT":"DARK";
-    btn.setAttribute("aria-label",light?"Switch to dark theme":"Switch to light theme");
-    btn.title=btn.getAttribute("aria-label");
-    if(meta)meta.setAttribute("content",light?"#ffffff":"#07070a");
-  }
-  btn.addEventListener("click",function(){
-    btn.classList.remove("glitch");void btn.offsetWidth;btn.classList.add("glitch");
-    var light=root.getAttribute("data-theme")==="light";
-    if(light)root.removeAttribute("data-theme");else root.setAttribute("data-theme","light");
-    try{localStorage.setItem("pl-theme",light?"dark":"light");}catch(e){}
+    <button type="button" class="theme-toggle" id="themeToggle" aria-label="Switch theme" title="Switch theme"><span class="tt-track" aria-hidden="true"><span class="tt-knob"></span></span><span class="tt-text"><span class="tt-state" id="themeState">DARK</span></span></button>
+    <script>
+    (function(){
+    var root=document.documentElement,btn=document.getElementById("themeToggle"),
+        meta=document.querySelector('meta[name="theme-color"]');
+    function paint(){
+        var light=root.getAttribute("data-theme")==="light";
+        var st=document.getElementById("themeState");if(st)st.textContent=light?"LIGHT":"DARK";
+        btn.setAttribute("aria-label",light?"Switch to dark theme":"Switch to light theme");
+        btn.title=btn.getAttribute("aria-label");
+        if(meta)meta.setAttribute("content",light?"#ffffff":"#07070a");
+    }
+    btn.addEventListener("click",function(){
+        btn.classList.remove("glitch");void btn.offsetWidth;btn.classList.add("glitch");
+        var light=root.getAttribute("data-theme")==="light";
+        if(light)root.removeAttribute("data-theme");else root.setAttribute("data-theme","light");
+        try{localStorage.setItem("pl-theme",light?"dark":"light");}catch(e){}
+        paint();
+    });
     paint();
-  });
-  paint();
-})();
-</script>
-<script>
-(function(){
-  var btn=document.getElementById("themeToggle");
-  if(!btn) return;
-  function place(){
-    var view=document.querySelector(".lesson-view.is-active");
-    var bar=view&&view.querySelector(".lesson-topbar");
-    if(bar&&btn.parentNode!==bar) bar.appendChild(btn);
-  }
-  var mo=new MutationObserver(place);
-  document.querySelectorAll(".lesson-view").forEach(function(v){mo.observe(v,{attributes:true,attributeFilter:["class"]});});
-  place();
-})();
-</script>
+    })();
+    </script>
+    <script>
+    (function(){
+    var btn=document.getElementById("themeToggle");
+    if(!btn) return;
+    function place(){
+        var view=document.querySelector(".lesson-view.is-active");
+        var bar=view&&view.querySelector(".lesson-topbar");
+        if(bar&&btn.parentNode!==bar) bar.appendChild(btn);
+    }
+    var mo=new MutationObserver(place);
+    document.querySelectorAll(".lesson-view").forEach(function(v){mo.observe(v,{attributes:true,attributeFilter:["class"]});});
+    place();
+    })();
+    </script>
 </body>
 </html>
