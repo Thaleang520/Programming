@@ -5212,6 +5212,40 @@ html, body { max-width:100%; overflow-x:clip; }
 html[data-theme="light"] body::after { inset:0; overflow:clip; }          /* was inset:-10% -> bled past screen edges */
 html[data-theme="light"] #carouselView { overflow:clip; }                   /* spinning orbit ring's rotated box grew past screen width */
 html[data-theme="light"] #carouselView::before { max-width:100%; }
+
+/* ===== light mode: vivid gradient titles (dark mode's neon glow is invisible on white) ===== */
+html[data-theme="light"] .toc-title-left,
+html[data-theme="light"] .toc-title-right {
+  background: linear-gradient(135deg,#b45309 0%,#f59e0b 55%,#ea580c 100%);
+  -webkit-background-clip:text; background-clip:text;
+  color:transparent; -webkit-text-fill-color:transparent; text-shadow:none;
+  filter: drop-shadow(0 2px 8px rgba(245,158,11,0.45));
+}
+html[data-theme="light"] .toc-title-center {
+  background: linear-gradient(90deg,#0891b2 0%,#6d28d9 100%);
+  -webkit-background-clip:text; background-clip:text;
+  color:transparent; -webkit-text-fill-color:transparent; text-shadow:none;
+  filter: drop-shadow(0 2px 10px rgba(8,145,178,0.4)) drop-shadow(0 0 22px rgba(109,40,217,0.18));
+}
+html[data-theme="light"] .book-page .page-right,
+html[data-theme="light"] .unit-header .page-right {
+  background: linear-gradient(135deg,#ff2a6d 0%,#e11d48 55%,#b91c1c 100%);
+  -webkit-background-clip:text; background-clip:text;
+  color:transparent; -webkit-text-fill-color:transparent; text-shadow:none;
+  filter: drop-shadow(0 2px 8px rgba(255,64,64,0.45)) drop-shadow(0 0 20px rgba(255,64,64,0.2));
+}
+html[data-theme="light"] .unit-title {
+  background: linear-gradient(90deg,#0891b2 0%,#6d28d9 60%,#db2777 100%);
+  -webkit-background-clip:text; background-clip:text;
+  color:transparent; -webkit-text-fill-color:transparent; text-shadow:none;
+  filter: drop-shadow(-2px 0 0 rgba(255,42,109,0.55)) drop-shadow(0 4px 14px rgba(0,190,220,0.4)) drop-shadow(0 0 26px rgba(122,60,255,0.2));
+}
+
+/* ===== light mode: no black box around the clock (laptop/desktop nav bar) ===== */
+html[data-theme="light"] .page-nav .clock-wrap {
+  background:none; box-shadow:none; border-radius:0; padding:0 4px;
+  --on-color:#d97706; --glow:rgba(217,119,6,0.55); --off-color:rgba(20,21,28,0.08);
+}
 </style>
 <noscript><style>.page-loader{display:none!important}</style></noscript>
 </head>
@@ -64890,7 +64924,1004 @@ GMT+07:00
   				</div>
   				<div class="khmer-line">ចំណាំ៖ VV បង្ហាញ Zone ID។ X ប្រើ Z សម្រាប់ UTC offset សូន្យ ខណៈ x បង្ហាញ offset ជាលេខ។ លទ្ធផលឈ្មោះ Time Zone អាចខុសគ្នាតាម Locale និងប្រព័ន្ធ។</div>
             </div>
-            <!--Unit 11-->
+            <!--Unit 11F-->
+            <div class="book-page" id="page-java-unit2-1">
+                <div class="stage">
+                    <div class="unit-header">
+                        <span class="page-right">11</span>
+                        <div class="corner tl"></div>
+                        <div class="corner br"></div>
+                        <div class="screentone"></div>
+                        <div class="unit-badge">UNIT 11</div>
+                        <div class="unit-chevrons">
+                        <svg width="18" height="26" viewBox="0 0 18 26"><path d="M0 0 L14 13 L0 26 Z" fill="url(#chev1)"/><defs><linearGradient id="chev1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#ff6b6b"/><stop offset="100%" stop-color="#c40000"/></linearGradient></defs></svg>
+                        <svg width="18" height="26" viewBox="0 0 18 26"><path d="M0 0 L14 13 L0 26 Z" fill="url(#chev2)"/><defs><linearGradient id="chev2" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#f4c14f"/><stop offset="100%" stop-color="#c47c00"/></linearGradient></defs></svg>
+                        </div>
+                        <div class="unit-title">File Reader</div>
+                        <div class="speed-lines"></div>
+                    </div>
+                </div>
+  				<div class="section-h">1 READ</div>
+  				<div class="subsection-h">1.1 new FileReader(String fileName)</div>
+  				<div class="khmer-line">ប្រើសម្រាប់បង្កើត FileReader ដើម្បីអានអក្សរពី File ដោយប្រើឈ្មោះ File។ ប្រសិនបើរក File មិនឃើញ វានឹងបង្កើត FileNotFoundException។</div>
+  				<div class="code-row">
+  					<span class="code-label syntax">Syntax</span>
+  					<span class="code-inline">FileReader reader = new FileReader("data.txt");</span>
+  				</div>
+  				<div class="example-output-row">
+  					<div class="example-col">
+  						<span class="code-label example">Example</span>
+  						<div class="code-box">import java.io.*;
+public class Main {
+    public static void main(String[] args) throws IOException {
+        FileReader reader = new FileReader("data.txt");
+        int ch;
+        while ((ch = reader.read()) != -1) {
+            System.out.print((char) ch);
+        }
+        reader.close();
+    }
+}</div>
+  					</div>
+  					<div class="output-col">
+  						<span class="code-label output">Output</span>
+  						<div class="output-text">Hello Java</div>
+  					</div>
+  				</div>
+
+  				<div class="subsection-h">1.2 new FileReader(File file)</div>
+  				<div class="khmer-line">ប្រើសម្រាប់បង្កើត FileReader ដោយផ្តល់ File object ជំនួសឱ្យឈ្មោះ File។ ប្រសិនបើរក File មិនឃើញ វានឹងបង្កើត FileNotFoundException។</div>
+  				<div class="code-row">
+  					<span class="code-label syntax">Syntax</span>
+  					<span class="code-inline">FileReader reader = new FileReader(file);</span>
+  				</div>
+  				<div class="example-output-row">
+  					<div class="example-col">
+  						<span class="code-label example">Example</span>
+  						<div class="code-box">import java.io.*;
+public class Main {
+    public static void main(String[] args) throws IOException {
+        File file = new File("data.txt");
+        FileReader reader = new FileReader(file);
+        int ch;
+        while ((ch = reader.read()) != -1) {
+            System.out.print((char) ch);
+        }
+        reader.close();
+    }
+}</div>
+  					</div>
+  					<div class="output-col">
+  						<span class="code-label output">Output</span>
+  						<div class="output-text">Hello Java</div>
+  					</div>
+  				</div>
+
+  				<div class="subsection-h">1.3 new FileReader(FileDescriptor fd)</div>
+  				<div class="khmer-line">ប្រើសម្រាប់បង្កើត FileReader ដោយប្រើ FileDescriptor ដែលតំណាងឱ្យ File ឬ Input Stream ដែលបានបើករួចហើយ។</div>
+  				<div class="code-row">
+  					<span class="code-label syntax">Syntax</span>
+  					<span class="code-inline">FileReader reader = new FileReader(fileDescriptor);</span>
+  				</div>
+  				<div class="example-output-row">
+  					<div class="example-col">
+  						<span class="code-label example">Example</span>
+  						<div class="code-box">import java.io.*;
+public class Main {
+    public static void main(String[] args) throws IOException {
+        FileInputStream input = new FileInputStream("data.txt");
+        FileReader reader = new FileReader(input.getFD());
+        int ch;
+        while ((ch = reader.read()) != -1) {
+            System.out.print((char) ch);
+        }
+        reader.close();
+        input.close();
+    }
+}</div>
+  					</div>
+  					<div class="output-col">
+  						<span class="code-label output">Output</span>
+  						<div class="output-text">Hello Java</div>
+  					</div>
+  				</div>
+
+  				<div class="subsection-h">1.4 new FileReader(String fileName, Charset cs)</div>
+  				<div class="khmer-line">ប្រើសម្រាប់បង្កើត FileReader ដោយកំណត់ Character Encoding តាមរយៈ Charset។ មានចាប់ពី Java 11។</div>
+  				<div class="code-row">
+  					<span class="code-label syntax">Syntax</span>
+  					<span class="code-inline">FileReader reader = new FileReader("data.txt", StandardCharsets.UTF_8);</span>
+  				</div>
+  				<div class="example-output-row">
+  					<div class="example-col">
+  						<span class="code-label example">Example</span>
+  						<div class="code-box">import java.io.*;
+import java.nio.charset.StandardCharsets;
+public class Main {
+    public static void main(String[] args) throws IOException {
+        FileReader reader = new FileReader("data.txt", StandardCharsets.UTF_8);
+        int ch;
+        while ((ch = reader.read()) != -1) {
+            System.out.print((char) ch);
+        }
+        reader.close();
+    }
+}</div>
+  					</div>
+  					<div class="output-col">
+  						<span class="code-label output">Output</span>
+  						<div class="output-text">Hello Java</div>
+  					</div>
+  				</div>
+
+  				<div class="subsection-h">1.5 new FileReader(File file, Charset cs)</div>
+  				<div class="khmer-line">ប្រើសម្រាប់បង្កើត FileReader ដោយប្រើ File object និងកំណត់ Character Encoding តាមរយៈ Charset។ មានចាប់ពី Java 11។</div>
+  				<div class="code-row">
+  					<span class="code-label syntax">Syntax</span>
+  					<span class="code-inline">FileReader reader = new FileReader(file, StandardCharsets.UTF_8);</span>
+  				</div>
+  				<div class="example-output-row">
+  					<div class="example-col">
+  						<span class="code-label example">Example</span>
+  						<div class="code-box">import java.io.*;
+import java.nio.charset.StandardCharsets;
+public class Main {
+    public static void main(String[] args) throws IOException {
+        File file = new File("data.txt");
+        FileReader reader = new FileReader(file, StandardCharsets.UTF_8);
+        int ch;
+        while ((ch = reader.read()) != -1) {
+            System.out.print((char) ch);
+        }
+        reader.close();
+    }
+}</div>
+  					</div>
+  					<div class="output-col">
+  						<span class="code-label output">Output</span>
+  						<div class="output-text">Hello Java</div>
+  					</div>
+  				</div>
+  				<div class="section-h">2 FileReader Read Operations</div>
+  				<div class="subsection-h">2.1 fr.read()</div>
+  				<div class="khmer-line">ប្រើសម្រាប់អានតួអក្សរមួយពី File ហើយត្រឡប់តម្លៃជា int (0–65535)។ ប្រសិនបើដល់ចុង File វាត្រឡប់ -1។</div>
+  				<div class="code-row">
+  					<span class="code-label syntax">Syntax</span>
+  					<span class="code-inline">int ch = fr.read();</span>
+  				</div>
+  				<div class="example-output-row">
+  					<div class="example-col">
+  						<span class="code-label example">Example</span>
+  						<div class="code-box">import java.io.*;
+public class Main {
+    public static void main(String[] args) throws IOException {
+        FileReader fr = new FileReader("data.txt");
+        int ch = fr.read();
+        System.out.println(ch);
+        System.out.println((char) ch);
+        fr.close();
+    }
+}</div>
+  					</div>
+  					<div class="output-col">
+  						<span class="code-label output">Output</span>
+  						<div class="output-text">72
+H</div>
+  					</div>
+  				</div>
+
+  				<div class="subsection-h">2.2 fr.read(char[] buf)</div>
+  				<div class="khmer-line">ប្រើសម្រាប់អានតួអក្សរពី File ចូលក្នុង Array។ វាត្រឡប់ចំនួនតួអក្សរដែលបានអាន ឬ -1 ប្រសិនបើដល់ចុង File។</div>
+  				<div class="code-row">
+  					<span class="code-label syntax">Syntax</span>
+  					<span class="code-inline">int count = fr.read(buf);</span>
+  				</div>
+  				<div class="example-output-row">
+  					<div class="example-col">
+  						<span class="code-label example">Example</span>
+  						<div class="code-box">import java.io.*;
+public class Main {
+    public static void main(String[] args) throws IOException {
+        FileReader fr = new FileReader("data.txt");
+        char[] buf = new char[5];
+        int count = fr.read(buf);
+        System.out.println(count);
+        System.out.println(buf);
+        fr.close();
+    }
+}</div>
+  					</div>
+  					<div class="output-col">
+  						<span class="code-label output">Output</span>
+  						<div class="output-text">5
+Hello</div>
+  					</div>
+  				</div>
+
+  				<div class="subsection-h">2.3 fr.read(char[] buf, int off, int len)</div>
+  				<div class="khmer-line">ប្រើសម្រាប់អានតួអក្សរចូលក្នុងផ្នែកណាមួយនៃ Array ដោយកំណត់ទីតាំងចាប់ផ្តើម (off) និងចំនួនតួអក្សរដែលត្រូវអាន (len)។</div>
+  				<div class="code-row">
+  					<span class="code-label syntax">Syntax</span>
+  					<span class="code-inline">int count = fr.read(buf, off, len);</span>
+  				</div>
+  				<div class="example-output-row">
+  					<div class="example-col">
+  						<span class="code-label example">Example</span>
+  						<div class="code-box">import java.io.*;
+public class Main {
+    public static void main(String[] args) throws IOException {
+        FileReader fr = new FileReader("data.txt");
+        char[] buf = new char[10];
+        int count = fr.read(buf, 2, 5);
+        System.out.println(count);
+        System.out.println(new String(buf));
+        fr.close();
+    }
+}</div>
+  					</div>
+  					<div class="output-col">
+  						<span class="code-label output">Output</span>
+  						<div class="output-text">5
+  Hello</div>
+  					</div>
+  				</div>
+  				<div class="subsection-h">2.4 fr.read(CharBuffer target)</div>
+  				<div class="khmer-line">ប្រើសម្រាប់អានតួអក្សរពី File ចូលក្នុង CharBuffer។ វាត្រឡប់ចំនួនតួអក្សរដែលបានអាន ឬ -1 នៅចុង File។</div>
+  				<div class="code-row">
+  					<span class="code-label syntax">Syntax</span>
+  					<span class="code-inline">int count = fr.read(buffer);</span>
+  				</div>
+  				<div class="example-output-row">
+  					<div class="example-col">
+  						<span class="code-label example">Example</span>
+  						<div class="code-box">import java.io.*;
+import java.nio.CharBuffer;
+public class Main {
+    public static void main(String[] args) throws IOException {
+        FileReader fr = new FileReader("data.txt");
+
+        CharBuffer buffer = CharBuffer.allocate(10);
+        int count = fr.read(buffer);
+        buffer.flip();
+        System.out.println(count);
+        System.out.println(buffer);
+        fr.close();
+    }
+}</div>
+  					</div>
+  					<div class="output-col">
+  						<span class="code-label output">Output</span>
+  						<div class="output-text">10
+Hello Java</div>
+  					</div>
+  				</div>
+
+  				<div class="subsection-h">2.5 fr.skip(long n)</div>
+  				<div class="khmer-line">ប្រើសម្រាប់រំលងតួអក្សរចំនួន n ពីទីតាំងបច្ចុប្បន្ន ហើយត្រឡប់ចំនួនតួអក្សរដែលបានរំលងពិតប្រាកដ។</div>
+  				<div class="code-row">
+  					<span class="code-label syntax">Syntax</span>
+  					<span class="code-inline">long skipped = fr.skip(n);</span>
+  				</div>
+  				<div class="example-output-row">
+  					<div class="example-col">
+  						<span class="code-label example">Example</span>
+  						<div class="code-box">import java.io.*;
+public class Main {
+    public static void main(String[] args) throws IOException {
+        FileReader fr = new FileReader("data.txt");
+        long skipped = fr.skip(6);
+        System.out.println(skipped);
+        int ch = fr.read();
+        System.out.println((char) ch);
+        fr.close();
+    }
+}</div>
+  					</div>
+  					<div class="output-col">
+  						<span class="code-label output">Output</span>
+  						<div class="output-text">6
+J</div>
+  					</div>
+  				</div>
+
+  				<div class="subsection-h">2.6 fr.ready()</div>
+  				<div class="khmer-line">ប្រើសម្រាប់ពិនិត្យថា តើអាចអានទិន្នន័យបានភ្លាមៗ ដោយមិនចាំបាច់រង់ចាំឬអត់។ វាត្រឡប់ true ឬ false។</div>
+  				<div class="code-row">
+  					<span class="code-label syntax">Syntax</span>
+  					<span class="code-inline">fr.ready();</span>
+  				</div>
+  				<div class="example-output-row">
+  					<div class="example-col">
+  						<span class="code-label example">Example</span>
+  						<div class="code-box">import java.io.*;
+public class Main {
+    public static void main(String[] args) throws IOException {
+        FileReader fr = new FileReader("data.txt");
+        System.out.println(fr.ready());
+        fr.close();
+    }
+}</div>
+  					</div>
+  					<div class="output-col">
+  						<span class="code-label output">Output</span>
+  						<div class="output-text">true</div>
+  					</div>
+  				</div>
+
+  				<div class="subsection-h">2.7 fr.transferTo(Writer out)</div>
+  				<div class="khmer-line">ប្រើសម្រាប់ផ្ទេរតួអក្សរទាំងអស់ពី FileReader ទៅ Writer ផ្សេងទៀត ហើយត្រឡប់ចំនួនតួអក្សរដែលបានផ្ទេរ។ មានចាប់ពី Java 10។</div>
+  				<div class="code-row">
+  					<span class="code-label syntax">Syntax</span>
+  					<span class="code-inline">long count = fr.transferTo(writer);</span>
+  				</div>
+  				<div class="example-output-row">
+  					<div class="example-col">
+  						<span class="code-label example">Example</span>
+  						<div class="code-box">import java.io.*;
+public class Main {
+    public static void main(String[] args) throws IOException {
+        FileReader fr = new FileReader("data.txt");
+        StringWriter writer = new StringWriter();
+        long count = fr.transferTo(writer);
+        System.out.println(count);
+        System.out.println(writer);
+        fr.close();
+        writer.close();
+    }
+}</div>
+  					</div>
+  					<div class="output-col">
+  						<span class="code-label output">Output</span>
+  						<div class="output-text">10
+Hello Java</div>
+  					</div>
+  				</div>
+  				<div class="section-h">3 FileReader Mark Operations</div>
+  				<div class="subsection-h">3.1 fr.markSupported()</div>
+  				<div class="khmer-line">ប្រើសម្រាប់ពិនិត្យថា Reader គាំទ្រការកំណត់ទីតាំង (Mark) និងត្រឡប់ទៅទីតាំងនោះវិញ (Reset) ឬអត់។ FileReader មិនគាំទ្រទេ។</div>
+  				<div class="code-row">
+  					<span class="code-label syntax">Syntax</span>
+  					<span class="code-inline">fr.markSupported();</span>
+  				</div>
+  				<div class="example-output-row">
+  					<div class="example-col">
+  						<span class="code-label example">Example</span>
+  						<div class="code-box">import java.io.*;
+public class Main {
+    public static void main(String[] args) throws IOException {
+        FileReader fr = new FileReader("data.txt");
+        System.out.println(fr.markSupported());
+        fr.close();
+    }
+}</div>
+  					</div>
+  					<div class="output-col">
+  						<span class="code-label output">Output</span>
+  						<div class="output-text">false</div>
+  					</div>
+  				</div>
+
+  				<div class="subsection-h">3.2 fr.mark(int limit)</div>
+  				<div class="khmer-line">ប្រើសម្រាប់កំណត់ទីតាំងបច្ចុប្បន្ន ដើម្បីអាចត្រឡប់មកទីតាំងនោះវិញដោយ reset()។ FileReader មិនគាំទ្រមុខងារនេះទេ ដូច្នេះវាបង្កើត IOException។</div>
+  				<div class="code-row">
+  					<span class="code-label syntax">Syntax</span>
+  					<span class="code-inline">fr.mark(10);</span>
+  				</div>
+  				<div class="example-output-row">
+  					<div class="example-col">
+  						<span class="code-label example">Example</span>
+  						<div class="code-box">import java.io.*;
+public class Main {
+    public static void main(String[] args) throws IOException {
+        FileReader fr = new FileReader("data.txt");
+        try {
+            fr.mark(10);
+        } catch (IOException e) {
+            System.out.println("Mark not supported");
+        }
+        fr.close();
+    }
+}</div>
+  					</div>
+  					<div class="output-col">
+  						<span class="code-label output">Output</span>
+  						<div class="output-text">Mark not supported</div>
+  					</div>
+  				</div>
+
+  				<div class="subsection-h">3.3 fr.reset()</div>
+  				<div class="khmer-line">ប្រើសម្រាប់ត្រឡប់ទៅទីតាំងដែលបានកំណត់ដោយ mark()។ FileReader មិនគាំទ្រមុខងារនេះទេ ដូច្នេះវាបង្កើត IOException។</div>
+  				<div class="code-row">
+  					<span class="code-label syntax">Syntax</span>
+  					<span class="code-inline">fr.reset();</span>
+  				</div>
+  				<div class="example-output-row">
+  					<div class="example-col">
+  						<span class="code-label example">Example</span>
+  						<div class="code-box">import java.io.*;
+public class Main {
+    public static void main(String[] args) throws IOException {
+        FileReader fr = new FileReader("data.txt");
+        try {
+            fr.reset();
+        } catch (IOException e) {
+            System.out.println("Reset not supported");
+        }
+        fr.close();
+    }
+}</div>
+  					</div>
+  					<div class="output-col">
+  						<span class="code-label output">Output</span>
+  						<div class="output-text">Reset not supported</div>
+  					</div>
+  				</div>
+
+  				<div class="section-h">4 FileReader Encoding</div>
+  				<div class="khmer-line">ប្រើសម្រាប់ទទួលឈ្មោះ Character Encoding ដែល FileReader កំពុងប្រើ ដូចជា UTF8។ វាត្រឡប់ null ប្រសិនបើ Reader ត្រូវបានបិទ។</div>
+  				<div class="code-row">
+  					<span class="code-label syntax">Syntax</span>
+  					<span class="code-inline">fr.getEncoding();</span>
+  				</div>
+  				<div class="example-output-row">
+  					<div class="example-col">
+  						<span class="code-label example">Example</span>
+  						<div class="code-box">import java.io.*;
+import java.nio.charset.StandardCharsets;
+public class Main {
+    public static void main(String[] args) throws IOException {
+        FileReader fr = new FileReader("data.txt", StandardCharsets.UTF_8);
+        System.out.println(fr.getEncoding());
+        fr.close();
+    }
+}</div>
+  					</div>
+  					<div class="output-col">
+  						<span class="code-label output">Output</span>
+  						<div class="output-text">UTF8</div>
+  					</div>
+  				</div>
+
+  				<div class="section-h">5 FileReader Close</div>
+  				<div class="khmer-line">ប្រើសម្រាប់បិទ FileReader និងបញ្ចេញធនធានដែលបានប្រើប្រាស់។ បន្ទាប់ពីបិទ មិនអាចអានទិន្នន័យបន្តបានទេ។</div>
+  				<div class="code-row">
+  					<span class="code-label syntax">Syntax</span>
+  					<span class="code-inline">fr.close();</span>
+  				</div>
+  				<div class="example-output-row">
+  					<div class="example-col">
+  						<span class="code-label example">Example</span>
+  						<div class="code-box">import java.io.*;
+public class Main {
+    public static void main(String[] args) throws IOException {
+        FileReader fr = new FileReader("data.txt");
+        fr.close();
+        System.out.println("File closed");
+    }
+}</div>
+  					</div>
+  					<div class="output-col">
+  						<span class="code-label output">Output</span>
+  						<div class="output-text">File closed</div>
+  					</div>
+  				</div>
+
+  				<div class="section-h">6 Reader Null Reader</div>
+  				<div class="khmer-line">ប្រើសម្រាប់បង្កើត Reader ទទេ ដែលមិនមានទិន្នន័យសម្រាប់អាន។ read() នឹងត្រឡប់ -1។ មានចាប់ពី Java 11។</div>
+  				<div class="code-row">
+  					<span class="code-label syntax">Syntax</span>
+  					<span class="code-inline">Reader reader = Reader.nullReader();</span>
+  				</div>
+  				<div class="example-output-row">
+  					<div class="example-col">
+  						<span class="code-label example">Example</span>
+  						<div class="code-box">import java.io.*;
+public class Main {
+    public static void main(String[] args) throws IOException {
+        Reader reader = Reader.nullReader();
+        System.out.println(reader.read());
+        reader.close();
+    }
+}</div>
+  					</div>
+  					<div class="output-col">
+  						<span class="code-label output">Output</span>
+  						<div class="output-text">-1</div>
+  					</div>
+  				</div>
+
+  				<div class="section-h">7 Object Methods</div>
+  				<div class="subsection-h">7.1 fr.toString()</div>
+  				<div class="khmer-line">ប្រើសម្រាប់បម្លែង FileReader ទៅជា String។ វាមិនអានទិន្នន័យនៅក្នុង File ទេ ហើយលទ្ធផលអាស្រ័យលើ Object។</div>
+  				<div class="code-row">
+  					<span class="code-label syntax">Syntax</span>
+  					<span class="code-inline">fr.toString();</span>
+  				</div>
+  				<div class="example-output-row">
+  					<div class="example-col">
+  						<span class="code-label example">Example</span>
+  						<div class="code-box">import java.io.*;
+public class Main {
+    public static void main(String[] args) throws IOException {
+        FileReader fr = new FileReader("data.txt");
+        System.out.println(fr.toString());
+        fr.close();
+    }
+}</div>
+  					</div>
+  					<div class="output-col">
+  						<span class="code-label output">Output</span>
+  						<div class="output-text">java.io.FileReader@...</div>
+  					</div>
+  				</div>
+
+  				<div class="subsection-h">7.2 fr.equals(obj)</div>
+  				<div class="khmer-line">ប្រើសម្រាប់ប្រៀបធៀបថា Object ពីរដូចគ្នាឬអត់។ FileReader ប្រើការប្រៀបធៀប Object ដោយមិនពិនិត្យមាតិកា File ទេ។</div>
+  				<div class="code-row">
+  					<span class="code-label syntax">Syntax</span>
+  					<span class="code-inline">fr.equals(obj);</span>
+  				</div>
+  				<div class="example-output-row">
+  					<div class="example-col">
+  						<span class="code-label example">Example</span>
+  						<div class="code-box">import java.io.*;
+public class Main {
+    public static void main(String[] args) throws IOException {
+        FileReader fr1 = new FileReader("data.txt");
+        FileReader fr2 = new FileReader("data.txt");
+        System.out.println(fr1.equals(fr2));
+        fr1.close();
+        fr2.close();
+    }
+}</div>
+  					</div>
+  					<div class="output-col">
+  						<span class="code-label output">Output</span>
+  						<div class="output-text">false</div>
+  					</div>
+  				</div>
+
+  				<div class="subsection-h">7.3 fr.hashCode()</div>
+  				<div class="khmer-line">ប្រើសម្រាប់ទទួលលេខ Hash Code របស់ Object។ លេខនេះមិនមែនជាទំហំ File ឬមាតិកា File ទេ។</div>
+  				<div class="code-row">
+  					<span class="code-label syntax">Syntax</span>
+  					<span class="code-inline">fr.hashCode();</span>
+  				</div>
+  				<div class="example-output-row">
+  					<div class="example-col">
+  						<span class="code-label example">Example</span>
+  						<div class="code-box">import java.io.*;
+public class Main {
+    public static void main(String[] args) throws IOException {
+        FileReader fr = new FileReader("data.txt");
+        System.out.println(fr.hashCode());
+        fr.close();
+    }
+}</div>
+  					</div>
+  					<div class="output-col">
+  						<span class="code-label output">Output</span>
+  						<div class="output-text">A hash code number (varies).</div>
+  					</div>
+  				</div>
+
+  				<div class="subsection-h">7.4 fr.getClass()</div>
+  				<div class="khmer-line">ប្រើសម្រាប់ទទួល Class របស់ Object ដែលបានបង្កើត។ FileReader នឹងបង្ហាញ Class java.io.FileReader។</div>
+  				<div class="code-row">
+  					<span class="code-label syntax">Syntax</span>
+  					<span class="code-inline">fr.getClass();</span>
+  				</div>
+  				<div class="example-output-row">
+  					<div class="example-col">
+  						<span class="code-label example">Example</span>
+  						<div class="code-box">import java.io.*;
+public class Main {
+    public static void main(String[] args) throws IOException {
+        FileReader fr = new FileReader("data.txt");
+        System.out.println(fr.getClass());
+        fr.close();
+    }
+}</div>
+  					</div>
+  					<div class="output-col">
+  						<span class="code-label output">Output</span>
+  						<div class="output-text">class java.io.FileReader</div>
+  					</div>
+  				</div>
+  				<div class="section-h">8 BufferedReader</div>
+  				<div class="subsection-h">8.1 new BufferedReader(new FileReader("data.txt"))</div>
+  				<div class="khmer-line">ប្រើសម្រាប់បង្កើត BufferedReader ដើម្បីអានអក្សរពី File ដោយមាន Buffer ជួយឱ្យការអានមានប្រសិទ្ធភាព។</div>
+  				<div class="code-row">
+  					<span class="code-label syntax">Syntax</span>
+  					<span class="code-inline">BufferedReader br = new BufferedReader(new FileReader("data.txt"));</span>
+  				</div>
+  				<div class="example-output-row">
+  					<div class="example-col">
+  						<span class="code-label example">Example</span>
+  						<div class="code-box">import java.io.*;
+public class Main {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new FileReader("data.txt"));
+        System.out.println(br.readLine());
+        br.close();
+    }
+}</div>
+  					</div>
+  					<div class="output-col">
+  						<span class="code-label output">Output</span>
+  						<div class="output-text">Hello Java</div>
+  					</div>
+  				</div>
+
+  				<div class="subsection-h">8.2 new BufferedReader(Reader in, int bufferSize)</div>
+  				<div class="khmer-line">ប្រើសម្រាប់បង្កើត BufferedReader ដោយកំណត់ទំហំ Buffer ផ្ទាល់ខ្លួន។</div>
+  				<div class="code-row">
+  					<span class="code-label syntax">Syntax</span>
+  					<span class="code-inline">BufferedReader br = new BufferedReader(new FileReader("data.txt"), 1024);</span>
+  				</div>
+  				<div class="example-output-row">
+  					<div class="example-col">
+  						<span class="code-label example">Example</span>
+  						<div class="code-box">import java.io.*;
+public class Main {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(
+            new FileReader("data.txt"), 1024
+        );
+        System.out.println(br.readLine());
+        br.close();
+    }
+}</div>
+  					</div>
+  					<div class="output-col">
+  						<span class="code-label output">Output</span>
+  						<div class="output-text">Hello Java</div>
+  					</div>
+  				</div>
+
+  				<div class="section-h">9 BufferedReader Read Operations</div>
+  				<div class="subsection-h">9.1 br.readLine()</div>
+  				<div class="khmer-line">ប្រើសម្រាប់អានអត្ថបទមួយបន្ទាត់ទាំងមូល ដោយមិនបញ្ចូលសញ្ញាបញ្ចប់បន្ទាត់។ ត្រឡប់ null នៅពេលដល់ចុង File។</div>
+  				<div class="code-row">
+  					<span class="code-label syntax">Syntax</span>
+  					<span class="code-inline">String line = br.readLine();</span>
+  				</div>
+  				<div class="example-output-row">
+  					<div class="example-col">
+  						<span class="code-label example">Example</span>
+  						<div class="code-box">import java.io.*;
+public class Main {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new FileReader("data.txt"));
+        String line = br.readLine();
+        System.out.println(line);
+        br.close();
+    }
+}</div>
+  					</div>
+  					<div class="output-col">
+  						<span class="code-label output">Output</span>
+  						<div class="output-text">Hello Java</div>
+  					</div>
+  				</div>
+
+  				<div class="subsection-h">9.2 br.read()</div>
+  				<div class="khmer-line">ប្រើសម្រាប់អានតួអក្សរមួយពី File ហើយត្រឡប់តម្លៃជា int ឬ -1 នៅពេលដល់ចុង File។</div>
+  				<div class="code-row">
+  					<span class="code-label syntax">Syntax</span>
+  					<span class="code-inline">int ch = br.read();</span>
+  				</div>
+  				<div class="example-output-row">
+  					<div class="example-col">
+  						<span class="code-label example">Example</span>
+  						<div class="code-box">import java.io.*;
+public class Main {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new FileReader("data.txt"));
+        int ch = br.read();
+        System.out.println((char) ch);
+        br.close();
+    }
+}</div>
+  					</div>
+  					<div class="output-col">
+  						<span class="code-label output">Output</span>
+  						<div class="output-text">H</div>
+  					</div>
+  				</div>
+
+  				<div class="subsection-h">9.3 br.read(char[] buf, int off, int len)</div>
+  				<div class="khmer-line">ប្រើសម្រាប់អានតួអក្សរចូលក្នុងផ្នែកណាមួយនៃ Array ដោយកំណត់ទីតាំងចាប់ផ្តើម (off) និងចំនួនតួអក្សរដែលត្រូវអាន (len)។</div>
+  				<div class="code-row">
+  					<span class="code-label syntax">Syntax</span>
+  					<span class="code-inline">int count = br.read(buf, off, len);</span>
+  				</div>
+  				<div class="example-output-row">
+  					<div class="example-col">
+  						<span class="code-label example">Example</span>
+  						<div class="code-box">import java.io.*;
+public class Main {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new FileReader("data.txt"));
+        char[] buf = new char[10];
+        int count = br.read(buf, 2, 5);
+        System.out.println(count);
+        System.out.println(new String(buf));
+        br.close();
+    }
+}</div>
+  					</div>
+  					<div class="output-col">
+  						<span class="code-label output">Output</span>
+  						<div class="output-text">5
+  Hello</div>
+  					</div>
+  				</div>
+
+  				<div class="subsection-h">9.4 br.lines()</div>
+  				<div class="khmer-line">ប្រើសម្រាប់ទទួល Stream ដែលមានបន្ទាត់ទាំងអស់ពី BufferedReader។ មានចាប់ពី Java 8។</div>
+  				<div class="code-row">
+  					<span class="code-label syntax">Syntax</span>
+  					<span class="code-inline">br.lines();</span>
+  				</div>
+  				<div class="example-output-row">
+  					<div class="example-col">
+  						<span class="code-label example">Example</span>
+  						<div class="code-box">import java.io.*;
+public class Main {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new FileReader("data.txt"));
+        br.lines().forEach(System.out::println);
+        br.close();
+    }
+}</div>
+  					</div>
+  					<div class="output-col">
+  						<span class="code-label output">Output</span>
+  						<div class="output-text">Hello Java
+Welcome</div>
+  					</div>
+  				</div>
+
+  				<div class="section-h">10 BufferedReader Other Operations</div>
+  				<div class="subsection-h">10.1 br.ready()</div>
+  				<div class="khmer-line">ប្រើសម្រាប់ពិនិត្យថា តើអាចអានទិន្នន័យបានភ្លាមៗ ដោយមិនចាំបាច់រង់ចាំឬអត់។ វាត្រឡប់ true ឬ false។</div>
+  				<div class="code-row">
+  					<span class="code-label syntax">Syntax</span>
+  					<span class="code-inline">br.ready();</span>
+  				</div>
+  				<div class="example-output-row">
+  					<div class="example-col">
+  						<span class="code-label example">Example</span>
+  						<div class="code-box">import java.io.*;
+public class Main {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new FileReader("data.txt"));
+        System.out.println(br.ready());
+        br.close();
+    }
+}</div>
+  					</div>
+  					<div class="output-col">
+  						<span class="code-label output">Output</span>
+  						<div class="output-text">true</div>
+  					</div>
+  				</div>
+
+  				<div class="subsection-h">10.2 br.skip(long n)</div>
+  				<div class="khmer-line">ប្រើសម្រាប់រំលងតួអក្សរចំនួន n ពីទីតាំងបច្ចុប្បន្ន ហើយត្រឡប់ចំនួនតួអក្សរដែលបានរំលងពិតប្រាកដ។</div>
+  				<div class="code-row">
+  					<span class="code-label syntax">Syntax</span>
+  					<span class="code-inline">long skipped = br.skip(n);</span>
+  				</div>
+  				<div class="example-output-row">
+  					<div class="example-col">
+  						<span class="code-label example">Example</span>
+  						<div class="code-box">import java.io.*;
+public class Main {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new FileReader("data.txt"));
+        br.skip(6);
+        System.out.println(br.readLine());
+        br.close();
+    }
+}</div>
+  					</div>
+  					<div class="output-col">
+  						<span class="code-label output">Output</span>
+  						<div class="output-text">Welcome</div>
+  					</div>
+  				</div>
+
+  				<div class="subsection-h">10.3 br.mark(int limit)</div>
+  				<div class="khmer-line">ប្រើសម្រាប់កំណត់ទីតាំងបច្ចុប្បន្ន ដើម្បីអាចត្រឡប់មកទីតាំងនោះវិញដោយ reset()។ limit ជាចំនួនតួអក្សរដែលអាចអានមុនពេល Mark អាចមិនមានសុពលភាព។</div>
+  				<div class="code-row">
+  					<span class="code-label syntax">Syntax</span>
+  					<span class="code-inline">br.mark(100);</span>
+  				</div>
+  				<div class="example-output-row">
+  					<div class="example-col">
+  						<span class="code-label example">Example</span>
+  						<div class="code-box">import java.io.*;
+public class Main {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new FileReader("data.txt"));
+        br.mark(100);
+        System.out.println(br.readLine());
+        br.reset();
+        System.out.println(br.readLine());
+        br.close();
+    }
+}</div>
+  					</div>
+  					<div class="output-col">
+  						<span class="code-label output">Output</span>
+  						<div class="output-text">Hello Java
+Hello Java</div>
+  					</div>
+  				</div>
+
+  				<div class="subsection-h">10.4 br.reset()</div>
+  				<div class="khmer-line">ប្រើសម្រាប់ត្រឡប់ទៅទីតាំងដែលបានកំណត់ដោយ mark()។ ប្រសិនបើមិនបានកំណត់ Mark ឬ Mark លែងមានសុពលភាព វាអាចបង្កើត IOException។</div>
+  				<div class="code-row">
+  					<span class="code-label syntax">Syntax</span>
+  					<span class="code-inline">br.reset();</span>
+  				</div>
+  				<div class="example-output-row">
+  					<div class="example-col">
+  						<span class="code-label example">Example</span>
+  						<div class="code-box">import java.io.*;
+public class Main {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new FileReader("data.txt"));
+        br.mark(100);
+        br.readLine();
+        br.reset();
+        System.out.println(br.readLine());
+        br.close();
+    }
+}</div>
+  					</div>
+  					<div class="output-col">
+  						<span class="code-label output">Output</span>
+  						<div class="output-text">Hello Java</div>
+  					</div>
+  				</div>
+
+  				<div class="subsection-h">10.5 br.markSupported()</div>
+  				<div class="khmer-line">ប្រើសម្រាប់ពិនិត្យថា BufferedReader គាំទ្រ mark() និង reset() ឬអត់។ BufferedReader គាំទ្រមុខងារទាំងនេះ ហើយត្រឡប់ true។</div>
+  				<div class="code-row">
+  					<span class="code-label syntax">Syntax</span>
+  					<span class="code-inline">br.markSupported();</span>
+  				</div>
+  				<div class="example-output-row">
+  					<div class="example-col">
+  						<span class="code-label example">Example</span>
+  						<div class="code-box">import java.io.*;
+public class Main {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new FileReader("data.txt"));
+        System.out.println(br.markSupported());
+        br.close();
+    }
+}</div>
+  					</div>
+  					<div class="output-col">
+  						<span class="code-label output">Output</span>
+  						<div class="output-text">true</div>
+  					</div>
+  				</div>
+
+  				<div class="subsection-h">10.6 br.close()</div>
+  				<div class="khmer-line">ប្រើសម្រាប់បិទ BufferedReader និងបញ្ចេញធនធានដែលបានប្រើប្រាស់។ វាក៏បិទ Reader ខាងក្នុងផងដែរ។</div>
+  				<div class="code-row">
+  					<span class="code-label syntax">Syntax</span>
+  					<span class="code-inline">br.close();</span>
+  				</div>
+  				<div class="example-output-row">
+  					<div class="example-col">
+  						<span class="code-label example">Example</span>
+  						<div class="code-box">import java.io.*;
+public class Main {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new FileReader("data.txt"));
+        br.close();
+        System.out.println("Reader closed");
+    }
+}</div>
+  					</div>
+  					<div class="output-col">
+  						<span class="code-label output">Output</span>
+  						<div class="output-text">Reader closed</div>
+  					</div>
+  				</div>
+            </div>
+            <!--Unit 12-->
+            <div class="book-page" id="page-java-unit2-1">
+                <div class="stage">
+                    <div class="unit-header">
+                        <span class="page-right">10</span>
+                        <div class="corner tl"></div>
+                        <div class="corner br"></div>
+                        <div class="screentone"></div>
+                        <div class="unit-badge">UNIT 10</div>
+                        <div class="unit-chevrons">
+                        <svg width="18" height="26" viewBox="0 0 18 26"><path d="M0 0 L14 13 L0 26 Z" fill="url(#chev1)"/><defs><linearGradient id="chev1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#ff6b6b"/><stop offset="100%" stop-color="#c40000"/></linearGradient></defs></svg>
+                        <svg width="18" height="26" viewBox="0 0 18 26"><path d="M0 0 L14 13 L0 26 Z" fill="url(#chev2)"/><defs><linearGradient id="chev2" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#f4c14f"/><stop offset="100%" stop-color="#c47c00"/></linearGradient></defs></svg>
+                        </div>
+                        <div class="unit-title">LocalDateTime</div>
+                        <div class="speed-lines"></div>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            </div>
+            <!--Unit 13-->
+            <div class="book-page" id="page-java-unit2-1">
+                <div class="stage">
+                    <div class="unit-header">
+                        <span class="page-right">10</span>
+                        <div class="corner tl"></div>
+                        <div class="corner br"></div>
+                        <div class="screentone"></div>
+                        <div class="unit-badge">UNIT 10</div>
+                        <div class="unit-chevrons">
+                        <svg width="18" height="26" viewBox="0 0 18 26"><path d="M0 0 L14 13 L0 26 Z" fill="url(#chev1)"/><defs><linearGradient id="chev1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#ff6b6b"/><stop offset="100%" stop-color="#c40000"/></linearGradient></defs></svg>
+                        <svg width="18" height="26" viewBox="0 0 18 26"><path d="M0 0 L14 13 L0 26 Z" fill="url(#chev2)"/><defs><linearGradient id="chev2" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#f4c14f"/><stop offset="100%" stop-color="#c47c00"/></linearGradient></defs></svg>
+                        </div>
+                        <div class="unit-title">LocalDateTime</div>
+                        <div class="speed-lines"></div>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+            </div>
+            <!--Unit 14-->
+            <div class="book-page" id="page-java-unit2-1">
+                <div class="stage">
+                    <div class="unit-header">
+                        <span class="page-right">10</span>
+                        <div class="corner tl"></div>
+                        <div class="corner br"></div>
+                        <div class="screentone"></div>
+                        <div class="unit-badge">UNIT 10</div>
+                        <div class="unit-chevrons">
+                        <svg width="18" height="26" viewBox="0 0 18 26"><path d="M0 0 L14 13 L0 26 Z" fill="url(#chev1)"/><defs><linearGradient id="chev1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#ff6b6b"/><stop offset="100%" stop-color="#c40000"/></linearGradient></defs></svg>
+                        <svg width="18" height="26" viewBox="0 0 18 26"><path d="M0 0 L14 13 L0 26 Z" fill="url(#chev2)"/><defs><linearGradient id="chev2" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#f4c14f"/><stop offset="100%" stop-color="#c47c00"/></linearGradient></defs></svg>
+                        </div>
+                        <div class="unit-title">LocalDateTime</div>
+                        <div class="speed-lines"></div>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+            </div>
+
+            <!--Unit 20-->
             <div class="book-page" id="page-java-unit2-1">
                 <div class="stage">
                     <div class="unit-header">
@@ -64920,13 +65951,10 @@ GMT+07:00
   						<span class="code-label example">Example</span>
   						<div class="code-box">import java.sql.Connection;
 import java.sql.DriverManager;
-
 public class Main {
     public static void main(String[] args) throws Exception {
         String url = "jdbc:mysql://localhost:3306/school";
-
         Connection con = DriverManager.getConnection(url);
-
         System.out.println("Connected!");
         con.close();
     }
@@ -65782,91 +66810,6 @@ public class Main {
 
 
             </div>
-            <!--Unit 12-->
-            <div class="book-page" id="page-java-unit2-1">
-                <div class="stage">
-                    <div class="unit-header">
-                        <span class="page-right">10</span>
-                        <div class="corner tl"></div>
-                        <div class="corner br"></div>
-                        <div class="screentone"></div>
-                        <div class="unit-badge">UNIT 10</div>
-                        <div class="unit-chevrons">
-                        <svg width="18" height="26" viewBox="0 0 18 26"><path d="M0 0 L14 13 L0 26 Z" fill="url(#chev1)"/><defs><linearGradient id="chev1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#ff6b6b"/><stop offset="100%" stop-color="#c40000"/></linearGradient></defs></svg>
-                        <svg width="18" height="26" viewBox="0 0 18 26"><path d="M0 0 L14 13 L0 26 Z" fill="url(#chev2)"/><defs><linearGradient id="chev2" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#f4c14f"/><stop offset="100%" stop-color="#c47c00"/></linearGradient></defs></svg>
-                        </div>
-                        <div class="unit-title">LocalDateTime</div>
-                        <div class="speed-lines"></div>
-                    </div>
-                </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            </div>
-            <!--Unit 13-->
-            <div class="book-page" id="page-java-unit2-1">
-                <div class="stage">
-                    <div class="unit-header">
-                        <span class="page-right">10</span>
-                        <div class="corner tl"></div>
-                        <div class="corner br"></div>
-                        <div class="screentone"></div>
-                        <div class="unit-badge">UNIT 10</div>
-                        <div class="unit-chevrons">
-                        <svg width="18" height="26" viewBox="0 0 18 26"><path d="M0 0 L14 13 L0 26 Z" fill="url(#chev1)"/><defs><linearGradient id="chev1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#ff6b6b"/><stop offset="100%" stop-color="#c40000"/></linearGradient></defs></svg>
-                        <svg width="18" height="26" viewBox="0 0 18 26"><path d="M0 0 L14 13 L0 26 Z" fill="url(#chev2)"/><defs><linearGradient id="chev2" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#f4c14f"/><stop offset="100%" stop-color="#c47c00"/></linearGradient></defs></svg>
-                        </div>
-                        <div class="unit-title">LocalDateTime</div>
-                        <div class="speed-lines"></div>
-                    </div>
-                </div>
-
-
-
-
-
-
-
-            </div>
-            <!--Unit 10-->
-            <div class="book-page" id="page-java-unit2-1">
-                <div class="stage">
-                    <div class="unit-header">
-                        <span class="page-right">10</span>
-                        <div class="corner tl"></div>
-                        <div class="corner br"></div>
-                        <div class="screentone"></div>
-                        <div class="unit-badge">UNIT 10</div>
-                        <div class="unit-chevrons">
-                        <svg width="18" height="26" viewBox="0 0 18 26"><path d="M0 0 L14 13 L0 26 Z" fill="url(#chev1)"/><defs><linearGradient id="chev1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#ff6b6b"/><stop offset="100%" stop-color="#c40000"/></linearGradient></defs></svg>
-                        <svg width="18" height="26" viewBox="0 0 18 26"><path d="M0 0 L14 13 L0 26 Z" fill="url(#chev2)"/><defs><linearGradient id="chev2" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#f4c14f"/><stop offset="100%" stop-color="#c47c00"/></linearGradient></defs></svg>
-                        </div>
-                        <div class="unit-title">LocalDateTime</div>
-                        <div class="speed-lines"></div>
-                    </div>
-                </div>
-
-
-
-
-
-
-
-            </div>
-
             <!--Unit 57F-->
             <div class="book-page" id="page-java-unit2-1">
                 <div class="stage">
@@ -68241,7 +69184,7 @@ public class Main {
                 </div>
                 <div class="output-col">
                     <span class="code-label output">Output</span>
-                    <div class="code-box">Click Me</div>
+                    <div class="output-text">Click Me</div>
                 </div>
             </div>
 
@@ -68330,7 +69273,7 @@ public class Main {
                 </div>
                 <div class="output-col">
                     <span class="code-label output">Output</span>
-                    <img src="sw5.7.png" alt="Disabled button" style="max-width:180px;max-height:180px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);box-shadow:0 8px 20px rgba(0,0,0,0.4);">
+                    <img src="sw5.7.png" alt="Disabled button" style="max-width:250px;max-height:200px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);box-shadow:0 8px 20px rgba(0,0,0,0.4);">
                 </div>
             </div>
 
@@ -68443,7 +69386,7 @@ public class Main {
                 </div>
                 <div class="output-col">
                     <span class="code-label output">Output</span>
-                    <div class="code-box">Button clicked</div>
+                    <div class="output-text">Button clicked</div>
                 </div>
             </div>
 
@@ -68620,7 +69563,7 @@ public class Main {
                 </div>
                 <div class="output-col">
                     <span class="code-label output">Output</span>
-                    <div class="code-box">Hello Java</div>
+                    <div class="output-text">Hello Java</div>
                 </div>
             </div>
 
@@ -68800,7 +69743,7 @@ public class Main {
                 </div>
                 <div class="output-col">
                     <span class="code-label output">Output</span>
-                    <div class="code-box">Hello</div>
+                    <div class="output-text">Hello</div>
                 </div>
             </div>
 
@@ -70366,71 +71309,7 @@ public class Main {
                     <img src="sw11.9.png" alt="Clearing radio button selection" style="max-width:180px;max-height:180px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);box-shadow:0 8px 20px rgba(0,0,0,0.4);">
                 </div>
             </div>
-            <div class="section-h">12 JToggleButton</div>
-            <div class="subsection-h">12.1 JToggleButton tb = new JToggleButton("Toggle")</div>
-            <div class="khmer-line">បង្កើត Toggle Button ដែលអាចចុចដើម្បីបើក និងចុចម្តងទៀតដើម្បីបិទស្ថានភាពជ្រើសរើស។</div>
-            <div class="code-row">
-                <span class="code-label syntax">Syntax</span>
-                <span class="code-inline">JToggleButton tb = new JToggleButton("Toggle");</span>
-            </div>
-            <div class="example-output-row">
-                <div class="example-col">
-                    <span class="code-label example">Example</span>
-                    <div class="code-box">import javax.swing.*;
-import java.awt.*;
-public class Main {
-    public static void main(String[] args) {
-        JFrame f = new JFrame("JToggleButton");
-        JToggleButton tb = new JToggleButton("Toggle");
-        f.setLayout(new FlowLayout());
-        f.add(tb);
-        f.setSize(350, 150);
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        f.setLocationRelativeTo(null);
-        f.setVisible(true);
-    }
-}</div>
-                </div>
-                <div class="output-col">
-                    <span class="code-label output">Output</span>
-                    <img src="sw12.1.png" alt="JToggleButton Toggle" style="max-width:180px;max-height:180px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);box-shadow:0 8px 20px rgba(0,0,0,0.4);">
-                </div>
-            </div>
 
-            <div class="subsection-h">12.2 tb.isSelected()</div>
-            <div class="khmer-line">ពិនិត្យថា Toggle Button ត្រូវបានជ្រើសរើសឬអត់។ វាត្រឡប់តម្លៃ true ឬ false។</div>
-            <div class="code-row">
-                <span class="code-label syntax">Syntax</span>
-                <span class="code-inline">tb.isSelected();</span>
-            </div>
-            <div class="example-output-row">
-                <div class="example-col">
-                    <span class="code-label example">Example</span>
-                    <div class="code-box">import javax.swing.*;
-import java.awt.*;
-public class Main {
-    public static void main(String[] args) {
-        JFrame f = new JFrame("isSelected");
-        JToggleButton tb = new JToggleButton("Toggle");
-        JButton b = new JButton("Check");
-        b.addActionListener(e ->
-            JOptionPane.showMessageDialog(f, tb.isSelected())
-        );
-        f.setLayout(new FlowLayout());
-        f.add(tb);
-        f.add(b);
-        f.setSize(350, 150);
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        f.setLocationRelativeTo(null);
-        f.setVisible(true);
-    }
-}</div>
-                </div>
-                <div class="output-col">
-                    <span class="code-label output">Output</span>
-                    <img src="sw12.2.png" alt="Checking JToggleButton selection" style="max-width:180px;max-height:180px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);box-shadow:0 8px 20px rgba(0,0,0,0.4);">
-                </div>
-            </div>
             <div class="section-h">12 JToggleButton</div>
 
             <div class="subsection-h">12.1 JToggleButton tb = new JToggleButton("Toggle")</div>
@@ -70508,7 +71387,6 @@ public class Main {
                 <div class="example-col">
                     <span class="code-label example">Example</span>
                     <div class="code-box">import javax.swing.*;
-import java.awt.*;
 public class Main {
     public static void main(String[] args) {
         JFrame f = new JFrame("DefaultListModel");
@@ -70540,7 +71418,6 @@ public class Main {
                 <div class="example-col">
                     <span class="code-label example">Example</span>
                     <div class="code-box">import javax.swing.*;
-import java.awt.*;
 public class Main {
     public static void main(String[] args) {
         JFrame f = new JFrame("addElement");
@@ -70572,7 +71449,6 @@ public class Main {
                 <div class="example-col">
                     <span class="code-label example">Example</span>
                     <div class="code-box">import javax.swing.*;
-import java.awt.*;
 public class Main {
     public static void main(String[] args) {
         JFrame f = new JFrame("add");
@@ -70639,7 +71515,6 @@ public class Main {
                 <div class="example-col">
                     <span class="code-label example">Example</span>
                     <div class="code-box">import javax.swing.*;
-import java.awt.*;
 public class Main {
     public static void main(String[] args) {
         JFrame f = new JFrame("removeElement");
@@ -70672,7 +71547,6 @@ public class Main {
                 <div class="example-col">
                     <span class="code-label example">Example</span>
                     <div class="code-box">import javax.swing.*;
-import java.awt.*;
 public class Main {
     public static void main(String[] args) {
         JFrame f = new JFrame("clear");
@@ -70778,7 +71652,6 @@ public class Main {
                 <div class="example-col">
                     <span class="code-label example">Example</span>
                     <div class="code-box">import javax.swing.*;
-import java.awt.*;
 public class Main {
     public static void main(String[] args) {
         JFrame f = new JFrame("JList");
@@ -70974,7 +71847,6 @@ public class Main {
                 <div class="example-col">
                     <span class="code-label example">Example</span>
                     <div class="code-box">import javax.swing.*;
-import java.awt.*;
 public class Main {
     public static void main(String[] args) {
         JFrame f = new JFrame("setSelectedIndex");
@@ -71080,7 +71952,6 @@ public class Main {
                 <div class="example-col">
                     <span class="code-label example">Example</span>
                     <div class="code-box">import javax.swing.*;
-import java.awt.*;
 public class Main {
     public static void main(String[] args) {
         JFrame f = new JFrame("VisibleRowCount");
@@ -71210,7 +72081,7 @@ public class Main {
                 </div>
             </div>
 
-            <div class="subsection-h">14.3 tm.addRow(new Object[]{"Ann", 20})</div>
+            <div class="subsection-h">14.3 tm.addRow()</div>
             <div class="khmer-line">បន្ថែមជួរដេកថ្មីមួយទៅចុងបញ្ចប់នៃតារាង ដោយប្រើ Object array ជាទិន្នន័យ។</div>
             <div class="code-row">
                 <span class="code-label syntax">Syntax</span>
@@ -71275,7 +72146,7 @@ public class Main {
                 </div>
             </div>
 
-            <div class="subsection-h">14.5 tm.setValueAt(value, row, col)</div>
+            <div class="subsection-h">14.5 tm.setValueAt()</div>
             <div class="khmer-line">កំណត់តម្លៃថ្មីទៅក្នុងក្រឡាត្រង់ row និង col ដែលបានបញ្ជាក់។</div>
             <div class="code-row">
                 <span class="code-label syntax">Syntax</span>
@@ -71307,7 +72178,7 @@ public class Main {
                 </div>
             </div>
 
-            <div class="subsection-h">14.6 tm.getValueAt(row, col)</div>
+            <div class="subsection-h">14.6 tm.getValueAt()</div>
             <div class="khmer-line">ទាញយកតម្លៃពីក្រឡាត្រង់ row និង col ។ លទ្ធផលជា Object។</div>
             <div class="code-row">
                 <span class="code-label syntax">Syntax</span>
@@ -71410,7 +72281,7 @@ public class Main {
                 </div>
             </div>
 
-            <div class="subsection-h">14.9 tm.setRowCount(0) // clear table</div>
+            <div class="subsection-h">14.9 tm.setRowCount(0)</div>
             <div class="khmer-line">កំណត់ចំនួនជួរដេកទៅ 0 ដើម្បីលុបទិន្នន័យទាំងអស់ក្នុងតារាង (ក្បាលជួរឈរនៅដដែល)។</div>
             <div class="code-row">
                 <span class="code-label syntax">Syntax</span>
@@ -71814,7 +72685,6 @@ public class Main {
                 </div>
             </div>
             <div class="section-h">16 JOptionPane</div>
-
             <div class="subsection-h">16.1 JOptionPane.showMessageDialog()</div>
             <div class="khmer-line">បង្ហាញប្រអប់សារ (Message Dialog) ធម្មតាមួយ ដែលមានតែប៊ូតុង OK។</div>
             <div class="code-row">
@@ -71856,7 +72726,7 @@ public class Main {
                 </div>
                 <div class="output-col">
                     <span class="code-label output">Output</span>
-                    <img src="sw16.2.png" alt="Error dialog titled Error with a red error icon and an OK button" style="max-width:250px;max-height:200px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);box-shadow:0 8px 20px rgba(0,0,0,0.4);">
+                    <img src="sw16.2.png" alt="Error dialog titled Error with a red error icon and an OK button" style="max-width:250px;max-height:120px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);box-shadow:0 8px 20px rgba(0,0,0,0.4);">
                 </div>
             </div>
             <div class="subsection-h">16.3 JOptionPane.showInputDialog() // null if cancelled</div>
@@ -71880,7 +72750,7 @@ public class Main {
                 </div>
                 <div class="output-col">
                     <span class="code-label output">Output</span>
-                    <img src="sw16.3.png" alt="Input dialog asking Enter name with a text field and OK and Cancel buttons" style="max-width:250px;max-height:200px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);box-shadow:0 8px 20px rgba(0,0,0,0.4);">
+                    <img src="sw16.3.png" alt="Input dialog asking Enter name with a text field and OK and Cancel buttons" style="max-width:250px;max-height:120px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);box-shadow:0 8px 20px rgba(0,0,0,0.4);">
                 </div>
             </div>
             <div class="subsection-h">16.4 String s = JOptionPane.showInputDialog(null, "msg", "Title", JOptionPane.QUESTION_MESSAGE)</div>
@@ -71905,7 +72775,7 @@ public class Main {
                 </div>
                 <div class="output-col">
                     <span class="code-label output">Output</span>
-                    <img src="sw16.4.png" alt="Input dialog titled Age with a question icon and a text field" style="max-width:250px;max-height:200px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);box-shadow:0 8px 20px rgba(0,0,0,0.4);">
+                    <img src="sw16.4.png" alt="Input dialog titled Age with a question icon and a text field" style="max-width:250px;max-height:120px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);box-shadow:0 8px 20px rgba(0,0,0,0.4);">
                 </div>
             </div>
             <div class="subsection-h">16.5 JOptionPane.showConfirmDialog() // YES_OPTION, NO_OPTION, CANCEL_OPTION</div>
@@ -71933,7 +72803,7 @@ public class Main {
                 </div>
                 <div class="output-col">
                     <span class="code-label output">Output</span>
-                    <img src="sw16.5.png" alt="Confirm dialog asking Sure with Yes, No and Cancel buttons" style="max-width:250px;max-height:200px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);box-shadow:0 8px 20px rgba(0,0,0,0.4);">
+                    <img src="sw16.5.png" alt="Confirm dialog asking Sure with Yes, No and Cancel buttons" style="max-width:250px;max-height:120px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);box-shadow:0 8px 20px rgba(0,0,0,0.4);">
                 </div>
             </div>
             <div class="subsection-h">16.6 JOptionPane.showConfirmDialog()</div>
@@ -71958,10 +72828,10 @@ public class Main {
                 </div>
                 <div class="output-col">
                     <span class="code-label output">Output</span>
-                    <img src="sw16.6.png" alt="Confirm dialog titled Confirm with only Yes and No buttons" style="max-width:250px;max-height:200px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);box-shadow:0 8px 20px rgba(0,0,0,0.4);">
+                    <img src="sw16.6.png" alt="Confirm dialog titled Confirm with only Yes and No buttons" style="max-width:250px;max-height:120px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);box-shadow:0 8px 20px rgba(0,0,0,0.4);">
                 </div>
             </div>
-            <div class="subsection-h">16.7 JOptionPane.showOptionDialog(null, "msg", "Title", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, new String[]{"A","B"}, "A")</div>
+            <div class="subsection-h">16.7 JOptionPane.showOptionDialog()</div>
             <div class="khmer-line">បង្ហាញប្រអប់ដែលអ្នកកំណត់ប៊ូតុងដោយខ្លួនឯង (ក្នុង String array)។ លទ្ធផលជា index នៃប៊ូតុងដែលបានចុច (0, 1, ...) ឬ -1 បើបិទប្រអប់។ ប៊ូតុងចុងក្រោយ "A" ជាជម្រើសលំនាំដើម។</div>
             <div class="code-row">
                 <span class="code-label syntax">Syntax</span>
@@ -71985,7 +72855,7 @@ public class Main {
                 </div>
                 <div class="output-col">
                     <span class="code-label output">Output</span>
-                    <img src="sw16.7.png" alt="Option dialog with custom buttons A and B" style="max-width:250px;max-height:200px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);box-shadow:0 8px 20px rgba(0,0,0,0.4);">
+                    <img src="sw16.7.png" alt="Option dialog with custom buttons A and B" style="max-width:250px;max-height:120px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);box-shadow:0 8px 20px rgba(0,0,0,0.4);">
                 </div>
             </div>
             <div class="section-h">17 Menus</div>
@@ -73118,8 +73988,329 @@ public class Main {
                     <img src="sw20.6.png" alt="Spinner with a label that updates when the value changes" style="max-width:250px;max-height:200px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);box-shadow:0 8px 20px rgba(0,0,0,0.4);">
                 </div>
             </div>
-            <div class="section-h">22 JSplitPane</div>
+            <div class="section-h">21 JTabbedPane</div>
 
+            <div class="subsection-h">21.1 new JTabbedPane()</div>
+            <div class="khmer-line">បង្កើត JTabbedPane ដែលអាចដាក់ Component ច្រើនក្នុងផ្ទាំង (Tab) ផ្សេងៗគ្នា ហើយបង្ហាញម្តងមួយផ្ទាំង។</div>
+            <div class="code-row">
+                <span class="code-label syntax">Syntax</span>
+                <span class="code-inline">JTabbedPane tabs = new JTabbedPane();</span>
+            </div>
+            <div class="example-output-row">
+                <div class="example-col">
+                    <span class="code-label example">Example</span>
+                    <div class="code-box">import javax.swing.*;
+public class Main {
+    public static void main(String[] args) {
+        JFrame f = new JFrame("JTabbedPane");
+        JTabbedPane tabs = new JTabbedPane();
+        tabs.addTab("Tab 1", new JLabel("Content 1"));
+        f.add(tabs);
+        f.setSize(400, 300);
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.setLocationRelativeTo(null);
+        f.setVisible(true);
+    }
+}</div>
+                </div>
+                <div class="output-col">
+                    <span class="code-label output">Output</span>
+                    <img src="sw21.1.png" alt="Tabbed pane with a single tab named Tab 1" style="max-width:250px;max-height:200px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);box-shadow:0 8px 20px rgba(0,0,0,0.4);">
+                </div>
+            </div>
+
+            <div class="subsection-h">21.2 tabs.addTab("Title", component)</div>
+            <div class="khmer-line">បន្ថែមផ្ទាំងថ្មីមួយទៅ JTabbedPane ដោយមានចំណងជើង (Title) និង Component ដែលត្រូវបង្ហាញក្នុងផ្ទាំងនោះ។</div>
+            <div class="code-row">
+                <span class="code-label syntax">Syntax</span>
+                <span class="code-inline">tabs.addTab("Title", component);</span>
+            </div>
+            <div class="example-output-row">
+                <div class="example-col">
+                    <span class="code-label example">Example</span>
+                    <div class="code-box">import javax.swing.*;
+public class Main {
+    public static void main(String[] args) {
+        JFrame f = new JFrame("addTab()");
+        JTabbedPane tabs = new JTabbedPane();
+        tabs.addTab("Home", new JLabel("Home page"));
+        tabs.addTab("Settings", new JLabel("Settings page"));
+        f.add(tabs);
+        f.setSize(400, 300);
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.setLocationRelativeTo(null);
+        f.setVisible(true);
+    }
+}</div>
+                </div>
+                <div class="output-col">
+                    <span class="code-label output">Output</span>
+                    <img src="sw21.2.png" alt="Tabbed pane with Home and Settings tabs" style="max-width:250px;max-height:200px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);box-shadow:0 8px 20px rgba(0,0,0,0.4);">
+                </div>
+            </div>
+
+            <div class="subsection-h">21.3 tabs.addTab("Title", icon, component, "tooltip")</div>
+            <div class="khmer-line">បន្ថែមផ្ទាំងដែលមានចំណងជើង រូបតំណាង (icon) Component និងអក្សរណែនាំ (tooltip) ដែលលេចឡើងពេលដាក់ mouse លើផ្ទាំង។</div>
+            <div class="code-row">
+                <span class="code-label syntax">Syntax</span>
+                <span class="code-inline">tabs.addTab("Title", icon, component, "tooltip");</span>
+            </div>
+            <div class="example-output-row">
+                <div class="example-col">
+                    <span class="code-label example">Example</span>
+                    <div class="code-box">import javax.swing.*;
+public class Main {
+    public static void main(String[] args) {
+        JFrame f = new JFrame("addTab() with icon");
+        JTabbedPane tabs = new JTabbedPane();
+        Icon icon = UIManager.getIcon("FileView.computerIcon");
+        tabs.addTab("Home", icon, new JLabel("Home page"), "Go to home");
+        tabs.addTab("Settings", icon, new JLabel("Settings page"), "Open settings");
+        f.add(tabs);
+        f.setSize(400, 300);
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.setLocationRelativeTo(null);
+        f.setVisible(true);
+    }
+}</div>
+                </div>
+                <div class="output-col">
+                    <span class="code-label output">Output</span>
+                    <img src="sw21.3.png" alt="Tabs with icons and a tooltip shown over a tab" style="max-width:250px;max-height:200px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);box-shadow:0 8px 20px rgba(0,0,0,0.4);">
+                </div>
+            </div>
+
+            <div class="subsection-h">21.4 tabs.removeTabAt()</div>
+            <div class="khmer-line">លុបផ្ទាំងនៅទីតាំង index ដែលបានកំណត់ (index ចាប់ផ្តើមពី 0)។</div>
+            <div class="code-row">
+                <span class="code-label syntax">Syntax</span>
+                <span class="code-inline">tabs.removeTabAt(0);</span>
+            </div>
+            <div class="example-output-row">
+                <div class="example-col">
+                    <span class="code-label example">Example</span>
+                    <div class="code-box">import javax.swing.*;
+public class Main {
+    public static void main(String[] args) {
+        JFrame f = new JFrame("removeTabAt()");
+        JTabbedPane tabs = new JTabbedPane();
+        tabs.addTab("One", new JLabel("Page 1"));
+        tabs.addTab("Two", new JLabel("Page 2"));
+        tabs.addTab("Three", new JLabel("Page 3"));
+        tabs.removeTabAt(0); // removes "One"
+        f.add(tabs);
+        f.setSize(400, 300);
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.setLocationRelativeTo(null);
+        f.setVisible(true);
+    }
+}</div>
+                </div>
+                <div class="output-col">
+                    <span class="code-label output">Output</span>
+                    <img src="sw21.4.png" alt="Tabbed pane showing only Two and Three after One was removed" style="max-width:250px;max-height:200px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);box-shadow:0 8px 20px rgba(0,0,0,0.4);">
+                </div>
+            </div>
+
+            <div class="subsection-h">21.5 tabs.getSelectedIndex()</div>
+            <div class="khmer-line">ត្រឡប់ index នៃផ្ទាំងដែលកំពុងត្រូវបានជ្រើសរើស។ បើគ្មានផ្ទាំងណាត្រូវបានជ្រើសរើសទេ នឹងត្រឡប់ -1។</div>
+            <div class="code-row">
+                <span class="code-label syntax">Syntax</span>
+                <span class="code-inline">int i = tabs.getSelectedIndex();</span>
+            </div>
+            <div class="example-output-row">
+                <div class="example-col">
+                    <span class="code-label example">Example</span>
+                    <div class="code-box">import javax.swing.*;
+import java.awt.*;
+public class Main {
+    public static void main(String[] args) {
+        JFrame f = new JFrame("getSelectedIndex()");
+        JTabbedPane tabs = new JTabbedPane();
+        tabs.addTab("One", new JLabel("Page 1"));
+        tabs.addTab("Two", new JLabel("Page 2"));
+        tabs.setSelectedIndex(1);
+        JLabel label = new JLabel("Selected index: " + tabs.getSelectedIndex());
+        f.add(tabs);
+        f.add(label, BorderLayout.SOUTH);
+        f.setSize(400, 300);
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.setLocationRelativeTo(null);
+        f.setVisible(true);
+    }
+}</div>
+                </div>
+                <div class="output-col">
+                    <span class="code-label output">Output</span>
+                    <img src="sw21.5.png" alt="Second tab selected with a label showing Selected index: 1" style="max-width:250px;max-height:200px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);box-shadow:0 8px 20px rgba(0,0,0,0.4);">
+                </div>
+            </div>
+
+            <div class="subsection-h">21.6 tabs.setSelectedIndex()</div>
+            <div class="khmer-line">ជ្រើសរើសផ្ទាំងនៅ index ដែលបានកំណត់ ដើម្បីឲ្យវាបង្ហាញជាផ្ទាំងសកម្ម។</div>
+            <div class="code-row">
+                <span class="code-label syntax">Syntax</span>
+                <span class="code-inline">tabs.setSelectedIndex(1);</span>
+            </div>
+            <div class="example-output-row">
+                <div class="example-col">
+                    <span class="code-label example">Example</span>
+                    <div class="code-box">import javax.swing.*;
+public class Main {
+    public static void main(String[] args) {
+        JFrame f = new JFrame("setSelectedIndex()");
+        JTabbedPane tabs = new JTabbedPane();
+        tabs.addTab("One", new JLabel("Page 1"));
+        tabs.addTab("Two", new JLabel("Page 2"));
+        tabs.setSelectedIndex(1); // show the second tab
+        f.add(tabs);
+        f.setSize(400, 300);
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.setLocationRelativeTo(null);
+        f.setVisible(true);
+    }
+}</div>
+                </div>
+                <div class="output-col">
+                    <span class="code-label output">Output</span>
+                    <img src="sw21.6.png" alt="Tabbed pane with the second tab selected" style="max-width:250px;max-height:200px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);box-shadow:0 8px 20px rgba(0,0,0,0.4);">
+                </div>
+            </div>
+
+            <div class="subsection-h">21.7 tabs.getTabCount()</div>
+            <div class="khmer-line">ត្រឡប់ចំនួនផ្ទាំងសរុបក្នុង JTabbedPane។</div>
+            <div class="code-row">
+                <span class="code-label syntax">Syntax</span>
+                <span class="code-inline">int n = tabs.getTabCount();</span>
+            </div>
+            <div class="example-output-row">
+                <div class="example-col">
+                    <span class="code-label example">Example</span>
+                    <div class="code-box">import javax.swing.*;
+import java.awt.*;
+public class Main {
+    public static void main(String[] args) {
+        JFrame f = new JFrame("getTabCount()");
+        JTabbedPane tabs = new JTabbedPane();
+        tabs.addTab("One", new JLabel("Page 1"));
+        tabs.addTab("Two", new JLabel("Page 2"));
+        tabs.addTab("Three", new JLabel("Page 3"));
+        JLabel label = new JLabel("Tabs: " + tabs.getTabCount());
+        f.add(tabs);
+        f.add(label, BorderLayout.SOUTH);
+        f.setSize(400, 300);
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.setLocationRelativeTo(null);
+        f.setVisible(true);
+    }
+}</div>
+                </div>
+                <div class="output-col">
+                    <span class="code-label output">Output</span>
+                    <img src="sw21.7.png" alt="Three tabs with a label showing Tabs: 3" style="max-width:250px;max-height:200px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);box-shadow:0 8px 20px rgba(0,0,0,0.4);">
+                </div>
+            </div>
+
+            <div class="subsection-h">21.8 tabs.setTitleAt()</div>
+            <div class="khmer-line">ប្តូរចំណងជើងរបស់ផ្ទាំងនៅ index ដែលបានកំណត់ទៅជាអក្សរថ្មី។</div>
+            <div class="code-row">
+                <span class="code-label syntax">Syntax</span>
+                <span class="code-inline">tabs.setTitleAt(0, "New");</span>
+            </div>
+            <div class="example-output-row">
+                <div class="example-col">
+                    <span class="code-label example">Example</span>
+                    <div class="code-box">import javax.swing.*;
+public class Main {
+    public static void main(String[] args) {
+        JFrame f = new JFrame("setTitleAt()");
+        JTabbedPane tabs = new JTabbedPane();
+        tabs.addTab("Old", new JLabel("Page 1"));
+        tabs.addTab("Two", new JLabel("Page 2"));
+        tabs.setTitleAt(0, "New"); // "Old" becomes "New"
+        f.add(tabs);
+        f.setSize(400, 300);
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.setLocationRelativeTo(null);
+        f.setVisible(true);
+    }
+}</div>
+                </div>
+                <div class="output-col">
+                    <span class="code-label output">Output</span>
+                    <img src="sw21.8.png" alt="First tab renamed to New" style="max-width:250px;max-height:200px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);box-shadow:0 8px 20px rgba(0,0,0,0.4);">
+                </div>
+            </div>
+
+            <div class="subsection-h">21.9 tabs.setEnabledAt()</div>
+            <div class="khmer-line">បិទ ឬបើកផ្ទាំងនៅ index ដែលបានកំណត់។ បើ false ផ្ទាំងនោះនឹងប្រែជាពណ៌ប្រផេះ ហើយមិនអាចចុចបាន។</div>
+            <div class="code-row">
+                <span class="code-label syntax">Syntax</span>
+                <span class="code-inline">tabs.setEnabledAt(0, false);</span>
+            </div>
+            <div class="example-output-row">
+                <div class="example-col">
+                    <span class="code-label example">Example</span>
+                    <div class="code-box">import javax.swing.*;
+public class Main {
+    public static void main(String[] args) {
+        JFrame f = new JFrame("setEnabledAt()");
+        JTabbedPane tabs = new JTabbedPane();
+        tabs.addTab("One", new JLabel("Page 1"));
+        tabs.addTab("Two", new JLabel("Page 2"));
+        tabs.setEnabledAt(0, false); // "One" is disabled
+        tabs.setSelectedIndex(1);
+        f.add(tabs);
+        f.setSize(400, 300);
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.setLocationRelativeTo(null);
+        f.setVisible(true);
+    }
+}</div>
+                </div>
+                <div class="output-col">
+                    <span class="code-label output">Output</span>
+                    <img src="sw21.9.png" alt="Tabbed pane with the first tab grayed out" style="max-width:250px;max-height:200px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);box-shadow:0 8px 20px rgba(0,0,0,0.4);">
+                </div>
+            </div>
+
+            <div class="subsection-h">21.10 tabs.addChangeListener()</div>
+            <div class="khmer-line">បន្ថែម ChangeListener ទៅ JTabbedPane ដើម្បីដំណើរការកូដរាល់ពេលអ្នកប្រើប្តូរទៅផ្ទាំងផ្សេង។</div>
+            <div class="code-row">
+                <span class="code-label syntax">Syntax</span>
+                <span class="code-inline">tabs.addChangeListener(e -> { ... });</span>
+            </div>
+            <div class="example-output-row">
+                <div class="example-col">
+                    <span class="code-label example">Example</span>
+                    <div class="code-box">import javax.swing.*;
+import java.awt.*;
+public class Main {
+    public static void main(String[] args) {
+        JFrame f = new JFrame("addChangeListener()");
+        JTabbedPane tabs = new JTabbedPane();
+        tabs.addTab("One", new JLabel("Page 1"));
+        tabs.addTab("Two", new JLabel("Page 2"));
+        JLabel label = new JLabel("Selected index: 0");
+        tabs.addChangeListener(e -> {
+            label.setText("Selected index: " + tabs.getSelectedIndex());
+        });
+        f.add(tabs);
+        f.add(label, BorderLayout.SOUTH);
+        f.setSize(400, 300);
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.setLocationRelativeTo(null);
+        f.setVisible(true);
+    }
+}</div>
+                </div>
+                <div class="output-col">
+                    <span class="code-label output">Output</span>
+                    <img src="sw21.10.png" alt="Tabbed pane with a label that updates when the selected tab changes" style="max-width:250px;max-height:200px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);box-shadow:0 8px 20px rgba(0,0,0,0.4);">
+                </div>
+            </div>
+
+            <div class="section-h">22 JSplitPane</div>
             <div class="subsection-h">22.1 new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, left, right)</div>
             <div class="khmer-line">បង្កើត JSplitPane ដែលចែកផ្ទៃជាពីរផ្នែក។ HORIZONTAL_SPLIT ដាក់ Component ទាំងពីរឆ្វេង និងស្តាំ ហើយ VERTICAL_SPLIT ដាក់វាលើ និងក្រោម។ អ្នកប្រើអាចអូសបន្ទាត់ខណ្ឌ (Divider) ដើម្បីប្តូរទំហំ។</div>
             <div class="code-row">
@@ -79021,41 +80212,41 @@ Program finished normally.</div>
             }
         })();
     </script>
-    <button type="button" class="theme-toggle" id="themeToggle" aria-label="Switch theme" title="Switch theme"><span class="tt-track" aria-hidden="true"><span class="tt-knob"></span></span><span class="tt-text"><span class="tt-state" id="themeState">DARK</span></span></button>
-    <script>
-    (function(){
-    var root=document.documentElement,btn=document.getElementById("themeToggle"),
-        meta=document.querySelector('meta[name="theme-color"]');
-    function paint(){
-        var light=root.getAttribute("data-theme")==="light";
-        var st=document.getElementById("themeState");if(st)st.textContent=light?"LIGHT":"DARK";
-        btn.setAttribute("aria-label",light?"Switch to dark theme":"Switch to light theme");
-        btn.title=btn.getAttribute("aria-label");
-        if(meta)meta.setAttribute("content",light?"#ffffff":"#07070a");
-    }
-    btn.addEventListener("click",function(){
-        btn.classList.remove("glitch");void btn.offsetWidth;btn.classList.add("glitch");
-        var light=root.getAttribute("data-theme")==="light";
-        if(light)root.removeAttribute("data-theme");else root.setAttribute("data-theme","light");
-        try{localStorage.setItem("pl-theme",light?"dark":"light");}catch(e){}
-        paint();
-    });
+<button type="button" class="theme-toggle" id="themeToggle" aria-label="Switch theme" title="Switch theme"><span class="tt-track" aria-hidden="true"><span class="tt-knob"></span></span><span class="tt-text"><span class="tt-state" id="themeState">DARK</span></span></button>
+<script>
+(function(){
+  var root=document.documentElement,btn=document.getElementById("themeToggle"),
+      meta=document.querySelector('meta[name="theme-color"]');
+  function paint(){
+    var light=root.getAttribute("data-theme")==="light";
+    var st=document.getElementById("themeState");if(st)st.textContent=light?"LIGHT":"DARK";
+    btn.setAttribute("aria-label",light?"Switch to dark theme":"Switch to light theme");
+    btn.title=btn.getAttribute("aria-label");
+    if(meta)meta.setAttribute("content",light?"#ffffff":"#07070a");
+  }
+  btn.addEventListener("click",function(){
+    btn.classList.remove("glitch");void btn.offsetWidth;btn.classList.add("glitch");
+    var light=root.getAttribute("data-theme")==="light";
+    if(light)root.removeAttribute("data-theme");else root.setAttribute("data-theme","light");
+    try{localStorage.setItem("pl-theme",light?"dark":"light");}catch(e){}
     paint();
-    })();
-    </script>
-    <script>
-    (function(){
-    var btn=document.getElementById("themeToggle");
-    if(!btn) return;
-    function place(){
-        var view=document.querySelector(".lesson-view.is-active");
-        var bar=view&&view.querySelector(".lesson-topbar");
-        if(bar&&btn.parentNode!==bar) bar.appendChild(btn);
-    }
-    var mo=new MutationObserver(place);
-    document.querySelectorAll(".lesson-view").forEach(function(v){mo.observe(v,{attributes:true,attributeFilter:["class"]});});
-    place();
-    })();
-    </script>
+  });
+  paint();
+})();
+</script>
+<script>
+(function(){
+  var btn=document.getElementById("themeToggle");
+  if(!btn) return;
+  function place(){
+    var view=document.querySelector(".lesson-view.is-active");
+    var bar=view&&view.querySelector(".lesson-topbar");
+    if(bar&&btn.parentNode!==bar) bar.appendChild(btn);
+  }
+  var mo=new MutationObserver(place);
+  document.querySelectorAll(".lesson-view").forEach(function(v){mo.observe(v,{attributes:true,attributeFilter:["class"]});});
+  place();
+})();
+</script>
 </body>
 </html>
