@@ -5289,6 +5289,69 @@ html.lesson-open .glow-floor { animation-play-state: paused !important; }
 @media (prefers-reduced-motion: reduce) {
   .lesson-view.is-active { animation: none !important; }
 }
+
+/* ===== Dark mode: beautiful ambient background (aurora + twinkling stars) ===== */
+html:not([data-theme="light"]), html:not([data-theme="light"]) body {
+    background: #05040c;
+}
+html:not([data-theme="light"]) body::before {
+    inset: -25%;
+    background:
+        radial-gradient(ellipse 45% 38% at 18% 22%, rgba(140, 82, 255, 0.34), transparent 70%),
+        radial-gradient(ellipse 40% 34% at 82% 18%, rgba(255, 45, 170, 0.20), transparent 70%),
+        radial-gradient(ellipse 50% 40% at 72% 82%, rgba(0, 229, 255, 0.20), transparent 70%),
+        radial-gradient(ellipse 38% 30% at 25% 85%, rgba(244, 193, 79, 0.13), transparent 70%),
+        radial-gradient(ellipse 60% 50% at 50% 50%, rgba(40, 24, 90, 0.35), transparent 75%),
+        linear-gradient(160deg, #0a0618 0%, #05040c 50%, #080615 100%);
+    filter: blur(24px) saturate(1.15);
+    animation: bgAurora 28s ease-in-out infinite alternate;
+    will-change: transform;
+}
+html:not([data-theme="light"]) body::after {
+    background-image:
+        radial-gradient(1.6px 1.6px at 6% 12%, rgba(255,255,255,0.75), transparent),
+        radial-gradient(1px 1px at 14% 58%, rgba(190,225,255,0.6), transparent),
+        radial-gradient(1.4px 1.4px at 21% 31%, rgba(255,255,255,0.55), transparent),
+        radial-gradient(1px 1px at 28% 84%, rgba(255,230,190,0.55), transparent),
+        radial-gradient(1.8px 1.8px at 36% 8%, rgba(210,190,255,0.8), transparent),
+        radial-gradient(1px 1px at 43% 66%, rgba(255,255,255,0.5), transparent),
+        radial-gradient(1.4px 1.4px at 52% 24%, rgba(160,240,255,0.65), transparent),
+        radial-gradient(1px 1px at 58% 92%, rgba(255,255,255,0.45), transparent),
+        radial-gradient(1.6px 1.6px at 66% 47%, rgba(255,255,255,0.6), transparent),
+        radial-gradient(1px 1px at 73% 15%, rgba(255,200,240,0.6), transparent),
+        radial-gradient(1.4px 1.4px at 81% 72%, rgba(190,225,255,0.65), transparent),
+        radial-gradient(1px 1px at 88% 38%, rgba(255,255,255,0.5), transparent),
+        radial-gradient(1.8px 1.8px at 94% 88%, rgba(255,240,200,0.7), transparent),
+        radial-gradient(1px 1px at 97% 10%, rgba(255,255,255,0.5), transparent),
+        radial-gradient(1px 1px at 3% 90%, rgba(255,255,255,0.45), transparent),
+        radial-gradient(ellipse 120% 90% at 50% 50%, transparent 55%, rgba(0,0,0,0.55) 100%);
+    opacity: 1;
+    animation: bgTwinkle 6s ease-in-out infinite alternate;
+}
+@keyframes bgAurora {
+    0%   { transform: translate3d(-3%, -2%, 0) rotate(0deg) scale(1); }
+    50%  { transform: translate3d(3%, 2%, 0) rotate(4deg) scale(1.08); }
+    100% { transform: translate3d(-2%, 3%, 0) rotate(-3deg) scale(1.04); }
+}
+@keyframes bgTwinkle {
+    0%   { opacity: 0.55; }
+    100% { opacity: 1; }
+}
+/* lesson pages: deep gradient with soft coloured glows */
+html:not([data-theme="light"]) .lesson-view {
+    background:
+        radial-gradient(ellipse 70% 40% at 15% 0%, rgba(140, 82, 255, 0.20), transparent 70%),
+        radial-gradient(ellipse 60% 40% at 90% 15%, rgba(0, 229, 255, 0.10), transparent 70%),
+        radial-gradient(ellipse 70% 45% at 50% 100%, rgba(255, 45, 170, 0.09), transparent 70%),
+        linear-gradient(170deg, #0c0819 0%, #07060f 55%, #0a0714 100%);
+}
+@media (max-width: 700px) {
+    html:not([data-theme="light"]) body::before { inset: -15%; filter: blur(18px) saturate(1.15); }
+}
+@media (prefers-reduced-motion: reduce) {
+    html:not([data-theme="light"]) body::before,
+    html:not([data-theme="light"]) body::after { animation: none; }
+}
 </style>
 </head>
 
@@ -50513,39 +50576,39 @@ int main() {
                         <span class="toc-dots"></span><span class="toc-page" >010</span>
                     </div>
                     <div class="toc-row" style="color:#c23bd8;">
-                        <span class="toc-num">11</span><span class="toc-name">Scanner</span>
+                        <span class="toc-num">11</span><span class="toc-name">File Reader</span>
                         <span class="toc-dots"></span><span class="toc-page" >011</span>
                     </div>
                     <div class="toc-row" style="color:#9b4dff;">
-                        <span class="toc-num">12</span><span class="toc-name">Math</span>
+                        <span class="toc-num">12</span><span class="toc-name">File writer</span>
                         <span class="toc-dots"></span><span class="toc-page" >012</span>
                     </div>
                     <div class="toc-row" style="color:#7c5cff;">
-                        <span class="toc-num">13</span><span class="toc-name">Random</span>
+                        <span class="toc-num">13</span><span class="toc-name"></span>
                         <span class="toc-dots"></span><span class="toc-page" >013</span>
                     </div>
                     <div class="toc-row" style="color:#6a5dff;">
-                        <span class="toc-num">14</span><span class="toc-name">Array</span>
+                        <span class="toc-num">14</span><span class="toc-name"></span>
                         <span class="toc-dots"></span><span class="toc-page" >014</span>
                     </div>
                     <div class="toc-row" style="color:#7c6dff; opacity:0.75;">
-                        <span class="toc-num">15</span><span class="toc-name">ArrayList</span>
+                        <span class="toc-num">15</span><span class="toc-name">Function</span>
                         <span class="toc-dots"></span><span class="toc-page">015</span>
                     </div>
                     <div class="toc-row" style="color:#9b6dff; opacity:0.75;">
-                        <span class="toc-num">16</span><span class="toc-name">HashMap</span>
+                        <span class="toc-num">16</span><span class="toc-name">Predicate</span>
                         <span class="toc-dots"></span><span class="toc-page">016</span>
                     </div>
                     <div class="toc-row" style="color:#b16bff; opacity:0.75;">
-                        <span class="toc-num">17</span><span class="toc-name">Map</span>
+                        <span class="toc-num">17</span><span class="toc-name">Consumer</span>
                         <span class="toc-dots"></span><span class="toc-page">017</span>
                     </div>
                     <div class="toc-row" style="color:#c25bff; opacity:0.75;">
-                        <span class="toc-num">18</span><span class="toc-name">File</span>
+                        <span class="toc-num">18</span><span class="toc-name">Supplier</span>
                         <span class="toc-dots"></span><span class="toc-page">018</span>
                     </div>
                     <div class="toc-row" style="color:#d64bff; opacity:0.75;">
-                        <span class="toc-num">19</span><span class="toc-name">IOException</span>
+                        <span class="toc-num">19</span><span class="toc-name">BiFunction</span>
                         <span class="toc-dots"></span><span class="toc-page">019</span>
                     </div>
                     <div class="toc-row" style="color:#c23bd8;">
@@ -65882,11 +65945,11 @@ public class Main {
             <div class="book-page" id="page-java-unit2-1">
                 <div class="stage">
                     <div class="unit-header">
-                        <span class="page-right">10</span>
+                        <span class="page-right">12</span>
                         <div class="corner tl"></div>
                         <div class="corner br"></div>
                         <div class="screentone"></div>
-                        <div class="unit-badge">UNIT 10</div>
+                        <div class="unit-badge">UNIT 12</div>
                         <div class="unit-chevrons">
                         <svg width="18" height="26" viewBox="0 0 18 26"><path d="M0 0 L14 13 L0 26 Z" fill="url(#chev1)"/><defs><linearGradient id="chev1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#ff6b6b"/><stop offset="100%" stop-color="#c40000"/></linearGradient></defs></svg>
                         <svg width="18" height="26" viewBox="0 0 18 26"><path d="M0 0 L14 13 L0 26 Z" fill="url(#chev2)"/><defs><linearGradient id="chev2" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#f4c14f"/><stop offset="100%" stop-color="#c47c00"/></linearGradient></defs></svg>
@@ -65916,11 +65979,11 @@ public class Main {
             <div class="book-page" id="page-java-unit2-1">
                 <div class="stage">
                     <div class="unit-header">
-                        <span class="page-right">10</span>
+                        <span class="page-right">13</span>
                         <div class="corner tl"></div>
                         <div class="corner br"></div>
                         <div class="screentone"></div>
-                        <div class="unit-badge">UNIT 10</div>
+                        <div class="unit-badge">UNIT 13</div>
                         <div class="unit-chevrons">
                         <svg width="18" height="26" viewBox="0 0 18 26"><path d="M0 0 L14 13 L0 26 Z" fill="url(#chev1)"/><defs><linearGradient id="chev1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#ff6b6b"/><stop offset="100%" stop-color="#c40000"/></linearGradient></defs></svg>
                         <svg width="18" height="26" viewBox="0 0 18 26"><path d="M0 0 L14 13 L0 26 Z" fill="url(#chev2)"/><defs><linearGradient id="chev2" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#f4c14f"/><stop offset="100%" stop-color="#c47c00"/></linearGradient></defs></svg>
@@ -65941,7 +66004,7 @@ public class Main {
             <div class="book-page" id="page-java-unit2-1">
                 <div class="stage">
                     <div class="unit-header">
-                        <span class="page-right">10</span>
+                        <span class="page-right">14</span>
                         <div class="corner tl"></div>
                         <div class="corner br"></div>
                         <div class="screentone"></div>
@@ -65962,6 +66025,2061 @@ public class Main {
 
 
             </div>
+            <!--Unit 15F-->
+            <div class="book-page" id="page-java-unit2-1">
+                <div class="stage">
+                    <div class="unit-header">
+                        <span class="page-right">15</span>
+                        <div class="corner tl"></div>
+                        <div class="corner br"></div>
+                        <div class="screentone"></div>
+                        <div class="unit-badge">UNIT 15</div>
+                        <div class="unit-chevrons">
+                        <svg width="18" height="26" viewBox="0 0 18 26"><path d="M0 0 L14 13 L0 26 Z" fill="url(#chev1)"/><defs><linearGradient id="chev1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#ff6b6b"/><stop offset="100%" stop-color="#c40000"/></linearGradient></defs></svg>
+                        <svg width="18" height="26" viewBox="0 0 18 26"><path d="M0 0 L14 13 L0 26 Z" fill="url(#chev2)"/><defs><linearGradient id="chev2" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#f4c14f"/><stop offset="100%" stop-color="#c47c00"/></linearGradient></defs></svg>
+                        </div>
+                        <div class="unit-title">Function</div>
+                        <div class="speed-lines"></div>
+                    </div>
+                </div>
+  				<div class="section-h">1 Function Interface</div>
+  				<div class="subsection-h">1.1 Function&lt;Integer, Integer&gt; square = x -&gt; x * x;</div>
+  				<div class="khmer-line">ប្រើ Lambda Expression ដើម្បីគណនាការេនៃលេខ។ Input ជា Integer និង Output ជា Integer។</div>
+  				<div class="code-row">
+  					<span class="code-label syntax">Syntax</span>
+  					<span class="code-inline">Function&lt;Integer, Integer&gt; square = x -&gt; x * x;</span>
+  				</div>
+  				<div class="example-output-row">
+  					<div class="example-col">
+  						<span class="code-label example">Example</span>
+  						<div class="code-box">import java.util.function.Function;
+public class Main {
+    public static void main(String[] args) {
+        Function&lt;Integer, Integer&gt; square = x -&gt; x * x;
+        System.out.println(square.apply(5));
+    }
+}</div>
+  					</div>
+  					<div class="output-col">
+  						<span class="code-label output">Output</span>
+  						<div class="output-text">25</div>
+  					</div>
+  				</div>
+  				<div class="subsection-h">1.2 Function&lt;String, Integer&gt; length = s -&gt; s.length();</div>
+  				<div class="khmer-line">ប្រើ Lambda Expression ដើម្បីរាប់ចំនួនតួអក្សរនៅក្នុង String។ Input ជា String និង Output ជា Integer។</div>
+  				<div class="code-row">
+  					<span class="code-label syntax">Syntax</span>
+  					<span class="code-inline">Function&lt;String, Integer&gt; length = s -&gt; s.length();</span>
+  				</div>
+  				<div class="example-output-row">
+  					<div class="example-col">
+  						<span class="code-label example">Example</span>
+  						<div class="code-box">import java.util.function.Function;
+public class Main {
+    public static void main(String[] args) {
+        Function&lt;String, Integer&gt; length = s -&gt; s.length();
+        System.out.println(length.apply("Hello"));
+    }
+}</div>
+  					</div>
+  					<div class="output-col">
+  						<span class="code-label output">Output</span>
+  						<div class="output-text">5</div>
+  					</div>
+  				</div>
+
+  				<div class="subsection-h">1.3 Function&lt;String, Integer&gt; length2 = String::length;</div>
+  				<div class="khmer-line">ប្រើ Method Reference ដើម្បីហៅ String.length() សម្រាប់រាប់ចំនួនតួអក្សរ ដោយមិនចាំបាច់សរសេរ Lambda Expression។</div>
+  				<div class="code-row">
+  					<span class="code-label syntax">Syntax</span>
+  					<span class="code-inline">Function&lt;String, Integer&gt; length2 = String::length;</span>
+  				</div>
+  				<div class="example-output-row">
+  					<div class="example-col">
+  						<span class="code-label example">Example</span>
+  						<div class="code-box">import java.util.function.Function;
+public class Main {
+    public static void main(String[] args) {
+        Function&lt;String, Integer&gt; length2 = String::length;
+        System.out.println(length2.apply("Java"));
+    }
+}</div>
+  					</div>
+  					<div class="output-col">
+  						<span class="code-label output">Output</span>
+  						<div class="output-text">4</div>
+  					</div>
+  				</div>
+
+  				<div class="subsection-h">1.4 Function&lt;String, Integer&gt; parse = Integer::parseInt;</div>
+  				<div class="khmer-line">ប្រើ Method Reference ដើម្បីបម្លែង String ដែលមានលេខទៅជា Integer។ ប្រសិនបើ String មិនមែនជាលេខត្រឹមត្រូវ វានឹងបង្កើត NumberFormatException។</div>
+  				<div class="code-row">
+  					<span class="code-label syntax">Syntax</span>
+  					<span class="code-inline">Function&lt;String, Integer&gt; parse = Integer::parseInt;</span>
+  				</div>
+  				<div class="example-output-row">
+  					<div class="example-col">
+  						<span class="code-label example">Example</span>
+  						<div class="code-box">import java.util.function.Function;
+public class Main {
+    public static void main(String[] args) {
+        Function&lt;String, Integer&gt; parse = Integer::parseInt;
+        System.out.println(parse.apply("123"));
+    }
+}</div>
+  					</div>
+  					<div class="output-col">
+  						<span class="code-label output">Output</span>
+  						<div class="output-text">123</div>
+  					</div>
+  				</div>
+
+  				<div class="subsection-h">1.5 Function&lt;String, String&gt; upper = String::toUpperCase;</div>
+  				<div class="khmer-line">ប្រើ Method Reference ដើម្បីបម្លែងអក្សរតូចទៅជាអក្សរធំទាំងអស់។</div>
+  				<div class="code-row">
+  					<span class="code-label syntax">Syntax</span>
+  					<span class="code-inline">Function&lt;String, String&gt; upper = String::toUpperCase;</span>
+  				</div>
+  				<div class="example-output-row">
+  					<div class="example-col">
+  						<span class="code-label example">Example</span>
+  						<div class="code-box">import java.util.function.Function;
+public class Main {
+    public static void main(String[] args) {
+        Function&lt;String, String&gt; upper = String::toUpperCase;
+        System.out.println(upper.apply("hello java"));
+    }
+}</div>
+  					</div>
+  					<div class="output-col">
+  						<span class="code-label output">Output</span>
+  						<div class="output-text">HELLO JAVA</div>
+  					</div>
+  				</div>
+
+  				<div class="subsection-h">1.6 Function&lt;Integer, String&gt; toText = n -&gt; "Number " + n;</div>
+  				<div class="khmer-line">ប្រើ Lambda Expression ដើម្បីបម្លែង Integer ទៅជា String ដោយបន្ថែមពាក្យ Number នៅខាងមុខលេខ។</div>
+  				<div class="code-row">
+  					<span class="code-label syntax">Syntax</span>
+  					<span class="code-inline">Function&lt;Integer, String&gt; toText = n -&gt; "Number " + n;</span>
+  				</div>
+  				<div class="example-output-row">
+  					<div class="example-col">
+  						<span class="code-label example">Example</span>
+  						<div class="code-box">import java.util.function.Function;
+public class Main {
+    public static void main(String[] args) {
+        Function&lt;Integer, String&gt; toText = n -&gt; "Number " + n;
+        System.out.println(toText.apply(10));
+    }
+}</div>
+  					</div>
+  					<div class="output-col">
+  						<span class="code-label output">Output</span>
+  						<div class="output-text">Number 10</div>
+  					</div>
+  				</div>
+
+  				<div class="subsection-h">1.7 Function&lt;Integer, Integer&gt; add5 = x -&gt; x + 5;</div>
+  				<div class="khmer-line">ប្រើ Lambda Expression ដើម្បីបូកលេខ 5 ទៅនឹងតម្លៃ Input ហើយត្រឡប់លទ្ធផលជា Integer។</div>
+  				<div class="code-row">
+  					<span class="code-label syntax">Syntax</span>
+  					<span class="code-inline">Function&lt;Integer, Integer&gt; add5 = x -&gt; x + 5;</span>
+  				</div>
+  				<div class="example-output-row">
+  					<div class="example-col">
+  						<span class="code-label example">Example</span>
+  						<div class="code-box">import java.util.function.Function;
+public class Main {
+    public static void main(String[] args) {
+        Function&lt;Integer, Integer&gt; add5 = x -&gt; x + 5;
+        System.out.println(add5.apply(10));
+    }
+}</div>
+  					</div>
+  					<div class="output-col">
+  						<span class="code-label output">Output</span>
+  						<div class="output-text">15</div>
+  					</div>
+  				</div>
+				<div class="section-h">2 Function Apply</div>
+				<div class="khmer-line">ប្រើសម្រាប់ដំណើរការ Function ដោយបញ្ចូលតម្លៃ t ហើយត្រឡប់លទ្ធផលប្រភេទ R។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">f.apply(t);</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">import java.util.function.Function;
+public class Main {
+    public static void main(String[] args) {
+        Function&lt;Integer, Integer> f = x -> x * x;
+        System.out.println(f.apply(5));
+    }
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">25</div>
+					</div>
+				</div>
+
+				<div class="section-h">3 Function Composition</div>
+				<div class="subsection-h">3.1 f.andThen(g)</div>
+				<div class="khmer-line">ដំណើរការ Function f ជាមុនសិន រួចយកលទ្ធផលទៅឱ្យ Function g ដំណើរការបន្ត។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">f.andThen(g);</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">import java.util.function.Function;
+public class Main {
+    public static void main(String[] args) {
+        Function&lt;Integer, Integer> f = x -> x + 5;
+        Function&lt;Integer, Integer> g = x -> x * 2;
+        Function&lt;Integer, Integer> result = f.andThen(g);
+        System.out.println(result.apply(10));
+    }
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">30</div>
+					</div>
+				</div>
+
+				<div class="subsection-h">3.2 f.compose(g)</div>
+				<div class="khmer-line">ដំណើរការ Function g ជាមុនសិន រួចយកលទ្ធផលទៅឱ្យ Function f ដំណើរការបន្ត។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">f.compose(g);</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">import java.util.function.Function;
+
+public class Main {
+    public static void main(String[] args) {
+        Function&lt;Integer, Integer> f = x -> x + 5;
+        Function&lt;Integer, Integer> g = x -> x * 2;
+        Function&lt;Integer, Integer> result = f.compose(g);
+        System.out.println(result.apply(10));
+    }
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">25</div>
+					</div>
+				</div>
+
+				<div class="section-h">4 Function Identity</div>
+				<div class="subsection-h">4.1 Function.identity()</div>
+				<div class="khmer-line">បង្កើត Function ដែលត្រឡប់តម្លៃដើមវិញ ដោយមិនកែប្រែតម្លៃនោះទេ។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">Function.identity();</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">import java.util.function.Function;
+
+public class Main {
+    public static void main(String[] args) {
+        Function&lt;String, String> f = Function.identity();
+        System.out.println(f.apply("Hello Java"));
+    }
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">Hello Java</div>
+					</div>
+				</div>
+
+				<div class="section-h">5 Object Methods</div>
+				<div class="subsection-h">5.1 f.toString()</div>
+				<div class="khmer-line">បម្លែង Object Function ទៅជា String សម្រាប់បង្ហាញព័ត៌មានរបស់ Object។ លទ្ធផលអាចខុសគ្នាតាមការអនុវត្ត។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">f.toString();</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">import java.util.function.Function;
+public class Main {
+    public static void main(String[] args) {
+        Function&lt;Integer, Integer> f = x -> x * 2;
+        System.out.println(f.toString());
+    }
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">Lambda representation (implementation-dependent)</div>
+					</div>
+				</div>
+
+				<div class="subsection-h">5.2 f.equals(obj)</div>
+				<div class="khmer-line">ពិនិត្យមើលថា Function Object ស្មើនឹង Object ផ្សេងទៀតឬអត់ ហើយត្រឡប់ true ឬ false។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">f.equals(obj);</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">import java.util.function.Function;
+public class Main {
+    public static void main(String[] args) {
+        Function&lt;Integer, Integer> f = x -> x * 2;
+        Function&lt;Integer, Integer> g = f;
+        System.out.println(f.equals(g));
+    }
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">true</div>
+					</div>
+				</div>
+
+				<div class="subsection-h">5.3 f.hashCode()</div>
+				<div class="khmer-line">ត្រឡប់លេខ Hash Code របស់ Function Object។ តម្លៃអាចខុសគ្នាតាម Object នីមួយៗ។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">f.hashCode();</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">import java.util.function.Function;
+public class Main {
+    public static void main(String[] args) {
+        Function&lt;Integer, Integer> f = x -> x * 2;
+        System.out.println(f.hashCode());
+    }
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">Hash code value (varies)</div>
+					</div>
+				</div>
+				<div class="subsection-h">5.4 f.getClass()</div>
+				<div class="khmer-line">ត្រឡប់ Class របស់ Function Object ដែលកំពុងប្រើ។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">f.getClass();</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">import java.util.function.Function;
+public class Main {
+    public static void main(String[] args) {
+        Function&lt;Integer, Integer> f = x -> x * 2;
+        System.out.println(f.getClass());
+    }
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">class Main$$Lambda$...</div>
+					</div>
+				</div>
+            </div>
+            <!--Unit 16F-->
+            <div class="book-page" id="page-java-unit2-1">
+                <div class="stage">
+                    <div class="unit-header">
+                        <span class="page-right">16</span>
+                        <div class="corner tl"></div>
+                        <div class="corner br"></div>
+                        <div class="screentone"></div>
+                        <div class="unit-badge">UNIT 16</div>
+                        <div class="unit-chevrons">
+                        <svg width="18" height="26" viewBox="0 0 18 26"><path d="M0 0 L14 13 L0 26 Z" fill="url(#chev1)"/><defs><linearGradient id="chev1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#ff6b6b"/><stop offset="100%" stop-color="#c40000"/></linearGradient></defs></svg>
+                        <svg width="18" height="26" viewBox="0 0 18 26"><path d="M0 0 L14 13 L0 26 Z" fill="url(#chev2)"/><defs><linearGradient id="chev2" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#f4c14f"/><stop offset="100%" stop-color="#c47c00"/></linearGradient></defs></svg>
+                        </div>
+                        <div class="unit-title">Predicate</div>
+                        <div class="speed-lines"></div>
+                    </div>
+                </div>
+				<div class="section-h">1 Predicate Interface</div>
+				<div class="subsection-h">1.1 isEven</div>
+				<div class="khmer-line">ពិនិត្យថាចំនួនគត់ជាចំនួនគូឬអត់។ ប្រសិនបើចែកនឹង 2 សល់ 0 នោះត្រឡប់ true។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">Predicate&lt;Integer&gt; isEven = n -&gt; n % 2 == 0;</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">import java.util.function.Predicate;
+public class Main {
+    public static void main(String[] args) {
+        Predicate&lt;Integer&gt; isEven = n -&gt; n % 2 == 0;
+        System.out.println(isEven.test(10));
+    }
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">true</div>
+					</div>
+				</div>
+
+				<div class="subsection-h">1.2 isPositive</div>
+				<div class="khmer-line">ពិនិត្យថាចំនួនគត់ធំជាង 0 ឬអត់។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">Predicate&lt;Integer&gt; isPositive = n -&gt; n &gt; 0;</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">import java.util.function.Predicate;
+public class Main {
+    public static void main(String[] args) {
+        Predicate&lt;Integer&gt; isPositive = n -&gt; n &gt; 0;
+        System.out.println(isPositive.test(5));
+    }
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">true</div>
+					</div>
+				</div>
+
+				<div class="subsection-h">1.3 isEmpty</div>
+				<div class="khmer-line">ពិនិត្យថា String ទទេឬអត់ ដោយប្រើ Method Reference ទៅកាន់ String.isEmpty()។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">Predicate&lt;String&gt; isEmpty = String::isEmpty;</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">import java.util.function.Predicate;
+public class Main {
+    public static void main(String[] args) {
+        Predicate&lt;String&gt; isEmpty = String::isEmpty;
+        System.out.println(isEmpty.test(""));
+    }
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">true</div>
+					</div>
+				</div>
+
+				<div class="subsection-h">1.4 startsWithA</div>
+				<div class="khmer-line">ពិនិត្យថា String ចាប់ផ្ដើមដោយអក្សរ A ឬអត់។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">Predicate&lt;String&gt; startsWithA = s -&gt; s.startsWith("A");</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">import java.util.function.Predicate;
+public class Main {
+    public static void main(String[] args) {
+        Predicate&lt;String&gt; startsWithA = s -&gt; s.startsWith("A");
+        System.out.println(startsWithA.test("Apple"));
+    }
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">true</div>
+					</div>
+				</div>
+
+				<div class="subsection-h">1.5 notNull</div>
+				<div class="khmer-line">ពិនិត្យថា Object មិនមែនជា null ឬអត់ ដោយប្រើ Method Reference ទៅកាន់ Objects.nonNull()។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">Predicate&lt;String&gt; notNull = Objects::nonNull;</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">import java.util.Objects;
+import java.util.function.Predicate;
+public class Main {
+    public static void main(String[] args) {
+        Predicate&lt;String&gt; notNull = Objects::nonNull;
+        System.out.println(notNull.test("Hello"));
+    }
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">true</div>
+					</div>
+				</div>
+				<div class="subsection-h">1.6 adult</div>
+				<div class="khmer-line">ពិនិត្យថា Person មានអាយុចាប់ពី 18 ឆ្នាំឡើងទៅឬអត់។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">Predicate&lt;Person&gt; adult = p -&gt; p.getAge() &gt;= 18;</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">import java.util.function.Predicate;
+class Person {
+    private int age;
+    Person(int age) {
+        this.age = age;
+    }
+    int getAge() {
+        return age;
+    }
+}
+public class Main {
+    public static void main(String[] args) {
+        Predicate&lt;Person&gt; adult = p -&gt; p.getAge() &gt;= 18;
+        Person person = new Person(20);
+        System.out.println(adult.test(person));
+    }
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">true</div>
+					</div>
+				</div>
+				<div class="section-h">2 Predicate Test</div>
+				<div class="subsection-h">2.1 p.test(T t)</div>
+				<div class="khmer-line">ប្រើសម្រាប់ដំណើរការ Predicate ដោយបញ្ចូលតម្លៃ t ហើយត្រឡប់ true ឬ false។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">p.test(t);</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">import java.util.function.Predicate;
+public class Main {
+    public static void main(String[] args) {
+        Predicate&lt;Integer&gt; p = n -&gt; n &gt; 10;
+        System.out.println(p.test(15));
+    }
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">true</div>
+					</div>
+				</div>
+
+				<div class="section-h">3 Predicate Composition</div>
+				<div class="subsection-h">3.1 p.and(other)</div>
+				<div class="khmer-line">បញ្ចូល Predicate ពីរ ដោយត្រឡប់ true លុះត្រាតែ Predicate ទាំងពីរត្រឡប់ true។ វាដំណើរការតាមលក្ខណៈ Short-circuit ដូចប្រមាណវិធី &&។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">p.and(other);</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">import java.util.function.Predicate;
+public class Main {
+    public static void main(String[] args) {
+        Predicate&lt;Integer&gt; p = n -&gt; n &gt; 0;
+        Predicate&lt;Integer&gt; other = n -&gt; n &lt; 100;
+        Predicate&lt;Integer&gt; result = p.and(other);
+        System.out.println(result.test(50));
+    }
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">true</div>
+					</div>
+				</div>
+
+				<div class="subsection-h">3.2 p.or(other)</div>
+				<div class="khmer-line">បញ្ចូល Predicate ពីរ ដោយត្រឡប់ true ប្រសិនបើ Predicate ណាមួយក្នុងចំណោមទាំងពីរត្រឡប់ true។ វាដំណើរការតាមលក្ខណៈ Short-circuit ដូចប្រមាណវិធី ||។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">p.or(other);</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">import java.util.function.Predicate;
+public class Main {
+    public static void main(String[] args) {
+        Predicate&lt;Integer&gt; p = n -&gt; n &lt; 0;
+        Predicate&lt;Integer&gt; other = n -&gt; n &gt; 100;
+        Predicate&lt;Integer&gt; result = p.or(other);
+        System.out.println(result.test(150));
+    }
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">true</div>
+					</div>
+				</div>
+
+				<div class="subsection-h">3.3 p.negate()</div>
+				<div class="khmer-line">បង្កើត Predicate ថ្មីដែលផ្ដល់លទ្ធផលផ្ទុយពី Predicate ដើម ដូចប្រមាណវិធី !។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">p.negate();</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">import java.util.function.Predicate;
+public class Main {
+    public static void main(String[] args) {
+        Predicate&lt;Integer&gt; p = n -&gt; n &gt; 10;
+        Predicate&lt;Integer&gt; result = p.negate();
+        System.out.println(result.test(5));
+    }
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">true</div>
+					</div>
+				</div>
+
+				<div class="section-h">4 Predicate Static Methods</div>
+				<div class="subsection-h">4.1 Predicate.not(predicate)</div>
+				<div class="khmer-line">បង្កើត Predicate ដែលមានលទ្ធផលផ្ទុយពី Predicate ដើម ឬ Method Reference។ មានចាប់ពី Java 11។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">Predicate.not(predicate);</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">import java.util.function.Predicate;
+public class Main {
+    public static void main(String[] args) {
+        Predicate&lt;String&gt; notEmpty = Predicate.not(String::isEmpty);
+        System.out.println(notEmpty.test("Java"));
+    }
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">true</div>
+					</div>
+				</div>
+
+				<div class="subsection-h">4.2 Predicate.isEqual(target)</div>
+				<div class="khmer-line">បង្កើត Predicate ដែលពិនិត្យថាតម្លៃបញ្ចូលស្មើនឹង target ឬអត់។ វាអាចប្រៀបធៀបតម្លៃ null បានដោយសុវត្ថិភាព។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">Predicate.isEqual(target);</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">import java.util.function.Predicate;
+public class Main {
+    public static void main(String[] args) {
+        Predicate&lt;String&gt; p = Predicate.isEqual("Java");
+        System.out.println(p.test("Java"));
+        System.out.println(p.test("Python"));
+    }
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">true
+false</div>
+					</div>
+				</div>
+
+				<div class="section-h">5 Object Methods</div>
+				<div class="subsection-h">5.1 p.toString()</div>
+				<div class="khmer-line">បម្លែង Predicate Object ទៅជា String សម្រាប់បង្ហាញព័ត៌មានរបស់ Object។ លទ្ធផលអាចខុសគ្នាតាមការអនុវត្ត។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">p.toString();</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">import java.util.function.Predicate;
+public class Main {
+    public static void main(String[] args) {
+        Predicate&lt;Integer&gt; p = n -&gt; n &gt; 10;
+        System.out.println(p.toString());
+    }
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">Lambda representation (implementation-dependent)</div>
+					</div>
+				</div>
+
+				<div class="subsection-h">5.2 p.equals(obj)</div>
+				<div class="khmer-line">ពិនិត្យមើលថា Predicate Object ស្មើនឹង Object ផ្សេងទៀតឬអត់ ហើយត្រឡប់ true ឬ false។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">p.equals(obj);</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">import java.util.function.Predicate;
+public class Main {
+    public static void main(String[] args) {
+        Predicate&lt;Integer&gt; p = n -&gt; n &gt; 10;
+        Predicate&lt;Integer&gt; other = p;
+        System.out.println(p.equals(other));
+    }
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">true</div>
+					</div>
+				</div>
+
+				<div class="subsection-h">5.3 p.hashCode()</div>
+				<div class="khmer-line">ត្រឡប់លេខ Hash Code របស់ Predicate Object។ តម្លៃអាចខុសគ្នាតាម Object នីមួយៗ។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">p.hashCode();</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">import java.util.function.Predicate;
+public class Main {
+    public static void main(String[] args) {
+        Predicate&lt;Integer&gt; p = n -&gt; n &gt; 10;
+        System.out.println(p.hashCode());
+    }
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">Hash code value (varies)</div>
+					</div>
+				</div>
+
+				<div class="subsection-h">5.4 p.getClass()</div>
+				<div class="khmer-line">ត្រឡប់ Class របស់ Predicate Object ដែលកំពុងប្រើ។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">p.getClass();</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">import java.util.function.Predicate;
+public class Main {
+    public static void main(String[] args) {
+        Predicate&lt;Integer&gt; p = n -&gt; n &gt; 10;
+        System.out.println(p.getClass());
+    }
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">class Main$$Lambda$...</div>
+					</div>
+				</div>
+            </div>
+            <!--Unit 17F-->
+            <div class="book-page" id="page-java-unit2-1">
+                <div class="stage">
+                    <div class="unit-header">
+                        <span class="page-right">17</span>
+                        <div class="corner tl"></div>
+                        <div class="corner br"></div>
+                        <div class="screentone"></div>
+                        <div class="unit-badge">UNIT 17</div>
+                        <div class="unit-chevrons">
+                        <svg width="18" height="26" viewBox="0 0 18 26"><path d="M0 0 L14 13 L0 26 Z" fill="url(#chev1)"/><defs><linearGradient id="chev1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#ff6b6b"/><stop offset="100%" stop-color="#c40000"/></linearGradient></defs></svg>
+                        <svg width="18" height="26" viewBox="0 0 18 26"><path d="M0 0 L14 13 L0 26 Z" fill="url(#chev2)"/><defs><linearGradient id="chev2" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#f4c14f"/><stop offset="100%" stop-color="#c47c00"/></linearGradient></defs></svg>
+                        </div>
+                        <div class="unit-title">Consumer</div>
+                        <div class="speed-lines"></div>
+                    </div>
+                </div>
+				<div class="section-h">1 Consumer Interface</div>
+				<div class="subsection-h">1.1 print</div>
+				<div class="khmer-line">បង្កើត Consumer សម្រាប់បង្ហាញ String នៅលើ Console ដោយប្រើ System.out.println()។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">Consumer&lt;String&gt; print = s -&gt; System.out.println(s);</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">import java.util.function.Consumer;
+public class Main {
+    public static void main(String[] args) {
+        Consumer&lt;String&gt; print = s -&gt; System.out.println(s);
+        print.accept("Hello Java");
+    }
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">Hello Java</div>
+					</div>
+				</div>
+
+				<div class="subsection-h">1.2 print2</div>
+				<div class="khmer-line">ប្រើ Method Reference ទៅកាន់ System.out.println() ដើម្បីបង្ហាញ String នៅលើ Console។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">Consumer&lt;String&gt; print2 = System.out::println;</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">import java.util.function.Consumer;
+public class Main {
+    public static void main(String[] args) {
+        Consumer&lt;String&gt; print2 = System.out::println;
+        print2.accept("Hello Java");
+    }
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">Hello Java</div>
+					</div>
+				</div>
+
+				<div class="subsection-h">1.3 shout</div>
+				<div class="khmer-line">បម្លែង String ទៅជាអក្សរធំទាំងអស់ រួចបង្ហាញលទ្ធផលនៅលើ Console។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">Consumer&lt;String&gt; shout = s -&gt; System.out.println(s.toUpperCase());</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">import java.util.function.Consumer;
+public class Main {
+    public static void main(String[] args) {
+        Consumer&lt;String&gt; shout = s -&gt; System.out.println(s.toUpperCase());
+        shout.accept("Hello Java");
+    }
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">HELLO JAVA</div>
+					</div>
+				</div>
+
+				<div class="subsection-h">1.4 addOne</div>
+				<div class="khmer-line">បន្ថែមលេខ 1 ទៅក្នុង List ដែលទទួលបាន។ Consumer នេះកែប្រែ List ដើមដោយផ្ទាល់។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">Consumer&lt;List&lt;Integer&gt;&gt; addOne = list -&gt; list.add(1);</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">import java.util.*;
+import java.util.function.Consumer;
+public class Main {
+    public static void main(String[] args) {
+        Consumer&lt;List&lt;Integer&gt;&gt; addOne = list -&gt; list.add(1);
+        List&lt;Integer&gt; numbers = new ArrayList&lt;&gt;();
+        addOne.accept(numbers);
+        System.out.println(numbers);
+    }
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">[1]</div>
+					</div>
+				</div>
+
+				<div class="subsection-h">1.5 birthday</div>
+				<div class="khmer-line">បង្កើនអាយុរបស់ Person ចំនួន 1 ឆ្នាំ ដោយប្រើ setAge() និង getAge()។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">Consumer&lt;Person&gt; birthday = p -&gt; p.setAge(p.getAge() + 1);</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">import java.util.function.Consumer;
+class Person {
+    private int age;
+
+    Person(int age) {
+        this.age = age;
+    }
+
+    int getAge() {
+        return age;
+    }
+
+    void setAge(int age) {
+        this.age = age;
+    }
+}
+public class Main {
+    public static void main(String[] args) {
+        Consumer&lt;Person&gt; birthday = p -&gt; p.setAge(p.getAge() + 1);
+        Person person = new Person(20);
+
+        birthday.accept(person);
+        System.out.println(person.getAge());
+    }
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">21</div>
+					</div>
+				</div>
+
+				<div class="subsection-h">1.6 noop</div>
+				<div class="khmer-line">បង្កើត Consumer ដែលមិនធ្វើសកម្មភាពអ្វីទាំងអស់ នៅពេលទទួលតម្លៃបញ្ចូល។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">Consumer&lt;Integer&gt; noop = x -&gt; {};</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">import java.util.function.Consumer;
+public class Main {
+    public static void main(String[] args) {
+        Consumer&lt;Integer&gt; noop = x -&gt; {};
+        noop.accept(100);
+        System.out.println("Finished");
+    }
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">Finished</div>
+					</div>
+				</div>
+
+				<div class="section-h">2 Consumer Accept</div>
+				<div class="subsection-h">2.1 c.accept(T t)</div>
+				<div class="khmer-line">ប្រើសម្រាប់ដំណើរការ Consumer ដោយបញ្ចូលតម្លៃ t។ Method នេះមិនត្រឡប់តម្លៃទេ (void)។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">c.accept(t);</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">import java.util.function.Consumer;
+public class Main {
+    public static void main(String[] args) {
+        Consumer&lt;String&gt; c = s -&gt; System.out.println(s);
+        c.accept("Hello Java");
+    }
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">Hello Java</div>
+					</div>
+				</div>
+
+				<div class="section-h">3 Consumer Composition</div>
+				<div class="subsection-h">3.1 c.andThen(after)</div>
+				<div class="khmer-line">បង្កើត Consumer ថ្មីដែលដំណើរការ c ជាមុនសិន រួចដំណើរការ after បន្ត ដោយប្រើតម្លៃបញ្ចូលដដែល។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">c.andThen(after);</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">import java.util.function.Consumer;
+public class Main {
+    public static void main(String[] args) {
+        Consumer&lt;String&gt; c = s -&gt; System.out.println("First: " + s);
+        Consumer&lt;String&gt; after = s -&gt; System.out.println("Second: " + s);
+        Consumer&lt;String&gt; result = c.andThen(after);
+        result.accept("Java");
+    }
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">First: Java
+Second: Java</div>
+					</div>
+				</div>
+
+				<div class="section-h">4 Object Methods</div>
+				<div class="subsection-h">4.1 c.toString()</div>
+				<div class="khmer-line">បម្លែង Consumer Object ទៅជា String សម្រាប់បង្ហាញព័ត៌មានរបស់ Object។ លទ្ធផលអាចខុសគ្នាតាមការអនុវត្ត។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">c.toString();</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">import java.util.function.Consumer;
+public class Main {
+    public static void main(String[] args) {
+        Consumer&lt;String&gt; c = s -&gt; System.out.println(s);
+        System.out.println(c.toString());
+    }
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">Lambda representation (implementation-dependent)</div>
+					</div>
+				</div>
+
+				<div class="subsection-h">4.2 c.equals(obj)</div>
+				<div class="khmer-line">ពិនិត្យមើលថា Consumer Object ស្មើនឹង Object ផ្សេងទៀតឬអត់ ហើយត្រឡប់ true ឬ false។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">c.equals(obj);</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">import java.util.function.Consumer;
+public class Main {
+    public static void main(String[] args) {
+        Consumer&lt;String&gt; c = s -&gt; System.out.println(s);
+        Consumer&lt;String&gt; other = c;
+        System.out.println(c.equals(other));
+    }
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">true</div>
+					</div>
+				</div>
+
+				<div class="subsection-h">4.3 c.hashCode()</div>
+				<div class="khmer-line">ត្រឡប់លេខ Hash Code របស់ Consumer Object។ តម្លៃអាចខុសគ្នាតាម Object នីមួយៗ។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">c.hashCode();</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">import java.util.function.Consumer;
+public class Main {
+    public static void main(String[] args) {
+        Consumer&lt;String&gt; c = s -&gt; System.out.println(s);
+        System.out.println(c.hashCode());
+    }
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">Hash code value (varies)</div>
+					</div>
+				</div>
+
+				<div class="subsection-h">4.4 c.getClass()</div>
+				<div class="khmer-line">ត្រឡប់ Class របស់ Consumer Object ដែលកំពុងប្រើ។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">c.getClass();</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">import java.util.function.Consumer;
+public class Main {
+    public static void main(String[] args) {
+        Consumer&lt;String&gt; c = s -&gt; System.out.println(s);
+        System.out.println(c.getClass());
+    }
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">class Main$$Lambda$...</div>
+					</div>
+				</div>
+            </div>
+            <!--Unit 18-->
+            <div class="book-page" id="page-java-unit2-1">
+                <div class="stage">
+                    <div class="unit-header">
+                        <span class="page-right">18</span>
+                        <div class="corner tl"></div>
+                        <div class="corner br"></div>
+                        <div class="screentone"></div>
+                        <div class="unit-badge">UNIT 18</div>
+                        <div class="unit-chevrons">
+                        <svg width="18" height="26" viewBox="0 0 18 26"><path d="M0 0 L14 13 L0 26 Z" fill="url(#chev1)"/><defs><linearGradient id="chev1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#ff6b6b"/><stop offset="100%" stop-color="#c40000"/></linearGradient></defs></svg>
+                        <svg width="18" height="26" viewBox="0 0 18 26"><path d="M0 0 L14 13 L0 26 Z" fill="url(#chev2)"/><defs><linearGradient id="chev2" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#f4c14f"/><stop offset="100%" stop-color="#c47c00"/></linearGradient></defs></svg>
+                        </div>
+                        <div class="unit-title">Supplier</div>
+                        <div class="speed-lines"></div>
+                    </div>
+                </div>
+  				<div class="section-h">1 Supplier Examples</div>
+  				<div class="subsection-h">1.1 Lambda Expression</div>
+  				<div class="khmer-line">បង្កើត Supplier ដែលមិនទទួល Parameter ហើយត្រឡប់ String "Hello" នៅពេលហៅ get()។</div>
+  				<div class="code-row">
+  					<span class="code-label syntax">Syntax</span>
+  					<span class="code-inline">Supplier&lt;String&gt; hello = () -&gt; "Hello";</span>
+  				</div>
+  				<div class="example-output-row">
+  					<div class="example-col">
+  						<span class="code-label example">Example</span>
+  						<div class="code-box">import java.util.function.Supplier;
+public class Main {
+    public static void main(String[] args) {
+        Supplier&lt;String&gt; hello = () -&gt; "Hello";
+        System.out.println(hello.get());
+    }
+}</div>
+  					</div>
+  					<div class="output-col">
+  						<span class="code-label output">Output</span>
+  						<div class="output-text">Hello</div>
+  					</div>
+  				</div>
+  				<div class="subsection-h">1.2 Random Value Supplier</div>
+  				<div class="khmer-line">បង្កើត Supplier ដែលប្រើ Math.random() ដើម្បីត្រឡប់លេខទសភាគចៃដន្យចាប់ពី 0.0 ដល់តិចជាង 1.0។</div>
+  				<div class="code-row">
+  					<span class="code-label syntax">Syntax</span>
+  					<span class="code-inline">Supplier&lt;Double&gt; random = () -&gt; Math.random();</span>
+  				</div>
+  				<div class="example-output-row">
+  					<div class="example-col">
+  						<span class="code-label example">Example</span>
+  						<div class="code-box">import java.util.function.Supplier;
+public class Main {
+    public static void main(String[] args) {
+        Supplier&lt;Double&gt; random = () -&gt; Math.random();
+        System.out.println(random.get());
+    }
+}</div>
+  					</div>
+  					<div class="output-col">
+  						<span class="code-label output">Output</span>
+  						<div class="output-text">Random value from 0.0 to less than 1.0</div>
+  					</div>
+  				</div>
+  				<div class="subsection-h">1.3 Static Method Reference</div>
+  				<div class="khmer-line">យោងទៅកាន់ Static Method random() របស់ Math ដើម្បីបង្កើតលេខទសភាគចៃដន្យ។</div>
+  				<div class="code-row">
+  					<span class="code-label syntax">Syntax</span>
+  					<span class="code-inline">Supplier&lt;Double&gt; random2 = Math::random;</span>
+  				</div>
+  				<div class="example-output-row">
+  					<div class="example-col">
+  						<span class="code-label example">Example</span>
+  						<div class="code-box">import java.util.function.Supplier;
+public class Main {
+    public static void main(String[] args) {
+        Supplier&lt;Double&gt; random2 = Math::random;
+        System.out.println(random2.get());
+    }
+}</div>
+  					</div>
+  					<div class="output-col">
+  						<span class="code-label output">Output</span>
+  						<div class="output-text">Random value from 0.0 to less than 1.0</div>
+  					</div>
+  				</div>
+  				<div class="subsection-h">1.4 Static Method Reference (Current Date)</div>
+  				<div class="khmer-line">យោងទៅកាន់ Static Method now() របស់ LocalDate ដើម្បីទទួលបានកាលបរិច្ឆេទបច្ចុប្បន្ន។</div>
+  				<div class="code-row">
+  					<span class="code-label syntax">Syntax</span>
+  					<span class="code-inline">Supplier&lt;LocalDate&gt; today = LocalDate::now;</span>
+  				</div>
+  				<div class="example-output-row">
+  					<div class="example-col">
+  						<span class="code-label example">Example</span>
+  						<div class="code-box">import java.time.LocalDate;
+import java.util.function.Supplier;
+public class Main {
+    public static void main(String[] args) {
+        Supplier&lt;LocalDate&gt; today = LocalDate::now;
+        System.out.println(today.get());
+    }
+}</div>
+  					</div>
+  					<div class="output-col">
+  						<span class="code-label output">Output</span>
+  						<div class="output-text">Current date (e.g. 2026-11-12)</div>
+  					</div>
+  				</div>
+  				<div class="subsection-h">1.5 Constructor Reference (ArrayList)</div>
+  				<div class="khmer-line">យោងទៅកាន់ Constructor របស់ ArrayList ដើម្បីបង្កើត List ថ្មីដែលទទេរាល់ពេលហៅ get()។</div>
+  				<div class="code-row">
+  					<span class="code-label syntax">Syntax</span>
+  					<span class="code-inline">Supplier&lt;List&lt;String&gt;&gt; newList = ArrayList::new;</span>
+  				</div>
+  				<div class="example-output-row">
+  					<div class="example-col">
+  						<span class="code-label example">Example</span>
+  						<div class="code-box">import java.util.*;
+import java.util.function.Supplier;
+public class Main {
+    public static void main(String[] args) {
+        Supplier&lt;List&lt;String&gt;&gt; newList = ArrayList::new;
+        List&lt;String&gt; list = newList.get();
+        list.add("Java");
+        list.add("Python");
+        System.out.println(list);
+    }
+}</div>
+  					</div>
+  					<div class="output-col">
+  						<span class="code-label output">Output</span>
+  						<div class="output-text">[Java, Python]</div>
+  					</div>
+  				</div>
+  				<div class="subsection-h">1.6 Constructor Reference (Person)</div>
+  				<div class="khmer-line">យោងទៅកាន់ Constructor គ្មាន Parameter របស់ Person ដើម្បីបង្កើត Person object ថ្មីរាល់ពេលហៅ get()។</div>
+  				<div class="code-row">
+  					<span class="code-label syntax">Syntax</span>
+  					<span class="code-inline">Supplier&lt;Person&gt; maker = Person::new;</span>
+  				</div>
+  				<div class="example-output-row">
+  					<div class="example-col">
+  						<span class="code-label example">Example</span>
+  						<div class="code-box">import java.util.function.Supplier;
+class Person {
+    Person() {
+        System.out.println("Person created");
+    }
+}
+public class Main {
+    public static void main(String[] args) {
+        Supplier&lt;Person&gt; maker = Person::new;
+        Person person = maker.get();
+    }
+}</div>
+  					</div>
+  					<div class="output-col">
+  						<span class="code-label output">Output</span>
+  						<div class="output-text">Person created</div>
+  					</div>
+  				</div>
+  				<div class="subsection-h">1.7 Random Dice Supplier</div>
+  				<div class="khmer-line">បង្កើត Supplier ដែលប្រើ Random ដើម្បីត្រឡប់លេខចៃដន្យពី 1 ដល់ 6 ដូចលេខលើគ្រាប់ឡុកឡាក់។</div>
+  				<div class="code-row">
+  					<span class="code-label syntax">Syntax</span>
+  					<span class="code-inline">Supplier&lt;Integer&gt; dice = () -&gt; new Random().nextInt(6) + 1;</span>
+  				</div>
+  				<div class="example-output-row">
+  					<div class="example-col">
+  						<span class="code-label example">Example</span>
+  						<div class="code-box">import java.util.Random;
+import java.util.function.Supplier;
+public class Main {
+    public static void main(String[] args) {
+        Supplier&lt;Integer&gt; dice =
+            () -&gt; new Random().nextInt(6) + 1;
+        System.out.println(dice.get());
+    }
+}</div>
+  					</div>
+  					<div class="output-col">
+  						<span class="code-label output">Output</span>
+  						<div class="output-text">Random integer from 1 to 6</div>
+  					</div>
+  				</div>
+
+				<div class="section-h">2 Supplier Get</div>
+				<div class="subsection-h">2.1 s.get()</div>
+				<div class="khmer-line">ប្រើសម្រាប់ហៅ Supplier ឱ្យផ្ដល់តម្លៃមួយត្រឡប់មកវិញ។ Method នេះមិនទទួល Argument ទេ។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">s.get();</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">import java.util.function.Supplier;
+public class Main {
+    public static void main(String[] args) {
+        Supplier&lt;String&gt; s = () -&gt; "Hello Java";
+        System.out.println(s.get());
+    }
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">Hello Java</div>
+					</div>
+				</div>
+
+				<div class="section-h">3 Object Methods</div>
+				<div class="subsection-h">3.1 s.toString()</div>
+				<div class="khmer-line">បម្លែង Supplier Object ទៅជា String សម្រាប់បង្ហាញព័ត៌មានរបស់ Object។ លទ្ធផលអាចខុសគ្នាតាមការអនុវត្ត។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">s.toString();</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">import java.util.function.Supplier;
+public class Main {
+    public static void main(String[] args) {
+        Supplier&lt;String&gt; s = () -&gt; "Hello";
+        System.out.println(s.toString());
+    }
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">Lambda representation (implementation-dependent)</div>
+					</div>
+				</div>
+
+				<div class="subsection-h">3.2 s.equals(obj)</div>
+				<div class="khmer-line">ពិនិត្យមើលថា Supplier Object ស្មើនឹង Object ផ្សេងទៀតឬអត់ ហើយត្រឡប់ true ឬ false។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">s.equals(obj);</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">import java.util.function.Supplier;
+public class Main {
+    public static void main(String[] args) {
+        Supplier&lt;String&gt; s = () -&gt; "Hello";
+        Supplier&lt;String&gt; other = s;
+        System.out.println(s.equals(other));
+    }
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">true</div>
+					</div>
+				</div>
+
+				<div class="subsection-h">3.3 s.hashCode()</div>
+				<div class="khmer-line">ត្រឡប់លេខ Hash Code របស់ Supplier Object។ តម្លៃអាចខុសគ្នាតាម Object នីមួយៗ។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">s.hashCode();</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">import java.util.function.Supplier;
+public class Main {
+    public static void main(String[] args) {
+        Supplier&lt;String&gt; s = () -&gt; "Hello";
+        System.out.println(s.hashCode());
+    }
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">Hash code value (varies)</div>
+					</div>
+				</div>
+				<div class="subsection-h">3.4 s.getClass()</div>
+				<div class="khmer-line">ត្រឡប់ Class របស់ Supplier Object ដែលកំពុងប្រើ។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">s.getClass();</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">import java.util.function.Supplier;
+public class Main {
+    public static void main(String[] args) {
+        Supplier&lt;String&gt; s = () -&gt; "Hello";
+        System.out.println(s.getClass());
+    }
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">class Main$$Lambda$...</div>
+					</div>
+				</div>
+            </div>
+            <!--Unit 19F-->
+            <div class="book-page" id="page-java-unit2-1">
+                <div class="stage">
+                    <div class="unit-header">
+                        <span class="page-right">19</span>
+                        <div class="corner tl"></div>
+                        <div class="corner br"></div>
+                        <div class="screentone"></div>
+                        <div class="unit-badge">UNIT 19</div>
+                        <div class="unit-chevrons">
+                        <svg width="18" height="26" viewBox="0 0 18 26"><path d="M0 0 L14 13 L0 26 Z" fill="url(#chev1)"/><defs><linearGradient id="chev1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#ff6b6b"/><stop offset="100%" stop-color="#c40000"/></linearGradient></defs></svg>
+                        <svg width="18" height="26" viewBox="0 0 18 26"><path d="M0 0 L14 13 L0 26 Z" fill="url(#chev2)"/><defs><linearGradient id="chev2" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#f4c14f"/><stop offset="100%" stop-color="#c47c00"/></linearGradient></defs></svg>
+                        </div>
+                        <div class="unit-title">BiFunction</div>
+                        <div class="speed-lines"></div>
+                    </div>
+                </div>
+				<div class="section-h">1 BiFunction Apply</div>
+				<div class="khmer-line">ប្រើសម្រាប់ដំណើរការ BiFunction ដោយបញ្ចូលតម្លៃពីរ គឺ t និង u ហើយត្រឡប់លទ្ធផលប្រភេទ R។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">f.apply(t, u);</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">import java.util.function.BiFunction;
+public class Main {
+    public static void main(String[] args) {
+        BiFunction&lt;Integer, Integer, Integer&gt; f = (a, b) -&gt; a + b;
+        System.out.println(f.apply(10, 20));
+    }
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">30</div>
+					</div>
+				</div>
+
+				<div class="section-h">2 BiFunction Composition</div>
+				<div class="subsection-h">2.1 f.andThen(Function&lt;? super R, ? extends V&gt; after)</div>
+				<div class="khmer-line">ដំណើរការ BiFunction f ជាមុនសិន រួចយកលទ្ធផលប្រភេទ R ទៅឱ្យ Function after ដំណើរការបន្ត ហើយត្រឡប់លទ្ធផលប្រភេទ V។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">f.andThen(after);</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">import java.util.function.BiFunction;
+import java.util.function.Function;
+public class Main {
+    public static void main(String[] args) {
+        BiFunction&lt;Integer, Integer, Integer&gt; f = (a, b) -&gt; a + b;
+        Function&lt;Integer, String&gt; after = n -&gt; "Result: " + n;
+        Function&lt;Integer, String&gt; result = f.andThen(after);
+        System.out.println(result.apply(10, 20));
+    }
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">Result: 30</div>
+					</div>
+				</div>
+
+				<div class="section-h">3 Object Methods</div>
+				<div class="subsection-h">3.1 f.toString()</div>
+				<div class="khmer-line">បម្លែង BiFunction Object ទៅជា String សម្រាប់បង្ហាញព័ត៌មានរបស់ Object។ លទ្ធផលអាចខុសគ្នាតាមការអនុវត្ត។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">f.toString();</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">import java.util.function.BiFunction;
+public class Main {
+    public static void main(String[] args) {
+        BiFunction&lt;Integer, Integer, Integer&gt; f = (a, b) -&gt; a + b;
+        System.out.println(f.toString());
+    }
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">Lambda representation (implementation-dependent)</div>
+					</div>
+				</div>
+
+				<div class="subsection-h">3.2 f.equals(obj)</div>
+				<div class="khmer-line">ពិនិត្យមើលថា BiFunction Object ស្មើនឹង Object ផ្សេងទៀតឬអត់ ហើយត្រឡប់ true ឬ false។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">f.equals(obj);</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">import java.util.function.BiFunction;
+public class Main {
+    public static void main(String[] args) {
+        BiFunction&lt;Integer, Integer, Integer&gt; f = (a, b) -&gt; a + b;
+        BiFunction&lt;Integer, Integer, Integer&gt; other = f;
+        System.out.println(f.equals(other));
+    }
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">true</div>
+					</div>
+				</div>
+
+				<div class="subsection-h">3.3 f.hashCode()</div>
+				<div class="khmer-line">ត្រឡប់លេខ Hash Code របស់ BiFunction Object។ តម្លៃអាចខុសគ្នាតាម Object នីមួយៗ។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">f.hashCode();</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">import java.util.function.BiFunction;
+public class Main {
+    public static void main(String[] args) {
+        BiFunction&lt;Integer, Integer, Integer&gt; f = (a, b) -&gt; a + b;
+        System.out.println(f.hashCode());
+    }
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">Hash code value (varies)</div>
+					</div>
+				</div>
+
+				<div class="subsection-h">3.4 f.getClass()</div>
+				<div class="khmer-line">ត្រឡប់ Class របស់ BiFunction Object ដែលកំពុងប្រើ។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">f.getClass();</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">import java.util.function.BiFunction;
+public class Main {
+    public static void main(String[] args) {
+        BiFunction&lt;Integer, Integer, Integer&gt; f = (a, b) -&gt; a + b;
+        System.out.println(f.getClass());
+    }
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">class Main$$Lambda$...</div>
+					</div>
+				</div>
+
+				<div class="subsection-h">3.5 f.wait()</div>
+				<div class="khmer-line">ផ្អាក Thread បច្ចុប្បន្ន ហើយរង់ចាំរហូតដល់ Thread ផ្សេងហៅ notify() ឬ notifyAll() លើ Object ដដែល។ ត្រូវប្រើនៅក្នុង synchronized context។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">f.wait();</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">Object lock = new Object();
+synchronized (lock) {
+    lock.wait();
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">Thread waits until notified</div>
+					</div>
+				</div>
+
+				<div class="subsection-h">3.6 f.notify()</div>
+				<div class="khmer-line">ជូនដំណឹងទៅ Thread មួយក្នុងចំណោម Thread ដែលកំពុងរង់ចាំលើ Object ដដែល។ ត្រូវប្រើនៅក្នុង synchronized context។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">f.notify();</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">Object lock = new Object();
+synchronized (lock) {
+    lock.notify();
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">One waiting thread is notified</div>
+					</div>
+				</div>
+
+				<div class="subsection-h">3.7 f.notifyAll()</div>
+				<div class="khmer-line">ជូនដំណឹងទៅ Thread ទាំងអស់ដែលកំពុងរង់ចាំលើ Object ដដែល។ ត្រូវប្រើនៅក្នុង synchronized context។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">f.notifyAll();</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">Object lock = new Object();
+synchronized (lock) {
+    lock.notifyAll();
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">All waiting threads are notified</div>
+					</div>
+				</div>
+
+				<div class="section-h">4 BiFunction Examples</div>
+				<div class="subsection-h">4.1 add</div>
+				<div class="khmer-line">ប្រើ Lambda Expression ដើម្បីបូកចំនួនពីរ ហើយត្រឡប់លទ្ធផលជាចំនួនគត់។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">BiFunction&lt;Integer, Integer, Integer&gt; add = (a, b) -&gt; a + b;</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">import java.util.function.BiFunction;
+public class Main {
+    public static void main(String[] args) {
+        BiFunction&lt;Integer, Integer, Integer&gt; add = (a, b) -&gt; a + b;
+        System.out.println(add.apply(10, 20));
+    }
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">30</div>
+					</div>
+				</div>
+
+				<div class="subsection-h">4.2 max</div>
+				<div class="khmer-line">ប្រើ Static Method Reference ទៅកាន់ Math.max() ដើម្បីរកចំនួនធំជាងក្នុងចំណោមចំនួនពីរ។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">BiFunction&lt;Integer, Integer, Integer&gt; max = Math::max;</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">import java.util.function.BiFunction;
+public class Main {
+    public static void main(String[] args) {
+        BiFunction&lt;Integer, Integer, Integer&gt; max = Math::max;
+        System.out.println(max.apply(10, 20));
+    }
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">20</div>
+					</div>
+				</div>
+
+				<div class="subsection-h">4.3 repeat</div>
+				<div class="khmer-line">ប្រើ Instance Method Reference ទៅកាន់ String.repeat()។ Argument ទីមួយជាអក្សរ String ដែលត្រូវធ្វើម្តងទៀត ហើយ Argument ទីពីរជាចំនួនដង។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">BiFunction&lt;String, Integer, String&gt; repeat = String::repeat;</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">import java.util.function.BiFunction;
+public class Main {
+    public static void main(String[] args) {
+        BiFunction&lt;String, Integer, String&gt; repeat = String::repeat;
+        System.out.println(repeat.apply("Java ", 3));
+    }
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">Java Java Java </div>
+					</div>
+				</div>
+
+				<div class="subsection-h">4.4 make</div>
+				<div class="khmer-line">ប្រើ Constructor Reference ទៅកាន់ Person::new ដើម្បីបង្កើត Person Object ដោយប្រើ Constructor ដែលទទួល Argument ពីរ។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">BiFunction&lt;String, Integer, Person&gt; make = Person::new;</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">import java.util.function.BiFunction;
+class Person {
+    String name;
+    int age;
+    Person(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+}
+public class Main {
+    public static void main(String[] args) {
+        BiFunction&lt;String, Integer, Person&gt; make = Person::new;
+        Person p = make.apply("Xiao Xie", 20);
+        System.out.println(p.name + ", " + p.age);
+    }
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">Xiao Xie, 20</div>
+					</div>
+				</div>
+
+				<div class="subsection-h">4.5 viaObj</div>
+				<div class="khmer-line">ប្រើ Method Reference ទៅកាន់ Method add() របស់ Object calc ជាក់លាក់ ដើម្បីបូកចំនួនពីរ។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">BiFunction&lt;Integer, Integer, Integer&gt; viaObj = calc::add;</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">import java.util.function.BiFunction;
+class Calculator {
+    int add(int a, int b) {
+        return a + b;
+    }
+}
+public class Main {
+    public static void main(String[] args) {
+        Calculator calc = new Calculator();
+        BiFunction&lt;Integer, Integer, Integer&gt; viaObj = calc::add;
+        System.out.println(viaObj.apply(10, 20));
+    }
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">30</div>
+					</div>
+				</div>
+
+				<div class="section-h">5 Related Functional Interfaces</div>
+				<div class="subsection-h">5.1 BinaryOperator&lt;T&gt;</div>
+				<div class="khmer-line">ទទួលតម្លៃពីរដែលមានប្រភេទ T ដូចគ្នា ហើយត្រឡប់លទ្ធផលប្រភេទ T។ វា extends BiFunction&lt;T, T, T&gt; និងមាន minBy() និង maxBy() សម្រាប់ប្រៀបធៀបតម្លៃ។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">BinaryOperator&lt;T&gt; operator;</span>
+					<span class="code-inline">BinaryOperator.minBy(comparator);</span>
+					<span class="code-inline">BinaryOperator.maxBy(comparator);</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">import java.util.function.BinaryOperator;
+public class Main {
+    public static void main(String[] args) {
+        BinaryOperator&lt;Integer&gt; add = (a, b) -&gt; a + b;
+        System.out.println(add.apply(10, 20));
+    }
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">30</div>
+					</div>
+				</div>
+
+				<div class="subsection-h">5.2 BiPredicate&lt;T, U&gt;</div>
+				<div class="khmer-line">ទទួល Argument ពីរប្រភេទ T និង U ហើយត្រឡប់ boolean។ មាន Methods test(), and(), or() និង negate()។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">BiPredicate&lt;T, U&gt; predicate;</span>
+					<span class="code-inline">predicate.test(t, u);</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">import java.util.function.BiPredicate;
+public class Main {
+    public static void main(String[] args) {
+        BiPredicate&lt;String, Integer&gt; check = (s, n) -&gt; s.length() == n;
+        System.out.println(check.test("Java", 4));
+    }
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">true</div>
+					</div>
+				</div>
+
+				<div class="subsection-h">5.3 BiConsumer&lt;T, U&gt;</div>
+				<div class="khmer-line">ទទួល Argument ពីរប្រភេទ T និង U ដើម្បីធ្វើសកម្មភាព ហើយមិនត្រឡប់តម្លៃទេ។ មាន Methods accept() និង andThen()។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">BiConsumer&lt;T, U&gt; consumer;</span>
+					<span class="code-inline">consumer.accept(t, u);</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">import java.util.function.BiConsumer;
+public class Main {
+    public static void main(String[] args) {
+        BiConsumer&lt;String, Integer&gt; print = (name, age) -&gt;
+            System.out.println(name + ": " + age);
+        print.accept("Xiao Xie", 20);
+    }
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">Xiao Xie: 20</div>
+					</div>
+				</div>
+
+				<div class="subsection-h">5.4 ToIntBiFunction&lt;T, U&gt;</div>
+				<div class="khmer-line">ទទួល Argument ពីរប្រភេទ T និង U ហើយត្រឡប់តម្លៃប្រភេទ int តាមរយៈ applyAsInt()។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">ToIntBiFunction&lt;T, U&gt; function;</span>
+					<span class="code-inline">function.applyAsInt(t, u);</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">import java.util.function.ToIntBiFunction;
+public class Main {
+    public static void main(String[] args) {
+        ToIntBiFunction&lt;String, String&gt; length =
+            (a, b) -&gt; a.length() + b.length();
+        System.out.println(length.applyAsInt("Java", "Python"));
+    }
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">10</div>
+					</div>
+				</div>
+
+				<div class="subsection-h">5.5 ToLongBiFunction&lt;T, U&gt;</div>
+				<div class="khmer-line">ទទួល Argument ពីរប្រភេទ T និង U ហើយត្រឡប់តម្លៃប្រភេទ long តាមរយៈ applyAsLong()។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">ToLongBiFunction&lt;T, U&gt; function;</span>
+					<span class="code-inline">function.applyAsLong(t, u);</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">import java.util.function.ToLongBiFunction;
+public class Main {
+    public static void main(String[] args) {
+        ToLongBiFunction&lt;Integer, Integer&gt; multiply =
+            (a, b) -&gt; (long) a * b;
+        System.out.println(multiply.applyAsLong(1000, 2000));
+    }
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">2000000</div>
+					</div>
+				</div>
+
+				<div class="subsection-h">5.6 ToDoubleBiFunction&lt;T, U&gt;</div>
+				<div class="khmer-line">ទទួល Argument ពីរប្រភេទ T និង U ហើយត្រឡប់តម្លៃប្រភេទ double តាមរយៈ applyAsDouble()។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">ToDoubleBiFunction&lt;T, U&gt; function;</span>
+					<span class="code-inline">function.applyAsDouble(t, u);</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">import java.util.function.ToDoubleBiFunction;
+public class Main {
+    public static void main(String[] args) {
+        ToDoubleBiFunction&lt;Integer, Integer&gt; divide =
+            (a, b) -&gt; (double) a / b;
+        System.out.println(divide.applyAsDouble(10, 4));
+    }
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">2.5</div>
+					</div>
+				</div>
+
+				<div class="subsection-h">5.7 IntBinaryOperator</div>
+				<div class="khmer-line">ទទួលចំនួន int ពីរ ហើយត្រឡប់លទ្ធផលជា int តាមរយៈ applyAsInt()។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">IntBinaryOperator operator;</span>
+					<span class="code-inline">operator.applyAsInt(a, b);</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">import java.util.function.IntBinaryOperator;
+public class Main {
+    public static void main(String[] args) {
+        IntBinaryOperator add = (a, b) -&gt; a + b;
+        System.out.println(add.applyAsInt(10, 20));
+    }
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">30</div>
+					</div>
+				</div>
+
+				<div class="subsection-h">5.8 LongBinaryOperator</div>
+				<div class="khmer-line">ទទួលចំនួន long ពីរ ហើយត្រឡប់លទ្ធផលជា long តាមរយៈ applyAsLong()។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">LongBinaryOperator operator;</span>
+					<span class="code-inline">operator.applyAsLong(a, b);</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">import java.util.function.LongBinaryOperator;
+public class Main {
+    public static void main(String[] args) {
+        LongBinaryOperator add = (a, b) -&gt; a + b;
+        System.out.println(add.applyAsLong(10000000000L, 20000000000L));
+    }
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">30000000000</div>
+					</div>
+				</div>
+				<div class="subsection-h">5.9 DoubleBinaryOperator</div>
+				<div class="khmer-line">ទទួលចំនួន double ពីរ ហើយត្រឡប់លទ្ធផលជា double តាមរយៈ applyAsDouble()។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">DoubleBinaryOperator operator;</span>
+					<span class="code-inline">operator.applyAsDouble(a, b);</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">import java.util.function.DoubleBinaryOperator;
+public class Main {
+    public static void main(String[] args) {
+        DoubleBinaryOperator multiply = (a, b) -&gt; a * b;
+        System.out.println(multiply.applyAsDouble(2.5, 4.0));
+    }
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">10.0</div>
+					</div>
+				</div>
+
+				<div class="subsection-h">5.10 ObjIntConsumer&lt;T&gt;</div>
+				<div class="khmer-line">ទទួល Object ប្រភេទ T និងចំនួន int ដើម្បីធ្វើសកម្មភាព ដោយមិនត្រឡប់តម្លៃទេ។ ប្រើ accept()។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">ObjIntConsumer&lt;T&gt; consumer;</span>
+					<span class="code-inline">consumer.accept(obj, value);</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">import java.util.function.ObjIntConsumer;
+public class Main {
+    public static void main(String[] args) {
+        ObjIntConsumer&lt;String&gt; print =
+            (name, age) -&gt; System.out.println(name + ": " + age);
+        print.accept("Xiao Xie", 20);
+    }
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">Xiao Xie: 20</div>
+					</div>
+				</div>
+
+				<div class="subsection-h">5.11 ObjLongConsumer&lt;T&gt;</div>
+				<div class="khmer-line">ទទួល Object ប្រភេទ T និងចំនួន long ដើម្បីធ្វើសកម្មភាព ដោយមិនត្រឡប់តម្លៃទេ។ ប្រើ accept()។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">ObjLongConsumer&lt;T&gt; consumer;</span>
+					<span class="code-inline">consumer.accept(obj, value);</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">import java.util.function.ObjLongConsumer;
+public class Main {
+    public static void main(String[] args) {
+        ObjLongConsumer&lt;String&gt; print =
+            (name, amount) -&gt; System.out.println(name + ": " + amount);
+        print.accept("Xiao Xie", 10000000000L);
+    }
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">Xiao Xie: 10000000000</div>
+					</div>
+				</div>
+				<div class="subsection-h">5.12 ObjDoubleConsumer&lt;T&gt;</div>
+				<div class="khmer-line">ទទួល Object ប្រភេទ T និងចំនួន double ដើម្បីធ្វើសកម្មភាព ដោយមិនត្រឡប់តម្លៃទេ។ ប្រើ accept()។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">ObjDoubleConsumer&lt;T&gt; consumer;</span>
+					<span class="code-inline">consumer.accept(obj, value);</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">import java.util.function.ObjDoubleConsumer;
+public class Main {
+    public static void main(String[] args) {
+        ObjDoubleConsumer&lt;String&gt; print =
+            (name, score) -&gt; System.out.println(name + ": " + score);
+        print.accept("Xiao Xie", 95.5);
+    }
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">Xiao Xie: 95.5</div>
+					</div>
+				</div>
+            </div>
+ 
+
+
+
+
+
 
             <!--Unit 20-->
             <div class="book-page" id="page-java-unit2-1">
