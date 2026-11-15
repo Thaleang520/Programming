@@ -5400,21 +5400,21 @@ html:not([data-theme="light"]) .card .img {
 html.intro-play::before {
     content: ""; position: fixed; inset: 0; z-index: 50; pointer-events: none;
     background: radial-gradient(circle at 50% 46%, transparent var(--introSpot), rgba(7,7,10,.97) calc(var(--introSpot) + 160px));
-    animation: introSpotOpen 2.2s cubic-bezier(.5,.1,.25,1) .1s both;
+    animation: introSpotOpen 3.5s cubic-bezier(.5,.1,.25,1) .15s both;
 }
 
-html.intro-play .top-bar .icon-ring         { animation: introSoft 1s ease-out .55s backwards; }
-html.intro-play .top-bar .icon-ring::before { animation: introHalo 1s ease-out 1s backwards; }
-html.intro-play .top-bar .icon-ring::after  { animation: introHalo 1.2s ease-out 1.15s backwards; }
-html.intro-play .top-bar .word              { animation: introSlow 1s ease-out 1.1s backwards; }
+html.intro-play .top-bar .icon-ring         { animation: introSoft 1.6s ease-out .9s backwards; }
+html.intro-play .top-bar .icon-ring::before { animation: introHalo 1.6s ease-out 1.6s backwards; }
+html.intro-play .top-bar .icon-ring::after  { animation: introHalo 1.9s ease-out 1.85s backwards; }
+html.intro-play .top-bar .word              { animation: introSlow 1.6s ease-out 1.75s backwards; }
 
-html.intro-play #inner                      { animation: introSway 2.4s cubic-bezier(.16,.8,.24,1) .4s backwards; }
-html.intro-play #inner .card                { animation: introFloat 1.1s cubic-bezier(.2,.8,.2,1) calc(.7s + var(--index, 0) * 100ms) backwards; }
-html.intro-play .glow-floor                 { animation: introFloorIn 1.6s ease-out .9s backwards; }
+html.intro-play #inner                      { animation: introSway 3.8s cubic-bezier(.16,.8,.24,1) .65s backwards; }
+html.intro-play #inner .card                { animation: introFloat 1.8s cubic-bezier(.2,.8,.2,1) calc(1.1s + var(--index, 0) * 160ms) backwards; }
+html.intro-play .glow-floor                 { animation: introFloorIn 2.5s ease-out 1.45s backwards; }
 
-html.intro-play .bottom-bar .search-row     { animation: introSlow .9s ease-out 1.8s backwards; }
-html.intro-play .bottom-bar .cat-row        { animation: introSlow .9s ease-out 1.95s backwards; }
-html.intro-play .bottom-bar .Text           { animation: introSlow .9s ease-out 2.1s backwards; }
+html.intro-play .bottom-bar .search-row     { animation: introSlow 1.45s ease-out 2.9s backwards; }
+html.intro-play .bottom-bar .cat-row        { animation: introSlow 1.45s ease-out 3.1s backwards; }
+html.intro-play .bottom-bar .Text           { animation: introSlow 1.45s ease-out 3.35s backwards; }
 
 @media (prefers-reduced-motion: reduce) {
     html.intro-play::before { display: none; }
@@ -105929,7 +105929,7 @@ eas build --platform android</div>
     /* Start the home-page intro animation once the loader is gone */
     (function () {
         var root = document.documentElement, started = false;
-        function go() { if (started) return; started = true; root.classList.add('intro-play'); try { if (window.PLSound && PLSound.intro) PLSound.intro(); } catch (e) {} setTimeout(function () { root.classList.remove('intro-play'); }, 10000); }
+        function go() { if (started) return; started = true; root.classList.add('intro-play'); try { if (window.PLSound && PLSound.intro) PLSound.intro(); } catch (e) {} setTimeout(function () { root.classList.remove('intro-play'); }, 12000); }
         var loader = document.getElementById('pageLoader');
         if (!loader || loader.classList.contains('is-done')) { requestAnimationFrame(go); return; }
         var mo = new MutationObserver(function () { if (loader.classList.contains('is-done')) { mo.disconnect(); go(); } });
@@ -106156,10 +106156,10 @@ eas build --platform android</div>
             shine:  function () { tone(1568, .5, {type:"sine", vol:.045}); tone(2349, .6, {type:"sine", vol:.03, delay:.1}); noise(.4, {from:4000, to:9000, q:2, vol:.025}); },
             shimmer:function () { noise(.4, {from:3000, to:8000, q:2, vol:.03}); tone(1760, .2, {type:"sine", vol:.022}); },
             iSpot:  function () {   /* spotlight opening: rising airy whoosh + low swell */
-                noise(2.3, {from:180, to:5200, q:.9, vol:.13, attack:1.5});
-                tone(82, 2.2, {type:"sine", vol:.09, attack:1.3, to:196});
-                tone(164, 2.0, {type:"triangle", vol:.03, attack:1.3, to:392});
-                noise(.5, {from:5200, to:900, q:1.1, vol:.05, delay:1.8, attack:.1});
+                noise(3.6, {from:180, to:5200, q:.9, vol:.13, attack:2.4});
+                tone(82, 3.5, {type:"sine", vol:.09, attack:2.1, to:196});
+                tone(164, 3.2, {type:"triangle", vol:.03, attack:2.1, to:392});
+                noise(.7, {from:5200, to:900, q:1.1, vol:.05, delay:2.9, attack:.12});
             },
             iLogo:  function () {   /* logo fades in: soft bell */
                 tone(784, .7, {type:"sine", vol:.10, attack:.02});
@@ -106176,7 +106176,7 @@ eas build --platform android</div>
                 tone(f / 2, .3, {type:"triangle", vol:.035, attack:.015});
                 noise(.12, {from:2500, to:6000, q:1.2, vol:.025, attack:.03});
             },
-            iFloor: function () { tone(98, 1.4, {type:"sine", vol:.07, attack:.6, to:147}); tone(196, 1.2, {type:"sine", vol:.03, attack:.6}); },
+            iFloor: function () { tone(98, 2.2, {type:"sine", vol:.07, attack:.9, to:147}); tone(196, 1.9, {type:"sine", vol:.03, attack:.9}); },
             iBar:   function () { tone(900, .07, {type:"sine", vol:.06, to:1300}); noise(.04, {from:4000, vol:.025, q:1}); },
             iDone:  function () { [523, 659, 784, 1047].forEach(function (f, i) { tone(f, .8, {type:"sine", vol:.07, delay:i*.06, attack:.02}); }); },
             on:     function () { tone(600, .1, {type:"triangle", vol:.15}); tone(900, .16, {type:"triangle", vol:.15, delay:.07}); }
@@ -106195,9 +106195,9 @@ eas build --platform android</div>
             if (muted) return;
             ensure();                                           /* try to start audio (may be blocked until the first click/tap) */
             var n = document.querySelectorAll("#inner .card").length || 11, i;
-            var T = [[.12, "iSpot"], [.55, "iLogo"], [.9, "iFloor"], [1.0, "iRing"], [1.1, "iWord"], [1.15, "iRing"],
-                     [1.8, "iBar"], [1.95, "iBar"], [2.1, "iBar"], [2.4, "iDone"]];
-            for (i = 0; i < n; i++) T.push([.7 + i * .1, "iCard", i]);
+            var T = [[.2, "iSpot"], [.9, "iLogo"], [1.45, "iFloor"], [1.6, "iRing"], [1.75, "iWord"], [1.85, "iRing"],
+                     [2.9, "iBar"], [3.1, "iBar"], [3.35, "iBar"], [3.9, "iDone"]];
+            for (i = 0; i < n; i++) T.push([1.1 + i * .16, "iCard", i]);
             T.forEach(function (e) {
                 setTimeout(function () {
                     if (muted || !ctx || ctx.state !== "running") return;   /* blocked by autoplay policy -> stay silent, never burst later */
