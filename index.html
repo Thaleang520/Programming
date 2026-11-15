@@ -91775,7 +91775,7 @@ public class Main {
                 </div>
             </div>
             <div class="subsection-h">1.7 f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE)</div>
-            <div class="khmer-line">f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); ត្រូវបានប្រើដើម្បីកំណត់ឱ្យផ្ទាំងកម្មវិធី (JFrame ដែលមានឈ្មោះថា f) បិទបញ្ចប់ដំណើរការកម្មវិធី Java ទាំងមូលតែម្តង នៅពេលដែលអ្នកប្រើប្រាស់ចុចប៊ូតុងខ្វែង (X) នៅជ្រុងខាងលើនៃផ្ទាំងកម្មវិធី។
+            <div class="khmer-line">f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); ត្រូវបានប្រើដើម្បីកំណត់ឱ្យផ្ទាំងកម្មវិធី (JFrame ដែលមានឈ្មោះថា f) បិទបញ្ចប់ដំណើរការកម្មវិធី Java ទាំងមូលតែម្តង នៅពេលដែលអ្នកប្រើប្រាស់ចុចប៊ូតុងខ្វែង (X) នៅជ្រុងខាងលើនៃផ្ទាំងកម្មវិធី។</div>
             <div class="code-row">
                 <span class="code-label syntax">Syntax</span>
                 <span class="code-inline">f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);</span>
@@ -102295,7 +102295,6 @@ public class Main {
         <div class="notes-heading">Your notes</div>
         <div class="lesson-content" contenteditable="true" data-placeholder="Add your lesson content here..."></div>
     </div>
-    </div><!-- closes lesson-java (was missing) -->
 <!--REACT NATIVE================================================================================================================================-->
     <div class="lesson-view" id="lesson-React-native" data-color="0, 122, 255;">
         <div class="lesson-topbar">
@@ -105908,6 +105907,443 @@ eas build --platform android</div>
         document.querySelectorAll(".lesson-view").forEach(function(v){mo.observe(v,{attributes:true,attributeFilter:["class"]});});
         place();
         })();
+    </script>
+    <!-- ================= SITE-WIDE SOUND SYSTEM (Web Audio, no files needed) ================= -->
+    <style>
+        /* ===== sound button: same cyber look as the mode button, sits to its left ===== */
+        .snd-toggle{
+            --tc:10px; --tt:1.5px;
+            position:fixed;top:max(12px,env(safe-area-inset-top));right:max(12px,env(safe-area-inset-right));z-index:9999;
+            display:flex;align-items:center;gap:10px;height:40px;padding:0 16px 0 12px;margin:0;border:0;border-radius:0;cursor:pointer;
+            font-family:var(--body,'Rajdhani',sans-serif);font-weight:700;font-size:13px;letter-spacing:.14em;text-transform:uppercase;line-height:1;
+            color:#e9fdff;text-shadow:0 0 8px rgba(0,240,255,.7);
+            background:linear-gradient(160deg,#12101c,#07070d);
+            clip-path:polygon(0 var(--tc),var(--tc) 0,100% 0,100% calc(100% - var(--tc)),calc(100% - var(--tc)) 100%,0 100%);
+            -webkit-tap-highlight-color:transparent;transition:none;
+        }
+        .snd-toggle::before{
+            content:"";position:absolute;inset:0;pointer-events:none;z-index:2;
+            background:linear-gradient(115deg,#00f0ff 0%,#9000ff 50%,#ff2a6d 100%);
+            clip-path:polygon(evenodd,
+              0 var(--tc),var(--tc) 0,100% 0,100% calc(100% - var(--tc)),calc(100% - var(--tc)) 100%,0 100%,0 var(--tc),
+              var(--tt) calc(var(--tc) + var(--tt)*.414),calc(var(--tc) + var(--tt)*.414) var(--tt),calc(100% - var(--tt)) var(--tt),
+              calc(100% - var(--tt)) calc(100% - var(--tc) - var(--tt)*.414),calc(100% - var(--tc) - var(--tt)*.414) calc(100% - var(--tt)),var(--tt) calc(100% - var(--tt)));
+        }
+        .snd-toggle::after{
+            content:"";position:absolute;inset:0;pointer-events:none;
+            background:repeating-linear-gradient(0deg,rgba(255,255,255,.05) 0 1px,transparent 1px 3px),
+                       linear-gradient(115deg,rgba(0,240,255,.10),transparent 45%,rgba(255,42,109,.10));
+        }
+        .snd-toggle .sd-eq{position:relative;z-index:1;flex:0 0 auto;display:flex;align-items:flex-end;gap:2.5px;width:24px;height:16px;padding:0 3px;
+            background:rgba(0,240,255,.10);box-shadow:inset 0 0 0 1px rgba(0,240,255,.55),inset 0 0 8px rgba(0,240,255,.25);
+            clip-path:polygon(0 4px,4px 0,100% 0,100% calc(100% - 4px),calc(100% - 4px) 100%,0 100%);}
+        .snd-toggle .sd-eq i{display:block;flex:1;height:70%;margin-bottom:2px;background:linear-gradient(180deg,#00f0ff,#ff2a6d);
+            box-shadow:0 0 6px rgba(0,240,255,.8)}
+        .snd-toggle .sd-eq i:nth-child(1){height:45%}
+        .snd-toggle .sd-eq i:nth-child(2){height:85%}
+        .snd-toggle .sd-eq i:nth-child(3){height:60%}
+        .snd-toggle .sd-eq i:nth-child(4){height:35%}
+        .snd-toggle .sd-text{display:flex;align-items:baseline;gap:6px;position:relative;z-index:1}
+        .snd-toggle .sd-tag{font-size:10px;letter-spacing:.2em;color:#00f0ff;text-shadow:0 0 6px rgba(0,240,255,.6)}
+        .snd-toggle .sd-state{min-width:2.4em;color:#e9fdff}
+        .snd-toggle:hover .sd-eq{box-shadow:inset 0 0 0 1px #00f0ff,inset 0 0 12px rgba(0,240,255,.45)}
+        .snd-toggle:hover .sd-state{text-shadow:0 0 10px rgba(0,240,255,.95),0 0 22px rgba(0,240,255,.5)}
+                .snd-toggle:focus-visible{outline:2px solid #f4c14f;outline-offset:3px}
+        /* muted */
+        .snd-toggle.is-muted{color:#8b8ea8;text-shadow:none}
+        .snd-toggle.is-muted .sd-eq{box-shadow:inset 0 0 0 1px rgba(255,42,109,.55),inset 0 0 8px rgba(255,42,109,.15);background:rgba(255,42,109,.06)}
+        .snd-toggle.is-muted .sd-eq i{height:18%;background:#ff2a6d;box-shadow:0 0 4px rgba(255,42,109,.6)}
+        .snd-toggle.is-muted .sd-tag{color:#ff2a6d;text-shadow:0 0 6px rgba(255,42,109,.6)}
+        .snd-toggle.is-muted .sd-state{color:#ff8fa8}
+        /* light mode */
+        html[data-theme="light"] .snd-toggle{color:#14151c;text-shadow:none;background:linear-gradient(160deg,#ffffff,#eef1f8)}
+        html[data-theme="light"] .snd-toggle::after{background:repeating-linear-gradient(0deg,rgba(0,0,0,.035) 0 1px,transparent 1px 3px),linear-gradient(115deg,rgba(0,200,220,.10),transparent 45%,rgba(255,42,109,.08))}
+        html[data-theme="light"] .snd-toggle .sd-eq{background:rgba(0,160,190,.08);box-shadow:inset 0 0 0 1px rgba(0,150,180,.65),inset 0 0 8px rgba(0,150,180,.15)}
+        html[data-theme="light"] .snd-toggle .sd-eq i{background:linear-gradient(180deg,#00a8c0,#d4175c);box-shadow:none}
+        html[data-theme="light"] .snd-toggle .sd-tag{color:#0089a0;text-shadow:none}
+        html[data-theme="light"] .snd-toggle .sd-state{color:#14151c}
+        html[data-theme="light"] .snd-toggle:hover .sd-state{text-shadow:none;color:#6a1fd6}
+        html[data-theme="light"] .snd-toggle.is-muted{color:#6b6d78}
+        html[data-theme="light"] .snd-toggle.is-muted .sd-eq{background:rgba(255,42,109,.08);box-shadow:inset 0 0 0 1px rgba(212,23,92,.6)}
+        html[data-theme="light"] .snd-toggle.is-muted .sd-eq i{background:#d4175c}
+        html[data-theme="light"] .snd-toggle.is-muted .sd-tag{color:#d4175c}
+        html[data-theme="light"] .snd-toggle.is-muted .sd-state{color:#d4175c}
+        @media (max-width:700px){ .snd-toggle{height:36px;padding:0 12px 0 10px;gap:8px;font-size:12px} .snd-toggle .sd-tag{display:none} }
+        /* no sound button on the loading screen or the home page (only inside lessons, like the mode button) */
+        body:has(#carouselView:not(.is-hidden-view)) .snd-toggle,
+        body:has(#pageLoader:not(.is-done)) .snd-toggle{display:none !important}
+        /* inside a lesson: sits in the top bar, directly to the LEFT of the mode button */
+        .lesson-topbar .snd-toggle{position:relative;top:auto;right:auto;z-index:auto;flex:0 0 auto;height:34px;padding:0 12px 0 10px;gap:8px;font-size:12px;margin-left:auto}
+        @media (min-width:701px){ .lesson-topbar .undo-hint ~ .snd-toggle{margin-left:0} }
+        .lesson-topbar .snd-toggle ~ .theme-toggle{margin-left:-6px !important}
+    </style>
+    <button type="button" class="snd-toggle" id="soundToggle" aria-label="Mute sound" title="Sound on/off"><span class="sd-eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span class="sd-text"><span class="sd-tag">SFX</span><span class="sd-state" id="soundState">ON</span></span></button>
+    <script>
+    (function () {
+        "use strict";
+        var KEY = "pl-sound";
+        var muted = false;
+        try { muted = localStorage.getItem(KEY) === "off"; } catch (e) {}
+
+        var AC = window.AudioContext || window.webkitAudioContext;
+        if (!AC) { var b0 = document.getElementById("soundToggle"); if (b0) b0.style.display = "none"; return; }
+
+        var ctx = null, master = null, noiseBuf = null;
+
+        function ensure() {
+            if (!ctx) {
+                try {
+                    ctx = new AC();
+                    master = ctx.createGain();
+                    master.gain.value = 0.55;
+                    var comp = ctx.createDynamicsCompressor();
+                    master.connect(comp); comp.connect(ctx.destination);
+                    var len = ctx.sampleRate, buf = ctx.createBuffer(1, len, ctx.sampleRate), d = buf.getChannelData(0);
+                    for (var i = 0; i < len; i++) d[i] = Math.random() * 2 - 1;
+                    noiseBuf = buf;
+                } catch (e) { ctx = null; return false; }
+            }
+            if (ctx.state === "suspended") ctx.resume();
+            return true;
+        }
+        function ok() { return !muted && ensure() && ctx.state !== "closed"; }
+
+        /* ---------- primitives ---------- */
+        function tone(freq, dur, o) {
+            o = o || {};
+            var t0 = ctx.currentTime + (o.delay || 0);
+            var osc = ctx.createOscillator(), g = ctx.createGain();
+            osc.type = o.type || "sine";
+            osc.frequency.setValueAtTime(freq, t0);
+            if (o.to) osc.frequency.exponentialRampToValueAtTime(o.to, t0 + dur);
+            var v = o.vol == null ? 0.2 : o.vol;
+            g.gain.setValueAtTime(0.0001, t0);
+            g.gain.exponentialRampToValueAtTime(v, t0 + (o.attack || 0.008));
+            g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
+            osc.connect(g); g.connect(master);
+            osc.start(t0); osc.stop(t0 + dur + 0.05);
+        }
+        function noise(dur, o) {
+            o = o || {};
+            var t0 = ctx.currentTime + (o.delay || 0);
+            var src = ctx.createBufferSource(); src.buffer = noiseBuf; src.loop = true;
+            var f = ctx.createBiquadFilter(); f.type = o.filter || "bandpass";
+            f.Q.value = o.q || 1.2;
+            f.frequency.setValueAtTime(o.from || 1000, t0);
+            if (o.to) f.frequency.exponentialRampToValueAtTime(o.to, t0 + dur);
+            var g = ctx.createGain(), v = o.vol == null ? 0.15 : o.vol;
+            g.gain.setValueAtTime(0.0001, t0);
+            g.gain.exponentialRampToValueAtTime(v, t0 + (o.attack || dur * 0.3));
+            g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
+            src.connect(f); f.connect(g); g.connect(master);
+            src.start(t0); src.stop(t0 + dur + 0.05);
+        }
+
+        /* ---------- sound library ---------- */
+        var S = {
+            click:  function () { tone(740, .07, {type:"triangle", vol:.16, to:520}); noise(.03, {from:3500, vol:.05, q:.8}); },
+            hover:  function () { tone(1250, .035, {type:"sine", vol:.045}); },
+            tab:    function () { tone(560, .06, {type:"square", vol:.05, to:700}); },
+            select: function () { tone(660, .08, {type:"triangle", vol:.16}); tone(880, .09, {type:"triangle", vol:.12, delay:.05}); },
+            key:    function () { tone(1700 + Math.random()*500, .022, {type:"square", vol:.035}); },
+            open:   function () { noise(.5, {from:350, to:3800, q:1.4, vol:.2}); tone(330, .35, {type:"sine", vol:.12, to:660}); tone(660, .3, {type:"triangle", vol:.1, delay:.18, to:990}); },
+            back:   function () { noise(.38, {from:3200, to:300, q:1.2, vol:.17}); tone(520, .28, {type:"sine", vol:.11, to:260}); },
+            page:   function () { noise(.2, {from:1800, to:5200, q:.7, vol:.13}); noise(.1, {from:900, vol:.06, delay:.1, q:.6}); },
+            correct:function () { tone(784, .14, {type:"sine", vol:.2}); tone(1175, .26, {type:"sine", vol:.18, delay:.09}); tone(1568, .3, {type:"sine", vol:.07, delay:.09}); },
+            wrong:  function () { tone(200, .26, {type:"sawtooth", vol:.14, to:120}); tone(150, .3, {type:"square", vol:.07, to:90, delay:.04}); },
+            start:  function () { [523, 659, 784].forEach(function (f, i) { tone(f, .16, {type:"triangle", vol:.17, delay:i*.09}); }); tone(1047, .4, {type:"sine", vol:.16, delay:.28}); },
+            tick:   function () { tone(1000, .05, {type:"square", vol:.06}); },
+            alarm:  function () { tone(880, .12, {type:"square", vol:.07}); tone(880, .12, {type:"square", vol:.07, delay:.18}); },
+            win:    function () { [523, 659, 784, 1047, 1319].forEach(function (f, i) { tone(f, .3, {type:"triangle", vol:.17, delay:i*.11}); tone(f*2, .25, {type:"sine", vol:.04, delay:i*.11}); }); tone(1568, .8, {type:"sine", vol:.14, delay:.58}); },
+            good:   function () { [523, 659, 784].forEach(function (f, i) { tone(f, .3, {type:"triangle", vol:.16, delay:i*.13}); }); },
+            lose:   function () { [392, 349, 311, 262].forEach(function (f, i) { tone(f, .32, {type:"triangle", vol:.15, delay:i*.16}); }); },
+            theme:  function () {   /* electric zap: snap + arcing buzz + crackle + discharge tail */
+                noise(.04, {from:7000, q:.6, vol:.22, attack:.004});
+                tone(70, .34, {type:"sawtooth", vol:.09, to:55});
+                tone(140, .3, {type:"square", vol:.05, delay:.01, to:110});
+                tone(300, .14, {type:"sawtooth", vol:.12, to:2600, attack:.004});
+                tone(2600, .1, {type:"sawtooth", vol:.07, delay:.12, to:500});
+                for (var i = 0; i < 9; i++) {
+                    noise(.02 + Math.random()*.02, {from:2000 + Math.random()*7000, vol:.1, delay:.03 + i*.032 + Math.random()*.02, q:1.5 + Math.random()*2, attack:.003});
+                    tone(400 + Math.random()*2200, .025, {type:"square", vol:.035, delay:.03 + i*.032});
+                }
+                tone(1800, .22, {type:"sine", vol:.07, delay:.28, to:180});
+            },
+            zaphover:function () { noise(.03, {from:6000, q:.8, vol:.07, attack:.003}); tone(1200, .07, {type:"sawtooth", vol:.04, to:2400}); noise(.02, {from:3500, vol:.05, delay:.05, q:2}); },
+            ready:  function () { tone(659, .18, {type:"sine", vol:.15}); tone(988, .34, {type:"sine", vol:.15, delay:.12}); },
+            ratchet:function () { var k = 1 + Math.random()*.08; tone(1900*k, .028, {type:"square", vol:.05, to:1300*k}); noise(.02, {from:5200, vol:.035, q:.8}); },
+            grab:   function () { tone(300, .09, {type:"triangle", vol:.1, to:240}); noise(.05, {from:900, vol:.05}); },
+            release:function () { tone(420, .1, {type:"triangle", vol:.08, to:620}); },
+            swish:  function () { noise(.38, {from:700, to:2600, q:.9, vol:.1, attack:.12}); tone(220, .34, {type:"sine", vol:.06, to:330}); },
+            launch: function () { tone(330, .22, {type:"sawtooth", vol:.07, to:1320}); tone(660, .3, {type:"triangle", vol:.13, to:1760, delay:.05}); noise(.26, {from:500, to:5200, q:1.1, vol:.14}); tone(1320, .18, {type:"sine", vol:.1, delay:.2}); },
+            cardhover:function () { tone(1046, .05, {type:"sine", vol:.06}); tone(1568, .07, {type:"sine", vol:.045, delay:.04}); },
+            pop:    function () { tone(520, .06, {type:"triangle", vol:.07, to:780}); },
+            reveal: function () { noise(.35, {from:2000, to:7000, q:2, vol:.06}); tone(880, .25, {type:"sine", vol:.05, delay:.05}); tone(1320, .3, {type:"sine", vol:.04, delay:.12}); },
+            shake:  function () { tone(110, .18, {type:"sine", vol:.2, to:60}); noise(.22, {from:420, to:200, q:.7, vol:.12}); tone(90, .12, {type:"square", vol:.05, delay:.1, to:60}); },
+            glitch: function () { for (var i = 0; i < 5; i++) { noise(.025, {from:1500 + Math.random()*5000, vol:.06, delay:i*.035 + Math.random()*.02, q:2}); tone(120 + Math.random()*400, .03, {type:"square", vol:.025, delay:i*.035}); } },
+            sweep:  function () { noise(.5, {from:1500, to:6000, q:1.5, vol:.07, attack:.2}); },
+            progress:function () { var pr = window.__plArg || 0; tone(500 + pr*7, .07, {type:"sine", vol:.08}); },
+            flicker:function () { tone(60, .12, {type:"sawtooth", vol:.035}); noise(.05, {from:3000, vol:.03, q:1.5}); },
+            tick2:  function () { tone(1400, .015, {type:"sine", vol:.022}); },
+            hum:    function () { tone(180, .9, {type:"sine", vol:.03, attack:.3, to:210}); tone(270, .9, {type:"sine", vol:.018, attack:.3}); },
+            twinkle:function () { tone(2093, .25, {type:"sine", vol:.028}); tone(2794, .3, {type:"sine", vol:.018, delay:.08}); },
+            swell:  function () { tone(130, 1.4, {type:"sine", vol:.035, attack:.6, to:170}); },
+            shine:  function () { tone(1568, .5, {type:"sine", vol:.045}); tone(2349, .6, {type:"sine", vol:.03, delay:.1}); noise(.4, {from:4000, to:9000, q:2, vol:.025}); },
+            shimmer:function () { noise(.4, {from:3000, to:8000, q:2, vol:.03}); tone(1760, .2, {type:"sine", vol:.022}); },
+            on:     function () { tone(600, .1, {type:"triangle", vol:.15}); tone(900, .16, {type:"triangle", vol:.15, delay:.07}); }
+        };
+        var last = {};
+        function play(name, minGap) {
+            if (!S[name]) return;
+            var n = performance.now();
+            if (last[name] && n - last[name] < (minGap || 0)) return;
+            if (!ok()) return;
+            last[name] = n;
+            try { S[name](); } catch (e) {}
+        }
+        window.PLSound = { play: play, mute: function (m) { setMuted(m); } };
+
+        /* ---------- sound button ---------- */
+        var btn = document.getElementById("soundToggle");
+        var stateEl = document.getElementById("soundState");
+        function paintBtn() {
+            if (!btn) return;
+            btn.classList.toggle("is-muted", muted);
+            if (stateEl) stateEl.textContent = muted ? "OFF" : "ON";
+            btn.setAttribute("aria-label", muted ? "Turn sound on" : "Mute sound");
+            btn.title = muted ? "Sound: OFF (click to turn on)" : "Sound: ON (click to mute)";
+        }
+        function setMuted(m) {
+            muted = !!m;
+            try { localStorage.setItem(KEY, muted ? "off" : "on"); } catch (e) {}
+            paintBtn();
+            if (!muted) { ensure(); play("on"); }
+        }
+        if (btn) btn.addEventListener("click", function (e) { e.stopPropagation(); setMuted(!muted); });
+        paintBtn();
+
+        /* put the sound button directly to the LEFT of the mode button (inside lessons),
+           or top-right of the screen on the home page */
+        function placeBtn() {
+            if (!btn) return;
+            var view = document.querySelector(".lesson-view.is-active");
+            var bar = view && view.querySelector(".lesson-topbar");
+            var th = document.getElementById("themeToggle");
+            if (bar) {
+                if (th && th.parentNode === bar) { if (btn.parentNode !== bar || btn.nextElementSibling !== th) bar.insertBefore(btn, th); }
+                else if (btn.parentNode !== bar) bar.appendChild(btn);
+            } else if (btn.parentNode !== document.body) {
+                document.body.appendChild(btn);
+            }
+        }
+
+        /* unlock audio on first user gesture (browser autoplay policy) */
+        ["pointerdown", "keydown", "touchstart"].forEach(function (ev) {
+            window.addEventListener(ev, function () { if (!muted) ensure(); }, { once: true, passive: true, capture: true });
+        });
+
+        /* ---------- helpers ---------- */
+        var CLICKABLE = ".card, .cat-btn, .back-btn, .page-nav-btn, .toc-row, button, a[href], [role=button], select, summary, label.option, .option";
+        function activeView() { return document.querySelector(".lesson-view.is-active"); }
+        function count(sel) { var v = activeView() || document; return v.querySelectorAll(sel).length; }
+
+        /* ---------- clicks ---------- */
+        document.addEventListener("click", function (e) {
+            var t = e.target.closest && e.target.closest(CLICKABLE);
+            if (!t || t.id === "soundToggle") return;
+
+            if (t.id === "themeToggle" || t.closest("#themeToggle")) { play("theme", 120); return; }
+            if (t.classList.contains("back-btn")) return;               // handled by view-change observer
+            if (t.classList.contains("card")) { play("launch", 300); return; }   // card pressed (lesson-open whoosh follows)
+            if (t.classList.contains("exam-start-btn")) { play("start", 300); return; }
+
+            if (t.classList.contains("page-nav-btn")) {
+                if (t.hasAttribute("data-dir")) { play("page", 80); return; }
+                play("click", 60); return;
+            }
+            if (t.classList.contains("option")) {
+                var c0 = count(".option.correct"), w0 = count(".option.incorrect"), r0 = !!document.querySelector(".results.show");
+                play("select", 40);
+                setTimeout(function () {
+                    var r1 = !!document.querySelector(".results.show");
+                    if (r1 && !r0) return;                              // result jingle handled elsewhere
+                    var c1 = count(".option.correct"), w1 = count(".option.incorrect");
+                    if (c1 > c0) play("correct", 150);
+                    else if (w1 > w0) play("wrong", 150);
+                }, 90);
+                return;
+            }
+            if (t.classList.contains("cat-btn") || t.classList.contains("toc-row")) { play("tab", 40); return; }
+            play("click", 40);
+        }, true);
+
+        /* ---------- hover ---------- */
+        var lastMove = 0;
+        document.addEventListener("pointermove", function () { lastMove = performance.now(); }, { passive: true, capture: true });
+        document.addEventListener("pointerover", function (e) {
+            if (e.pointerType && e.pointerType !== "mouse") return;
+            var t = e.target.closest && e.target.closest(".card, .cat-btn, .back-btn, .page-nav-btn, .toc-row, .option, .theme-toggle, .snd-toggle");
+            if (!t) return;
+            if (e.relatedTarget && t.contains(e.relatedTarget)) return;
+            if (t.classList.contains("theme-toggle")) { play("zaphover", 120); return; }
+            if (t.classList.contains("card")) {
+                /* cards slide under a still mouse while the ring spins -> only sound when the mouse really moved */
+                if (performance.now() - lastMove > 140) return;
+                play("cardhover", 110);
+                return;
+            }
+            play("hover", 70);
+        }, true);
+
+        /* ---------- typing ---------- */
+        document.addEventListener("input", function (e) {
+            var t = e.target;
+            if (t && (t.tagName === "INPUT" || t.tagName === "TEXTAREA")) play("key", 35);
+        }, true);
+        document.addEventListener("keydown", function (e) {
+            if (e.key === "Enter" && e.target && e.target.tagName === "INPUT") play("select", 80);
+        }, true);
+
+        /* ---------- lesson open / close (watch .is-active on lesson views) ---------- */
+        var hadActive = false, readySince = performance.now();
+        function checkViews() {
+            var now = !!activeView();
+            if (now && !hadActive) play("open", 250);
+            else if (!now && hadActive) play("back", 250);
+            hadActive = now;
+        }
+
+        /* ---------- results jingle ---------- */
+        function checkResults(el) {
+            var sc = el.querySelector(".score") || (el.parentNode && el.parentNode.querySelector(".score"));
+            var m = sc && /(\d+)\s*\/\s*(\d+)/.exec(sc.textContent || "");
+            var p = m ? (+m[1]) / Math.max(1, +m[2]) : 0.5;
+            setTimeout(function () { play(p === 1 ? "win" : p >= .6 ? "good" : "lose", 500); }, 150);
+        }
+
+        /* ---------- exam countdown (last 10 seconds) ---------- */
+        var lastCd = {};
+        function checkCountdown(el) {
+            var txt = (el.textContent || "").replace(/\s+/g, "");
+            var m = /^(\d+):(\d{2})$/.exec(txt);
+            if (!m || lastCd.el === el && lastCd.txt === txt) return;
+            lastCd = { el: el, txt: txt };
+            var secs = (+m[1]) * 60 + (+m[2]);
+            if (secs > 0 && secs <= 10) play("tick", 400);
+            if (secs === 0) play("alarm", 1000);
+        }
+
+        var mo = new MutationObserver(function (list) {
+            var viewsChanged = false;
+            for (var i = 0; i < list.length; i++) {
+                var m = list[i], t = m.target;
+                if (m.type === "attributes" && m.attributeName === "class" && t.classList) {
+                    if (t.classList.contains("lesson-view")) viewsChanged = true;
+                    if (t.id === "carouselView") {
+                        var was = (m.oldValue || "").split(" ").indexOf("is-dragging") >= 0, now2 = t.classList.contains("is-dragging");
+                        if (now2 && !was) play("grab", 120);
+                        else if (!now2 && was) { play(Math.abs(rotSpeed) > 160 ? "swish" : "release", 150); }
+                    }
+                    if (t.classList.contains("results") && t.classList.contains("show") && !(m.oldValue || "").split(" ").includes("show")) checkResults(t);
+                }
+                if (m.type === "characterData" || m.type === "childList") {
+                    var host = (t.nodeType === 3 ? t.parentNode : t);
+                    var cd = host && host.closest && host.closest(".exam-countdown");
+                    if (cd) checkCountdown(cd);
+                }
+            }
+            if (viewsChanged) { checkViews(); placeBtn(); setTimeout(placeBtn, 0); setTimeout(placeBtn, 80); }
+        });
+        function startObserver() {
+            mo.observe(document.body, { subtree: true, attributes: true, attributeFilter: ["class"], attributeOldValue: true, characterData: true, childList: true });
+        }
+        if (document.body) startObserver(); else document.addEventListener("DOMContentLoaded", startObserver);
+
+        /* ---------- carousel rotation: ratchet "click" every time a card passes the front ---------- */
+        var rotSpeed = 0;
+        (function () {
+            var inner = document.getElementById("inner");
+            if (!inner) return;
+            var STEP = 360 / (document.querySelectorAll(".card").length || 11);
+            var prevRy = null, prevT = 0, prevSlot = null, lastTick = 0;
+            function readRy() { var v = parseFloat(inner.style.getPropertyValue("--ry")); return isNaN(v) ? null : v; }
+            function frame(now) {
+                var ry = readRy();
+                if (ry !== null) {
+                    if (prevRy !== null) {
+                        var dt = Math.max(now - prevT, 1) / 1000;
+                        var inst = (ry - prevRy) / dt;
+                        rotSpeed += (inst - rotSpeed) * 0.25;                  // smoothed deg/s
+                        var slot = Math.floor(ry / STEP);
+                        if (prevSlot !== null && slot !== prevSlot && Math.abs(rotSpeed) > 26 && now - lastTick > 40) {
+                            lastTick = now;                                    // idle spin is ~12 deg/s -> silent
+                            play("ratchet", 0);
+                        }
+                        prevSlot = slot;
+                    } else prevSlot = Math.floor(ry / STEP);
+                    prevRy = ry; prevT = now;
+                }
+                requestAnimationFrame(frame);
+            }
+            requestAnimationFrame(frame);
+        })();
+
+        placeBtn();
+
+        /* ---------- EVERY CSS animation / transition gets a sound ---------- */
+        var ONE = {   /* one-shot animations: [sound, min gap ms] */
+            "child-in":["pop",120], "qcmIn":["pop",140], "hero-enter":["reveal",500], "sectionShake":["shake",200],
+            "cpGlitch":["glitch",120], "sweep":["sweep",600], "loader-in":["reveal",1000]
+        };
+        var AMB = {   /* looping background animations: very quiet, rate limited */
+            "hud-flicker":["flicker",4000], "hud-surge":["flicker",4000], "cpFlicker":["flicker",4000],
+            "hero-lang-glitch":["glitch",5000], "cpScore":["glitch",4000], "cpSweep":["sweep",7000],
+            "hero-cursor":["tick2",2200], "neon-pulse":["hum",3000], "bgAurora":["swell",8000], "bgTwinkle":["twinkle",5000],
+            "lightAuroraDrift":["swell",8000], "lightOrbitSpin":["twinkle",9000], "ruppGoldShine":["shine",6000],
+            "loader-sheen":["shimmer",1400], "loader-halo":["hum",2800], "loader-shimmer":["shimmer",4000], "loader-spin":["twinkle",9000]
+        };
+        var lastAmb = 0;
+        function onAnim(e) {
+            var n = e.animationName, el = e.target;
+            if (ONE[n]) { play(ONE[n][0], ONE[n][1]); return; }
+            var a = AMB[n];
+            if (!a || document.hidden) return;
+            var now = performance.now();
+            if (now - lastAmb < 900) return;                         // never stack background sounds
+            if (el && el.getBoundingClientRect) {                    // only if the animated thing is on screen
+                var r = el.getBoundingClientRect();
+                if (r.bottom < 0 || r.top > innerHeight || r.right < 0 || r.left > innerWidth) return;
+            }
+            if (!muted && ctx && ctx.state === "running") {
+                if (now - (last["amb:" + n] || 0) < a[1]) return;
+                last["amb:" + n] = now; lastAmb = now;
+                try { S[a[0]](); } catch (er) {}
+            }
+        }
+        document.addEventListener("animationstart", onAnim, true);
+        document.addEventListener("animationiteration", onAnim, true);
+
+        /* transitions: progress bars, loader text swap */
+        document.addEventListener("transitionstart", function (e) {
+            var t = e.target;
+            if (!t || !t.classList) return;
+            if (t.classList.contains("progress-fill") && e.propertyName === "width") {
+                window.__plArg = parseFloat(t.style.width) || 0;
+                play("progress", 90);
+            }
+        }, true);
+        var lt = document.getElementById("loaderText");
+        if (lt) new MutationObserver(function () { if (lt.classList.contains("is-swap")) play("tab", 150); }).observe(lt, { attributes: true, attributeFilter: ["class"] });
+
+        /* ---------- loader finished ---------- */
+        var loader = document.getElementById("pageLoader");
+        if (loader) {
+            var lo = new MutationObserver(function () {
+                if (loader.classList.contains("is-done")) { lo.disconnect(); play("ready"); }
+            });
+            lo.observe(loader, { attributes: true, attributeFilter: ["class"] });
+        }
+    })();
     </script>
 </body>
 </html>
