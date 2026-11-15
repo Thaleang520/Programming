@@ -5387,6 +5387,177 @@ html:not([data-theme="light"]) .card .img {
     }
 }
 </style>
+
+<style id="home-intro">
+/* =====================================================================
+   HOME INTRO  -  loader iris-open, then the carousel assembles itself.
+   Everything below is additive: it only runs while  html.intro-play  is
+   set (about 5.78s, once, right after the loader finishes), and every
+   animation ends on the element's normal resting style, so removing the
+   class leaves no visual jump.
+   ===================================================================== */
+@property --iris    { syntax: "<length>"; inherits: false; initial-value: -70px; }
+@property --rotateX { syntax: "<angle>";  inherits: false; initial-value: -10deg; }
+
+/* ---------- 1. loader exits through an expanding iris, centred on the orb ---------- */
+.page-loader.is-done {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: none;
+    -webkit-mask-image: radial-gradient(circle at 50% calc(50% - 50px), transparent var(--iris), #000 calc(var(--iris) + 70px));
+            mask-image: radial-gradient(circle at 50% calc(50% - 50px), transparent var(--iris), #000 calc(var(--iris) + 70px));
+    animation: iris-open 1.305s cubic-bezier(.62, 0, .2, 1) forwards;
+}
+.page-loader.is-done .loader-inner {
+    transform: scale(1.35);
+    filter: brightness(1.8) blur(2px);
+    transition: transform 1.19s cubic-bezier(.3, 0, .2, 1), filter 0.85s ease;
+}
+@keyframes iris-open {
+    from { --iris: -70px;  visibility: visible; }
+    to   { --iris: 110vmax; visibility: hidden; }
+}
+
+/* glowing ring that rides the edge of the iris (element is added by the script) */
+.intro-ring {
+    position: fixed;
+    left: 50%;
+    top: calc(50% - 50px);
+    z-index: 10000;
+    width:  max(0px, calc(2 * (var(--iris) + 35px)));
+    height: max(0px, calc(2 * (var(--iris) + 35px)));
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    pointer-events: none;
+    border: 2px solid rgba(244, 193, 79, .95);
+    box-shadow:
+        0 0 24px 2px rgba(244, 193, 79, .55),
+        0 0 70px rgba(255, 43, 214, .35),
+        inset 0 0 34px rgba(95, 242, 216, .35);
+    animation: iris-open 1.305s cubic-bezier(.62, 0, .2, 1) forwards,
+               ring-fade 1.305s ease-out forwards;
+}
+@keyframes ring-fade {
+    0%   { opacity: 0; }
+    8%   { opacity: 1; }
+    72%  { opacity: .9; }
+    100% { opacity: 0; }
+}
+
+/* ---------- 2. the carousel: camera swoops down while cards fly out of the core ---------- */
+html.intro-play .inner {
+    animation: cam-settle 3.74s cubic-bezier(.16, 1, .3, 1) 0.255s backwards;
+}
+@keyframes cam-settle { from { --rotateX: -58deg; } }
+
+html.intro-play .card {
+    animation: card-in 2.21s cubic-bezier(.17, .84, .3, 1) calc(0.34s + var(--index) * 0.111s) backwards;
+}
+@keyframes card-in {
+    0% {
+        opacity: 0;
+        transform:
+            rotateY(calc((360deg / var(--quantity)) * var(--index) - 260deg))
+            translateZ(calc(var(--translateZ) * .12))
+            scale(.3);
+        filter:
+            brightness(2.6) contrast(1.05)
+            drop-shadow(0 0 30px rgba(var(--color-card), .95))
+            drop-shadow(0 0 0 rgba(var(--color-card), 0));
+    }
+    45% { opacity: 1; }
+    100% {
+        opacity: 1;
+        transform:
+            rotateY(calc((360deg / var(--quantity)) * var(--index)))
+            translateZ(var(--translateZ))
+            scale(1);
+        filter:
+            brightness(1) contrast(1)
+            drop-shadow(0 0 6px rgba(var(--color-card), .45))
+            drop-shadow(0 0 0 rgba(var(--color-card), 0));
+    }
+}
+
+html.intro-play .glow-floor { animation: floor-in 3.06s ease-out 0.51s backwards; }
+@keyframes floor-in { from { opacity: 0; transform: scale(.2, .4); } }
+
+/* ---------- 3. RUPP logo: badge spins in, rings expand, text opens from the centre ---------- */
+html.intro-play .rupp-logo .icon-ring {
+    animation: logo-pop 1.7s cubic-bezier(.2, .9, .25, 1.15) 0.595s backwards;
+}
+@keyframes logo-pop {
+    from { opacity: 0; transform: scale(.35) rotate(-140deg); filter: brightness(2.2) blur(3px); }
+    to   { opacity: 1; transform: none;                       filter: none; }
+}
+html.intro-play .rupp-logo .icon-ring::before { animation: ring-out 1.87s cubic-bezier(.2, .8, .2, 1) 1.19s  backwards; }
+html.intro-play .rupp-logo .icon-ring::after  { animation: ring-out 2.04s cubic-bezier(.2, .8, .2, 1) 1.445s backwards; }
+@keyframes ring-out { from { opacity: 0; transform: scale(.5); } }
+
+/* the page's own CSS cancels animation on this text with !important, so override it here */
+html.intro-play .rupp-logo .word .line1 { animation: reveal-x 1.53s cubic-bezier(.2, .8, .2, 1) 1.36s  backwards !important; }
+html.intro-play .rupp-logo .word .line2 { animation: reveal-x 1.53s cubic-bezier(.2, .8, .2, 1) 1.615s backwards !important; }
+@keyframes reveal-x {
+    from { opacity: 0; clip-path: inset(-80px 50% -80px 50%); transform: translateY(-10px); filter: blur(6px); }
+    to   { opacity: 1; clip-path: inset(-80px);               transform: none;               filter: none; }
+}
+
+/* ---------- 4. bottom bar: search powers on, categories pop in one by one ---------- */
+html.intro-play .bottom-bar .search-row {
+    animation: rise-in 1.53s cubic-bezier(.2, .85, .25, 1) 1.7s backwards;
+}
+html.intro-play .bottom-bar .Text {
+    animation: rise-in 1.53s cubic-bezier(.2, .85, .25, 1) 2.55s backwards;
+}
+@keyframes rise-in {
+    from { opacity: 0; transform: translateY(34px) scaleX(.55); filter: brightness(2.2); }
+}
+html.intro-play .cat-row > * {
+    animation: pop-in 1.02s cubic-bezier(.2, .9, .3, 1.3) calc(2.04s + var(--n, 0) * 0.102s) backwards;
+}
+html.intro-play .cat-row > :nth-child(1) { --n: 0; }
+html.intro-play .cat-row > :nth-child(2) { --n: 1; }
+html.intro-play .cat-row > :nth-child(3) { --n: 2; }
+html.intro-play .cat-row > :nth-child(4) { --n: 3; }
+html.intro-play .cat-row > :nth-child(5) { --n: 4; }
+html.intro-play .cat-row > :nth-child(6) { --n: 5; }
+html.intro-play .cat-row > :nth-child(7) { --n: 6; }
+html.intro-play .cat-row > :nth-child(8) { --n: 7; }
+@keyframes pop-in { from { opacity: 0; transform: translateY(18px) scale(.7); } }
+
+/* ---------- phones: skip the animated glow (11 blurred drop-shadows is heavy) ---------- */
+@media (max-width: 700px) {
+    html.intro-play .card { animation-name: card-in-lite; }
+    @keyframes card-in-lite {
+        0% {
+            opacity: 0;
+            transform:
+                rotateY(calc((360deg / var(--quantity)) * var(--index) - 260deg))
+                translateZ(calc(var(--translateZ) * .12))
+                scale(.3);
+        }
+        45% { opacity: 1; }
+        100% {
+            opacity: 1;
+            transform:
+                rotateY(calc((360deg / var(--quantity)) * var(--index)))
+                translateZ(var(--translateZ))
+                scale(1);
+        }
+    }
+}
+
+/* ---------- reduced motion: keep the old plain fade, no intro ---------- */
+@media (prefers-reduced-motion: reduce) {
+    .page-loader.is-done {
+        animation: none; opacity: 0; visibility: hidden;
+        -webkit-mask-image: none; mask-image: none;
+        transition: opacity 1.02s ease, visibility 0s linear 1.02s;
+    }
+    html.intro-play *, html.intro-play *::before, html.intro-play *::after { animation: none !important; }
+    .intro-ring { display: none; }
+}
+</style>
 </head>
 
 <body>
@@ -105863,10 +106034,10 @@ eas build --platform android</div>
                 done = true;
                 setTimeout(function () {         // let the bar visibly reach 100%
                     loader.classList.add('is-done');
-                    setTimeout(function () { if (loader.parentNode) loader.parentNode.removeChild(loader); }, 900);
+                    setTimeout(function () { if (loader.parentNode) loader.parentNode.removeChild(loader); }, 1700);
                 }, 350);
             }
-            if (document.readyState === 'complete') { done = true; loader.classList.add('is-done'); setTimeout(function () { if (loader.parentNode) loader.parentNode.removeChild(loader); }, 900); }
+            if (document.readyState === 'complete') { done = true; loader.classList.add('is-done'); setTimeout(function () { if (loader.parentNode) loader.parentNode.removeChild(loader); }, 1700); }
             else {
                 window.addEventListener('load', hide);
                 setTimeout(hide, 10000); // never block the page longer than 10s
@@ -105888,9 +106059,45 @@ eas build --platform android</div>
         btn.addEventListener("click",function(){
             btn.classList.remove("glitch");void btn.offsetWidth;btn.classList.add("glitch");
             var light=root.getAttribute("data-theme")==="light";
-            if(light)root.removeAttribute("data-theme");else root.setAttribute("data-theme","light");
-            try{localStorage.setItem("pl-theme",light?"dark":"light");}catch(e){}
-            paint();
+            function apply(){
+                if(light)root.removeAttribute("data-theme");else root.setAttribute("data-theme","light");
+                try{localStorage.setItem("pl-theme",light?"dark":"light");}catch(e){}
+                paint();
+            }
+            var reduce=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
+            if(reduce){apply();return;}
+            // ripple wipe from the button: new-theme colour + glowing leading ring + trailing echo (transform/opacity only)
+            var r=btn.getBoundingClientRect(),x=r.left+r.width/2,y=r.top+r.height/2,
+                rad=Math.hypot(Math.max(x,innerWidth-x),Math.max(y,innerHeight-y)),
+                size=Math.ceil(rad*2)+8,
+                nbg=light?"radial-gradient(circle,#161625 0%,#07070a 70%)":"radial-gradient(circle,#ffffff 0%,#f3f0ff 70%,#e9f9ff 100%)",
+                c1=light?"0,229,255":"255,42,109",c2=light?"255,42,109":"0,180,204";
+            var wrap=document.createElement("div");
+            wrap.setAttribute("aria-hidden","true");
+            wrap.style.cssText="position:fixed;inset:0;z-index:2147483000;pointer-events:none;overflow:hidden;will-change:opacity;opacity:1";
+            function circ(extra){
+                var d=document.createElement("div");
+                d.style.cssText="position:absolute;left:"+(x-size/2)+"px;top:"+(y-size/2)+"px;width:"+size+"px;height:"+size+
+                    "px;border-radius:50%;transform:scale(0);will-change:transform;"+extra;
+                wrap.appendChild(d);return d;
+            }
+            var fill=circ("background:"+nbg);
+            var ring=circ("box-shadow:0 0 0 2px rgba("+c1+",.95),0 0 28px 4px rgba("+c1+",.7),inset 0 0 40px 6px rgba("+c1+",.35)");
+            var echo=circ("box-shadow:0 0 0 1.5px rgba("+c2+",.8),0 0 22px 3px rgba("+c2+",.5)");
+            document.body.appendChild(wrap);
+            var rm=function(){if(wrap.parentNode)wrap.parentNode.removeChild(wrap);};
+            var ease="cubic-bezier(.65,0,.3,1)",D=600;
+            var fr=[{transform:"scale(0)"},{transform:"scale(1)"}];
+            fill.animate(fr,{duration:D,easing:ease,fill:"forwards"});
+            ring.animate(fr,{duration:D,easing:ease,fill:"forwards"});
+            echo.animate(fr,{duration:D,delay:110,easing:ease,fill:"both"});
+            setTimeout(function(){
+                apply();                                   // swap theme while fully covered
+                ring.style.visibility="hidden";echo.style.visibility="hidden";
+                wrap.animate([{opacity:1},{opacity:0}],{duration:380,easing:"ease-out",fill:"forwards"});
+                setTimeout(rm,400);
+            },D+120);
+            setTimeout(rm,1500);
         });
         paint();
         })();
@@ -105909,5 +106116,54 @@ eas build --platform android</div>
         place();
         })();
     </script>
+
+<script id="home-intro-js">
+(function () {
+    var html = document.documentElement;
+    var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var firstDone = false, ring = null, endTimer = null;
+
+    function onCardClick(e) {
+        if (e.target.closest && e.target.closest('.card')) end();
+    }
+    function end() {
+        clearTimeout(endTimer);
+        document.removeEventListener('click', onCardClick, true);
+        html.classList.remove('intro-play');
+        if (ring && ring.parentNode) ring.parentNode.removeChild(ring);
+        ring = null;
+    }
+
+    // (re)start the intro; safe to call while one is already running
+    function play() {
+        if (reduce) return;
+        end();
+        void html.offsetWidth;                 // flush so the animations restart from 0
+        ring = document.createElement('div');
+        ring.className = 'intro-ring';
+        ring.setAttribute('aria-hidden', 'true');
+        document.body.appendChild(ring);
+        html.classList.add('intro-play');
+        endTimer = setTimeout(end, 5600);
+        // clicking a card mid-intro: hand control back at once so the launch zoom isn't masked
+        document.addEventListener('click', onCardClick, true);
+    }
+
+    /* ---- 1. first open: play as soon as the loader starts leaving ---- */
+    function first() { if (firstDone) return; firstDone = true; play(); }
+    var loader = document.getElementById('pageLoader');
+    if (!loader || loader.classList.contains('is-done')) { first(); }
+    else {
+        var mo = new MutationObserver(function () {
+            if (loader.classList.contains('is-done')) { mo.disconnect(); first(); }
+        });
+        mo.observe(loader, { attributes: true, attributeFilter: ['class'] });
+        // safety net: loader got removed without ever receiving the class
+        setTimeout(function () { if (!firstDone && !document.body.contains(loader)) first(); }, 11000);
+    }
+
+    /* ---- 2. coming back with the Home button: no animation (removed) ---- */
+})();
+</script>
 </body>
 </html>
