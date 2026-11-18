@@ -5400,21 +5400,21 @@ html:not([data-theme="light"]) .card .img {
 html.intro-play::before {
     content: ""; position: fixed; inset: 0; z-index: 50; pointer-events: none;
     background: radial-gradient(circle at 50% 46%, transparent var(--introSpot), rgba(7,7,10,.97) calc(var(--introSpot) + 160px));
-    animation: introSpotOpen 3.5s cubic-bezier(.5,.1,.25,1) .15s both;
+    animation: introSpotOpen 1.75s cubic-bezier(.5,.1,.25,1) 0.075s both;
 }
 
-html.intro-play .top-bar .icon-ring         { animation: introSoft 1.6s ease-out .9s backwards; }
-html.intro-play .top-bar .icon-ring::before { animation: introHalo 1.6s ease-out 1.6s backwards; }
-html.intro-play .top-bar .icon-ring::after  { animation: introHalo 1.9s ease-out 1.85s backwards; }
-html.intro-play .top-bar .word              { animation: introSlow 1.6s ease-out 1.75s backwards; }
+html.intro-play .top-bar .icon-ring         { animation: introSoft 0.8s ease-out 0.45s backwards; }
+html.intro-play .top-bar .icon-ring::before { animation: introHalo 0.8s ease-out 0.8s backwards; }
+html.intro-play .top-bar .icon-ring::after  { animation: introHalo 0.95s ease-out 0.925s backwards; }
+html.intro-play .top-bar .word              { animation: introSlow 0.8s ease-out 0.875s backwards; }
 
-html.intro-play #inner                      { animation: introSway 3.8s cubic-bezier(.16,.8,.24,1) .65s backwards; }
-html.intro-play #inner .card                { animation: introFloat 1.8s cubic-bezier(.2,.8,.2,1) calc(1.1s + var(--index, 0) * 160ms) backwards; }
-html.intro-play .glow-floor                 { animation: introFloorIn 2.5s ease-out 1.45s backwards; }
+html.intro-play #inner                      { animation: introSway 1.9s cubic-bezier(.16,.8,.24,1) 0.325s backwards; }
+html.intro-play #inner .card                { animation: introFloat 0.9s cubic-bezier(.2,.8,.2,1) calc(0.55s + var(--index, 0) * 80ms) backwards; }
+html.intro-play .glow-floor                 { animation: introFloorIn 1.25s ease-out 0.725s backwards; }
 
-html.intro-play .bottom-bar .search-row     { animation: introSlow 1.45s ease-out 2.9s backwards; }
-html.intro-play .bottom-bar .cat-row        { animation: introSlow 1.45s ease-out 3.1s backwards; }
-html.intro-play .bottom-bar .Text           { animation: introSlow 1.45s ease-out 3.35s backwards; }
+html.intro-play .bottom-bar .search-row     { animation: introSlow 0.725s ease-out 1.45s backwards; }
+html.intro-play .bottom-bar .cat-row        { animation: introSlow 0.725s ease-out 1.55s backwards; }
+html.intro-play .bottom-bar .Text           { animation: introSlow 0.725s ease-out 1.675s backwards; }
 
 @media (prefers-reduced-motion: reduce) {
     html.intro-play::before { display: none; }
@@ -5437,6 +5437,85 @@ html.intro-play .bottom-bar .Text           { animation: introSlow 1.45s ease-ou
         animation-iteration-count: infinite;
         animation-delay: 0s;
     }
+}
+
+/* ===== 400px phones: flat conveyor - cards slide left -> right in a straight line (no 3D ring) ===== */
+@media (max-width: 400px) {
+    .inner { transform: none; transform-style: flat; --w: 130px; --h: 180px; }
+    .card .img {
+        animation-name: card-scan;
+        animation-duration: 5s;
+        animation-timing-function: linear;
+        animation-iteration-count: infinite;
+    }
+    .img { gap: 14px; }
+    .card { transition: translate 0.3s ease, opacity 0.3s ease, filter 0.3s ease; }
+    .card.is-launching { transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.45s ease 0.3s, filter 0.4s ease; }
+    .img img { width: 56px; height: 56px; }
+    .img span { font-size: 13px; letter-spacing: 1.2px; }
+    html.intro-play #inner { animation: none !important; }
+    .card {
+        z-index: var(--z, 0);
+        transform: translateX(var(--x, 0px)) rotateY(var(--tilt, 0deg)) scale(calc(var(--scale) * var(--s, 1)));
+        transition: opacity 0.3s ease, filter 0.3s ease;
+    }
+    .card.is-launching {
+        transform: translateX(var(--x, 0px)) translateZ(calc(var(--translateZ) * 0.35)) scale(2.6);
+        transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.45s ease 0.3s, filter 0.4s ease;
+    }
+}
+
+/* hover (mouse) / press (touch) on 400px: lift + zoom + stronger neon glow, drift keeps moving while hovering */
+@media (max-width: 400px) and (hover: hover) {
+    .card:hover {
+        --scale: 1.14;
+        translate: 0 -10px;
+        z-index: 20;
+        filter: brightness(1.35) contrast(1.05)
+                drop-shadow(0 0 10px rgba(var(--color-card), 0.85))
+                drop-shadow(0 0 26px rgba(var(--color-card), 0.5));
+    }
+    .card:hover .img { box-shadow: inset 0 0 30px rgba(var(--color-card), 0.35), inset 0 0 0 1px rgba(255,255,255,0.18); }
+}
+@media (max-width: 400px) and (hover: none) {
+    .card:active {
+        --scale: 1.08;
+        translate: 0 -6px;
+        filter: brightness(1.3) drop-shadow(0 0 12px rgba(var(--color-card), 0.8));
+    }
+}
+
+/* ===== 400px phones: NEW home-page card intro - cards fly in from the left, spin flat, overshoot and settle with a neon flash ===== */
+@keyframes introCardFly400 {
+    0%   { opacity: 0; translate: -115vw 40px; rotate: z -28deg; scale: .45; filter: blur(8px) brightness(2.2); }
+    55%  { opacity: 1; translate: 14px -16px;  rotate: z 6deg;   scale: 1.12; filter: blur(0) brightness(1.7)
+                       drop-shadow(0 0 18px rgba(var(--color-card), .95)); }
+    75%  { translate: -5px 4px; rotate: z -2deg; scale: .97; }
+    100% { opacity: 1; translate: 0 0; rotate: z 0deg; scale: 1; filter: blur(0) brightness(1); }
+}
+@keyframes introRing400 {
+    from { opacity: 0; scale: .6; }
+    to   { opacity: 1; scale: 1; }
+}
+@media (max-width: 400px) {
+    html.intro-play #inner .card {
+        animation: introCardFly400 0.675s cubic-bezier(.22, 1.2, .36, 1)
+                   calc(.55s + var(--index, 0) * 70ms) backwards;
+    }
+    html.intro-play #inner .card .img::after {
+        content: ""; position: absolute; inset: 0; pointer-events: none;
+        background: linear-gradient(110deg, transparent 30%, rgba(255,255,255,.55) 50%, transparent 70%);
+        transform: translateX(-130%);
+        animation: introShine400 0.45s ease-out calc(0.95s + var(--index, 0) * 70ms) 1 both;
+    }
+}
+@keyframes introShine400 {
+    from { transform: translateX(-130%); opacity: 1; }
+    to   { transform: translateX(130%);  opacity: 0; }
+}
+@media (max-width: 400px) and (prefers-reduced-motion: reduce) {
+    html.intro-play #inner .card,
+    html.intro-play #inner .card .img::after { animation: none; }
 }
 </style>
 </head>
@@ -104384,7 +104463,28 @@ eas build --platform android</div>
             let startX = 0, lastX = 0, lastT = 0, pid = null, lastFrame = performance.now();
             const DEG_PER_PX = 0.4, IDLE = 12; // idle spin deg/sec
             const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-            const render = () => inner.style.setProperty('--ry', ry + 'deg');
+            const flatMQ = window.matchMedia('(max-width: 400px)');
+            const render = () => {
+                if (!flatMQ.matches) {
+                    inner.style.setProperty('--ry', ry + 'deg');
+                    cards.forEach(c => ['--x','--tilt','--s','--z'].forEach(v => c.style.removeProperty(v)));
+                    return;
+                }
+                // flat conveyor: ry (deg) -> px, positive = moves right; wraps around offscreen
+                const n = cards.length, gap = 10;
+                const S = (cards[0].offsetWidth || 82) + gap, T = n * S;
+                const k = S / (360 / n);
+                cards.forEach((c, i) => {
+                    const idx = +c.style.getPropertyValue('--index') || i;
+                    let x = (((idx * S + ry * k + T / 2) % T) + T) % T - T / 2;
+                    const d = Math.min(Math.abs(x) / 220, 1);          // 0 at centre -> 1 at edges
+                    c.style.setProperty('--x', x.toFixed(1) + 'px');
+                    c.style.setProperty('--tilt', (-Math.max(-1, Math.min(1, x / 220)) * 38).toFixed(1) + 'deg'); // face the centre
+                    c.style.setProperty('--s', (1.08 - d * 0.3).toFixed(3));                                     // centre card biggest
+                    c.style.setProperty('--z', Math.round((1 - d) * 10));
+                });
+            };
+            flatMQ.addEventListener && flatMQ.addEventListener('change', () => render());
 
             carouselView.addEventListener('pointerdown', e => {
                 if (e.pointerType === 'mouse' && e.button !== 0) return;
@@ -104439,7 +104539,11 @@ eas build --platform android</div>
             });
 
             // Smoothly turn the ring so card `index` faces the viewer (shortest way round)
-            let facing = false;
+            let facing = false, hoverPause = false;
+            cards.forEach(c => {
+                c.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse') hoverPause = true; });
+                c.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse') hoverPause = false; });
+            });
             window.faceCard = function (index, ms) {
                 return new Promise(resolve => {
                     const step = 360 / 11;
@@ -104465,7 +104569,7 @@ eas build --platform android</div>
                 if (!dragging && !hidden && !isLaunching && !facing) {
                     ry += vel * dt;
                     vel *= Math.pow(0.04, dt);            // friction
-                    if (!reduce && Math.abs(vel) < IDLE) ry += IDLE * dt; // idle spin
+                    if (!reduce && Math.abs(vel) < IDLE) ry += IDLE * dt; // idle spin (keeps moving while hovering)
                     render();
                 }
                 requestAnimationFrame(tick);
@@ -106204,7 +106308,7 @@ eas build --platform android</div>
                     window.__introI = e[2] || 0;
                     last[e[1]] = 0;
                     play(e[1], 0);
-                }, e[0] * 1000);
+                }, e[0] * 500);
             });
         }
         window.PLSound = { play: play, intro: introSound, mute: function (m) { setMuted(m); } };
