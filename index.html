@@ -5520,14 +5520,21 @@ html.intro-play .bottom-bar .Text           { animation: introSlow 0.725s ease-o
 
 /* ===== MOBILE intro: lightweight version (no blur, no repainting spotlight, no 3D spin) -> smooth on phones ===== */
 @keyframes introFadeOut   { from { opacity: 1; } to { opacity: 0; } }
-@keyframes introPopLite { 0% { opacity: 0; scale: .2; } 55% { opacity: 1; scale: 1.14; } 78% { scale: .95; } 100% { opacity: 1; scale: 1; } }
+@keyframes introDropLite {
+    0%   { opacity: 0; translate: 0 -75vh; animation-timing-function: cubic-bezier(.5, 0, .9, .6); }
+    15%  { opacity: 1; }
+    62%  { opacity: 1; translate: 0 0; animation-timing-function: ease-out; }
+    80%  { translate: 0 -14px; animation-timing-function: ease-in; }
+    100% { opacity: 1; translate: 0 0; }
+}
 @keyframes introSoftLite  { from { opacity: 0; scale: .9; } to { opacity: 1; scale: 1; } }
 @keyframes introSlowLite  { from { opacity: 0; translate: 0 12px; } to { opacity: 1; translate: 0 0; } }
 @keyframes introCardFly400 {
-    0%   { opacity: 0; scale: .2; }
-    55%  { opacity: 1; scale: 1.14; }
-    78%  { scale: .95; }
-    100% { opacity: 1; scale: 1; }
+    0%   { opacity: 0; translate: 0 -75vh; animation-timing-function: cubic-bezier(.5, 0, .9, .6); }
+    15%  { opacity: 1; }
+    62%  { opacity: 1; translate: 0 0; animation-timing-function: ease-out; }
+    80%  { translate: 0 -14px; animation-timing-function: ease-in; }
+    100% { opacity: 1; translate: 0 0; }
 }
 @media (max-width: 900px), (hover: none) {
     html.intro-play::before {
@@ -5539,14 +5546,14 @@ html.intro-play .bottom-bar .Text           { animation: introSlow 0.725s ease-o
     html.intro-play .top-bar .icon-ring::after  { animation: introSoftLite .9s ease-out .6s backwards; }
     html.intro-play .top-bar .word              { animation: introSlowLite .9s ease-out .6s backwards; }
     html.intro-play #inner                      { animation: none !important; }
-    html.intro-play #inner .card                { animation: introPopLite .7s cubic-bezier(.3,.7,.3,1) calc(.45s + var(--index, 0) * 110ms) backwards; will-change: opacity, scale; }
+    html.intro-play #inner .card                { animation: introDropLite .9s linear calc(.4s + var(--index, 0) * 110ms) backwards; will-change: opacity, translate; }
     html.intro-play .glow-floor                 { animation: introSoftLite 1s ease-out .6s backwards; }
-    html.intro-play .bottom-bar .search-row     { animation: introSlowLite .8s ease-out 1.7s backwards; }
-    html.intro-play .bottom-bar .cat-row        { animation: introSlowLite .8s ease-out 1.85s backwards; }
-    html.intro-play .bottom-bar .Text           { animation: introSlowLite .8s ease-out 2s backwards; }
+    html.intro-play .bottom-bar .search-row     { animation: introSlowLite .8s ease-out 2.1s backwards; }
+    html.intro-play .bottom-bar .cat-row        { animation: introSlowLite .8s ease-out 2.25s backwards; }
+    html.intro-play .bottom-bar .Text           { animation: introSlowLite .8s ease-out 2.4s backwards; }
 }
 @media (max-width: 400px) {
-    html.intro-play #inner .card { animation: introCardFly400 .7s cubic-bezier(.3,.7,.3,1) calc(.45s + var(--index, 0) * 110ms) backwards; }
+    html.intro-play #inner .card { animation: introCardFly400 .9s linear calc(.4s + var(--index, 0) * 110ms) backwards; }
     html.intro-play #inner .card .img::after { display: none; }
 }
 
@@ -59500,7 +59507,7 @@ int main() {
                         <span class="toc-dots"></span><span class="toc-page">027</span>
                     </div>
                     <div class="toc-row" style="color:#c25bff; opacity:0.75;">
-                        <span class="toc-num">28</span><span class="toc-name"></span>
+                        <span class="toc-num">28</span><span class="toc-name">Keywords</span>
                         <span class="toc-dots"></span><span class="toc-page">028</span>
                     </div>
                     <div class="toc-row" style="color:#d64bff; opacity:0.75;">
@@ -90878,26 +90885,1521 @@ public class Main {
 					</div>
 				</div>
             </div>
-            <!--Unit 28-->
+            <!--Unit 28F-->
             <div class="book-page" id="page-java-unit2-1">
                 <div class="stage">
                     <div class="unit-header">
-                        <span class="page-right">11</span>
+                        <span class="page-right">28</span>
                         <div class="corner tl"></div>
                         <div class="corner br"></div>
                         <div class="screentone"></div>
-                        <div class="unit-badge">UNIT 11</div>
+                        <div class="unit-badge">UNIT 28</div>
                         <div class="unit-chevrons">
                         <svg width="18" height="26" viewBox="0 0 18 26"><path d="M0 0 L14 13 L0 26 Z" fill="url(#chev1)"/><defs><linearGradient id="chev1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#ff6b6b"/><stop offset="100%" stop-color="#c40000"/></linearGradient></defs></svg>
                         <svg width="18" height="26" viewBox="0 0 18 26"><path d="M0 0 L14 13 L0 26 Z" fill="url(#chev2)"/><defs><linearGradient id="chev2" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#f4c14f"/><stop offset="100%" stop-color="#c47c00"/></linearGradient></defs></svg>
                         </div>
-                        <div class="unit-title">Connection</div>
+                        <div class="unit-title">Keywords</div>
                         <div class="speed-lines"></div>
                     </div>
                 </div>
-
-
-
+				<div class="section-h">1 Java Primitive Data Types</div>
+				<div class="subsection-h">1.1 byte</div>
+				<div class="khmer-line">ប្រើសម្រាប់ផ្ទុកចំនួនគត់ទំហំ 8-bit ចាប់ពី -128 ដល់ 127។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">byte variable = value;</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">public class Main {
+	public static void main(String[] args) {
+		byte age = 20;
+		System.out.println(age);
+	}
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">20</div>
+					</div>
+				</div>
+				<div class="subsection-h">1.2 short</div>
+				<div class="khmer-line">ប្រើសម្រាប់ផ្ទុកចំនួនគត់ទំហំ 16-bit ចាប់ពី -32,768 ដល់ 32,767។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">short variable = value;</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">public class Main {
+	public static void main(String[] args) {
+		short year = 2026;
+		System.out.println(year);
+	}
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">2026</div>
+					</div>
+				</div>
+				<div class="subsection-h">1.3 int</div>
+				<div class="khmer-line">ប្រើសម្រាប់ផ្ទុកចំនួនគត់ទំហំ 32-bit ចាប់ពី -2,147,483,648 ដល់ 2,147,483,647។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">int variable = value;</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">public class Main {
+	public static void main(String[] args) {
+		int population = 40000;
+		System.out.println(population);
+	}
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">40000</div>
+					</div>
+				</div>
+				<div class="subsection-h">1.4 long</div>
+				<div class="khmer-line">ប្រើសម្រាប់ផ្ទុកចំនួនគត់ទំហំ 64-bit ដែលអាចផ្ទុកតម្លៃធំជាង int។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">long variable = valueL;</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">public class Main {
+	public static void main(String[] args) {
+		long distance = 9000000000L;
+		System.out.println(distance);
+	}
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">9000000000</div>
+					</div>
+				</div>
+				<div class="subsection-h">1.5 float</div>
+				<div class="khmer-line">ប្រើសម្រាប់ផ្ទុកចំនួនទសភាគទំហំ 32-bit។ ត្រូវដាក់អក្សរ f នៅខាងចុងតម្លៃ។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">float variable = valueF;</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">public class Main {
+	public static void main(String[] args) {
+		float price = 12.5f;
+		System.out.println(price);
+	}
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">12.5</div>
+					</div>
+				</div>
+				<div class="subsection-h">1.6 double</div>
+				<div class="khmer-line">ប្រើសម្រាប់ផ្ទុកចំនួនទសភាគទំហំ 64-bit ដែលមានភាពជាក់លាក់ខ្ពស់ជាង float។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">double variable = value;</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">public class Main {
+	public static void main(String[] args) {
+		double pi = 3.1415926535;
+		System.out.println(pi);
+	}
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">3.1415926535</div>
+					</div>
+				</div>
+				<div class="subsection-h">1.7 char</div>
+				<div class="khmer-line">ប្រើសម្រាប់ផ្ទុកតួអក្សរតែមួយ ទំហំ 16-bit ដោយប្រើសញ្ញា single quotation marks។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">char variable = 'character';</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">public class Main {
+	public static void main(String[] args) {
+		char grade = 'A';
+		System.out.println(grade);
+	}
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">A</div>
+					</div>
+				</div>
+				<div class="subsection-h">1.8 boolean</div>
+				<div class="khmer-line">ប្រើសម្រាប់ផ្ទុកតម្លៃពិត ឬមិនពិត គឺ true ឬ false។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">boolean variable = true / false;</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">public class Main {
+	public static void main(String[] args) {
+		boolean isPassed = true;
+		System.out.println(isPassed);
+	}
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">true</div>
+					</div>
+				</div>
+				<div class="subsection-h">1.9 void</div>
+				<div class="khmer-line">ប្រើសម្រាប់កំណត់ method ដែលមិនត្រឡប់តម្លៃមកវិញ។ void មិនមែនជាប្រភេទទិន្នន័យ primitive ទេ។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">void methodName() { }</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">public class Main {
+	static void greet() {
+		System.out.println("Hello!");
+	}
+	public static void main(String[] args) {
+		greet();
+	}
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">Hello!</div>
+					</div>
+				</div>
+				<div class="section-h">2 Java Literals</div>
+				<div class="subsection-h">2.1 true</div>
+				<div class="khmer-line">ប្រើសម្រាប់តំណាងឱ្យតម្លៃពិត (Boolean value)។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">boolean variable = true;</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">public class Main {
+	public static void main(String[] args) {
+		boolean isActive = true;
+		System.out.println(isActive);
+	}
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">true</div>
+					</div>
+				</div>
+				<div class="subsection-h">2.2 false</div>
+				<div class="khmer-line">ប្រើសម្រាប់តំណាងឱ្យតម្លៃមិនពិត (Boolean value)។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">boolean variable = false;</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">public class Main {
+	public static void main(String[] args) {
+		boolean isFinished = false;
+		System.out.println(isFinished);
+	}
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">false</div>
+					</div>
+				</div>
+				<div class="subsection-h">2.3 null</div>
+				<div class="khmer-line">ប្រើសម្រាប់បង្ហាញថា reference variable មិនសំដៅទៅលើ object ណាមួយទេ។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">ClassName variable = null;</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">public class Main {
+	public static void main(String[] args) {
+		String name = null;
+		System.out.println(name);
+	}
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">null</div>
+					</div>
+				</div>
+				<div class="section-h">3 Java Conditional Statements</div>
+				<div class="subsection-h">3.1 if</div>
+				<div class="khmer-line">ប្រើសម្រាប់ប្រតិបត្តិកូដ នៅពេលលក្ខខណ្ឌមានតម្លៃ true។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">if (condition) { }</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">public class Main {
+	public static void main(String[] args) {
+		int age = 20;
+		if (age &gt;= 18) {
+			System.out.println("Adult");
+		}
+	}
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">Adult</div>
+					</div>
+				</div>
+				<div class="subsection-h">3.2 else</div>
+				<div class="khmer-line">ប្រើសម្រាប់ប្រតិបត្តិកូដ នៅពេលលក្ខខណ្ឌក្នុង if មានតម្លៃ false។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">if (condition) { } else { }</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">public class Main {
+	public static void main(String[] args) {
+		int age = 15;
+		if (age &gt;= 18) {
+			System.out.println("Adult");
+		} else {
+			System.out.println("Minor");
+		}
+	}
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">Minor</div>
+					</div>
+				</div>
+				<div class="subsection-h">3.3 switch</div>
+				<div class="khmer-line">ប្រើសម្រាប់ជ្រើសរើសប្រតិបត្តិការមួយ ក្នុងចំណោមជម្រើសជាច្រើន។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">switch (expression) { case value: statements; }</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">public class Main {
+	public static void main(String[] args) {
+		int day = 2;
+		switch (day) {
+			case 1:
+				System.out.println("Monday");
+				break;
+			case 2:
+				System.out.println("Tuesday");
+				break;
+		}
+	}
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">Tuesday</div>
+					</div>
+				</div>
+				<div class="subsection-h">3.4 case</div>
+				<div class="khmer-line">ប្រើសម្រាប់កំណត់ជម្រើសនីមួយៗនៅក្នុង switch។ កូដក្នុង case នឹងដំណើរការ នៅពេលតម្លៃត្រូវគ្នា។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">case value: statements; break;</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">public class Main {
+	public static void main(String[] args) {
+		int number = 1;
+		switch (number) {
+			case 1:
+				System.out.println("One");
+				break;
+			case 2:
+				System.out.println("Two");
+				break;
+		}
+	}
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">One</div>
+					</div>
+				</div>
+				<div class="subsection-h">3.5 default</div>
+				<div class="khmer-line">ប្រើសម្រាប់កំណត់កូដលំនាំដើម នៅពេលគ្មាន case ណាមួយត្រូវគ្នា។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">default: statements;</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">public class Main {
+	public static void main(String[] args) {
+		int day = 8;
+		switch (day) {
+			case 1:
+				System.out.println("Monday");
+				break;
+			default:
+				System.out.println("Invalid day");
+		}
+	}
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">Invalid day</div>
+					</div>
+				</div>
+				<div class="section-h">4 Java Loop and Jump Statements</div>
+				<div class="subsection-h">4.1 for</div>
+				<div class="khmer-line">ប្រើសម្រាប់ធ្វើរង្វិលជុំ ដោយកំណត់តម្លៃចាប់ផ្តើម លក្ខខណ្ឌ និងការផ្លាស់ប្តូរតម្លៃ។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">for (initialization; condition; update) { }</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">public class Main {
+	public static void main(String[] args) {
+		for (int i = 1; i &lt;= 5; i++) {
+			System.out.println(i);
+		}
+	}
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">1
+2
+3
+4
+5</div>
+					</div>
+				</div>
+				<div class="subsection-h">4.2 while</div>
+				<div class="khmer-line">ប្រើសម្រាប់ធ្វើរង្វិលជុំ ដរាបណាលក្ខខណ្ឌមានតម្លៃ true។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">while (condition) { }</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">public class Main {
+	public static void main(String[] args) {
+		int i = 1;
+		while (i &lt;= 3) {
+			System.out.println(i);
+			i++;
+		}
+	}
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">1
+2
+3</div>
+					</div>
+				</div>
+				<div class="subsection-h">4.3 do</div>
+				<div class="khmer-line">ប្រើក្នុង do-while loop ដើម្បីឱ្យកូដដំណើរការយ៉ាងហោចណាស់មួយដង មុនពេលពិនិត្យលក្ខខណ្ឌ។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">do { statements; } while (condition);</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">public class Main {
+	public static void main(String[] args) {
+		int i = 1;
+		do {
+			System.out.println(i);
+			i++;
+		} while (i &lt;= 3);
+	}
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">1
+2
+3</div>
+					</div>
+				</div>
+				<div class="subsection-h">4.4 break</div>
+				<div class="khmer-line">ប្រើសម្រាប់បញ្ឈប់រង្វិលជុំ ឬ switch ភ្លាមៗ។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">break;</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">public class Main {
+	public static void main(String[] args) {
+		for (int i = 1; i &lt;= 5; i++) {
+			if (i == 3) {
+				break;
+			}
+			System.out.println(i);
+		}
+	}
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">1
+2</div>
+					</div>
+				</div>
+				<div class="subsection-h">4.5 continue</div>
+				<div class="khmer-line">ប្រើសម្រាប់រំលងការដំណើរការនៅជុំបច្ចុប្បន្ន ហើយបន្តទៅជុំបន្ទាប់នៃរង្វិលជុំ។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">continue;</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">public class Main {
+	public static void main(String[] args) {
+		for (int i = 1; i &lt;= 5; i++) {
+			if (i == 3) {
+				continue;
+			}
+			System.out.println(i);
+		}
+	}
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">1
+2
+4
+5</div>
+					</div>
+				</div>
+				<div class="subsection-h">4.6 return</div>
+				<div class="khmer-line">ប្រើសម្រាប់បញ្ចប់ការដំណើរការ method ហើយអាចត្រឡប់តម្លៃទៅកន្លែងហៅ method វិញ។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">return value; / return;</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">public class Main {
+	static int add(int a, int b) {
+		return a + b;
+	}
+	public static void main(String[] args) {
+		System.out.println(add(5, 3));
+	}
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">8</div>
+					</div>
+				</div>
+				<div class="section-h">5 Java Exception Handling</div>
+				<div class="subsection-h">5.1 try</div>
+				<div class="khmer-line">ប្រើសម្រាប់ដាក់កូដដែលអាចបង្កើត Exception នៅពេលដំណើរការ។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">try { statements; } catch (ExceptionType e) { }</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">public class Main {
+	public static void main(String[] args) {
+		try {
+			int result = 10 / 2;
+			System.out.println(result);
+		} catch (ArithmeticException e) {
+			System.out.println("Error");
+		}
+	}
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">5</div>
+					</div>
+				</div>
+				<div class="subsection-h">5.2 catch</div>
+				<div class="khmer-line">ប្រើសម្រាប់ចាប់យក និងដោះស្រាយ Exception ដែលកើតឡើងក្នុង try block។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">catch (ExceptionType e) { statements; }</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">public class Main {
+	public static void main(String[] args) {
+		try {
+			int result = 10 / 0;
+			System.out.println(result);
+		} catch (ArithmeticException e) {
+			System.out.println("Cannot divide by zero");
+		}
+	}
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">Cannot divide by zero</div>
+					</div>
+				</div>
+				<div class="subsection-h">5.3 finally</div>
+				<div class="khmer-line">ប្រើសម្រាប់ដាក់កូដដែលត្រូវដំណើរការបន្ទាប់ពី try/catch ទោះបីមាន Exception ឬអត់ក៏ដោយ។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">finally { statements; }</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">public class Main {
+	public static void main(String[] args) {
+		try {
+			System.out.println("Try block");
+		} catch (Exception e) {
+			System.out.println("Error");
+		} finally {
+			System.out.println("Finally block");
+		}
+	}
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">Try block
+Finally block</div>
+					</div>
+				</div>
+				<div class="subsection-h">5.4 throw</div>
+				<div class="khmer-line">ប្រើសម្រាប់បង្កើត និងបោះ Exception object ដោយផ្ទាល់។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">throw new ExceptionType("message");</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">public class Main {
+	public static void main(String[] args) {
+		try {
+			throw new ArithmeticException("Invalid operation");
+		} catch (ArithmeticException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">Invalid operation</div>
+					</div>
+				</div>
+				<div class="subsection-h">5.5 throws</div>
+				<div class="khmer-line">ប្រើសម្រាប់ប្រកាសថា method អាចបោះ Exception ទៅឱ្យកន្លែងដែលហៅ method នោះដោះស្រាយ។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">returnType methodName() throws ExceptionType { }</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">import java.io.IOException;
+public class Main {
+	static void checkFile() throws IOException {
+		throw new IOException("File error");
+	}
+	public static void main(String[] args) {
+		try {
+			checkFile();
+		} catch (IOException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">File error</div>
+					</div>
+				</div>
+				<div class="section-h">6 Java Classes and Object-Oriented Programming</div>
+				<div class="subsection-h">6.1 class</div>
+				<div class="khmer-line">ប្រើសម្រាប់បង្កើត class ដែលជាគំរូសម្រាប់បង្កើត objects។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">class ClassName { }</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">class Student {
+	String name = "Xiao Xie";
+}
+public class Main {
+	public static void main(String[] args) {
+		Student student = new Student();
+		System.out.println(student.name);
+	}
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">Xiao Xie</div>
+					</div>
+				</div>
+				<div class="subsection-h">6.2 interface</div>
+				<div class="khmer-line">ប្រើសម្រាប់កំណត់កិច្ចសន្យា (Contract) ដែល class អាចយកទៅអនុវត្តតាម។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">interface InterfaceName { }</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">interface Animal {
+	void sound();
+}
+class Dog implements Animal {
+	public void sound() {
+		System.out.println("Woof");
+	}
+}
+public class Main {
+	public static void main(String[] args) {
+		new Dog().sound();
+	}
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">Woof</div>
+					</div>
+				</div>
+				<div class="subsection-h">6.3 enum</div>
+				<div class="khmer-line">ប្រើសម្រាប់កំណត់សំណុំតម្លៃថេរដែលមានចំនួនកំណត់។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">enum EnumName { CONSTANT1, CONSTANT2 }</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">enum Day {
+	MONDAY, TUESDAY, WEDNESDAY
+}
+public class Main {
+	public static void main(String[] args) {
+		Day today = Day.MONDAY;
+		System.out.println(today);
+	}
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">MONDAY</div>
+					</div>
+				</div>
+				<div class="subsection-h">6.4 extends</div>
+				<div class="khmer-line">ប្រើសម្រាប់ឱ្យ class មួយទទួលមរតកពី class ផ្សេង ឬឱ្យ interface មួយបន្តពី interface ផ្សេង។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">class Child extends Parent { }</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">class Animal {
+	void eat() {
+		System.out.println("Eating");
+	}
+}
+class Dog extends Animal {
+}
+public class Main {
+	public static void main(String[] args) {
+		Dog dog = new Dog();
+		dog.eat();
+	}
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">Eating</div>
+					</div>
+				</div>
+				<div class="subsection-h">6.5 implements</div>
+				<div class="khmer-line">ប្រើសម្រាប់ឱ្យ class អនុវត្តតាម methods ដែលបានកំណត់នៅក្នុង interface។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">class ClassName implements InterfaceName { }</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">interface Printable {
+	void print();
+}
+class Document implements Printable {
+	public void print() {
+		System.out.println("Printing");
+	}
+}
+public class Main {
+	public static void main(String[] args) {
+		new Document().print();
+	}
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">Printing</div>
+					</div>
+				</div>
+				<div class="subsection-h">6.6 new</div>
+				<div class="khmer-line">ប្រើសម្រាប់បង្កើត object ថ្មី ឬបង្កើត array ថ្មី។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">ClassName variable = new ClassName();</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">class Student {
+	String name = "Xiao Xie";
+}
+public class Main {
+	public static void main(String[] args) {
+		Student student = new Student();
+		System.out.println(student.name);
+	}
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">Xiao Xie</div>
+					</div>
+				</div>
+				<div class="subsection-h">6.7 this</div>
+				<div class="khmer-line">ប្រើសម្រាប់យោងទៅកាន់ object បច្ចុប្បន្នរបស់ class។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">this.variableName</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">class Student {
+	String name;
+	Student(String name) {
+		this.name = name;
+	}
+}
+public class Main {
+	public static void main(String[] args) {
+		Student student = new Student("Xiao Xie");
+		System.out.println(student.name);
+	}
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">Xiao Xie</div>
+					</div>
+				</div>
+				<div class="subsection-h">6.8 super</div>
+				<div class="khmer-line">ប្រើសម្រាប់យោងទៅកាន់ class មេ (Parent class) ដើម្បីចូលប្រើ fields, methods ឬ constructor របស់វា។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">super.methodName(); / super.variableName</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">class Animal {
+	void sound() {
+		System.out.println("Animal sound");
+	}
+}
+class Dog extends Animal {
+	void sound() {
+		super.sound();
+		System.out.println("Woof");
+	}
+}
+public class Main {
+	public static void main(String[] args) {
+		new Dog().sound();
+	}
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">Animal sound
+Woof</div>
+					</div>
+				</div>
+				<div class="subsection-h">6.9 instanceof</div>
+				<div class="khmer-line">ប្រើសម្រាប់ពិនិត្យថា object មួយជាប្រភេទ class ឬ interface ដែលបានកំណត់ឬអត់។ លទ្ធផលជា true ឬ false។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">object instanceof ClassName</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">class Animal {
+}
+class Dog extends Animal {
+}
+public class Main {
+	public static void main(String[] args) {
+		Animal animal = new Dog();
+		System.out.println(animal instanceof Dog);
+	}
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">true</div>
+					</div>
+				</div>
+				<div class="subsection-h">6.10 abstract</div>
+				<div class="khmer-line">ប្រើសម្រាប់កំណត់ abstract class ឬ abstract method ដែលមិនទាន់មានការអនុវត្តពេញលេញ។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">abstract class ClassName { } / abstract void methodName();</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">abstract class Animal {
+	abstract void sound();
+}
+class Dog extends Animal {
+	void sound() {
+		System.out.println("Woof");
+	}
+}
+public class Main {
+	public static void main(String[] args) {
+		new Dog().sound();
+	}
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">Woof</div>
+					</div>
+				</div>
+				<div class="subsection-h">6.11 final</div>
+				<div class="khmer-line">ប្រើសម្រាប់កំណត់អ្វីមួយដែលមិនអាចផ្លាស់ប្តូរបាន៖ variable មិនអាចប្ដូរតម្លៃ, method មិនអាច override និង class មិនអាចទទួលមរតក។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">final dataType variable = value;</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">public class Main {
+	public static void main(String[] args) {
+		final double PI = 3.14159;
+		System.out.println(PI);
+	}
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">3.14159</div>
+					</div>
+				</div>
+				<div class="subsection-h">6.12 static</div>
+				<div class="khmer-line">ប្រើសម្រាប់កំណត់ field ឬ method ដែលជាកម្មសិទ្ធិរបស់ class ផ្ទាល់ មិនមែនជារបស់ object នីមួយៗទេ។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">static dataType variableName; / static returnType methodName() { }</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">class Student {
+	static String school = "RUPP";
+}
+public class Main {
+	public static void main(String[] args) {
+		System.out.println(Student.school);
+	}
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">RUPP</div>
+					</div>
+				</div>
+				<div class="section-h">7 Java Access Modifiers</div>
+				<div class="subsection-h">7.1 public</div>
+				<div class="khmer-line">ប្រើសម្រាប់កំណត់ class, field, constructor ឬ method ដែលអាចចូលប្រើបានពីគ្រប់ទីកន្លែង។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">public dataType variableName;</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">class Student {
+	public String name = "Xiao Xie";
+}
+public class Main {
+	public static void main(String[] args) {
+		Student student = new Student();
+		System.out.println(student.name);
+	}
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">Xiao Xie</div>
+					</div>
+				</div>
+				<div class="subsection-h">7.2 protected</div>
+				<div class="khmer-line">ប្រើសម្រាប់កំណត់ field, constructor ឬ method ដែលអាចចូលប្រើបានក្នុង package ដូចគ្នា និងក្នុង subclass ផ្សេងទៀត។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">protected dataType variableName;</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">class Animal {
+	protected String name = "Dog";
+}
+class Pet extends Animal {
+	void display() {
+		System.out.println(name);
+	}
+}
+public class Main {
+	public static void main(String[] args) {
+		new Pet().display();
+	}
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">Dog</div>
+					</div>
+				</div>
+				<div class="subsection-h">7.3 private</div>
+				<div class="khmer-line">ប្រើសម្រាប់កំណត់ field, constructor ឬ method ដែលអាចចូលប្រើបានតែនៅក្នុង class ដដែលប៉ុណ្ណោះ។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">private dataType variableName;</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">class Student {
+	private String name = "Xiao Xie";
+	void display() {
+		System.out.println(name);
+	}
+}
+public class Main {
+	public static void main(String[] args) {
+		Student student = new Student();
+		student.display();
+	}
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">Xiao Xie</div>
+					</div>
+				</div>
+				<div class="section-h">8 Java Other Modifiers</div>
+				<div class="subsection-h">8.1 synchronized</div>
+				<div class="khmer-line">ប្រើសម្រាប់គ្រប់គ្រងការចូលប្រើ method ឬ block ដោយអនុញ្ញាតឱ្យ thread មួយចូលប្រើក្នុងពេលតែមួយ សម្រាប់ lock ដូចគ្នា។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">synchronized void methodName() { }</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">class Counter {
+	private int count = 0;
+	synchronized void increment() {
+		count++;
+	}
+	int getCount() {
+		return count;
+	}
+}
+public class Main {
+	public static void main(String[] args) {
+		Counter counter = new Counter();
+		counter.increment();
+		counter.increment();
+		System.out.println(counter.getCount());
+	}
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">2</div>
+					</div>
+				</div>
+				<div class="subsection-h">8.2 volatile</div>
+				<div class="khmer-line">ប្រើសម្រាប់ field ដើម្បីធានាថា thread ផ្សេងៗអាចមើលឃើញតម្លៃថ្មីៗរបស់វា។ ការអាន និងសរសេរនឹងមានការធានា visibility តាម memory rules របស់ Java។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">volatile dataType variableName;</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">class SharedData {
+	volatile boolean running = true;
+}
+public class Main {
+	public static void main(String[] args) {
+		SharedData data = new SharedData();
+		data.running = false;
+		System.out.println(data.running);
+	}
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">false</div>
+					</div>
+				</div>
+				<div class="subsection-h">8.3 transient</div>
+				<div class="khmer-line">ប្រើសម្រាប់ field ដែលមិនត្រូវរក្សាទុកក្នុងដំណើរការ serialization ធម្មតារបស់ Java។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">transient dataType variableName;</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">import java.io.*;
+class Student implements Serializable {
+	String name = "Xiao Xie";
+	transient int age = 18;
+}
+public class Main {
+	public static void main(String[] args) {
+		Student student = new Student();
+		try {
+			ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+			ObjectOutputStream out = new ObjectOutputStream(bytes);
+			out.writeObject(student);
+			out.close();
+			ObjectInputStream in = new ObjectInputStream(
+				new ByteArrayInputStream(bytes.toByteArray())
+			);
+			Student result = (Student) in.readObject();
+			System.out.println(result.name);
+			System.out.println(result.age);
+			in.close();
+		} catch (IOException | ClassNotFoundException e) {
+			System.out.println("Error");
+		}
+	}
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">Xiao Xie
+0</div>
+					</div>
+				</div>
+				<div class="subsection-h">8.4 native</div>
+				<div class="khmer-line">ប្រើសម្រាប់ប្រកាស method ដែលការអនុវត្តរបស់វាស្ថិតនៅក្នុងកូដភាសាផ្សេង ដូចជា C ឬ C++ តាមរយៈ JNI។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">native returnType methodName();</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">public class Main {
+	public native void display();
+	public static void main(String[] args) {
+		System.out.println("Native method declaration");
+	}
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">Native method declaration</div>
+					</div>
+				</div>
+				<div class="subsection-h">8.5 strictfp</div>
+				<div class="khmer-line">ប្រើសម្រាប់កំណត់ការគណនាចំនួនទសភាគឱ្យអនុវត្តតាមច្បាប់ floating-point ដ៏តឹងរឹង។ ចាប់ពី Java 17 តទៅ strict floating-point ជាលំនាំដើម ដូច្នេះ strictfp លែងមានឥទ្ធិពលទៀតហើយ។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">strictfp class ClassName { }</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">strictfp class Calculator {
+	double add(double a, double b) {
+		return a + b;
+	}
+}
+public class Main {
+	public static void main(String[] args) {
+		Calculator calculator = new Calculator();
+		System.out.println(calculator.add(1.5, 2.5));
+	}
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">4.0</div>
+					</div>
+				</div>
+				<div class="section-h">9 Java Package and Import</div>
+				<div class="subsection-h">9.1 package</div>
+				<div class="khmer-line">ប្រើសម្រាប់ប្រកាស package ដែល class ឬ file នេះស្ថិតនៅ។ ត្រូវដាក់នៅដើមឯកសារ មុន import និង class declaration។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">package packageName;</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">package mypackage;
+public class Main {
+	public static void main(String[] args) {
+		System.out.println("Hello from mypackage");
+	}
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">Hello from mypackage</div>
+					</div>
+				</div>
+				<div class="subsection-h">9.2 import</div>
+				<div class="khmer-line">ប្រើសម្រាប់នាំចូល class ឬ interface ពី package ផ្សេង ដើម្បីអាចប្រើវាបានដោយមិនចាំបាច់សរសេរ full package name។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">import packageName.ClassName;</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">import java.util.Scanner;
+public class Main {
+	public static void main(String[] args) {
+		Scanner input = new Scanner("Hello");
+		System.out.println(input.next());
+		input.close();
+	}
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">Hello</div>
+					</div>
+				</div>
+				<div class="section-h">10 Java Assertion</div>
+				<div class="khmer-line">ប្រើសម្រាប់ពិនិត្យថាលក្ខខណ្ឌមួយត្រឹមត្រូវឬអត់។ ប្រសិនបើលក្ខខណ្ឌជា false នោះវានឹងបង្កើត AssertionError។ ត្រូវបើក assertions ដោយប្រើ -ea។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">assert condition; / assert condition : message;</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">public class Main {
+	public static void main(String[] args) {
+		int age = 20;
+		assert age &gt;= 18 : "Age must be at least 18";
+		System.out.println("Valid age");
+	}
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">Valid age</div>
+					</div>
+				</div>
+				<div class="section-h">11 Java Modern Language Features</div>
+				<div class="subsection-h">11.1 var</div>
+				<div class="khmer-line">ប្រើសម្រាប់ឱ្យ Java កំណត់ប្រភេទទិន្នន័យរបស់ Local Variable ដោយស្វ័យប្រវត្តិពីតម្លៃដែលបានកំណត់។ មានចាប់ពី Java 10។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">var variableName = value;</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">public class Main {
+	public static void main(String[] args) {
+		var name = "Xiao Xie";
+		var age = 20;
+		System.out.println(name);
+		System.out.println(age);
+	}
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">Xiao Xie
+20</div>
+					</div>
+				</div>
+				<div class="subsection-h">11.2 yield</div>
+				<div class="khmer-line">ប្រើក្នុង Switch Expression ដើម្បីបញ្ជូនតម្លៃត្រឡប់ពី Block នៃ Case។ មានចាប់ពី Java 14។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">yield value;</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">public class Main {
+	public static void main(String[] args) {
+		int day = 1;
+		String result = switch (day) {
+			case 1 -&gt; {
+				yield "Monday";
+			}
+			default -&gt; {
+				yield "Other day";
+			}
+		};
+		System.out.println(result);
+	}
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">Monday</div>
+					</div>
+				</div>
+				<div class="subsection-h">11.3 record</div>
+				<div class="khmer-line">ប្រើសម្រាប់បង្កើត Class ដែលផ្ទុកទិន្នន័យ ដោយ Java បង្កើត Constructor, Accessors, equals(), hashCode() និង toString() ដោយស្វ័យប្រវត្តិ។ មានចាប់ពី Java 16។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">record RecordName(type fieldName) { }</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">record Student(String name, int age) { }
+public class Main {
+	public static void main(String[] args) {
+		Student student = new Student("Xiao Xie", 20);
+		System.out.println(student.name());
+		System.out.println(student.age());
+	}
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">Xiao Xie
+20</div>
+					</div>
+				</div>
+				<div class="subsection-h">11.4 sealed</div>
+				<div class="khmer-line">ប្រើសម្រាប់កំណត់ Class ឬ Interface ឱ្យអនុញ្ញាតតែប្រភេទដែលបានបញ្ជាក់ក្នុង permits ប៉ុណ្ណោះ អាចបន្តពីវាបាន។ មានចាប់ពី Java 17។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">sealed class ClassName permits SubclassName { }</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">sealed class Shape permits Circle, Rectangle { }
+final class Circle extends Shape { }
+final class Rectangle extends Shape { }
+public class Main {
+	public static void main(String[] args) {
+		Shape shape = new Circle();
+		System.out.println(shape instanceof Circle);
+	}
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">true</div>
+					</div>
+				</div>
+				<div class="subsection-h">11.5 non-sealed</div>
+				<div class="khmer-line">ប្រើសម្រាប់ដកការកំណត់របស់ Sealed Class ដើម្បីឱ្យ Class ផ្សេងទៀតអាចបន្តពីវាបានដោយសេរី។ មានចាប់ពី Java 17។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">non-sealed class ClassName extends ParentClass { }</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">sealed class Shape permits Circle { }
+non-sealed class Circle extends Shape { }
+class SpecialCircle extends Circle { }
+public class Main {
+	public static void main(String[] args) {
+		Shape shape = new SpecialCircle();
+		System.out.println(shape instanceof Circle);
+	}
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">true</div>
+					</div>
+				</div>
+				<div class="subsection-h">11.6 permits</div>
+				<div class="khmer-line">ប្រើជាមួយ sealed ដើម្បីរាយឈ្មោះ Class ឬ Interface ដែលត្រូវបានអនុញ្ញាតឱ្យបន្តពីវា។ មានចាប់ពី Java 17។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">sealed class ClassName permits Subclass1, Subclass2 { }</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">sealed class Animal permits Dog, Cat { }
+final class Dog extends Animal { }
+final class Cat extends Animal { }
+public class Main {
+	public static void main(String[] args) {
+		Animal animal = new Dog();
+		System.out.println(animal instanceof Dog);
+	}
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">true</div>
+					</div>
+				</div>
+				<div class="subsection-h">11.7 when</div>
+				<div class="khmer-line">ប្រើក្នុង Pattern Matching ដើម្បីបន្ថែមលក្ខខណ្ឌត្រួតពិនិត្យ (Guard) លើ Pattern មួយ។ មានចាប់ពី Java 21។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">case pattern when condition -&gt; result;</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">public class Main {
+	public static void main(String[] args) {
+		Object value = 20;
+		String result = switch (value) {
+			case Integer n when n &gt;= 18 -&gt; "Adult";
+			case Integer n -&gt; "Minor";
+			default -&gt; "Unknown";
+		};
+		System.out.println(result);
+	}
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">Adult</div>
+					</div>
+				</div>
+				<div class="section-h">12 Java Reserved Keywords</div>
+				<div class="subsection-h">12.1 goto</div>
+				<div class="khmer-line">ជា Reserved Keyword ដែល Java រក្សាទុក ប៉ុន្តែមិនមានមុខងារប្រើប្រាស់ទេ។ មិនអាចប្រើជាឈ្មោះ Variable, Method ឬ Class បានទេ។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">goto;</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">public class Main {
+	public static void main(String[] args) {
+		int goto = 10;
+	}
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">Compilation Error</div>
+					</div>
+				</div>
+				<div class="subsection-h">12.2 const</div>
+				<div class="khmer-line">ជា Reserved Keyword ដែល Java រក្សាទុក ប៉ុន្តែមិនមានមុខងារប្រើប្រាស់ទេ។ សម្រាប់កំណត់តម្លៃថេរ ត្រូវប្រើ final ជំនួសវិញ។</div>
+				<div class="code-row">
+					<span class="code-label syntax">Syntax</span>
+					<span class="code-inline">final dataType variableName = value;</span>
+				</div>
+				<div class="example-output-row">
+					<div class="example-col">
+						<span class="code-label example">Example</span>
+						<div class="code-box">public class Main {
+	public static void main(String[] args) {
+		final int MAX = 100;
+		System.out.println(MAX);
+	}
+}</div>
+					</div>
+					<div class="output-col">
+						<span class="code-label output">Output</span>
+						<div class="output-text">100</div>
+					</div>
+				</div>
             </div>
 
 
@@ -90907,11 +92409,11 @@ public class Main {
             <div class="book-page" id="page-java-unit2-1">
                 <div class="stage">
                     <div class="unit-header">
-                        <span class="page-right">11</span>
+                        <span class="page-right">30</span>
                         <div class="corner tl"></div>
                         <div class="corner br"></div>
                         <div class="screentone"></div>
-                        <div class="unit-badge">UNIT 11</div>
+                        <div class="unit-badge">UNIT 30</div>
                         <div class="unit-chevrons">
                         <svg width="18" height="26" viewBox="0 0 18 26"><path d="M0 0 L14 13 L0 26 Z" fill="url(#chev1)"/><defs><linearGradient id="chev1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#ff6b6b"/><stop offset="100%" stop-color="#c40000"/></linearGradient></defs></svg>
                         <svg width="18" height="26" viewBox="0 0 18 26"><path d="M0 0 L14 13 L0 26 Z" fill="url(#chev2)"/><defs><linearGradient id="chev2" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#f4c14f"/><stop offset="100%" stop-color="#c47c00"/></linearGradient></defs></svg>
@@ -106365,7 +107867,7 @@ eas build --platform android</div>
                     window.__introI = e[2] || 0;
                     last[e[1]] = 0;
                     play(e[1], 0);
-                }, e[0] * (window.innerWidth <= 900 ? 700 : 500));
+                }, e[0] * (window.innerWidth <= 900 ? 780 : 500));
             });
         }
         window.PLSound = { play: play, intro: introSound, mute: function (m) { setMuted(m); } };
