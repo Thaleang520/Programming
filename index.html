@@ -5517,6 +5517,62 @@ html.intro-play .bottom-bar .Text           { animation: introSlow 0.725s ease-o
     html.intro-play #inner .card,
     html.intro-play #inner .card .img::after { animation: none; }
 }
+
+/* ===== MOBILE intro: lightweight version (no blur, no repainting spotlight, no 3D spin) -> smooth on phones ===== */
+@keyframes introFadeOut   { from { opacity: 1; } to { opacity: 0; } }
+@keyframes introPopLite { 0% { opacity: 0; scale: .2; } 55% { opacity: 1; scale: 1.14; } 78% { scale: .95; } 100% { opacity: 1; scale: 1; } }
+@keyframes introSoftLite  { from { opacity: 0; scale: .9; } to { opacity: 1; scale: 1; } }
+@keyframes introSlowLite  { from { opacity: 0; translate: 0 12px; } to { opacity: 1; translate: 0 0; } }
+@keyframes introCardFly400 {
+    0%   { opacity: 0; scale: .2; }
+    55%  { opacity: 1; scale: 1.14; }
+    78%  { scale: .95; }
+    100% { opacity: 1; scale: 1; }
+}
+@media (max-width: 900px), (hover: none) {
+    html.intro-play::before {
+        background: rgba(7,7,10,.97);
+        animation: introFadeOut .9s ease-out .2s both;
+    }
+    html.intro-play .top-bar .icon-ring         { animation: introSoftLite .9s ease-out .3s backwards; }
+    html.intro-play .top-bar .icon-ring::before,
+    html.intro-play .top-bar .icon-ring::after  { animation: introSoftLite .9s ease-out .6s backwards; }
+    html.intro-play .top-bar .word              { animation: introSlowLite .9s ease-out .6s backwards; }
+    html.intro-play #inner                      { animation: none !important; }
+    html.intro-play #inner .card                { animation: introPopLite .7s cubic-bezier(.3,.7,.3,1) calc(.45s + var(--index, 0) * 110ms) backwards; will-change: opacity, scale; }
+    html.intro-play .glow-floor                 { animation: introSoftLite 1s ease-out .6s backwards; }
+    html.intro-play .bottom-bar .search-row     { animation: introSlowLite .8s ease-out 1.7s backwards; }
+    html.intro-play .bottom-bar .cat-row        { animation: introSlowLite .8s ease-out 1.85s backwards; }
+    html.intro-play .bottom-bar .Text           { animation: introSlowLite .8s ease-out 2s backwards; }
+}
+@media (max-width: 400px) {
+    html.intro-play #inner .card { animation: introCardFly400 .7s cubic-bezier(.3,.7,.3,1) calc(.45s + var(--index, 0) * 110ms) backwards; }
+    html.intro-play #inner .card .img::after { display: none; }
+}
+
+/* ===== LIGHT MODE: remove the horizontal scanlines + moving scan line from the cards (keep corner tabs) ===== */
+html[data-theme="light"] .card .img {
+    background:
+        linear-gradient(rgb(var(--color-card)) 0 0) right 26px top 7px / 34px 3px no-repeat,
+        linear-gradient(rgb(var(--color-card)) 0 0) right 66px top 7px / 6px 3px no-repeat,
+        linear-gradient(rgb(0, 229, 255) 0 0) left 26px bottom 7px / 34px 3px no-repeat,
+        linear-gradient(rgb(0, 229, 255) 0 0) left 66px bottom 7px / 6px 3px no-repeat,
+        linear-gradient(rgb(255, 45, 170) 0 0) right 6px top 6px / 6px 6px no-repeat,
+        linear-gradient(rgb(255, 45, 170) 0 0) left 6px bottom 6px / 6px 6px no-repeat,
+        var(--g-img);
+}
+@media (max-width: 700px) {
+    html[data-theme="light"] .card .img {
+        background:
+            linear-gradient(rgb(var(--color-card)) 0 0) right 16px top 5px / 20px 2px no-repeat,
+            linear-gradient(rgb(var(--color-card)) 0 0) right 42px top 5px / 4px 2px no-repeat,
+            linear-gradient(rgb(0, 229, 255) 0 0) left 16px bottom 5px / 20px 2px no-repeat,
+            linear-gradient(rgb(0, 229, 255) 0 0) left 42px bottom 5px / 4px 2px no-repeat,
+            linear-gradient(rgb(255, 45, 170) 0 0) right 4px top 4px / 4px 4px no-repeat,
+            linear-gradient(rgb(255, 45, 170) 0 0) left 4px bottom 4px / 4px 4px no-repeat,
+            var(--g-img);
+    }
+}
 </style>
 </head>
 
@@ -104465,6 +104521,7 @@ eas build --platform android</div>
             const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
             const flatMQ = window.matchMedia('(max-width: 400px)');
             const render = () => {
+                window.__plRy = ry;   // lets the sound code hear the finger drag in every layout
                 if (!flatMQ.matches) {
                     inner.style.setProperty('--ry', ry + 'deg');
                     cards.forEach(c => ['--x','--tilt','--s','--z'].forEach(v => c.style.removeProperty(v)));
@@ -106240,7 +106297,7 @@ eas build --platform android</div>
             },
             zaphover:function () { noise(.03, {from:6000, q:.8, vol:.07, attack:.003}); tone(1200, .07, {type:"sawtooth", vol:.04, to:2400}); noise(.02, {from:3500, vol:.05, delay:.05, q:2}); },
             ready:  function () { tone(659, .18, {type:"sine", vol:.15}); tone(988, .34, {type:"sine", vol:.15, delay:.12}); },
-            ratchet:function () { var k = 1 + Math.random()*.08; tone(1900*k, .028, {type:"square", vol:.05, to:1300*k}); noise(.02, {from:5200, vol:.035, q:.8}); },
+            ratchet:function () { var k = 1 + Math.random()*.08; tone(1500*k, .045, {type:"square", vol:.13, to:900*k}); tone(420*k, .05, {type:"triangle", vol:.12, to:260*k}); noise(.03, {from:4200, vol:.08, q:.8}); },
             grab:   function () { tone(300, .09, {type:"triangle", vol:.1, to:240}); noise(.05, {from:900, vol:.05}); },
             release:function () { tone(420, .1, {type:"triangle", vol:.08, to:620}); },
             swish:  function () { noise(.38, {from:700, to:2600, q:.9, vol:.1, attack:.12}); tone(220, .34, {type:"sine", vol:.06, to:330}); },
@@ -106308,7 +106365,7 @@ eas build --platform android</div>
                     window.__introI = e[2] || 0;
                     last[e[1]] = 0;
                     play(e[1], 0);
-                }, e[0] * 500);
+                }, e[0] * (window.innerWidth <= 900 ? 700 : 500));
             });
         }
         window.PLSound = { play: play, intro: introSound, mute: function (m) { setMuted(m); } };
@@ -106350,6 +106407,11 @@ eas build --platform android</div>
         /* unlock audio on first user gesture (browser autoplay policy) */
         ["pointerdown", "keydown", "touchstart"].forEach(function (ev) {
             window.addEventListener(ev, function () { if (!muted) ensure(); }, { once: true, passive: true, capture: true });
+        });
+        /* iOS/Android only unlock audio on touch END / click: keep trying until the audio context is really running */
+        ["touchend", "pointerup", "click"].forEach(function (ev) {
+            var h = function () { if (muted) return; ensure(); if (ctx && ctx.state === "running") window.removeEventListener(ev, h, true); };
+            window.addEventListener(ev, h, { passive: true, capture: true });
         });
 
         /* ---------- helpers ---------- */
@@ -106476,7 +106538,7 @@ eas build --platform android</div>
             if (!inner) return;
             var STEP = 360 / (document.querySelectorAll(".card").length || 11);
             var prevRy = null, prevT = 0, prevSlot = null, lastTick = 0;
-            function readRy() { var v = parseFloat(inner.style.getPropertyValue("--ry")); return isNaN(v) ? null : v; }
+            function readRy() { var v = window.__plRy; if (typeof v === "number" && !isNaN(v)) return v; v = parseFloat(inner.style.getPropertyValue("--ry")); return isNaN(v) ? null : v; }
             function frame(now) {
                 var ry = readRy();
                 if (ry !== null) {
