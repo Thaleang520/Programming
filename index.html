@@ -5523,7 +5523,7 @@ html.intro-play .bottom-bar .Text           { animation: introSlow 0.725s ease-o
     html.intro-play .bottom-bar .cat-row        { animation: introSlowLite .8s ease-out 2.25s backwards; }
     html.intro-play .bottom-bar .Text           { animation: introSlowLite .8s ease-out 2.4s backwards; }
 }
-/* ===== 400px phones: cards slide in from the LEFT, spin flat, overshoot and settle, then a neon shine sweeps across ===== */
+/* ===== 400px phones: cards slide in from the LEFT, spin flat, overshoot and settle ===== */
 @keyframes introSlide400 {
     0%   { opacity: 0; translate: -120vw 30px; rotate: z -30deg; scale: .5; }
     15%  { opacity: 1; }
@@ -5531,25 +5531,14 @@ html.intro-play .bottom-bar .Text           { animation: introSlow 0.725s ease-o
     80%  { translate: -5px 3px; rotate: z -2deg; scale: .97; }
     100% { opacity: 1; translate: 0 0; rotate: z 0deg; scale: 1; }
 }
-@keyframes introShine400 {
-    from { transform: translateX(-130%); opacity: 1; }
-    to   { transform: translateX(130%);  opacity: 0; }
-}
 @media (max-width: 400px) {
     html.intro-play #inner .card {
         animation: introSlide400 .8s cubic-bezier(.22, 1, .36, 1) calc(.4s + var(--index, 0) * 90ms) backwards;
         will-change: opacity, translate, rotate, scale;
     }
-    html.intro-play #inner .card .img::after {
-        content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 3;
-        background: linear-gradient(110deg, transparent 30%, rgba(255,255,255,.55) 50%, transparent 70%);
-        transform: translateX(-130%);
-        animation: introShine400 .5s ease-out calc(1s + var(--index, 0) * 90ms) 1 both;
-    }
 }
 @media (prefers-reduced-motion: reduce) {
-    html.intro-play #inner .card,
-    html.intro-play #inner .card .img::after { animation: none !important; }
+    html.intro-play #inner .card { animation: none !important; }
 }
 
 /* ===== LIGHT MODE: remove the horizontal scanlines + moving scan line from the cards (keep corner tabs) ===== */
